@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Karan Kadam</title>
+    <link>https://intothevoid.github.io/</link>
+    <description>Recent content on Karan Kadam</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 04 Apr 2021 15:13:49 +0930</lastBuildDate><atom:link href="https://intothevoid.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Create a blog using Hugo and Github Pages</title>
+      <link>https://intothevoid.github.io/2021/04/create-a-blog-using-hugo-and-github-pages/</link>
+      <pubDate>Sun, 04 Apr 2021 15:13:49 +0930</pubDate>
+      
+      <guid>https://intothevoid.github.io/2021/04/create-a-blog-using-hugo-and-github-pages/</guid>
+      <description>This is a guide on how you can create a blog or website from scratch using Hugo and Github. This is also my first post on this blog, which has been created using the steps mentioned in this article using Hugo and Github Pages.
+It is quite easy to create a blog using Wordpress or some other CMS but the simplicity of Hugo is what drove me to it. Hugo is a static html generator.</description>
+    </item>
+    
+    <item>
+      <title>Contact</title>
+      <link>https://intothevoid.github.io/contact/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://intothevoid.github.io/contact/</guid>
+      <description>You can get in touch with me by leaving me a message here. I check my messages regularly but may not be able to reply to you right away. Thank you for your message!
+Your Name Email Address An email address is required.  Message   </description>
+    </item>
+    
+  </channel>
+</rss>
