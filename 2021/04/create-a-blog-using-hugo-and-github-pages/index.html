@@ -6,8 +6,9 @@
     
     <title>Create a blog using Hugo and Github Pages | Karan Kadam</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="description" content="This is a guide on how you can create a blog or website from scratch using Hugo and Github. This is also my first post on this blog, which has been created using the steps mentioned in this article using Hugo and Github Pages.
-It is quite easy to create a blog using Wordpress or some other CMS but the simplicity of Hugo is what drove me to it. Hugo is a static html generator.">
+    <meta name="description" content="Update: Added section on adding Github Action for Hugo build
+This is a guide on how you can create a blog or website from scratch using Hugo and Github. This is also my first post on this blog, which has been created using the steps mentioned in this article using Hugo and Github Pages.
+It is quite easy to create a blog using Wordpress or some other CMS but the simplicity of Hugo is what drove me to it.">
     <meta name="generator" content="Hugo 0.82.0" />
     
     
@@ -32,22 +33,25 @@ It is quite easy to create a blog using Wordpress or some other CMS but the simp
     
     
     <meta property="og:title" content="Create a blog using Hugo and Github Pages" />
-<meta property="og:description" content="This is a guide on how you can create a blog or website from scratch using Hugo and Github. This is also my first post on this blog, which has been created using the steps mentioned in this article using Hugo and Github Pages.
-It is quite easy to create a blog using Wordpress or some other CMS but the simplicity of Hugo is what drove me to it. Hugo is a static html generator." />
+<meta property="og:description" content="Update: Added section on adding Github Action for Hugo build
+This is a guide on how you can create a blog or website from scratch using Hugo and Github. This is also my first post on this blog, which has been created using the steps mentioned in this article using Hugo and Github Pages.
+It is quite easy to create a blog using Wordpress or some other CMS but the simplicity of Hugo is what drove me to it." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://intothevoid.github.io/2021/04/create-a-blog-using-hugo-and-github-pages/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-04-04T15:13:49&#43;09:30" />
-<meta property="article:modified_time" content="2021-04-04T15:13:49&#43;09:30" />
+<meta property="article:published_time" content="2021-04-05T14:13:49&#43;09:30" />
+<meta property="article:modified_time" content="2021-04-05T14:13:49&#43;09:30" />
 
 <meta itemprop="name" content="Create a blog using Hugo and Github Pages">
-<meta itemprop="description" content="This is a guide on how you can create a blog or website from scratch using Hugo and Github. This is also my first post on this blog, which has been created using the steps mentioned in this article using Hugo and Github Pages.
-It is quite easy to create a blog using Wordpress or some other CMS but the simplicity of Hugo is what drove me to it. Hugo is a static html generator."><meta itemprop="datePublished" content="2021-04-04T15:13:49&#43;09:30" />
-<meta itemprop="dateModified" content="2021-04-04T15:13:49&#43;09:30" />
-<meta itemprop="wordCount" content="719">
+<meta itemprop="description" content="Update: Added section on adding Github Action for Hugo build
+This is a guide on how you can create a blog or website from scratch using Hugo and Github. This is also my first post on this blog, which has been created using the steps mentioned in this article using Hugo and Github Pages.
+It is quite easy to create a blog using Wordpress or some other CMS but the simplicity of Hugo is what drove me to it."><meta itemprop="datePublished" content="2021-04-05T14:13:49&#43;09:30" />
+<meta itemprop="dateModified" content="2021-04-05T14:13:49&#43;09:30" />
+<meta itemprop="wordCount" content="1069">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Create a blog using Hugo and Github Pages"/>
-<meta name="twitter:description" content="This is a guide on how you can create a blog or website from scratch using Hugo and Github. This is also my first post on this blog, which has been created using the steps mentioned in this article using Hugo and Github Pages.
-It is quite easy to create a blog using Wordpress or some other CMS but the simplicity of Hugo is what drove me to it. Hugo is a static html generator."/>
+<meta name="twitter:description" content="Update: Added section on adding Github Action for Hugo build
+This is a guide on how you can create a blog or website from scratch using Hugo and Github. This is also my first post on this blog, which has been created using the steps mentioned in this article using Hugo and Github Pages.
+It is quite easy to create a blog using Wordpress or some other CMS but the simplicity of Hugo is what drove me to it."/>
 
 	
   </head>
@@ -180,15 +184,16 @@ It is quite easy to create a blog using Wordpress or some other CMS but the simp
       <h1 class="f1 athelas mt3 mb1">Create a blog using Hugo and Github Pages</h1>
       
       
-      <time class="f6 mv4 dib tracked" datetime="2021-04-04T15:13:49+09:30">April 4, 2021</time>
+      <time class="f6 mv4 dib tracked" datetime="2021-04-05T14:13:49+09:30">April 5, 2021</time>
 
       
       
-        <span class="f6 mv4 dib tracked"> - 4 minutes read</span>
-        <span class="f6 mv4 dib tracked"> - 719 words</span>
+        <span class="f6 mv4 dib tracked"> - 6 minutes read</span>
+        <span class="f6 mv4 dib tracked"> - 1069 words</span>
       
     </header>
-    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>This is a guide on how you can create a blog or website from scratch using Hugo and Github. This is also my first post on this blog, which has been created using the steps mentioned in this article using Hugo and Github Pages.</p>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Update: Added section on adding Github Action for Hugo build</p>
+<p>This is a guide on how you can create a blog or website from scratch using Hugo and Github. This is also my first post on this blog, which has been created using the steps mentioned in this article using Hugo and Github Pages.</p>
 <p>It is quite easy to create a blog using Wordpress or some other CMS but the simplicity of Hugo is what drove me to it. Hugo is a static html generator. This means, you write posts using Markdown and templates using any text editor. Hugo then processes these files and generates a bunch of html and css.</p>
 <p>This has the benefit of making it extremely easy to deploy to just about any cloud service or provider. This is where Github Pages comes in. Github Pages is free and if you have a Github account, you are already well on your way.</p>
 <p>I used a Macbook Air M1 for creating this blog and the steps outlined in this article should be more or less the same whether you use Windows / MacOS or Linux. Lets get our elbows greasy.</p>
@@ -251,6 +256,52 @@ git commit -m <span style="color:#e6db74">&#34;initial test commit&#34;</span> <
 hugo -t <span style="color:#e6db74">&#34;ananke&#34;</span>
 </code></pre></div><h3 id="markdown-resources">Markdown resources</h3>
 <p>It is a good idea to read up and familiarise yourself with Markdown Syntax. It is quite compact and can be learned in a single sitting. I would recommend starting with <a href="https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf">The Markdown Cheatsheet</a> to quickly understand how to write posts in any editor using the Markdown syntax. Keep writing! 🤘</p>
+<h3 id="bonus---automate-the-hugo-build">Bonus - Automate the Hugo build</h3>
+<p>To automate your flow even further, you can create a Github Action, which will automatically run Hugo for you and publish to your username.github.io repository for you. This will save you any manual work of building your blog each time and pushing back to your public repo.
+The added benefit of this approach is you no longer need access to the cli. You can log into your Github base repo from your phone, add Mardown posts from the WebUI and your Github Actions pipeline will take care of the rest.
+Begin by adding a GitHub action file to your base repo -</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">vim ./github/workflows/main.yml
+</code></pre></div><p>Here is a what my main.yml file looks like -</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">name</span>: <span style="color:#ae81ff">CI</span>
+<span style="color:#f92672">on</span>: <span style="color:#ae81ff">push</span>
+<span style="color:#f92672">jobs</span>:
+  <span style="color:#f92672">deploy</span>:
+    <span style="color:#f92672">runs-on</span>: <span style="color:#ae81ff">ubuntu-18.04</span>
+    <span style="color:#f92672">steps</span>:
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Git checkout</span>
+        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/checkout@v2</span>
+
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Update theme</span>
+        <span style="color:#f92672">run</span>: <span style="color:#ae81ff">git submodule update --init --recursive</span>
+
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Setup hugo</span>
+        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">peaceiris/actions-hugo@v2</span>
+        <span style="color:#f92672">with</span>:
+          <span style="color:#f92672">hugo-version</span>: <span style="color:#e6db74">&#34;0.82.0&#34;</span>
+
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Build</span>
+        <span style="color:#f92672">run</span>: <span style="color:#ae81ff">cd username &amp;&amp; hugo -t ananke &amp;&amp; pwd &amp;&amp; ls -a ./public</span>
+
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Deploy</span>
+        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">peaceiris/actions-gh-pages@v3</span>
+        <span style="color:#f92672">with</span>:
+          <span style="color:#f92672">deploy_key</span>: <span style="color:#ae81ff">${{ secrets.ACTIONS_DEPLOY_KEY }}</span>
+          <span style="color:#f92672">external_repository</span>: <span style="color:#ae81ff">username/username.github.io</span>
+          <span style="color:#f92672">publish_dir</span>: <span style="color:#ae81ff">./intothevoid/public</span>
+          <span style="color:#f92672">user_name</span>: <span style="color:#ae81ff">username</span>
+          <span style="color:#f92672">user_email</span>: <span style="color:#ae81ff">username@email.com</span>
+          <span style="color:#f92672">publish_branch</span>: <span style="color:#ae81ff">main</span>
+</code></pre></div><p>Replace values with your own where needed.</p>
+<p>A quick explanation of the above Github Action is given below -</p>
+<ol>
+<li>Checkout - checkout the base repo</li>
+<li>Update - Update your theme which was added as a submodule</li>
+<li>Setup Hugo - Call an external action which basically installs Hugo</li>
+<li>Build - Build the website by calling <strong>hugo -t ananke</strong></li>
+<li>Deploy - Publish the built files to your external public repo username.github.io</li>
+</ol>
+<p><strong>Note:</strong> There is a bit of setup involved where you need to generate your token (indicated by deploy key above). I would highly recommend visiting <a href="https://github.com/peaceiris/actions-gh-pages">https://github.com/peaceiris/actions-gh-pages</a> for details of the external action and how to setup your token.</p>
+<p>This should get you at a stage where you can simply push a post written in Markdown format to your base repo and the rest should happen automatically. Post &ndash;&gt; Commit Base Repo &ndash;&gt; Github Action &ndash;&gt; Build Blog &ndash;&gt; Publish Static HTML.</p>
 <ul class="pa0">
   
 </ul>
