@@ -13,9 +13,10 @@
       <pubDate>Sun, 31 Jul 2022 11:53:48 +0930</pubDate>
       
       <guid>https://intothevoid.github.io/2022/07/vim-astro-vim-setup-on-a-macbook/</guid>
-      <description>Vim Setup on a M1 / M2 Macbook Overview Use the following steps to have a decent vim installation relatively quickly on a Macbook with a M1 / M2 chipset
+      <description>Overview Use the following steps to have a decent vim installation relatively quickly on a Macbook with a M1 / M2 chipset
 Brew installation Brew is a package manager for MacOS which makes it very easy to install packages. I highly recommend this package manager on MacOS. Its worth the effort to get it installed you will thank yourself later on.
-From www.</description>
+From www.brew.sh -
+/bin/bash -c &amp;#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&amp;#34; Sample command using brew -</description>
     </item>
     
     <item>
