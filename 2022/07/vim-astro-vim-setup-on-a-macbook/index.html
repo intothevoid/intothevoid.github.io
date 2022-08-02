@@ -49,7 +49,7 @@ Brew installation Brew is a package manager for MacOS which makes it very easy t
 From www.brew.sh -
 /bin/bash -c &#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&#34; Sample command using brew -"><meta itemprop="datePublished" content="2022-07-31T11:53:48+09:30" />
 <meta itemprop="dateModified" content="2022-07-31T11:53:48+09:30" />
-<meta itemprop="wordCount" content="197">
+<meta itemprop="wordCount" content="212">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Vim (Astro Vim) setup on a Macbook"/>
 <meta name="twitter:description" content="Overview Use the following steps to have a decent vim installation relatively quickly on a Macbook with a M1 / M2 chipset
@@ -201,7 +201,7 @@ From www.brew.sh -
       
       
         <span class="f6 mv4 dib tracked"> - 1 minutes read</span>
-        <span class="f6 mv4 dib tracked"> - 197 words</span>
+        <span class="f6 mv4 dib tracked"> - 212 words</span>
       
     </header>
     <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="overview">Overview</h2>
@@ -215,8 +215,12 @@ From www.brew.sh -
 </code></pre><h2 id="install-neovim">Install NeoVim</h2>
 <p>Neovim is our base vim install. Install Neovim using the command -</p>
 <pre tabindex="0"><code>brew install neovim
+</code></pre><h2 id="install-astro-vim">Install Astro Vim</h2>
+<p>AstroNvim is an aesthetic and feature-rich neovim config that is extensible and easy to use with a great set of plugins. Install AstroNvim by using the commands</p>
+<pre tabindex="0"><code>git clone https://github.com/AstroNvim/AstroNvim ~/.config/nvim
+
+nvim +PackerSync
 </code></pre><h2 id="setup-astro-vim">Setup Astro Vim</h2>
-<p>AstroNvim is an aesthetic and feature-rich neovim config that is extensible and easy to use with a great set of plugins</p>
 <p>Make a backup of your existing nvim configuration -</p>
 <pre tabindex="0"><code>mv ~/.config/nvim ~/.config/nvimbackup
 </code></pre><h4 id="install-lsp">Install LSP</h4>
