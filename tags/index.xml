@@ -5,6 +5,186 @@
     <link>https://intothevoid.github.io/tags/</link>
     <description>Recent content in Tags on Into The Void</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://intothevoid.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    
+	<atom:link href="https://intothevoid.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+    <item>
+      <title>Vim (Astro Vim) setup on a Macbook</title>
+      <link>https://intothevoid.github.io/2022/07/vim-astro-vim-setup-on-a-macbook/</link>
+      <pubDate>Sun, 31 Jul 2022 11:53:48 +0930</pubDate>
+      
+      <guid>https://intothevoid.github.io/2022/07/vim-astro-vim-setup-on-a-macbook/</guid>
+      <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;Use the following steps to have a decent vim installation relatively quickly on a Macbook with a M1 / M2 chipset&lt;/p&gt;
+&lt;h2 id=&#34;brew-installation&#34;&gt;Brew installation&lt;/h2&gt;
+&lt;p&gt;Brew is a package manager for MacOS which makes it very easy to install packages. I highly recommend this package manager on MacOS. Its worth the effort to get it installed you will thank yourself later on.&lt;/p&gt;
+&lt;p&gt;From &lt;a href=&#34;https://www.brew.sh&#34;&gt;www.brew.sh&lt;/a&gt; -&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;/bin/bash -c &amp;#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Sample command using brew -&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;brew install wget
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;install-neovim&#34;&gt;Install NeoVim&lt;/h2&gt;
+&lt;p&gt;Neovim is our base vim install. Install Neovim using the command -&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;brew install neovim
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;install-astro-vim&#34;&gt;Install Astro Vim&lt;/h2&gt;
+&lt;p&gt;AstroNvim is an aesthetic and feature-rich neovim config that is extensible and easy to use with a great set of plugins. Install AstroNvim by using the commands&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git clone https://github.com/AstroNvim/AstroNvim ~/.config/nvim
+
+nvim +PackerSync
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;setup-astro-vim&#34;&gt;Setup Astro Vim&lt;/h2&gt;
+&lt;p&gt;Make a backup of your existing nvim configuration -&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;mv ~/.config/nvim ~/.config/nvimbackup
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;install-lsp&#34;&gt;Install LSP&lt;/h4&gt;
+&lt;p&gt;Enter &lt;code&gt;:LspInstall&lt;/code&gt; followed by the name of the server you want to install&lt;br&gt;
+Example: &lt;code&gt;:LspInstall pyright&lt;/code&gt;&lt;/p&gt;
+&lt;h4 id=&#34;install-language-parser&#34;&gt;Install language parser&lt;/h4&gt;
+&lt;p&gt;Enter &lt;code&gt;:TSInstall&lt;/code&gt; followed by the name of the language you want to install&lt;br&gt;
+Example: &lt;code&gt;:TSInstall python&lt;/code&gt;&lt;/p&gt;
+&lt;h4 id=&#34;manage-plugins&#34;&gt;Manage plugins&lt;/h4&gt;
+&lt;p&gt;Run &lt;code&gt;:PackerClean&lt;/code&gt; to remove any disabled or unused plugins&lt;br&gt;
+Run &lt;code&gt;:PackerSync&lt;/code&gt; to update and clean plugins&lt;/p&gt;
+&lt;h4 id=&#34;update-astronvim&#34;&gt;Update AstroNvim&lt;/h4&gt;
+&lt;p&gt;Run &lt;code&gt;:AstroUpdate&lt;/code&gt; to get the latest updates from the repository&lt;/p&gt;
+&lt;h4 id=&#34;install-nerdfonts&#34;&gt;Install NerdFonts&lt;/h4&gt;
+&lt;p&gt;Follow this step to install your desired fonts and so font glyphs are rendered correctly&lt;/p&gt;
+&lt;p&gt;Firacode is my current favourite ♥️&lt;/p&gt;
+&lt;p&gt;Fonts can be downloaded from &lt;a href=&#34;https://www.nerdfonts.com/font-downloads&#34;&gt;https://www.nerdfonts.com/font-downloads&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;optional-requirements&#34;&gt;Optional requirements&lt;/h4&gt;
+&lt;p&gt;These are other optional packages which can be installed -&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/BurntSushi/ripgrep&#34; title=&#34;ripgrep&#34;&gt;ripgrep&lt;/a&gt; - live grep telescope search (leader + fw)&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/jesseduffield/lazygit&#34; title=&#34;lazygit&#34;&gt;lazygit&lt;/a&gt; - git ui toggle terminal (leader + tl or leader + gg)&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://dev.yorhel.nl/ncdu&#34; title=&#34;NCDU&#34;&gt;NCDU&lt;/a&gt; - disk usage toggle terminal (leader + tu)&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://htop.dev/&#34; title=&#34;Htop&#34;&gt;Htop&lt;/a&gt; - process viewer toggle terminal (leader + tt)&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.python.org/&#34; title=&#34;Python&#34;&gt;Python&lt;/a&gt; - python repl toggle terminal (leader + tp)&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://nodejs.org/en/&#34; title=&#34;Node&#34;&gt;Node&lt;/a&gt; - node repl toggle terminal (leader + tn)&lt;/p&gt;
+</description>
+    </item>
+    
+    
+    
+    <item>
+      <title>Create a blog using Hugo and Github Pages</title>
+      <link>https://intothevoid.github.io/2021/04/create-a-blog-using-hugo-and-github-pages/</link>
+      <pubDate>Mon, 05 Apr 2021 14:13:49 +0930</pubDate>
+      
+      <guid>https://intothevoid.github.io/2021/04/create-a-blog-using-hugo-and-github-pages/</guid>
+      <description>&lt;p&gt;Update: Added section on adding Github Action for Hugo build&lt;/p&gt;
+&lt;p&gt;This is a guide on how you can create a blog or website from scratch using Hugo and Github. This is also my first post on this blog, which has been created using the steps mentioned in this article using Hugo and Github Pages.&lt;/p&gt;
+&lt;p&gt;It is quite easy to create a blog using Wordpress or some other CMS but the simplicity of Hugo is what drove me to it. Hugo is a static html generator. This means, you write posts using Markdown and templates using any text editor. Hugo then processes these files and generates a bunch of html and css.&lt;/p&gt;
+&lt;p&gt;This has the benefit of making it extremely easy to deploy to just about any cloud service or provider. This is where Github Pages comes in. Github Pages is free and if you have a Github account, you are already well on your way.&lt;/p&gt;
+&lt;p&gt;I used a Macbook Air M1 for creating this blog and the steps outlined in this article should be more or less the same whether you use Windows / MacOS or Linux. Lets get our elbows greasy.&lt;/p&gt;
+&lt;h3 id=&#34;create-repos&#34;&gt;Create Repos&lt;/h3&gt;
+&lt;p&gt;We will begin by creating 2 repositories in our Github account -&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Base repo &amp;lsquo;blog&amp;rsquo; for hosting our posts / source code / files created by Hugo&lt;/li&gt;
+&lt;li&gt;Blog hosting repo &amp;lsquo;username.github.io&amp;rsquo; for hosting the actual blog, which consists of generated html and css&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Create the base repo on Github by clicking the &amp;lsquo;+&amp;rsquo; button on your &lt;a href=&#34;https://www.github.com&#34;&gt;Github page&lt;/a&gt;. I&amp;rsquo;ve decided to call my base repo &amp;lsquo;blog&amp;rsquo;. Clone this repository to your machine (even if it doesn&amp;rsquo;t contain any files at the moment)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git clone git@github.com:username/blog.git
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cd blog/
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;From the Github website, click the &amp;lsquo;+&amp;rsquo; button again to create a new repository called &amp;lsquo;username.github.io&amp;rsquo;. Replace username with your Github user name.&lt;/p&gt;
+&lt;p&gt;Add this second repo (which we will use for hosting our blog) as a submodule of our base repo -&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git submodule add git@github.com:username/username.github.io.git public
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The above command will add the hosting repo as a submodule into the &amp;lsquo;public&amp;rsquo; folder.&lt;/p&gt;
+&lt;h3 id=&#34;install-hugo&#34;&gt;Install Hugo&lt;/h3&gt;
+&lt;p&gt;Download the Hugo binaries from the &lt;a href=&#34;https://github.com/gohugoio/hugo/releases&#34;&gt;Hugo Releases&lt;/a&gt; page. As I am using MacOS, I used the command -&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;brew install hugo
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;For detailed installation instructions, visit &lt;a href=&#34;https://gohugo.io/getting-started/installing/&#34;&gt;https://gohugo.io/getting-started/installing/&lt;/a&gt;
+Verify Hugo installed correctly by&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hugo version
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;create-a-new-site&#34;&gt;Create a new site&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hugo create new site myblogname
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The above command will create a basic website with enough boilerplate to let us get started.&lt;/p&gt;
+&lt;h3 id=&#34;add-a-theme&#34;&gt;Add a theme&lt;/h3&gt;
+&lt;p&gt;Visit &lt;a href=&#34;https://themes.gohugo.io/&#34;&gt;https://themes.gohugo.io/&lt;/a&gt; for a collection of available Hugo themes. Once you have decided which theme you wish to use for your website / blog,&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cd myblogname
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git submodule add https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Your folder structure should now look like
+&lt;strong&gt;~/blog/myblogname/config.toml&lt;/strong&gt; | Configuration File
+&lt;strong&gt;~/blog/myblogname/themes/ananke/&lt;/strong&gt; | Theme folder
+&lt;strong&gt;~/blog/myblogname/public&lt;/strong&gt; | Second hosting repo&lt;/p&gt;
+&lt;h3 id=&#34;update-configtoml&#34;&gt;Update config.toml&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-toml&#34; data-lang=&#34;toml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;theme&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ananke&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;title&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Karan Kadam&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;baseURL&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://username.github.io&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;theme&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ananke&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;themesDir&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;./themes&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;create-your-first-post&#34;&gt;Create your first post&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hugo create new posts/my-first-post.md
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;build-your-blog&#34;&gt;Build your blog&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hugo -t &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ananke&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This will generate all the html and styling required for your blog and publish them under the &amp;ldquo;public&amp;rdquo; folder. The -t flag tells hugo to use your selected theme.&lt;/p&gt;
+&lt;h3 id=&#34;local-test&#34;&gt;Local test&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hugo server --bind 0.0.0.0
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This will launch the built in webserver and your blog will be available locally. Goto a webbrowser and access http://localhost:1313 and you should see your blog, styled according to the theme you chose and containing your first sample post.&lt;/p&gt;
+&lt;h3 id=&#34;deploy-your-website-to-github-pages&#34;&gt;Deploy your website to Github Pages&lt;/h3&gt;
+&lt;p&gt;To be able to share your website with the rest of the world, you will need to host it somewhere. We chose the repository at &amp;lsquo;&lt;a href=&#34;https://username.github.io&#34;&gt;https://username.github.io&lt;/a&gt;&amp;rsquo;. Check in all your changes and push them to the username.github.io -&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cd ~/blog/myblogname/public
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git status
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git add -A
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git commit -m &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;initial test commit&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;# commit contents of ~/blog/myblogname/public&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git push
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cd ../..
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git add -A
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git commit -m &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;initial test commit&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;# commit contents of ~/blog/&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If it all went well, accessing &lt;a href=&#34;http://username.github.io&#34;&gt;http://username.github.io&lt;/a&gt; should take you to your freshly baked blog. Here on, all you need to do is,&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hugo create new posts/postname.md
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hugo -t &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ananke&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;markdown-resources&#34;&gt;Markdown resources&lt;/h3&gt;
+&lt;p&gt;It is a good idea to read up and familiarise yourself with Markdown Syntax. It is quite compact and can be learned in a single sitting. I would recommend starting with &lt;a href=&#34;https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf&#34;&gt;The Markdown Cheatsheet&lt;/a&gt; to quickly understand how to write posts in any editor using the Markdown syntax. Keep writing! 🤘&lt;/p&gt;
+&lt;h3 id=&#34;bonus---automate-the-hugo-build&#34;&gt;Bonus - Automate the Hugo build&lt;/h3&gt;
+&lt;p&gt;To automate your flow even further, you can create a Github Action, which will automatically run Hugo for you and publish to your username.github.io repository for you. This will save you any manual work of building your blog each time and pushing back to your public repo.
+The added benefit of this approach is you no longer need access to the cli. You can log into your Github base repo from your phone, add Mardown posts from the WebUI and your Github Actions pipeline will take care of the rest.
+Begin by adding a GitHub action file to your base repo -&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;vim ./github/workflows/main.yml
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Here is a what my main.yml file looks like -&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;CI&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;on&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;push&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;jobs&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;deploy&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;runs-on&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;ubuntu-18.04&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;steps&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - &lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Git checkout&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;uses&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;actions/checkout@v2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - &lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Update theme&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;run&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;git submodule update --init --recursive&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - &lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Setup hugo&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;uses&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;peaceiris/actions-hugo@v2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;with&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;          &lt;span style=&#34;color:#f92672&#34;&gt;hugo-version&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;0.82.0&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - &lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Build&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;run&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;cd username &amp;amp;&amp;amp; hugo -t ananke &amp;amp;&amp;amp; pwd &amp;amp;&amp;amp; ls -a ./public&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - &lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Deploy&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;uses&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;peaceiris/actions-gh-pages@v3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;with&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;          &lt;span style=&#34;color:#f92672&#34;&gt;deploy_key&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;${{ secrets.ACTIONS_DEPLOY_KEY }}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;          &lt;span style=&#34;color:#f92672&#34;&gt;external_repository&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;username/username.github.io&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;          &lt;span style=&#34;color:#f92672&#34;&gt;publish_dir&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;./intothevoid/public&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;          &lt;span style=&#34;color:#f92672&#34;&gt;user_name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;username&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;          &lt;span style=&#34;color:#f92672&#34;&gt;user_email&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;username@email.com&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;          &lt;span style=&#34;color:#f92672&#34;&gt;publish_branch&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;main&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Replace values with your own where needed.&lt;/p&gt;
+&lt;p&gt;A quick explanation of the above Github Action is given below -&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Checkout - checkout the base repo&lt;/li&gt;
+&lt;li&gt;Update - Update your theme which was added as a submodule&lt;/li&gt;
+&lt;li&gt;Setup Hugo - Call an external action which basically installs Hugo&lt;/li&gt;
+&lt;li&gt;Build - Build the website by calling &lt;strong&gt;hugo -t ananke&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Deploy - Publish the built files to your external public repo username.github.io&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; There is a bit of setup involved where you need to generate your token (indicated by deploy key above). I would highly recommend visiting &lt;a href=&#34;https://github.com/peaceiris/actions-gh-pages&#34;&gt;https://github.com/peaceiris/actions-gh-pages&lt;/a&gt; for details of the external action and how to setup your token.&lt;/p&gt;
+&lt;p&gt;This should get you at a stage where you can simply push a post written in Markdown format to your base repo and the rest should happen automatically. Post &amp;ndash;&amp;gt; Commit Base Repo &amp;ndash;&amp;gt; Github Action &amp;ndash;&amp;gt; Build Blog &amp;ndash;&amp;gt; Publish Static HTML.&lt;/p&gt;
+</description>
+    </item>
+    
+    
+    
+    
   </channel>
 </rss>
