@@ -8,12 +8,33 @@
     <language>en-us</language>
     <lastBuildDate>Sat, 06 Aug 2022 09:29:40 +0930</lastBuildDate><atom:link href="https://intothevoid.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Contact</title>
+      <link>https://intothevoid.github.io/contact/</link>
+      <pubDate>Sat, 06 Aug 2022 11:29:40 +0930</pubDate>
+      
+      <guid>https://intothevoid.github.io/contact/</guid>
+      <description>You can get in touch with me by leaving me a message here. Feel free to leave feedback good or bad, or simply to say hello. Thank you for your message!
+Submit </description>
+    </item>
+    
+    <item>
       <title>Transfer Files from iOS to Linux wirelessly</title>
       <link>https://intothevoid.github.io/2022/08/transfer-files-from-ios-to-linux-wirelessly/</link>
       <pubDate>Sat, 06 Aug 2022 09:29:40 +0930</pubDate>
       
       <guid>https://intothevoid.github.io/2022/08/transfer-files-from-ios-to-linux-wirelessly/</guid>
       <description>Overview I was an Android user for a long period of time, right from the Jellybean and Gingerbread days. After almost a decade being with Android I finally moved to iOS, because I was sick of the fragmentation and I wish Android took privacy as seriously as iOS does. One of the most common things I need to do is transfer files across from my iOS device to my Linux laptop.</description>
+    </item>
+    
+    <item>
+      <title>About Me</title>
+      <link>https://intothevoid.github.io/about/</link>
+      <pubDate>Tue, 02 Aug 2022 09:29:40 +0930</pubDate>
+      
+      <guid>https://intothevoid.github.io/about/</guid>
+      <description>Australia, 2021 🇦🇺 Hi! My name is Karan and I&amp;rsquo;ve been writing code professionally for about 16 years now.
+My development journey has taken me from Medical Electronics to Simulation to Defence currently.
+I started dabbling with computers when I was in 7th grade and my parents bought my sister a Pentium 166MMX. This was a single core processor that ran at a 166Mhz! It had 16mb (yes megabytes) of memory and a 2.</description>
     </item>
     
     <item>
@@ -37,16 +58,6 @@ From www.brew.sh -
       <description>Update: Added section on adding Github Action for Hugo build
 This is a guide on how you can create a blog or website from scratch using Hugo and Github. This is also my first post on this blog, which has been created using the steps mentioned in this article using Hugo and Github Pages.
 It is quite easy to create a blog using Wordpress or some other CMS but the simplicity of Hugo is what drove me to it.</description>
-    </item>
-    
-    <item>
-      <title>Contact</title>
-      <link>https://intothevoid.github.io/contact/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://intothevoid.github.io/contact/</guid>
-      <description>You can get in touch with me by leaving me a message here. Feel free to leave feedback good or bad, or simply to say hello. Thank you for your message!
-Submit </description>
     </item>
     
   </channel>

@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://intothevoid.github.io/contact/</loc>
+    <lastmod>2022-08-06T11:29:40+09:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>https://intothevoid.github.io/tags/fedora/</loc>
     <lastmod>2022-08-06T09:29:40+09:30</lastmod>
     <changefreq>monthly</changefreq>
@@ -42,6 +47,11 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>https://intothevoid.github.io/about/</loc>
+    <lastmod>2022-08-02T09:29:40+09:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>https://intothevoid.github.io/tags/m1/</loc>
     <lastmod>2022-07-31T11:53:48+09:30</lastmod>
     <changefreq>monthly</changefreq>
@@ -78,10 +88,6 @@
     <priority>0.5</priority>
   </url><url>
     <loc>https://intothevoid.github.io/categories/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://intothevoid.github.io/contact/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
