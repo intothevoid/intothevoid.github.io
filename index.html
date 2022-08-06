@@ -15,7 +15,8 @@
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Into The Void"/>
 <meta name="twitter:description" content="Hi, I&#39;m Karan! This is my blog where I talk coding and the dev life."/>
-
+<script src="https://intothevoid.github.iojs/feather.min.js"></script>
+	
 	
         <link href="https://intothevoid.github.io/css/fonts.b685ac6f654695232de7b82a9143a46f9e049c8e3af3a21d9737b01f4be211d1.css" rel="stylesheet">
 	
@@ -34,6 +35,12 @@
 	</div>
 	<nav>
 		
+		<a href="/">Home</a>
+		
+		<a href="/about">About</a>
+		
+		<a href="/tags">Tags</a>
+		
 		<a href="/contact/">Contact</a>
 		
 		<a href="/posts/">Posts</a>
@@ -49,14 +56,22 @@
 				
 				
 				<section class="list-item">
+					<h1 class="title"><a href="/2022/08/transfer-files-from-ios-to-linux-wirelessly/">Transfer Files from iOS to Linux wirelessly</a></h1>
+					<time>Aug 6, 2022</time>
+					<br><div class="description">
+						
+						Transfer files wirelessly between iOS devices and a Linux computer using ssh.
+						
+					</div>
+					<a class="readmore" href="/2022/08/transfer-files-from-ios-to-linux-wirelessly/">Read more ⟶</a>
+				</section>
+				
+				<section class="list-item">
 					<h1 class="title"><a href="/2022/07/vim-astro-vim-setup-on-a-macbook/">Vim (Astro Vim) setup on a Macbook</a></h1>
 					<time>Jul 31, 2022</time>
 					<br><div class="description">
 						
-						Overview Use the following steps to have a decent vim installation relatively quickly on a Macbook with a M1 / M2 chipset
-Brew installation Brew is a package manager for MacOS which makes it very easy to install packages. I highly recommend this package manager on MacOS. Its worth the effort to get it installed you will thank yourself later on.
-From www.brew.sh -
-/bin/bash -c &#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&#34; Sample command using brew -&hellip;
+						Setup a neovim instance on a Macbook M1/M2 ready for a development workflow.
 						
 					</div>
 					<a class="readmore" href="/2022/07/vim-astro-vim-setup-on-a-macbook/">Read more ⟶</a>
@@ -67,9 +82,7 @@ From www.brew.sh -
 					<time>Apr 5, 2021</time>
 					<br><div class="description">
 						
-						Update: Added section on adding Github Action for Hugo build
-This is a guide on how you can create a blog or website from scratch using Hugo and Github. This is also my first post on this blog, which has been created using the steps mentioned in this article using Hugo and Github Pages.
-It is quite easy to create a blog using Wordpress or some other CMS but the simplicity of Hugo is what drove me to it.&hellip;
+						Learn how to setup and host your own website using a static html generator - Hugo.
 						
 					</div>
 					<a class="readmore" href="/2021/04/create-a-blog-using-hugo-and-github-pages/">Read more ⟶</a>
@@ -80,7 +93,9 @@ It is quite easy to create a blog using Wordpress or some other CMS but the simp
 
 			</main>
 			<footer>
-  <div style="display:flex"></div>
+  <div style="display:flex"><a class="soc" href="https://github.com/intothevoid" title="GitHub"><i data-feather="github"></i></a>
+    <a class="border"></a><a class="soc" href="https://twitter.com/karankadam" title="Twitter"><i data-feather="twitter"></i></a>
+    <a class="border"></a></div>
   <div class="footer-info">
     2022  <a
       href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
@@ -88,7 +103,9 @@ It is quite easy to create a blog using Wordpress or some other CMS but the simp
 </footer>
 
 
-
+<script>
+  feather.replace()
+</script>
 		</div>
 		
 	</body>

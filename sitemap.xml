@@ -2,12 +2,57 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://intothevoid.github.io/tags/fedora/</loc>
+    <lastmod>2022-08-06T09:29:40+09:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>https://intothevoid.github.io/</loc>
-    <lastmod>2022-07-31T11:53:48+09:30</lastmod>
+    <lastmod>2022-08-06T09:29:40+09:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/tags/ios/</loc>
+    <lastmod>2022-08-06T09:29:40+09:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/tags/linux/</loc>
+    <lastmod>2022-08-06T09:29:40+09:30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>https://intothevoid.github.io/posts/</loc>
+    <lastmod>2022-08-06T09:29:40+09:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/tags/ssh/</loc>
+    <lastmod>2022-08-06T09:29:40+09:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/tags/</loc>
+    <lastmod>2022-08-06T09:29:40+09:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/2022/08/transfer-files-from-ios-to-linux-wirelessly/</loc>
+    <lastmod>2022-08-06T09:29:40+09:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/tags/m1/</loc>
+    <lastmod>2022-07-31T11:53:48+09:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/tags/macos/</loc>
+    <lastmod>2022-07-31T11:53:48+09:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/tags/vim/</loc>
     <lastmod>2022-07-31T11:53:48+09:30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -22,15 +67,21 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>https://intothevoid.github.io/tags/hugo/</loc>
+    <lastmod>2021-04-05T14:13:49+09:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/tags/web/</loc>
+    <lastmod>2021-04-05T14:13:49+09:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>https://intothevoid.github.io/categories/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>https://intothevoid.github.io/contact/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://intothevoid.github.io/tags/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>

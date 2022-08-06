@@ -2,14 +2,10 @@
 <html><head>
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Create a blog using Hugo and Github Pages - Into The Void</title><link rel="icon" type="image/png" href= /><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Update: Added section on adding Github Action for Hugo build
-This is a guide on how you can create a blog or website from scratch using Hugo and Github. This is also my first post on this blog, which has been created using the steps mentioned in this article using Hugo and Github Pages.
-It is quite easy to create a blog using Wordpress or some other CMS but the simplicity of Hugo is what drove me to it." />
+	<meta name="description" content="Learn how to setup and host your own website using a static html generator - Hugo." />
 	<meta property="og:image" content=""/>
 	<meta property="og:title" content="Create a blog using Hugo and Github Pages" />
-<meta property="og:description" content="Update: Added section on adding Github Action for Hugo build
-This is a guide on how you can create a blog or website from scratch using Hugo and Github. This is also my first post on this blog, which has been created using the steps mentioned in this article using Hugo and Github Pages.
-It is quite easy to create a blog using Wordpress or some other CMS but the simplicity of Hugo is what drove me to it." />
+<meta property="og:description" content="Learn how to setup and host your own website using a static html generator - Hugo." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://intothevoid.github.io/2021/04/create-a-blog-using-hugo-and-github-pages/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-04-05T14:13:49+09:30" />
@@ -17,10 +13,9 @@ It is quite easy to create a blog using Wordpress or some other CMS but the simp
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Create a blog using Hugo and Github Pages"/>
-<meta name="twitter:description" content="Update: Added section on adding Github Action for Hugo build
-This is a guide on how you can create a blog or website from scratch using Hugo and Github. This is also my first post on this blog, which has been created using the steps mentioned in this article using Hugo and Github Pages.
-It is quite easy to create a blog using Wordpress or some other CMS but the simplicity of Hugo is what drove me to it."/>
-
+<meta name="twitter:description" content="Learn how to setup and host your own website using a static html generator - Hugo."/>
+<script src="https://intothevoid.github.iojs/feather.min.js"></script>
+	
 	
         <link href="https://intothevoid.github.io/css/fonts.b685ac6f654695232de7b82a9143a46f9e049c8e3af3a21d9737b01f4be211d1.css" rel="stylesheet">
 	
@@ -36,6 +31,12 @@ It is quite easy to create a blog using Wordpress or some other CMS but the simp
 		<a href="https://intothevoid.github.io">Into The Void</a>
 	</div>
 	<nav>
+		
+		<a href="/">Home</a>
+		
+		<a href="/about">About</a>
+		
+		<a href="/tags">Tags</a>
 		
 		<a href="/contact/">Contact</a>
 		
@@ -170,12 +171,26 @@ Begin by adding a GitHub action file to your base repo -</p>
 		<div class="post-tags">
 			
 			
+			<nav class="nav tags">
+				<ul class="tags">
+					
+					<li><a href="/tags/hugo">hugo</a></li>
+					
+					<li><a href="/tags/web">web</a></li>
+					
+					<li><a href="/tags/linux">linux</a></li>
+					
+				</ul>
+			</nav>
+			
 			
 		</div>
 	</article>
 </main>
 <footer>
-  <div style="display:flex"></div>
+  <div style="display:flex"><a class="soc" href="https://github.com/intothevoid" title="GitHub"><i data-feather="github"></i></a>
+    <a class="border"></a><a class="soc" href="https://twitter.com/karankadam" title="Twitter"><i data-feather="twitter"></i></a>
+    <a class="border"></a></div>
   <div class="footer-info">
     2022  <a
       href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
@@ -183,6 +198,8 @@ Begin by adding a GitHub action file to your base repo -</p>
 </footer>
 
 
-</div>
+<script>
+  feather.replace()
+</script></div>
     </body>
 </html>
