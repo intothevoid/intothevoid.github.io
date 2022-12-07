@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://intothevoid.github.io/tags/code/</loc>
+    <lastmod>2022-12-07T23:07:51+10:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>https://intothevoid.github.io/2022/12/crash-course-in-rust/</loc>
     <lastmod>2022-12-07T23:07:51+10:30</lastmod>
     <changefreq>monthly</changefreq>
@@ -13,6 +18,21 @@
     <priority>0.5</priority>
   </url><url>
     <loc>https://intothevoid.github.io/posts/</loc>
+    <lastmod>2022-12-07T23:07:51+10:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/tags/programming/</loc>
+    <lastmod>2022-12-07T23:07:51+10:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/tags/rust/</loc>
+    <lastmod>2022-12-07T23:07:51+10:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/tags/</loc>
     <lastmod>2022-12-07T23:07:51+10:30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -38,11 +58,6 @@
     <priority>0.5</priority>
   </url><url>
     <loc>https://intothevoid.github.io/tags/ssh/</loc>
-    <lastmod>2022-08-06T09:29:40+09:30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://intothevoid.github.io/tags/</loc>
     <lastmod>2022-08-06T09:29:40+09:30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>

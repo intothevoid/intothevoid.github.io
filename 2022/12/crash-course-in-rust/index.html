@@ -2,23 +2,17 @@
 <html><head>
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Crash Course in Rust - Into The Void</title><link rel="icon" type="image/png" href= /><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="A crash course in Rust This article is a crash course in Rust programming and its setup / usage. For a more detailed guide check out -
-Rust Book https://doc.rust-lang.org/stable/book/ Rust By Example https://doc.rust-lang.org/stable/rust-by-example/ Introduction to Rust: This lesson would cover the basics of Rust, including its history, features, and the benefits of using it.
-Setting up a development environment: This lesson would explain how to install Rust on your computer and set up a development environment, including a code editor and any necessary tools and libraries." />
+	<meta name="description" content="A crash course on the Rust programming language for existing programmers." />
 	<meta property="og:image" content=""/>
 	<meta property="og:title" content="Crash Course in Rust" />
-<meta property="og:description" content="A crash course in Rust This article is a crash course in Rust programming and its setup / usage. For a more detailed guide check out -
-Rust Book https://doc.rust-lang.org/stable/book/ Rust By Example https://doc.rust-lang.org/stable/rust-by-example/ Introduction to Rust: This lesson would cover the basics of Rust, including its history, features, and the benefits of using it.
-Setting up a development environment: This lesson would explain how to install Rust on your computer and set up a development environment, including a code editor and any necessary tools and libraries." />
+<meta property="og:description" content="A crash course on the Rust programming language for existing programmers." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://intothevoid.github.io/2022/12/crash-course-in-rust/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-12-07T23:07:51+10:30" />
 <meta property="article:modified_time" content="2022-12-07T23:07:51+10:30" />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Crash Course in Rust"/>
-<meta name="twitter:description" content="A crash course in Rust This article is a crash course in Rust programming and its setup / usage. For a more detailed guide check out -
-Rust Book https://doc.rust-lang.org/stable/book/ Rust By Example https://doc.rust-lang.org/stable/rust-by-example/ Introduction to Rust: This lesson would cover the basics of Rust, including its history, features, and the benefits of using it.
-Setting up a development environment: This lesson would explain how to install Rust on your computer and set up a development environment, including a code editor and any necessary tools and libraries."/>
+<meta name="twitter:description" content="A crash course on the Rust programming language for existing programmers."/>
 <script src="https://intothevoid.github.io/js/feather.min.js"></script>
 	
 	
@@ -60,8 +54,7 @@ Setting up a development environment: This lesson would explain how to install R
 		
 
 		<section class="body">
-			<h1 id="a-crash-course-in-rust">A crash course in Rust</h1>
-<p>This article is a crash course in Rust programming and  its setup / usage. For a more detailed guide check out -</p>
+			<p>This article is a crash course in Rust programming and  its setup / usage. For a more detailed guide check out -</p>
 <ul>
 <li>Rust Book <a href="https://doc.rust-lang.org/stable/book/">https://doc.rust-lang.org/stable/book/</a></li>
 <li>Rust By Example <a href="https://doc.rust-lang.org/stable/rust-by-example/">https://doc.rust-lang.org/stable/rust-by-example/</a></li>
@@ -89,7 +82,7 @@ Setting up a development environment: This lesson would explain how to install R
 <p>Rust is a statically-typed, compiled language that runs on many platforms, including Windows, Mac, Linux, and even embedded systems. It is designed to be fast, efficient, and reliable, with a focus on safety and concurrency.</p>
 <p>One of the key features of Rust is its support for memory safety. Unlike many other languages, Rust uses a system of ownership and borrowing to ensure that memory is always used correctly and safely. This system makes it difficult to write code that has common types of errors, such as null or dangling pointer references.</p>
 <p>In addition to its focus on safety, Rust also offers a number of other benefits, including:</p>
-<ul>
+<ol>
 <li>
 <p>High performance: Rust is known for its speed and efficiency, and is often used for performance-critical applications such as game engines and systems programming.</p>
 </li>
@@ -102,7 +95,7 @@ Setting up a development environment: This lesson would explain how to install R
 <li>
 <p>Strong community: Rust has a large and active community of users and contributors, who are constantly working to improve the language and its tools.</p>
 </li>
-</ul>
+</ol>
 <p>Overall, Rust is a powerful and versatile language that is well-suited for a wide range of tasks. It is a good choice for anyone who wants to write fast, safe, and concurrent code.</p>
 <h2 id="setting-up-a-development-environment">Setting up a development environment</h2>
 <p>To start writing Rust code, you will need to install the Rust programming language on your computer. This process is called &ldquo;installing the Rust toolchain&rdquo;.</p>
@@ -127,7 +120,7 @@ Setting up a development environment: This lesson would explain how to install R
 <h2 id="rust-syntax-and-concepts">Rust syntax and concepts</h2>
 <p>Rust is a statically-typed, compiled language that has a syntax that is similar to other languages in the C family, such as C++ and Java. However, it also has some unique features and concepts that are worth understanding.</p>
 <p>Here are some of the key syntax and concepts of Rust:</p>
-<ul>
+<ol>
 <li>
 <p>Variables and constants: In Rust, you can use the <code>let</code> keyword to declare a variable, which is a named location in memory that holds a value. You can use the <code>mut</code> keyword to make a variable mutable, which means that you can change its value. You can also use the <code>const</code> keyword to declare a constant, which is a value that cannot be changed.</p>
 </li>
@@ -143,14 +136,14 @@ Setting up a development environment: This lesson would explain how to install R
 <li>
 <p>Error handling: In Rust, you can use the <code>Result</code> type to handle errors in a predictable and consistent way. This type has two variants: <code>Ok</code>, which indicates success, and <code>Err</code>, which indicates failure. You can use <code>match</code> or <code>if let</code> to handle the <code>Result</code> value and decide how to proceed.</p>
 </li>
-</ul>
+</ol>
 <h2 id="working-with-memory-and-ownership">Working with memory and ownership</h2>
 <p>One of the unique features of Rust is its approach to memory management and ownership. This system is designed to ensure that memory is used safely and efficiently, without the possibility of common errors such as null or dangling pointer references.</p>
 <p>In Rust, every value has an owner, and the owner is responsible for freeing the value when it is no longer needed. This is called &ldquo;automatic memory management&rdquo;.</p>
 <p>Rust uses a system of borrowing to control access to values. When a value is borrowed, it remains owned by its original owner, but the borrower is allowed to read or write to the value. A value can have multiple borrows, but only one mutable borrow at a time.</p>
 <p>The rules of borrowing are enforced by the Rust compiler, using a borrow checker. The borrow checker tracks the lifetimes of values and ensures that all borrows are valid and do not conflict with each other.</p>
 <p>To learn more about memory and ownership in Rust, you can study the following concepts:</p>
-<ul>
+<ol>
 <li>
 <p>Ownership: This is the basic principle of memory management in Rust. Every value has an owner, and the owner is responsible for freeing the value when it is no longer needed.</p>
 </li>
@@ -160,11 +153,11 @@ Setting up a development environment: This lesson would explain how to install R
 <li>
 <p>Lifetimes: This is the concept of the duration for which a value is borrowed. A lifetime is associated with a borrowed value and is used by the borrow checker to ensure that all borrows are valid.</p>
 </li>
-</ul>
+</ol>
 <h2 id="concurrency-and-parallelism">Concurrency and parallelism</h2>
 <p>Rust is a language that is designed to support concurrent and parallel programming. This means that you can write code that runs multiple tasks simultaneously, taking advantage of multiple CPU cores or other hardware resources to improve performance and responsiveness.</p>
 <p>To support concurrent and parallel programming, Rust provides a number of built-in features and libraries. Some of the key features include:</p>
-<ul>
+<ol>
 <li>
 <p>Threads: Rust has support for &ldquo;green&rdquo; threads, which are lightweight threads that are managed by the Rust runtime. You can use the <code>std::thread</code> module to create and manage threads in your code.</p>
 </li>
@@ -174,9 +167,9 @@ Setting up a development environment: This lesson would explain how to install R
 <li>
 <p>Shared-memory concurrency: Rust provides a number of types and patterns for working with shared-memory concurrency, such as mutexes, atomic types, and channels. These can be used to coordinate access to shared data and avoid race conditions.</p>
 </li>
-</ul>
+</ol>
 <p>To learn more about concurrency and parallelism in Rust, you can study the following topics:</p>
-<ul>
+<ol>
 <li>
 <p>Threads: This is the basic concept of concurrent programming in Rust. You can use threads to run multiple tasks simultaneously and improve the performance and responsiveness of your code.</p>
 </li>
@@ -186,7 +179,7 @@ Setting up a development environment: This lesson would explain how to install R
 <li>
 <p>Shared-memory concurrency: This is the concept of coordinating access to shared data by multiple concurrent tasks. You can use shared-memory concurrency patterns, such as mutexes and channels, to avoid race conditions and other synchronization issues.</p>
 </li>
-</ul>
+</ol>
 <h2 id="sample-programs-that-cover-these-concepts">Sample programs that cover these concepts</h2>
 <p>Here are sample Rust applications that cover the concepts discussed in the crash course above:</p>
 <h3 id="-1"># 1</h3>
@@ -353,6 +346,18 @@ Setting up a development environment: This lesson would explain how to install R
 
 		<div class="post-tags">
 			
+			
+			<nav class="nav tags">
+				<ul class="tags">
+					
+					<li><a href="/tags/programming">programming</a></li>
+					
+					<li><a href="/tags/code">code</a></li>
+					
+					<li><a href="/tags/rust">rust</a></li>
+					
+				</ul>
+			</nav>
 			
 			
 		</div>
