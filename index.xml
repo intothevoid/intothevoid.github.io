@@ -6,7 +6,17 @@
     <description>Recent content on Into The Void</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 07 Dec 2022 23:07:51 +1030</lastBuildDate><atom:link href="https://intothevoid.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 08 Dec 2022 15:35:51 +1030</lastBuildDate><atom:link href="https://intothevoid.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Crash Course in Go</title>
+      <link>https://intothevoid.github.io/2022/12/crash-course-in-go/</link>
+      <pubDate>Thu, 08 Dec 2022 15:35:51 +1030</pubDate>
+      
+      <guid>https://intothevoid.github.io/2022/12/crash-course-in-go/</guid>
+      <description>Go, also known as Golang, is a modern, open-source programming language developed by Google. It is designed to be fast, efficient, and scalable, and it is widely used in a variety of applications, from web servers and cloud services to games and machine learning.
+In this blog post, we&amp;rsquo;ll provide a crash course on Go programming, including its features, syntax, and available keywords. We&amp;rsquo;ll also include some examples to demonstrate how to use these concepts in your own code.</description>
+    </item>
+    
     <item>
       <title>Crash Course in Rust</title>
       <link>https://intothevoid.github.io/2022/12/crash-course-in-rust/</link>
@@ -69,16 +79,6 @@ From www.brew.sh -
       <description>Update: Added section on adding Github Action for Hugo build
 This is a guide on how you can create a blog or website from scratch using Hugo and Github. This is also my first post on this blog, which has been created using the steps mentioned in this article using Hugo and Github Pages.
 It is quite easy to create a blog using Wordpress or some other CMS but the simplicity of Hugo is what drove me to it.</description>
-    </item>
-    
-    <item>
-      <title>Crash Course in Go</title>
-      <link>https://intothevoid.github.io/1/01/crash-course-in-go/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://intothevoid.github.io/1/01/crash-course-in-go/</guid>
-      <description>Go, also known as Golang, is a modern, open-source programming language developed by Google. It is designed to be fast, efficient, and scalable, and it is widely used in a variety of applications, from web servers and cloud services to games and machine learning.
-In this blog post, we&amp;rsquo;ll provide a crash course on Go programming, including its features, syntax, and available keywords. We&amp;rsquo;ll also include some examples to demonstrate how to use these concepts in your own code.</description>
     </item>
     
   </channel>
