@@ -18,5 +18,15 @@ Rust Book https://doc.rust-lang.org/stable/book/ Rust By Example https://doc.rus
 Setting up a development environment: This lesson would explain how to install Rust on your computer and set up a development environment, including a code editor and any necessary tools and libraries.</description>
     </item>
     
+    <item>
+      <title>Crash Course in Go</title>
+      <link>https://intothevoid.github.io/1/01/crash-course-in-go/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://intothevoid.github.io/1/01/crash-course-in-go/</guid>
+      <description>Go, also known as Golang, is a modern, open-source programming language developed by Google. It is designed to be fast, efficient, and scalable, and it is widely used in a variety of applications, from web servers and cloud services to games and machine learning.
+In this blog post, we&amp;rsquo;ll provide a crash course on Go programming, including its features, syntax, and available keywords. We&amp;rsquo;ll also include some examples to demonstrate how to use these concepts in your own code.</description>
+    </item>
+    
   </channel>
 </rss>
