@@ -6,7 +6,17 @@
     <description>Recent content in Posts on Into The Void</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 08 Dec 2022 15:35:51 +1030</lastBuildDate><atom:link href="https://intothevoid.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 11 Dec 2022 11:43:47 +1030</lastBuildDate><atom:link href="https://intothevoid.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Backup Spotify Playlists using Python</title>
+      <link>https://intothevoid.github.io/2022/12/backup-spotify-playlists-using-python/</link>
+      <pubDate>Sun, 11 Dec 2022 11:43:47 +1030</pubDate>
+      
+      <guid>https://intothevoid.github.io/2022/12/backup-spotify-playlists-using-python/</guid>
+      <description>To create a web application that backs up your Spotify playlists as a JSON file, you will need to do the following:
+First, you will need to install the spotipy library, which provides a Python interface for the Spotify Web API. You can do this by running the following command: pip install spotipy Next, you will need to create a Spotify app and obtain a client ID and client secret for the app.</description>
+    </item>
+    
     <item>
       <title>Crash Course in Go</title>
       <link>https://intothevoid.github.io/2022/12/crash-course-in-go/</link>
@@ -58,16 +68,6 @@ From www.brew.sh -
       <description>Update: Added section on adding Github Action for Hugo build
 This is a guide on how you can create a blog or website from scratch using Hugo and Github. This is also my first post on this blog, which has been created using the steps mentioned in this article using Hugo and Github Pages.
 It is quite easy to create a blog using Wordpress or some other CMS but the simplicity of Hugo is what drove me to it.</description>
-    </item>
-    
-    <item>
-      <title>Backup Spotify Playlists using Python</title>
-      <link>https://intothevoid.github.io/1/01/backup-spotify-playlists-using-python/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://intothevoid.github.io/1/01/backup-spotify-playlists-using-python/</guid>
-      <description>To create a web application that backs up your Spotify playlists as a JSON file, you will need to do the following:
-First, you will need to install the spotipy library, which provides a Python interface for the Spotify Web API. You can do this by running the following command: pip install spotipy Next, you will need to create a Spotify app and obtain a client ID and client secret for the app.</description>
     </item>
     
   </channel>

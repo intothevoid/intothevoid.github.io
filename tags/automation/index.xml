@@ -5,13 +5,14 @@
     <link>https://intothevoid.github.io/tags/automation/</link>
     <description>Recent content in automation on Into The Void</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://intothevoid.github.io/tags/automation/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <lastBuildDate>Sun, 11 Dec 2022 11:43:47 +1030</lastBuildDate><atom:link href="https://intothevoid.github.io/tags/automation/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Backup Spotify Playlists using Python</title>
-      <link>https://intothevoid.github.io/1/01/backup-spotify-playlists-using-python/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <link>https://intothevoid.github.io/2022/12/backup-spotify-playlists-using-python/</link>
+      <pubDate>Sun, 11 Dec 2022 11:43:47 +1030</pubDate>
       
-      <guid>https://intothevoid.github.io/1/01/backup-spotify-playlists-using-python/</guid>
+      <guid>https://intothevoid.github.io/2022/12/backup-spotify-playlists-using-python/</guid>
       <description>To create a web application that backs up your Spotify playlists as a JSON file, you will need to do the following:
 First, you will need to install the spotipy library, which provides a Python interface for the Spotify Web API. You can do this by running the following command: pip install spotipy Next, you will need to create a Spotify app and obtain a client ID and client secret for the app.</description>
     </item>
