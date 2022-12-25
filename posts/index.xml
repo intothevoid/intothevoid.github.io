@@ -6,7 +6,17 @@
     <description>Recent content in Posts on Into The Void</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 11 Dec 2022 11:43:47 +1030</lastBuildDate><atom:link href="https://intothevoid.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 26 Dec 2022 00:04:51 +1030</lastBuildDate><atom:link href="https://intothevoid.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Levenshtein Distance</title>
+      <link>https://intothevoid.github.io/2022/12/levenshtein-distance/</link>
+      <pubDate>Mon, 26 Dec 2022 00:04:51 +1030</pubDate>
+      
+      <guid>https://intothevoid.github.io/2022/12/levenshtein-distance/</guid>
+      <description>Levenshtein distance is a measure of the similarity between two strings, calculated as the minimum number of single-character edits (insertions, deletions, or substitutions) required to transform one string into the other. Here is an example of how you can calculate the Levenshtein distance between two strings in Go:
+package main import ( &amp;#34;fmt&amp;#34; &amp;#34;math&amp;#34; ) func main() { s1 := &amp;#34;kitten&amp;#34; s2 := &amp;#34;sitting&amp;#34; distance := levenshteinDistance(s1, s2) fmt.Printf(&amp;#34;The Levenshtein distance between %s and %s is %d\n&amp;#34;, s1, s2, distance) } func levenshteinDistance(s1, s2 string) int { // Convert strings to rune slices for Unicode support r1 := []rune(s1) r2 := []rune(s2) // Initialize a two-dimensional matrix with all values set to zero matrix := make([][]int, len(r1)+1) for i := range matrix { matrix[i] = make([]int, len(r2)+1) } // Set the initial values of the first row and column of the matrix for i := 1; i &amp;lt;= len(r1); i++ { matrix[i][0] = i } for j := 1; j &amp;lt;= len(r2); j++ { matrix[0][j] = j } // Calculate the Levenshtein distance using the dynamic programming algorithm for i := 1; i &amp;lt;= len(r1); i++ { for j := 1; j &amp;lt;= len(r2); j++ { cost := 0 if r1[i-1] !</description>
+    </item>
+    
     <item>
       <title>Backup Spotify Playlists using Python</title>
       <link>https://intothevoid.github.io/2022/12/backup-spotify-playlists-using-python/</link>

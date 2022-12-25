@@ -6,7 +6,34 @@
     <description>Recent content in Tags on Into The Void</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 11 Dec 2022 11:43:47 +1030</lastBuildDate><atom:link href="https://intothevoid.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 26 Dec 2022 00:04:51 +1030</lastBuildDate><atom:link href="https://intothevoid.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>code</title>
+      <link>https://intothevoid.github.io/tags/code/</link>
+      <pubDate>Mon, 26 Dec 2022 00:04:51 +1030</pubDate>
+      
+      <guid>https://intothevoid.github.io/tags/code/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>golang</title>
+      <link>https://intothevoid.github.io/tags/golang/</link>
+      <pubDate>Mon, 26 Dec 2022 00:04:51 +1030</pubDate>
+      
+      <guid>https://intothevoid.github.io/tags/golang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>programming</title>
+      <link>https://intothevoid.github.io/tags/programming/</link>
+      <pubDate>Mon, 26 Dec 2022 00:04:51 +1030</pubDate>
+      
+      <guid>https://intothevoid.github.io/tags/programming/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>automation</title>
       <link>https://intothevoid.github.io/tags/automation/</link>
@@ -40,33 +67,6 @@
       <pubDate>Sun, 11 Dec 2022 11:43:47 +1030</pubDate>
       
       <guid>https://intothevoid.github.io/tags/webapp/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>code</title>
-      <link>https://intothevoid.github.io/tags/code/</link>
-      <pubDate>Thu, 08 Dec 2022 15:35:51 +1030</pubDate>
-      
-      <guid>https://intothevoid.github.io/tags/code/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>golang</title>
-      <link>https://intothevoid.github.io/tags/golang/</link>
-      <pubDate>Thu, 08 Dec 2022 15:35:51 +1030</pubDate>
-      
-      <guid>https://intothevoid.github.io/tags/golang/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>programming</title>
-      <link>https://intothevoid.github.io/tags/programming/</link>
-      <pubDate>Thu, 08 Dec 2022 15:35:51 +1030</pubDate>
-      
-      <guid>https://intothevoid.github.io/tags/programming/</guid>
       <description></description>
     </item>
     

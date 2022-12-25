@@ -2,6 +2,41 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://intothevoid.github.io/tags/code/</loc>
+    <lastmod>2022-12-26T00:04:51+10:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/tags/golang/</loc>
+    <lastmod>2022-12-26T00:04:51+10:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/</loc>
+    <lastmod>2022-12-26T00:04:51+10:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/2022/12/levenshtein-distance/</loc>
+    <lastmod>2022-12-26T00:04:51+10:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/posts/</loc>
+    <lastmod>2022-12-26T00:04:51+10:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/tags/programming/</loc>
+    <lastmod>2022-12-26T00:04:51+10:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/tags/</loc>
+    <lastmod>2022-12-26T00:04:51+10:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>https://intothevoid.github.io/tags/automation/</loc>
     <lastmod>2022-12-11T11:43:47+10:30</lastmod>
     <changefreq>monthly</changefreq>
@@ -12,17 +47,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://intothevoid.github.io/</loc>
-    <lastmod>2022-12-11T11:43:47+10:30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
     <loc>https://intothevoid.github.io/tags/javascript/</loc>
-    <lastmod>2022-12-11T11:43:47+10:30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://intothevoid.github.io/posts/</loc>
     <lastmod>2022-12-11T11:43:47+10:30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -32,32 +57,12 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://intothevoid.github.io/tags/</loc>
-    <lastmod>2022-12-11T11:43:47+10:30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
     <loc>https://intothevoid.github.io/tags/webapp/</loc>
     <lastmod>2022-12-11T11:43:47+10:30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://intothevoid.github.io/tags/code/</loc>
-    <lastmod>2022-12-08T15:35:51+10:30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
     <loc>https://intothevoid.github.io/2022/12/crash-course-in-go/</loc>
-    <lastmod>2022-12-08T15:35:51+10:30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://intothevoid.github.io/tags/golang/</loc>
-    <lastmod>2022-12-08T15:35:51+10:30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://intothevoid.github.io/tags/programming/</loc>
     <lastmod>2022-12-08T15:35:51+10:30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
