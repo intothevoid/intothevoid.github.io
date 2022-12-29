@@ -3,36 +3,46 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://intothevoid.github.io/tags/code/</loc>
-    <lastmod>2022-12-26T00:04:51+10:30</lastmod>
+    <lastmod>2022-12-30T09:51:13+10:30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>https://intothevoid.github.io/tags/golang/</loc>
-    <lastmod>2022-12-26T00:04:51+10:30</lastmod>
+    <lastmod>2022-12-30T09:51:13+10:30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>https://intothevoid.github.io/</loc>
-    <lastmod>2022-12-26T00:04:51+10:30</lastmod>
+    <lastmod>2022-12-30T09:51:13+10:30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://intothevoid.github.io/2022/12/levenshtein-distance/</loc>
-    <lastmod>2022-12-26T00:04:51+10:30</lastmod>
+    <loc>https://intothevoid.github.io/tags/nosql/</loc>
+    <lastmod>2022-12-30T09:51:13+10:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/2022/12/nosql-databases-mongodb/</loc>
+    <lastmod>2022-12-30T09:51:13+10:30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>https://intothevoid.github.io/posts/</loc>
-    <lastmod>2022-12-26T00:04:51+10:30</lastmod>
+    <lastmod>2022-12-30T09:51:13+10:30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>https://intothevoid.github.io/tags/programming/</loc>
-    <lastmod>2022-12-26T00:04:51+10:30</lastmod>
+    <lastmod>2022-12-30T09:51:13+10:30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>https://intothevoid.github.io/tags/</loc>
+    <lastmod>2022-12-30T09:51:13+10:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/2022/12/levenshtein-distance/</loc>
     <lastmod>2022-12-26T00:04:51+10:30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
