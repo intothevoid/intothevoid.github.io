@@ -2,17 +2,52 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://intothevoid.github.io/tags/containerisation/</loc>
+    <lastmod>2023-01-02T21:33:44+10:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/tags/devops/</loc>
+    <lastmod>2023-01-02T21:33:44+10:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/tags/docker/</loc>
+    <lastmod>2023-01-02T21:33:44+10:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/2023/01/docker/</loc>
+    <lastmod>2023-01-02T21:33:44+10:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/</loc>
+    <lastmod>2023-01-02T21:33:44+10:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/tags/microservices/</loc>
+    <lastmod>2023-01-02T21:33:44+10:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/posts/</loc>
+    <lastmod>2023-01-02T21:33:44+10:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/tags/</loc>
+    <lastmod>2023-01-02T21:33:44+10:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>https://intothevoid.github.io/tags/code/</loc>
     <lastmod>2022-12-30T09:51:13+10:30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>https://intothevoid.github.io/tags/golang/</loc>
-    <lastmod>2022-12-30T09:51:13+10:30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://intothevoid.github.io/</loc>
     <lastmod>2022-12-30T09:51:13+10:30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -27,17 +62,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://intothevoid.github.io/posts/</loc>
-    <lastmod>2022-12-30T09:51:13+10:30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
     <loc>https://intothevoid.github.io/tags/programming/</loc>
-    <lastmod>2022-12-30T09:51:13+10:30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://intothevoid.github.io/tags/</loc>
     <lastmod>2022-12-30T09:51:13+10:30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>

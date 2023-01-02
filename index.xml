@@ -6,7 +6,17 @@
     <description>Recent content on Into The Void</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 30 Dec 2022 09:51:13 +1030</lastBuildDate><atom:link href="https://intothevoid.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 02 Jan 2023 21:33:44 +1030</lastBuildDate><atom:link href="https://intothevoid.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Docker</title>
+      <link>https://intothevoid.github.io/2023/01/docker/</link>
+      <pubDate>Mon, 02 Jan 2023 21:33:44 +1030</pubDate>
+      
+      <guid>https://intothevoid.github.io/2023/01/docker/</guid>
+      <description>I. Introduction to Docker What is Docker? How does Docker work? Why is Docker useful? What is Docker? Docker is an open-source containerisation platform that allows you to package an application with all of its dependencies into a single container. This container can then be easily deployed and run on any platform that supports Docker, making it a great tool for building, shipping, and running applications.
+How does Docker work? Docker works by using the host operating system&amp;rsquo;s kernel and automating the creation, deployment, and management of containers.</description>
+    </item>
+    
     <item>
       <title>NoSQL Databases - MongoDB</title>
       <link>https://intothevoid.github.io/2022/12/nosql-databases-mongodb/</link>
