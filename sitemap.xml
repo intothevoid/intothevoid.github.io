@@ -2,6 +2,41 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://intothevoid.github.io/</loc>
+    <lastmod>2023-04-10T16:56:00+09:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/tags/languages/</loc>
+    <lastmod>2023-04-10T16:56:00+09:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/posts/</loc>
+    <lastmod>2023-04-10T16:56:00+09:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/tags/programming/</loc>
+    <lastmod>2023-04-10T16:56:00+09:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/tags/python/</loc>
+    <lastmod>2023-04-10T16:56:00+09:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/tags/</loc>
+    <lastmod>2023-04-10T16:56:00+09:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/2023/04/the-case-of-pydantic/</loc>
+    <lastmod>2023-04-10T16:56:00+09:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>https://intothevoid.github.io/tags/containerisation/</loc>
     <lastmod>2023-01-02T21:33:44+10:30</lastmod>
     <changefreq>monthly</changefreq>
@@ -17,22 +52,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://intothevoid.github.io/</loc>
-    <lastmod>2023-01-02T21:33:44+10:30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
     <loc>https://intothevoid.github.io/tags/microservices/</loc>
-    <lastmod>2023-01-02T21:33:44+10:30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://intothevoid.github.io/posts/</loc>
-    <lastmod>2023-01-02T21:33:44+10:30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://intothevoid.github.io/tags/</loc>
     <lastmod>2023-01-02T21:33:44+10:30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -57,11 +77,6 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://intothevoid.github.io/tags/programming/</loc>
-    <lastmod>2022-12-30T09:51:13+10:30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
     <loc>https://intothevoid.github.io/2022/12/the-case-of-nosql-databases-mongodb/</loc>
     <lastmod>2022-12-30T09:51:13+10:30</lastmod>
     <changefreq>monthly</changefreq>
@@ -78,11 +93,6 @@
     <priority>0.5</priority>
   </url><url>
     <loc>https://intothevoid.github.io/tags/javascript/</loc>
-    <lastmod>2022-12-11T11:43:47+10:30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://intothevoid.github.io/tags/python/</loc>
     <lastmod>2022-12-11T11:43:47+10:30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>

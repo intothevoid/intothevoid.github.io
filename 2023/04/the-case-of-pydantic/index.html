@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>The case of Pydantic - Into The Void</title><link rel="icon" type="image/png" href= /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="An introduction to Pydantic, and type checking in Python" />
+	<meta property="og:image" content=""/>
+	<meta property="og:title" content="The case of Pydantic" />
+<meta property="og:description" content="An introduction to Pydantic, and type checking in Python" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://intothevoid.github.io/2023/04/the-case-of-pydantic/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-04-10T16:56:00+09:30" />
+<meta property="article:modified_time" content="2023-04-10T16:56:00+09:30" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="The case of Pydantic"/>
+<meta name="twitter:description" content="An introduction to Pydantic, and type checking in Python"/>
+<script src="https://intothevoid.github.io/js/feather.min.js"></script>
+	
+	
+        <link href="https://intothevoid.github.io/css/fonts.b685ac6f654695232de7b82a9143a46f9e049c8e3af3a21d9737b01f4be211d1.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://intothevoid.github.io/css/main.d1574b43a51792a446cd761d6f9b1c9abb39ed2c36ca6984f74aef729eb9f245.css" />
+	
+	
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="https://intothevoid.github.io/">Into The Void</a>
+	</div>
+	<nav>
+		
+		<a href="/">Home</a>
+		
+		<a href="/about">About</a>
+		
+		<a href="/tags">Tags</a>
+		
+		<a href="/contact/">Contact</a>
+		
+		<a href="/posts/">Posts</a>
+		
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">The case of Pydantic</h1>
+			<div class="meta">Posted on Apr 10, 2023</div>
+		</div>
+		
+
+		<section class="body">
+			<h2 id="introduction-to-pydantic">Introduction to Pydantic</h2>
+<p>Pydantic is a Python library that provides data validation and settings management, using Python type annotations. It is designed to make it easy to define and validate data models, allowing you to catch errors and handle them gracefully, making your code more robust and easier to maintain.</p>
+<p>Pydantic is particularly useful for handling data that is passed between different parts of a system, such as between a front-end web form and a back-end API, or between different microservices. By defining a clear schema for the data, you can ensure that it is consistent and valid, regardless of where it comes from.</p>
+<h2 id="features-of-pydantic">Features of Pydantic</h2>
+<p>One of the key features of Pydantic is the use of Python type annotations. These annotations provide a way to specify the expected type of a variable or argument, which can be used to validate the data and catch errors early in the development process. Pydantic also provides a number of built-in validators, such as &ldquo;email&rdquo; and &ldquo;url&rdquo;, that can be used to ensure that data conforms to specific formats.</p>
+<p>To define a Pydantic model, you simply create a class that inherits from the BaseModel class. In this class, you define the fields that make up the model, using Python type annotations to specify the expected types. You can also specify default values and validation rules for each field.</p>
+<h2 id="example">Example</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>from pydantic import BaseModel
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>class User<span style="color:#f92672">(</span>BaseModel<span style="color:#f92672">)</span>:
+</span></span><span style="display:flex;"><span>    id: int
+</span></span><span style="display:flex;"><span>    name: str
+</span></span><span style="display:flex;"><span>    email: str
+</span></span><span style="display:flex;"><span>    password: str
+</span></span></code></pre></div><p>In this model, we have defined four fields: id, name, email, and password. The id field is expected to be an integer, while the other fields are expected to be strings.</p>
+<p>To create an instance of the User model, we simply pass in the data as a dictionary:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>data <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;id&#34;</span>: 1,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Alice&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;email&#34;</span>: <span style="color:#e6db74">&#34;alice@example.com&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;password&#34;</span>: <span style="color:#e6db74">&#34;secretpassword&#34;</span>,
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>user <span style="color:#f92672">=</span> User<span style="color:#f92672">(</span>**data<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Pydantic will automatically validate the data and ensure that it conforms to the expected types and validation rules. If any errors are found, Pydantic will raise a ValidationError exception, which includes details about the error and the field that caused it.</p>
+<p>Pydantic also provides a number of other features, such as support for custom validation functions, automatic conversion of data types, and support for parsing and serializing data to and from JSON.</p>
+<p>Pydantic is a powerful library that provides an easy and efficient way to validate data and handle errors in your Python applications. By using Pydantic to define and validate your data models, you can catch errors early in the development process and ensure that your code is more robust and easier to maintain.</p>
+<h2 id="validation-in-pydantic">Validation in Pydantic</h2>
+<p>In Pydantic, to get error details, you need to use a try/except block. The error type will be pydantic.error_wrappers.ValidationError.</p>
+<p>Here is an example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>from pydantic import BaseModel, ValidationError
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>class User<span style="color:#f92672">(</span>BaseModel<span style="color:#f92672">)</span>:
+</span></span><span style="display:flex;"><span>    id: int
+</span></span><span style="display:flex;"><span>    name: str
+</span></span><span style="display:flex;"><span>    email: str
+</span></span><span style="display:flex;"><span>    password: str
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>try:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    data <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;id&#34;</span>: 1,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Alice&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;email&#34;</span>: <span style="color:#e6db74">&#34;alice@example.com&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;password&#34;</span>: <span style="color:#e6db74">&#34;secret&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    user <span style="color:#f92672">=</span> User<span style="color:#f92672">(</span>**data<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>except ValidationError as e:
+</span></span><span style="display:flex;"><span>    print<span style="color:#f92672">(</span>e.json<span style="color:#f92672">())</span>
+</span></span></code></pre></div><h2 id="custom-validation">Custom Validation</h2>
+<p>Pydantic provides a number of built-in validators, such as &ldquo;email&rdquo; and &ldquo;url&rdquo;, that can be used to ensure that data conforms to specific formats. However, you can also define your own custom validation functions, which can be used to validate data in any way you like.</p>
+<p>To define a custom validation function, you simply create a function that accepts a single argument, which will be the value of the field being validated. The function should raise a ValueError if the value is invalid, or return the value if it is valid.</p>
+<p>Here is an example of a custom validation function that checks whether a string is a valid email address:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>from pydantic import BaseModel, ValidationError, validator
+</span></span><span style="display:flex;"><span>from email_validator import validate_email, EmailNotValidError
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>class User<span style="color:#f92672">(</span>BaseModel<span style="color:#f92672">)</span>:
+</span></span><span style="display:flex;"><span>    id: int
+</span></span><span style="display:flex;"><span>    name: str
+</span></span><span style="display:flex;"><span>    email: str
+</span></span><span style="display:flex;"><span>    password: str
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    @validator<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;email&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    def email_validator<span style="color:#f92672">(</span>cls, v<span style="color:#f92672">)</span>:
+</span></span><span style="display:flex;"><span>        try:
+</span></span><span style="display:flex;"><span>            validate_email<span style="color:#f92672">(</span>v<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        except EmailNotValidError as e:
+</span></span><span style="display:flex;"><span>            raise ValueError<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Invalid email address&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> v
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>try:
+</span></span><span style="display:flex;"><span>    user <span style="color:#f92672">=</span> User<span style="color:#f92672">(</span>**data<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    pprint<span style="color:#f92672">(</span>user<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>except ValidationError as e:
+</span></span><span style="display:flex;"><span>    print<span style="color:#f92672">(</span>e.json<span style="color:#f92672">())</span>
+</span></span></code></pre></div>
+		</section>
+
+		<div class="post-tags">
+			
+			
+			<nav class="nav tags">
+				<ul class="tags">
+					
+					<li><a href="/tags/python">python</a></li>
+					
+					<li><a href="/tags/languages">languages</a></li>
+					
+					<li><a href="/tags/programming">programming</a></li>
+					
+				</ul>
+			</nav>
+			
+			
+		</div>
+	</article>
+</main>
+<footer>
+  <div style="display:flex"><a class="soc" href="https://github.com/intothevoid" title="GitHub"><i data-feather="github"></i></a>
+    <a class="border"></a><a class="soc" href="https://twitter.com/karankadam" title="Twitter"><i data-feather="twitter"></i></a>
+    <a class="border"></a></div>
+  <div class="footer-info">
+    2023  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+<script>
+  feather.replace()
+</script></div>
+    </body>
+</html>

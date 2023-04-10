@@ -6,7 +6,17 @@
     <description>Recent content in python on Into The Void</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 11 Dec 2022 11:43:47 +1030</lastBuildDate><atom:link href="https://intothevoid.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 10 Apr 2023 16:56:00 +0930</lastBuildDate><atom:link href="https://intothevoid.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The case of Pydantic</title>
+      <link>https://intothevoid.github.io/2023/04/the-case-of-pydantic/</link>
+      <pubDate>Mon, 10 Apr 2023 16:56:00 +0930</pubDate>
+      
+      <guid>https://intothevoid.github.io/2023/04/the-case-of-pydantic/</guid>
+      <description>Introduction to Pydantic Pydantic is a Python library that provides data validation and settings management, using Python type annotations. It is designed to make it easy to define and validate data models, allowing you to catch errors and handle them gracefully, making your code more robust and easier to maintain.
+Pydantic is particularly useful for handling data that is passed between different parts of a system, such as between a front-end web form and a back-end API, or between different microservices.</description>
+    </item>
+    
     <item>
       <title>The case of Spotify Playlist Backups using Python</title>
       <link>https://intothevoid.github.io/2022/12/the-case-of-spotify-playlist-backups-using-python/</link>
