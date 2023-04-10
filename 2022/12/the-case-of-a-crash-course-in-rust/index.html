@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html><head>
 	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Crash Course in Rust - Into The Void</title><link rel="icon" type="image/png" href= /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>The case of a Crash Course in Rust - Into The Void</title><link rel="icon" type="image/png" href= /><meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="A crash course on the Rust programming language for existing programmers." />
 	<meta property="og:image" content=""/>
-	<meta property="og:title" content="Crash Course in Rust" />
+	<meta property="og:title" content="The case of a Crash Course in Rust" />
 <meta property="og:description" content="A crash course on the Rust programming language for existing programmers." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://intothevoid.github.io/2022/12/crash-course-in-rust/" /><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://intothevoid.github.io/2022/12/the-case-of-a-crash-course-in-rust/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-12-07T23:07:51+10:30" />
 <meta property="article:modified_time" content="2022-12-07T23:07:51+10:30" />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Crash Course in Rust"/>
+<meta name="twitter:title" content="The case of a Crash Course in Rust"/>
 <meta name="twitter:description" content="A crash course on the Rust programming language for existing programmers."/>
 <script src="https://intothevoid.github.io/js/feather.min.js"></script>
 	
@@ -48,7 +48,7 @@
 <main>
 	<article>
 		<div class="title">
-			<h1 class="title">Crash Course in Rust</h1>
+			<h1 class="title">The case of a Crash Course in Rust</h1>
 			<div class="meta">Posted on Dec 7, 2022</div>
 		</div>
 		
@@ -216,13 +216,13 @@
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Print the value of x
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    println!(<span style="color:#e6db74">&#34;x = {}&#34;</span>, x);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    println!(<span style="color:#e6db74">&#34;x = </span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>, x);
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Borrow the value of x and store it in a new variable y
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> y <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>x;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Print the value of y
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    println!(<span style="color:#e6db74">&#34;y = {}&#34;</span>, y);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    println!(<span style="color:#e6db74">&#34;y = </span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>, y);
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Try to modify the value of x
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// This will cause a compile-error because x is not mutable
@@ -232,13 +232,13 @@
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> z <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Print the value of z
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    println!(<span style="color:#e6db74">&#34;z = {}&#34;</span>, z);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    println!(<span style="color:#e6db74">&#34;z = </span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>, z);
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Modify the value of z
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    z <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Print the value of z
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    println!(<span style="color:#e6db74">&#34;z = {}&#34;</span>, z);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    println!(<span style="color:#e6db74">&#34;z = </span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>, z);
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>In this program, <code>x</code> is a variable that holds the value 5. It is declared using the <code>let</code> keyword, which makes it an immutable variable (i.e., it cannot be changed).</p>
 <p>The program then borrows the value of <code>x</code> and stores it in a new variable <code>y</code>. This is done using the <code>&amp;</code> operator, which creates a reference to the value of <code>x</code>.</p>
@@ -251,27 +251,27 @@
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Declare a constant named &#34;MAX_COUNT&#34; with the value 10
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> MAX_COUNT: <span style="color:#66d9ef">i32</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">MAX_COUNT</span>: <span style="color:#66d9ef">i32</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Print the value of MAX_COUNT
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    println!(<span style="color:#e6db74">&#34;MAX_COUNT = {}&#34;</span>, MAX_COUNT);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    println!(<span style="color:#e6db74">&#34;MAX_COUNT = </span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>, <span style="color:#66d9ef">MAX_COUNT</span>);
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Declare a mutable variable named &#34;count&#34; and initialize it with the value 0
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> count <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Use a loop to increment the value of &#34;count&#34; until it reaches MAX_COUNT
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">while</span> count <span style="color:#f92672">&lt;</span> MAX_COUNT {
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">while</span> count <span style="color:#f92672">&lt;</span> <span style="color:#66d9ef">MAX_COUNT</span> {
 </span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Increment the value of &#34;count&#34;
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        count <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Print the current value of &#34;count&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        println!(<span style="color:#e6db74">&#34;count = {}&#34;</span>, count);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        println!(<span style="color:#e6db74">&#34;count = </span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>, count);
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Use a match expression to check the final value of &#34;count&#34;
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">match</span> count {
 </span></span><span style="display:flex;"><span>        <span style="color:#75715e">// If &#34;count&#34; is equal to MAX_COUNT, print a success message
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        MAX_COUNT <span style="color:#f92672">=&gt;</span> println!(<span style="color:#e6db74">&#34;Success! count = MAX_COUNT&#34;</span>),
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">MAX_COUNT</span> <span style="color:#f92672">=&gt;</span> println!(<span style="color:#e6db74">&#34;Success! count = MAX_COUNT&#34;</span>),
 </span></span><span style="display:flex;"><span>        <span style="color:#75715e">// If &#34;count&#34; is not equal to MAX_COUNT, print an error message
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        _ <span style="color:#f92672">=&gt;</span> println!(<span style="color:#e6db74">&#34;Error! count != MAX_COUNT&#34;</span>),
 </span></span><span style="display:flex;"><span>    }
@@ -281,7 +281,7 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span><span style="color:#f92672">!</span>(io::stdin().read_line(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> input));
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Print the input that the user entered
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    println!(<span style="color:#e6db74">&#34;You entered: {}&#34;</span>, input);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    println!(<span style="color:#e6db74">&#34;You entered: </span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>, input);
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>This program demonstrates several of Rust&rsquo;s keywords, including <code>const</code>, <code>let</code>, <code>mut</code>, <code>while</code>, <code>match</code>, and <code>try!</code>.</p>
 <h3 id="4">#4</h3>
@@ -303,7 +303,7 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Use a loop to repeatedly print the value of &#34;x&#34; and then increment it
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">loop</span> {
 </span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Print the current value of &#34;x&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        println!(<span style="color:#e6db74">&#34;x = {}&#34;</span>, x);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        println!(<span style="color:#e6db74">&#34;x = </span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>, x);
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Increment the value of &#34;x&#34;
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        x <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
@@ -332,7 +332,7 @@
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Print the final value of &#34;y&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    println!(<span style="color:#e6db74">&#34;y = {}&#34;</span>, y);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    println!(<span style="color:#e6db74">&#34;y = </span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>, y);
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>This program demonstrates the <code>if</code>/<code>else</code> statement, the <code>loop</code> construct, and the <code>match</code> expression, which are some of the main control structures in Rust.</p>
 <p>The <code>if</code>/<code>else</code> statement is used to check the value of the <code>x</code> variable and decide what to do based on its value. The <code>loop</code> construct is used to repeat a block of code until a certain condition is met. The <code>match</code> expression is used to compare the value of the <code>y</code> variable against multiple patterns and execute different code for each pattern.</p>

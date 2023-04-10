@@ -17,11 +17,6 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://intothevoid.github.io/2023/01/docker/</loc>
-    <lastmod>2023-01-02T21:33:44+10:30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
     <loc>https://intothevoid.github.io/</loc>
     <lastmod>2023-01-02T21:33:44+10:30</lastmod>
     <changefreq>monthly</changefreq>
@@ -42,6 +37,11 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>https://intothevoid.github.io/2023/01/the-case-of-docker/</loc>
+    <lastmod>2023-01-02T21:33:44+10:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>https://intothevoid.github.io/tags/code/</loc>
     <lastmod>2022-12-30T09:51:13+10:30</lastmod>
     <changefreq>monthly</changefreq>
@@ -57,27 +57,22 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://intothevoid.github.io/2022/12/nosql-databases-mongodb/</loc>
-    <lastmod>2022-12-30T09:51:13+10:30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
     <loc>https://intothevoid.github.io/tags/programming/</loc>
     <lastmod>2022-12-30T09:51:13+10:30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://intothevoid.github.io/2022/12/levenshtein-distance/</loc>
+    <loc>https://intothevoid.github.io/2022/12/the-case-of-nosql-databases-mongodb/</loc>
+    <lastmod>2022-12-30T09:51:13+10:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/2022/12/the-case-of-levenshtein-distance/</loc>
     <lastmod>2022-12-26T00:04:51+10:30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>https://intothevoid.github.io/tags/automation/</loc>
-    <lastmod>2022-12-11T11:43:47+10:30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://intothevoid.github.io/2022/12/backup-spotify-playlists-using-python/</loc>
     <lastmod>2022-12-11T11:43:47+10:30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -92,22 +87,27 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>https://intothevoid.github.io/2022/12/the-case-of-spotify-playlist-backups-using-python/</loc>
+    <lastmod>2022-12-11T11:43:47+10:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>https://intothevoid.github.io/tags/webapp/</loc>
     <lastmod>2022-12-11T11:43:47+10:30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://intothevoid.github.io/2022/12/crash-course-in-go/</loc>
+    <loc>https://intothevoid.github.io/2022/12/the-case-of-a-crash-course-in-go/</loc>
     <lastmod>2022-12-08T15:35:51+10:30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://intothevoid.github.io/2022/12/crash-course-in-rust/</loc>
+    <loc>https://intothevoid.github.io/tags/rust/</loc>
     <lastmod>2022-12-07T23:07:51+10:30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://intothevoid.github.io/tags/rust/</loc>
+    <loc>https://intothevoid.github.io/2022/12/the-case-of-a-crash-course-in-rust/</loc>
     <lastmod>2022-12-07T23:07:51+10:30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -137,7 +137,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://intothevoid.github.io/2022/08/transfer-files-from-ios-to-linux-wirelessly/</loc>
+    <loc>https://intothevoid.github.io/2022/08/the-case-of-transferring-files-from-ios-to-linux-wirelessly/</loc>
     <lastmod>2022-08-06T09:29:40+09:30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -157,22 +157,22 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>https://intothevoid.github.io/2022/07/the-case-of-vim-astro-vim-on-a-macbook/</loc>
+    <lastmod>2022-07-31T11:53:48+09:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>https://intothevoid.github.io/tags/vim/</loc>
     <lastmod>2022-07-31T11:53:48+09:30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://intothevoid.github.io/2022/07/vim-astro-vim-setup-on-a-macbook/</loc>
-    <lastmod>2022-07-31T11:53:48+09:30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://intothevoid.github.io/2021/04/create-a-blog-using-hugo-and-github-pages/</loc>
+    <loc>https://intothevoid.github.io/tags/hugo/</loc>
     <lastmod>2021-04-05T14:13:49+09:30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://intothevoid.github.io/tags/hugo/</loc>
+    <loc>https://intothevoid.github.io/2021/04/the-case-of-creating-a-blog-using-hugo-and-github-pages/</loc>
     <lastmod>2021-04-05T14:13:49+09:30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>

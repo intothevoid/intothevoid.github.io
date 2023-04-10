@@ -8,11 +8,11 @@
     <language>en-us</language>
     <lastBuildDate>Wed, 07 Dec 2022 23:07:51 +1030</lastBuildDate><atom:link href="https://intothevoid.github.io/tags/rust/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Crash Course in Rust</title>
-      <link>https://intothevoid.github.io/2022/12/crash-course-in-rust/</link>
+      <title>The case of a Crash Course in Rust</title>
+      <link>https://intothevoid.github.io/2022/12/the-case-of-a-crash-course-in-rust/</link>
       <pubDate>Wed, 07 Dec 2022 23:07:51 +1030</pubDate>
       
-      <guid>https://intothevoid.github.io/2022/12/crash-course-in-rust/</guid>
+      <guid>https://intothevoid.github.io/2022/12/the-case-of-a-crash-course-in-rust/</guid>
       <description>This article is a crash course in Rust programming and its setup / usage. For a more detailed guide check out -
 Rust Book https://doc.rust-lang.org/stable/book/ Rust By Example https://doc.rust-lang.org/stable/rust-by-example/ Introduction to Rust: This lesson would cover the basics of Rust, including its history, features, and the benefits of using it.
 Setting up a development environment: This lesson would explain how to install Rust on your computer and set up a development environment, including a code editor and any necessary tools and libraries.</description>

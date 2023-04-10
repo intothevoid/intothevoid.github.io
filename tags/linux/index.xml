@@ -8,20 +8,20 @@
     <language>en-us</language>
     <lastBuildDate>Sat, 06 Aug 2022 09:29:40 +0930</lastBuildDate><atom:link href="https://intothevoid.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Transfer Files from iOS to Linux wirelessly</title>
-      <link>https://intothevoid.github.io/2022/08/transfer-files-from-ios-to-linux-wirelessly/</link>
+      <title>The case of Transferring Files from iOS to Linux wirelessly</title>
+      <link>https://intothevoid.github.io/2022/08/the-case-of-transferring-files-from-ios-to-linux-wirelessly/</link>
       <pubDate>Sat, 06 Aug 2022 09:29:40 +0930</pubDate>
       
-      <guid>https://intothevoid.github.io/2022/08/transfer-files-from-ios-to-linux-wirelessly/</guid>
+      <guid>https://intothevoid.github.io/2022/08/the-case-of-transferring-files-from-ios-to-linux-wirelessly/</guid>
       <description>Overview I was an Android user for a long period of time, right from the Jellybean and Gingerbread days. After almost a decade being with Android I finally moved to iOS, because I was sick of the fragmentation and I wish Android took privacy as seriously as iOS does. One of the most common things I need to do is transfer files across from my iOS device to my Linux laptop.</description>
     </item>
     
     <item>
-      <title>Create a blog using Hugo and Github Pages</title>
-      <link>https://intothevoid.github.io/2021/04/create-a-blog-using-hugo-and-github-pages/</link>
+      <title>The case of creating a blog using Hugo and Github Pages</title>
+      <link>https://intothevoid.github.io/2021/04/the-case-of-creating-a-blog-using-hugo-and-github-pages/</link>
       <pubDate>Mon, 05 Apr 2021 14:13:49 +0930</pubDate>
       
-      <guid>https://intothevoid.github.io/2021/04/create-a-blog-using-hugo-and-github-pages/</guid>
+      <guid>https://intothevoid.github.io/2021/04/the-case-of-creating-a-blog-using-hugo-and-github-pages/</guid>
       <description>Update: Added section on adding Github Action for Hugo build
 This is a guide on how you can create a blog or website from scratch using Hugo and Github. This is also my first post on this blog, which has been created using the steps mentioned in this article using Hugo and Github Pages.
 It is quite easy to create a blog using Wordpress or some other CMS but the simplicity of Hugo is what drove me to it.</description>
