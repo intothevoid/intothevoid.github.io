@@ -8,11 +8,11 @@
     <language>en-us</language>
     <lastBuildDate>Mon, 05 Apr 2021 14:13:49 +0930</lastBuildDate><atom:link href="https://intothevoid.github.io/tags/web/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>The case of creating a blog using Hugo and Github Pages</title>
-      <link>https://intothevoid.github.io/2021/04/the-case-of-creating-a-blog-using-hugo-and-github-pages/</link>
+      <title>Create a blog using Hugo and Github Pages</title>
+      <link>https://intothevoid.github.io/2021/04/create-a-blog-using-hugo-and-github-pages/</link>
       <pubDate>Mon, 05 Apr 2021 14:13:49 +0930</pubDate>
       
-      <guid>https://intothevoid.github.io/2021/04/the-case-of-creating-a-blog-using-hugo-and-github-pages/</guid>
+      <guid>https://intothevoid.github.io/2021/04/create-a-blog-using-hugo-and-github-pages/</guid>
       <description>Update: Added section on adding Github Action for Hugo build
 This is a guide on how you can create a blog or website from scratch using Hugo and Github. This is also my first post on this blog, which has been created using the steps mentioned in this article using Hugo and Github Pages.
 It is quite easy to create a blog using Wordpress or some other CMS but the simplicity of Hugo is what drove me to it.</description>

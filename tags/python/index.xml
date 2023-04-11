@@ -8,21 +8,21 @@
     <language>en-us</language>
     <lastBuildDate>Mon, 10 Apr 2023 16:56:00 +0930</lastBuildDate><atom:link href="https://intothevoid.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>The case of Pydantic</title>
-      <link>https://intothevoid.github.io/2023/04/the-case-of-pydantic/</link>
+      <title>Type safety in Python with Pydantic</title>
+      <link>https://intothevoid.github.io/2023/04/type-safety-in-python-with-pydantic/</link>
       <pubDate>Mon, 10 Apr 2023 16:56:00 +0930</pubDate>
       
-      <guid>https://intothevoid.github.io/2023/04/the-case-of-pydantic/</guid>
+      <guid>https://intothevoid.github.io/2023/04/type-safety-in-python-with-pydantic/</guid>
       <description>Introduction to Pydantic Pydantic is a Python library that provides data validation and settings management, using Python type annotations. It is designed to make it easy to define and validate data models, allowing you to catch errors and handle them gracefully, making your code more robust and easier to maintain.
 Pydantic is particularly useful for handling data that is passed between different parts of a system, such as between a front-end web form and a back-end API, or between different microservices.</description>
     </item>
     
     <item>
-      <title>The case of Spotify Playlist Backups using Python</title>
-      <link>https://intothevoid.github.io/2022/12/the-case-of-spotify-playlist-backups-using-python/</link>
+      <title>Spotify Playlist Backups using Python</title>
+      <link>https://intothevoid.github.io/2022/12/spotify-playlist-backups-using-python/</link>
       <pubDate>Sun, 11 Dec 2022 11:43:47 +1030</pubDate>
       
-      <guid>https://intothevoid.github.io/2022/12/the-case-of-spotify-playlist-backups-using-python/</guid>
+      <guid>https://intothevoid.github.io/2022/12/spotify-playlist-backups-using-python/</guid>
       <description>To create a web application that backs up your Spotify playlists as a JSON file, you will need to do the following:
 First, you will need to install the spotipy library, which provides a Python interface for the Spotify Web API. You can do this by running the following command: pip install spotipy Next, you will need to create a Spotify app and obtain a client ID and client secret for the app.</description>
     </item>
