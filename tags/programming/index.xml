@@ -13,7 +13,7 @@
       <pubDate>Wed, 19 Apr 2023 22:31:18 +0930</pubDate>
       
       <guid>https://intothevoid.github.io/2023/04/an-introduction-to-the-openai-api-using-python/</guid>
-      <description>Introduction Ever wanted to play chess against an AI? With the OpenAI API, you can! In this blog post, we&amp;rsquo;ll show you how to use Python to interface with the OpenAI API, send and receive requests, and even play a game of chess against an AI opponent. We&amp;rsquo;ll be using the FEN representation of the chess board to communicate game states with the API.
+      <description>Introduction Ever wanted to play chess against an AI? With the OpenAI API, you can! This blog post will show you how to use Python to interface with the OpenAI API, send and receive requests, and even play a game of chess against an AI opponent. We&amp;rsquo;ll be using the FEN representation of the chess board to communicate game states with the API.
 Setting Up Before we start, make sure you have the following:</description>
     </item>
     

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>api on Into The Void</title>
+    <link>https://intothevoid.github.io/tags/api/</link>
+    <description>Recent content in api on Into The Void</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 19 Apr 2023 22:31:18 +0930</lastBuildDate><atom:link href="https://intothevoid.github.io/tags/api/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>An introduction to the OpenAI API using Python</title>
+      <link>https://intothevoid.github.io/2023/04/an-introduction-to-the-openai-api-using-python/</link>
+      <pubDate>Wed, 19 Apr 2023 22:31:18 +0930</pubDate>
+      
+      <guid>https://intothevoid.github.io/2023/04/an-introduction-to-the-openai-api-using-python/</guid>
+      <description>Introduction Ever wanted to play chess against an AI? With the OpenAI API, you can! This blog post will show you how to use Python to interface with the OpenAI API, send and receive requests, and even play a game of chess against an AI opponent. We&amp;rsquo;ll be using the FEN representation of the chess board to communicate game states with the API.
+Setting Up Before we start, make sure you have the following:</description>
+    </item>
+    
+  </channel>
+</rss>
