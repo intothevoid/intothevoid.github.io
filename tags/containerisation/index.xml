@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>containerisation on Into The Void</title>
+    <title>Containerisation on Into The Void</title>
     <link>https://intothevoid.github.io/tags/containerisation/</link>
-    <description>Recent content in containerisation on Into The Void</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Containerisation on Into The Void</description>
+    <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 02 Jan 2023 21:33:44 +1030</lastBuildDate><atom:link href="https://intothevoid.github.io/tags/containerisation/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 02 Jan 2023 21:33:44 +1030</lastBuildDate>
+    <atom:link href="https://intothevoid.github.io/tags/containerisation/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Guide to Docker</title>
       <link>https://intothevoid.github.io/2023/01/guide-to-docker/</link>
       <pubDate>Mon, 02 Jan 2023 21:33:44 +1030</pubDate>
-      
       <guid>https://intothevoid.github.io/2023/01/guide-to-docker/</guid>
-      <description>I. Introduction to Docker What is Docker? How does Docker work? Why is Docker useful? What is Docker? Docker is an open-source containerisation platform that allows you to package an application with all of its dependencies into a single container. This container can then be easily deployed and run on any platform that supports Docker, making it a great tool for building, shipping, and running applications.
-How does Docker work? Docker works by using the host operating system&amp;rsquo;s kernel and automating the creation, deployment, and management of containers.</description>
+      <description>I. Introduction to Docker What is Docker? How does Docker work? Why is Docker useful? What is Docker? Docker is an open-source containerisation platform that allows you to package an application with all of its dependencies into a single container. This container can then be easily deployed and run on any platform that supports Docker, making it a great tool for building, shipping, and running applications.&#xA;How does Docker work? Docker works by using the host operating system&amp;rsquo;s kernel and automating the creation, deployment, and management of containers.</description>
     </item>
-    
   </channel>
 </rss>

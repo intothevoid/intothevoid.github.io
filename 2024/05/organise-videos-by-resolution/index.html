@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html><head lang="en">
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Organise Videos By Resolution - Into The Void</title><link rel="icon" type="image/png" href=ZgotmplZ /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Sort video files using a quick and dirty script in Python" />
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content="https://intothevoid.github.io/2024/05/organise-videos-by-resolution/">
+  <meta property="og:site_name" content="Into The Void">
+  <meta property="og:title" content="Organise Videos By Resolution">
+  <meta property="og:description" content="Sort video files using a quick and dirty script in Python">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-05-18T21:40:39+09:30">
+    <meta property="article:modified_time" content="2024-05-18T21:40:39+09:30">
+    <meta property="article:tag" content="Programming">
+    <meta property="article:tag" content="Code">
+    <meta property="article:tag" content="Python">
+    <meta property="article:tag" content="Scripts">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Organise Videos By Resolution">
+  <meta name="twitter:description" content="Sort video files using a quick and dirty script in Python">
+<script src="https://intothevoid.github.io/js/feather.min.js"></script>
+	
+	
+        <link href="https://intothevoid.github.io/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://intothevoid.github.io/css/main.ac08a4c9714baa859217f92f051deb58df2938ec352b506df655005dcaf98cc0.css" />
+
+	
+	
+
+	
+	
+	
+	
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="https://intothevoid.github.io/">Into The Void</a>
+	</div>
+	<nav>
+		
+		<a href="/">Home</a>
+		
+		<a href="/about">About</a>
+		
+		<a href="/tags">Tags</a>
+		
+		<a href="/contact/">Contact</a>
+		
+		<a href="/posts/">Posts</a>
+		
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">Organise Videos By Resolution</h1>
+			<div class="meta">Posted on May 18, 2024</div>
+		</div>
+		
+
+		<section class="body">
+			<p>Recently I was clearing out some old movie rips that I had created from VideoCDs and DVDs many years ago. I wanted a quick and dirty way to organise these i.e. get rid of the videos of resolutions lower than 720p (1280x720)</p>
+<p>With LLMs all the rage at the moment, all it took is a few prompts and corrections and in 15 minutes I had this script ready to go -</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> shutil
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> moviepy.editor <span style="color:#f92672">import</span> VideoFileClip
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">analyze_and_move_folders</span>(parent_folder):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Create the &#39;inferior&#39; folder if it doesn&#39;t exist</span>
+</span></span><span style="display:flex;"><span>    inferior_folder <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(parent_folder, <span style="color:#e6db74">&#39;inferior&#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>exists(inferior_folder):
+</span></span><span style="display:flex;"><span>        os<span style="color:#f92672">.</span>makedirs(inferior_folder)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Walk through all subdirectories</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> root, dirs, files <span style="color:#f92672">in</span> os<span style="color:#f92672">.</span>walk(parent_folder):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Check if the current directory contains any video files</span>
+</span></span><span style="display:flex;"><span>        video_files_found <span style="color:#f92672">=</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> file <span style="color:#f92672">in</span> files:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> file<span style="color:#f92672">.</span>endswith((<span style="color:#e6db74">&#39;.mkv&#39;</span>, <span style="color:#e6db74">&#39;.avi&#39;</span>, <span style="color:#e6db74">&#39;.mp4&#39;</span>)):
+</span></span><span style="display:flex;"><span>                video_files_found <span style="color:#f92672">=</span> <span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> video_files_found:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Load the first video file to check its resolution</span>
+</span></span><span style="display:flex;"><span>            first_video_file <span style="color:#f92672">=</span> next((f <span style="color:#66d9ef">for</span> f <span style="color:#f92672">in</span> files <span style="color:#66d9ef">if</span> f<span style="color:#f92672">.</span>endswith((<span style="color:#e6db74">&#39;.mkv&#39;</span>, <span style="color:#e6db74">&#39;.avi&#39;</span>, <span style="color:#e6db74">&#39;.mp4&#39;</span>))), <span style="color:#66d9ef">None</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> first_video_file:
+</span></span><span style="display:flex;"><span>                file_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(root, first_video_file)
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>                    clip <span style="color:#f92672">=</span> VideoFileClip(file_path)
+</span></span><span style="display:flex;"><span>                    
+</span></span><span style="display:flex;"><span>                    <span style="color:#75715e"># Check if the video resolution is less than 720p</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span> clip<span style="color:#f92672">.</span>size[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1280</span> <span style="color:#f92672">or</span> clip<span style="color:#f92672">.</span>size[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">720</span>:
+</span></span><span style="display:flex;"><span>                        <span style="color:#75715e"># Use shutil.move() instead of os.rename()</span>
+</span></span><span style="display:flex;"><span>                        shutil<span style="color:#f92672">.</span>move(root, os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(inferior_folder, os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>basename(root)))
+</span></span><span style="display:flex;"><span>                        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Moved folder </span><span style="color:#e6db74">{</span>root<span style="color:#e6db74">}</span><span style="color:#e6db74"> to inferior due to low resolution.&#39;</span>)
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">UnicodeDecodeError</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>                    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Skipping </span><span style="color:#e6db74">{</span>file_path<span style="color:#e6db74">}</span><span style="color:#e6db74"> due to decoding error: </span><span style="color:#e6db74">{</span>e<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">continue</span>  <span style="color:#75715e"># Skip this file and continue with the next one</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Specify the path to the parent folder</span>
+</span></span><span style="display:flex;"><span>parent_folder <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;/path/to/your/folder&#39;</span>
+</span></span><span style="display:flex;"><span>analyze_and_move_folders(parent_folder)
+</span></span></code></pre></div><p>The script uses the moviepy library to analyse movie files. The script works in the following manner -</p>
+<ol>
+<li>Scan all sub-folders within the root folder for movie files i.e. mkv, avi, and mp4 files</li>
+<li>Once a movie file is encountered, analyse this file using moviepy</li>
+<li>Find  out the resolution of the movie</li>
+<li>If the resolution of the movie is &lt; 1280p horizontally or &lt; 720p vertically, move the file to a folder called &lsquo;inferior&rsquo;</li>
+<li>Repeat above steps until all sub-folders within the parent folder have been scanned</li>
+</ol>
+<p>That&rsquo;s it. The script saved me time and effort from having to load each movie in a video player before deleting it.</p>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			<nav class="nav tags">
+				<ul class="tags">
+					
+					<li><a href="/tags/programming">programming</a></li>
+					
+					<li><a href="/tags/code">code</a></li>
+					
+					<li><a href="/tags/python">python</a></li>
+					
+					<li><a href="/tags/scripts">scripts</a></li>
+					
+				</ul>
+			</nav>
+			
+			
+		</div>
+		</article>
+</main>
+<footer>
+  <div style="display:flex"><a class="soc" href="https://github.com/intothevoid" rel="me" title="GitHub"><i data-feather="github"></i></a>
+    <a class="border"></a><a class="soc" href="https://twitter.com/karankadam" rel="me" title="Twitter"><i data-feather="twitter"></i></a>
+    <a class="border"></a></div>
+  <div class="footer-info">
+    2024  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+  
+
+
+<script>
+  feather.replace()
+</script></div>
+    </body>
+</html>

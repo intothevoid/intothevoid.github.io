@@ -1,41 +1,40 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>python on Into The Void</title>
+    <title>Python on Into The Void</title>
     <link>https://intothevoid.github.io/tags/python/</link>
-    <description>Recent content in python on Into The Void</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Python on Into The Void</description>
+    <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 19 Apr 2023 22:31:18 +0930</lastBuildDate><atom:link href="https://intothevoid.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 18 May 2024 21:40:39 +0930</lastBuildDate>
+    <atom:link href="https://intothevoid.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Organise Videos By Resolution</title>
+      <link>https://intothevoid.github.io/2024/05/organise-videos-by-resolution/</link>
+      <pubDate>Sat, 18 May 2024 21:40:39 +0930</pubDate>
+      <guid>https://intothevoid.github.io/2024/05/organise-videos-by-resolution/</guid>
+      <description>Recently I was clearing out some old movie rips that I had created from VideoCDs and DVDs many years ago. I wanted a quick and dirty way to organise these i.e. get rid of the videos of resolutions lower than 720p (1280x720)&#xA;With LLMs all the rage at the moment, all it took is a few prompts and corrections and in 15 minutes I had this script ready to go -</description>
+    </item>
     <item>
       <title>An introduction to the OpenAI API using Python</title>
       <link>https://intothevoid.github.io/2023/04/an-introduction-to-the-openai-api-using-python/</link>
       <pubDate>Wed, 19 Apr 2023 22:31:18 +0930</pubDate>
-      
       <guid>https://intothevoid.github.io/2023/04/an-introduction-to-the-openai-api-using-python/</guid>
-      <description>Introduction Ever wanted to play chess against an AI? With the OpenAI API, you can! This blog post will show you how to use Python to interface with the OpenAI API, send and receive requests, and even play a game of chess against an AI opponent. We&amp;rsquo;ll be using the FEN representation of the chess board to communicate game states with the API.
-Setting Up Before we start, make sure you have the following:</description>
+      <description>Introduction Ever wanted to play chess against an AI? With the OpenAI API, you can! This blog post will show you how to use Python to interface with the OpenAI API, send and receive requests, and even play a game of chess against an AI opponent. We&amp;rsquo;ll be using the FEN representation of the chess board to communicate game states with the API.&#xA;Setting Up Before we start, make sure you have the following:</description>
     </item>
-    
     <item>
       <title>Type safety in Python with Pydantic</title>
       <link>https://intothevoid.github.io/2023/04/type-safety-in-python-with-pydantic/</link>
       <pubDate>Mon, 10 Apr 2023 16:56:00 +0930</pubDate>
-      
       <guid>https://intothevoid.github.io/2023/04/type-safety-in-python-with-pydantic/</guid>
-      <description>Introduction to Pydantic Pydantic is a Python library that provides data validation and settings management, using Python type annotations. It is designed to make it easy to define and validate data models, allowing you to catch errors and handle them gracefully, making your code more robust and easier to maintain.
-Pydantic is particularly useful for handling data that is passed between different parts of a system, such as between a front-end web form and a back-end API, or between different microservices.</description>
+      <description>Introduction to Pydantic Pydantic is a Python library that provides data validation and settings management, using Python type annotations. It is designed to make it easy to define and validate data models, allowing you to catch errors and handle them gracefully, making your code more robust and easier to maintain.&#xA;Pydantic is particularly useful for handling data that is passed between different parts of a system, such as between a front-end web form and a back-end API, or between different microservices.</description>
     </item>
-    
     <item>
       <title>Spotify Playlist Backups using Python</title>
       <link>https://intothevoid.github.io/2022/12/spotify-playlist-backups-using-python/</link>
       <pubDate>Sun, 11 Dec 2022 11:43:47 +1030</pubDate>
-      
       <guid>https://intothevoid.github.io/2022/12/spotify-playlist-backups-using-python/</guid>
-      <description>To create a web application that backs up your Spotify playlists as a JSON file, you will need to do the following:
-First, you will need to install the spotipy library, which provides a Python interface for the Spotify Web API. You can do this by running the following command: pip install spotipy Next, you will need to create a Spotify app and obtain a client ID and client secret for the app.</description>
+      <description>To create a web application that backs up your Spotify playlists as a JSON file, you will need to do the following:&#xA;First, you will need to install the spotipy library, which provides a Python interface for the Spotify Web API. You can do this by running the following command: pip install spotipy Next, you will need to create a Spotify app and obtain a client ID and client secret for the app.</description>
     </item>
-    
   </channel>
 </rss>

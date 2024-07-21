@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>javascript on Into The Void</title>
+    <title>Javascript on Into The Void</title>
     <link>https://intothevoid.github.io/tags/javascript/</link>
-    <description>Recent content in javascript on Into The Void</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Javascript on Into The Void</description>
+    <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 11 Dec 2022 11:43:47 +1030</lastBuildDate><atom:link href="https://intothevoid.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 11 Dec 2022 11:43:47 +1030</lastBuildDate>
+    <atom:link href="https://intothevoid.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Spotify Playlist Backups using Python</title>
       <link>https://intothevoid.github.io/2022/12/spotify-playlist-backups-using-python/</link>
       <pubDate>Sun, 11 Dec 2022 11:43:47 +1030</pubDate>
-      
       <guid>https://intothevoid.github.io/2022/12/spotify-playlist-backups-using-python/</guid>
-      <description>To create a web application that backs up your Spotify playlists as a JSON file, you will need to do the following:
-First, you will need to install the spotipy library, which provides a Python interface for the Spotify Web API. You can do this by running the following command: pip install spotipy Next, you will need to create a Spotify app and obtain a client ID and client secret for the app.</description>
+      <description>To create a web application that backs up your Spotify playlists as a JSON file, you will need to do the following:&#xA;First, you will need to install the spotipy library, which provides a Python interface for the Spotify Web API. You can do this by running the following command: pip install spotipy Next, you will need to create a Spotify app and obtain a client ID and client secret for the app.</description>
     </item>
-    
   </channel>
 </rss>
