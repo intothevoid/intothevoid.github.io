@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Ios on Into The Void</title>
-    <link>https://intothevoid.github.io/tags/ios/</link>
-    <description>Recent content in Ios on Into The Void</description>
+    <title>Ios on Karan Kadam</title>
+    <link>/tags/ios/</link>
+    <description>Recent content in Ios on Karan Kadam</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 06 Aug 2022 09:29:40 +0930</lastBuildDate>
-    <atom:link href="https://intothevoid.github.io/tags/ios/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="/tags/ios/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Transferring Files from iOS to Linux wirelessly</title>
-      <link>https://intothevoid.github.io/2022/08/transferring-files-from-ios-to-linux-wirelessly/</link>
+      <link>/posts/transferring-files-from-ios-to-linux-wirelessly/</link>
       <pubDate>Sat, 06 Aug 2022 09:29:40 +0930</pubDate>
-      <guid>https://intothevoid.github.io/2022/08/transferring-files-from-ios-to-linux-wirelessly/</guid>
+      <guid>/posts/transferring-files-from-ios-to-linux-wirelessly/</guid>
       <description>Overview I was an Android user for a long period of time, right from the Jellybean and Gingerbread days. After almost a decade being with Android I finally moved to iOS, because I was sick of the fragmentation and I wish Android took privacy as seriously as iOS does. One of the most common things I need to do is transfer files across from my iOS device to my Linux laptop.</description>
     </item>
   </channel>

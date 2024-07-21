@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Vim on Into The Void</title>
-    <link>https://intothevoid.github.io/tags/vim/</link>
-    <description>Recent content in Vim on Into The Void</description>
+    <title>Vim on Karan Kadam</title>
+    <link>/tags/vim/</link>
+    <description>Recent content in Vim on Karan Kadam</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 31 Jul 2022 11:53:48 +0930</lastBuildDate>
-    <atom:link href="https://intothevoid.github.io/tags/vim/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="/tags/vim/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Setup Vim (Astro Vim) on a Macbook</title>
-      <link>https://intothevoid.github.io/2022/07/setup-vim-astro-vim-on-a-macbook/</link>
+      <link>/posts/setup-vim-astro-vim-on-a-macbook/</link>
       <pubDate>Sun, 31 Jul 2022 11:53:48 +0930</pubDate>
-      <guid>https://intothevoid.github.io/2022/07/setup-vim-astro-vim-on-a-macbook/</guid>
+      <guid>/posts/setup-vim-astro-vim-on-a-macbook/</guid>
       <description>Overview Use the following steps to have a decent vim installation relatively quickly on a Macbook with a M1 / M2 chipset&#xA;Brew installation Brew is a package manager for MacOS which makes it very easy to install packages. I highly recommend this package manager on MacOS. Its worth the effort to get it installed you will thank yourself later on.&#xA;From www.brew.sh -&#xA;/bin/bash -c &amp;#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&amp;#34; Sample command using brew -</description>
     </item>
   </channel>

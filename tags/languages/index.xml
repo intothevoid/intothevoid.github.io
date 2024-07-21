@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Languages on Into The Void</title>
-    <link>https://intothevoid.github.io/tags/languages/</link>
-    <description>Recent content in Languages on Into The Void</description>
+    <title>Languages on Karan Kadam</title>
+    <link>/tags/languages/</link>
+    <description>Recent content in Languages on Karan Kadam</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 10 Apr 2023 16:56:00 +0930</lastBuildDate>
-    <atom:link href="https://intothevoid.github.io/tags/languages/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="/tags/languages/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Type safety in Python with Pydantic</title>
-      <link>https://intothevoid.github.io/2023/04/type-safety-in-python-with-pydantic/</link>
+      <link>/posts/type-safety-in-python-with-pydantic/</link>
       <pubDate>Mon, 10 Apr 2023 16:56:00 +0930</pubDate>
-      <guid>https://intothevoid.github.io/2023/04/type-safety-in-python-with-pydantic/</guid>
+      <guid>/posts/type-safety-in-python-with-pydantic/</guid>
       <description>Introduction to Pydantic Pydantic is a Python library that provides data validation and settings management, using Python type annotations. It is designed to make it easy to define and validate data models, allowing you to catch errors and handle them gracefully, making your code more robust and easier to maintain.&#xA;Pydantic is particularly useful for handling data that is passed between different parts of a system, such as between a front-end web form and a back-end API, or between different microservices.</description>
     </item>
   </channel>

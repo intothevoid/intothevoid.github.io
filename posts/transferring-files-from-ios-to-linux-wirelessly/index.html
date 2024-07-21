@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html><head lang="en">
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Transferring Files from iOS to Linux wirelessly - Karan Kadam</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Transfer files wirelessly between iOS devices and a Linux computer using ssh." />
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content="/posts/transferring-files-from-ios-to-linux-wirelessly/">
+  <meta property="og:site_name" content="Karan Kadam">
+  <meta property="og:title" content="Transferring Files from iOS to Linux wirelessly">
+  <meta property="og:description" content="Transfer files wirelessly between iOS devices and a Linux computer using ssh.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2022-08-06T09:29:40+09:30">
+    <meta property="article:modified_time" content="2022-08-06T09:29:40+09:30">
+    <meta property="article:tag" content="Ios">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="Ssh">
+    <meta property="article:tag" content="Fedora">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Transferring Files from iOS to Linux wirelessly">
+  <meta name="twitter:description" content="Transfer files wirelessly between iOS devices and a Linux computer using ssh.">
+
+	
+        <link href="/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.ac08a4c9714baa859217f92f051deb58df2938ec352b506df655005dcaf98cc0.css" />
+
+	
+	
+
+	
+	
+	
+	
+		
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="/">Karan Kadam</a>
+	</div>
+	<nav>
+		
+		<a href="/contact/">Contact</a>
+		
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">Transferring Files from iOS to Linux wirelessly</h1>
+			<div class="meta">Posted on Aug 6, 2022</div>
+		</div>
+		
+
+		<section class="body">
+			<h2 id="overview">Overview</h2>
+<p>I was an Android user for a long period of time, right from the Jellybean and
+Gingerbread days. After almost a decade being with Android I finally moved to
+iOS, because I was sick of the fragmentation and I wish Android took privacy
+as seriously as iOS does. One of the most common things I need to do is transfer
+files across from my iOS device to my Linux laptop. One way of doing this is to
+connect my laptop and iPhone with a lightning cable, however it is super
+inconvenient and you don&rsquo;t always have a cable lying around. You can email
+the file to yourself but thats a really roundabout way to do it.</p>
+<p>With an Android device, things are easier as Google allows apps on the playstore
+that have built inservers. iOS does not allow such apps. However, what iOS does
+support is being able to connect to other servers like an ssh server.</p>
+<p>If you have a Macbook and an iOS device, a wireless transfer is very easy -
+Airdrop. However, with Linux, you&rsquo;re out of luck. The only reliable way to
+transfer files to a Linux laptop is via sftp or ftp over ssh.</p>
+<h2 id="install-ssh-server-on-linux">Install ssh server on Linux</h2>
+<p>In this part of the post, I&rsquo;ll show you how to ==install== an SSH server on Fedora Linux.</p>
+<p>First, we&rsquo;ll need to install the openssh-server package:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo dnf install openssh-server
+</span></span></code></pre></div><p>Once the package is installed, we&rsquo;ll need to start the SSH service:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo systemctl <span style="color:#a2f">enable</span> sshd <span style="color:#080;font-style:italic"># ensure sshd starts up after reboot</span>
+</span></span><span style="display:flex;"><span>sudo systemctl start sshd <span style="color:#080;font-style:italic"># starts the ssh daemon</span>
+</span></span><span style="display:flex;"><span>sudo systemctl status sshd <span style="color:#080;font-style:italic"># check status of service</span>
+</span></span></code></pre></div><p>After you have installed the ssh server on your laptop move on to the next part
+of this post. You will need your iOS device - iPhone or iPad for this.</p>
+<h2 id="install-fe-file-explorer-on-your-ios-device">Install FE File Explorer on your iOS device</h2>
+<p>FE File Explorer is an app which lets you connect to servers from your iOS device.
+It can connect to a variety of sources including NAS, FTP, SAMBA etc.</p>
+<p>It is a free application that also has a paid version but even the free version
+has a lot of built in functionality and it will suit the needs of most users.</p>
+<p>Once you launch the app, hit the + button on the top right hand corner and the
+following screen will be shown -</p>
+<figure><img src="/images/fexplorer/fexplorer_add.jpg"><figcaption>
+      <h4>FE File Explorer New Window</h4>
+    </figcaption>
+</figure>
+
+<p>Select &lsquo;SFTP&rsquo;. If &lsquo;SFTP&rsquo; is not available you should be able to select &lsquo;FTP&rsquo; although
+I have not tested it with this option.</p>
+<p>Enter details in the next screen. The &lsquo;Hostname&rsquo; (IP Address), &lsquo;Username&rsquo; and &lsquo;Password&rsquo;
+are the most important fields. You can check the IP address of the target computer
+using the following command -</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ip a
+</span></span></code></pre></div><p>The username and password are the account details you use on your Linux computer.</p>
+<p>If you followed the instructions correctly, you should now see an entry for your
+connection at the main screen of the app. Once you tap it, you should be able
+to view all the files and folders of your Linux computer.</p>
+<figure><img src="/images/fexplorer/fexplorer_main.png"><figcaption>
+      <h4>FE File Explorer Connection Added</h4>
+    </figcaption>
+</figure>
+
+<p>Transferring files is easy, you can simply hit the 3 dots for a File context menu
+as shown below -</p>
+<figure><img src="/images/fexplorer/fexplorer_filepopup.png"><figcaption>
+      <h4>FE File Explorer Popup Menu</h4>
+    </figcaption>
+</figure>
+
+<p>This seems like a lot of steps but once you have set things up its like using
+any other app on your phone.</p>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			<nav class="nav tags">
+				<ul class="tags">
+					
+					<li><a href="/tags/ios">ios</a></li>
+					
+					<li><a href="/tags/linux">linux</a></li>
+					
+					<li><a href="/tags/ssh">ssh</a></li>
+					
+					<li><a href="/tags/fedora">fedora</a></li>
+					
+				</ul>
+			</nav>
+			
+			
+		</div>
+		<div id="disqus_thread"></div>
+<script type="text/javascript">
+    (function () {
+        
+        
+        if (window.location.hostname == "localhost")
+            return;
+
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        var disqus_shortname = 'karanakadam';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+        Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></article>
+</main>
+<footer>
+  <div style="display:flex"></div>
+  <div class="footer-info">
+    2024  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+  
+
+
+</div>
+    </body>
+</html>

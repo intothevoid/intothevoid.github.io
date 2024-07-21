@@ -1,123 +1,117 @@
 <!DOCTYPE html>
-<html><head lang="en">
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Create a blog using Hugo and Github Pages - Into The Void</title><link rel="icon" type="image/png" href=ZgotmplZ /><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Learn how to setup and host your own website using a static html generator - Hugo." />
-	<meta property="og:image" content=""/>
-	<meta property="og:url" content="https://intothevoid.github.io/2021/04/create-a-blog-using-hugo-and-github-pages/">
-  <meta property="og:site_name" content="Into The Void">
-  <meta property="og:title" content="Create a blog using Hugo and Github Pages">
-  <meta property="og:description" content="Learn how to setup and host your own website using a static html generator - Hugo.">
-  <meta property="og:locale" content="en_us">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2021-04-05T14:13:49+09:30">
-    <meta property="article:modified_time" content="2021-04-05T14:13:49+09:30">
-    <meta property="article:tag" content="Hugo">
-    <meta property="article:tag" content="Web">
-    <meta property="article:tag" content="Linux">
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <title>Create a blog using Hugo and Github Pages | Into The Void</title>
 
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Create a blog using Hugo and Github Pages">
-  <meta name="twitter:description" content="Learn how to setup and host your own website using a static html generator - Hugo.">
-<script src="https://intothevoid.github.io/js/feather.min.js"></script>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="Learn how to setup and host your own website using a static html generator - Hugo.">
+<meta name="generator" content="Hugo 0.129.0">
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
 	
+		<a href="/"> <span class="arrow">←</span>Home</a>
 	
-        <link href="https://intothevoid.github.io/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
+	<a href="/posts">Archive</a>
+	<a href="/tags">Tags</a>
+	<a href="/about">About</a>
+
 	
 
 	
-	<link rel="stylesheet" type="text/css" media="screen" href="https://intothevoid.github.io/css/main.ac08a4c9714baa859217f92f051deb58df2938ec352b506df655005dcaf98cc0.css" />
+</nav>
 
-	
-	
 
-	
-	
-	
-	
-</head>
-<body>
-        <div class="content"><header>
-	<div class="main">
-		<a href="https://intothevoid.github.io/">Into The Void</a>
-	</div>
-	<nav>
-		
-		<a href="/">Home</a>
-		
-		<a href="/about">About</a>
-		
-		<a href="/tags">Tags</a>
-		
-		<a href="/contact/">Contact</a>
-		
-		<a href="/posts/">Posts</a>
-		
-		
-	</nav>
-</header>
+    <main class="main">
+      
 
-<main>
-	<article>
-		<div class="title">
-			<h1 class="title">Create a blog using Hugo and Github Pages</h1>
-			<div class="meta">Posted on Apr 5, 2021</div>
-		</div>
-		
+<section id="single">
+    <h1 class="title">Create a blog using Hugo and Github Pages</h1>
 
-		<section class="body">
-			<p>Update: Added section on adding Github Action for Hugo build</p>
+    <div class="tip">
+        <time datetime="2021-04-05 14:13:49 &#43;0930 ACST">Apr 5, 2021</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          1069 words
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          6 minute read
+        </span>
+    </div>
+
+    
+    
+
+
+    <div class="content">
+      <p>Update: Added section on adding Github Action for Hugo build</p>
 <p>This is a guide on how you can create a blog or website from scratch using Hugo and Github. This is also my first post on this blog, which has been created using the steps mentioned in this article using Hugo and Github Pages.</p>
 <p>It is quite easy to create a blog using Wordpress or some other CMS but the simplicity of Hugo is what drove me to it. Hugo is a static html generator. This means, you write posts using Markdown and templates using any text editor. Hugo then processes these files and generates a bunch of html and css.</p>
 <p>This has the benefit of making it extremely easy to deploy to just about any cloud service or provider. This is where Github Pages comes in. Github Pages is free and if you have a Github account, you are already well on your way.</p>
 <p>I used a Macbook Air M1 for creating this blog and the steps outlined in this article should be more or less the same whether you use Windows / MacOS or Linux. Lets get our elbows greasy.</p>
-<h3 id="create-repos">Create Repos</h3>
-<p>We will begin by creating 2 repositories in our Github account -</p>
+<h3 id="create-repos">Create Repos <a href="#create-repos" class="anchor">🔗</a></h3><p>We will begin by creating 2 repositories in our Github account -</p>
 <ol>
 <li>Base repo &lsquo;blog&rsquo; for hosting our posts / source code / files created by Hugo</li>
 <li>Blog hosting repo &lsquo;username.github.io&rsquo; for hosting the actual blog, which consists of generated html and css</li>
 </ol>
-<p>Create the base repo on Github by clicking the &lsquo;+&rsquo; button on your <a href="https://www.github.com">Github page</a>. I&rsquo;ve decided to call my base repo &lsquo;blog&rsquo;. Clone this repository to your machine (even if it doesn&rsquo;t contain any files at the moment)</p>
+<p>Create the base repo on Github by clicking the &lsquo;+&rsquo; button on your <a href="https://www.github.com" target="_blank" rel="noopener">Github page</a>. I&rsquo;ve decided to call my base repo &lsquo;blog&rsquo;. Clone this repository to your machine (even if it doesn&rsquo;t contain any files at the moment)</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git clone git@github.com:username/blog.git
 </span></span><span style="display:flex;"><span>cd blog/
 </span></span></code></pre></div><p>From the Github website, click the &lsquo;+&rsquo; button again to create a new repository called &lsquo;username.github.io&rsquo;. Replace username with your Github user name.</p>
 <p>Add this second repo (which we will use for hosting our blog) as a submodule of our base repo -</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git submodule add git@github.com:username/username.github.io.git public
 </span></span></code></pre></div><p>The above command will add the hosting repo as a submodule into the &lsquo;public&rsquo; folder.</p>
-<h3 id="install-hugo">Install Hugo</h3>
-<p>Download the Hugo binaries from the <a href="https://github.com/gohugoio/hugo/releases">Hugo Releases</a> page. As I am using MacOS, I used the command -</p>
+<h3 id="install-hugo">Install Hugo <a href="#install-hugo" class="anchor">🔗</a></h3><p>Download the Hugo binaries from the <a href="https://github.com/gohugoio/hugo/releases" target="_blank" rel="noopener">Hugo Releases</a> page. As I am using MacOS, I used the command -</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>brew install hugo
-</span></span></code></pre></div><p>For detailed installation instructions, visit <a href="https://gohugo.io/getting-started/installing/">https://gohugo.io/getting-started/installing/</a>
+</span></span></code></pre></div><p>For detailed installation instructions, visit <a href="https://gohugo.io/getting-started/installing/" target="_blank" rel="noopener">https://gohugo.io/getting-started/installing/</a>
 Verify Hugo installed correctly by</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hugo version
-</span></span></code></pre></div><h3 id="create-a-new-site">Create a new site</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hugo create new site myblogname
+</span></span></code></pre></div><h3 id="create-a-new-site">Create a new site <a href="#create-a-new-site" class="anchor">🔗</a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hugo create new site myblogname
 </span></span></code></pre></div><p>The above command will create a basic website with enough boilerplate to let us get started.</p>
-<h3 id="add-a-theme">Add a theme</h3>
-<p>Visit <a href="https://themes.gohugo.io/">https://themes.gohugo.io/</a> for a collection of available Hugo themes. Once you have decided which theme you wish to use for your website / blog,</p>
+<h3 id="add-a-theme">Add a theme <a href="#add-a-theme" class="anchor">🔗</a></h3><p>Visit <a href="https://themes.gohugo.io/" target="_blank" rel="noopener">https://themes.gohugo.io/</a> for a collection of available Hugo themes. Once you have decided which theme you wish to use for your website / blog,</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd myblogname
 </span></span><span style="display:flex;"><span>git submodule add https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke
 </span></span></code></pre></div><p>Your folder structure should now look like
 <strong>~/blog/myblogname/config.toml</strong> | Configuration File
 <strong>~/blog/myblogname/themes/ananke/</strong> | Theme folder
 <strong>~/blog/myblogname/public</strong> | Second hosting repo</p>
-<h3 id="update-configtoml">Update config.toml</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span><span style="color:#a6e22e">theme</span> = <span style="color:#e6db74">&#34;ananke&#34;</span>
+<h3 id="update-configtoml">Update config.toml <a href="#update-configtoml" class="anchor">🔗</a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span><span style="color:#a6e22e">theme</span> = <span style="color:#e6db74">&#34;ananke&#34;</span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">title</span> = <span style="color:#e6db74">&#34;Karan Kadam&#34;</span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">baseURL</span> = <span style="color:#e6db74">&#34;https://username.github.io&#34;</span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">theme</span> = <span style="color:#e6db74">&#34;ananke&#34;</span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">themesDir</span> = <span style="color:#e6db74">&#34;./themes&#34;</span>
-</span></span></code></pre></div><h3 id="create-your-first-post">Create your first post</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hugo create new posts/my-first-post.md
-</span></span></code></pre></div><h3 id="build-your-blog">Build your blog</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hugo -t <span style="color:#e6db74">&#34;ananke&#34;</span>
+</span></span></code></pre></div><h3 id="create-your-first-post">Create your first post <a href="#create-your-first-post" class="anchor">🔗</a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hugo create new posts/my-first-post.md
+</span></span></code></pre></div><h3 id="build-your-blog">Build your blog <a href="#build-your-blog" class="anchor">🔗</a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hugo -t <span style="color:#e6db74">&#34;ananke&#34;</span>
 </span></span></code></pre></div><p>This will generate all the html and styling required for your blog and publish them under the &ldquo;public&rdquo; folder. The -t flag tells hugo to use your selected theme.</p>
-<h3 id="local-test">Local test</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hugo server --bind 0.0.0.0
+<h3 id="local-test">Local test <a href="#local-test" class="anchor">🔗</a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hugo server --bind 0.0.0.0
 </span></span></code></pre></div><p>This will launch the built in webserver and your blog will be available locally. Goto a webbrowser and access http://localhost:1313 and you should see your blog, styled according to the theme you chose and containing your first sample post.</p>
-<h3 id="deploy-your-website-to-github-pages">Deploy your website to Github Pages</h3>
-<p>To be able to share your website with the rest of the world, you will need to host it somewhere. We chose the repository at &lsquo;<a href="https://username.github.io">https://username.github.io</a>&rsquo;. Check in all your changes and push them to the username.github.io -</p>
+<h3 id="deploy-your-website-to-github-pages">Deploy your website to Github Pages <a href="#deploy-your-website-to-github-pages" class="anchor">🔗</a></h3><p>To be able to share your website with the rest of the world, you will need to host it somewhere. We chose the repository at &lsquo;<a href="https://username.github.io" target="_blank" rel="noopener">https://username.github.io</a>&rsquo;. Check in all your changes and push them to the username.github.io -</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd ~/blog/myblogname/public
 </span></span><span style="display:flex;"><span>git status
 </span></span><span style="display:flex;"><span>git add -A
@@ -126,13 +120,11 @@ Verify Hugo installed correctly by</p>
 </span></span><span style="display:flex;"><span>cd ../..
 </span></span><span style="display:flex;"><span>git add -A
 </span></span><span style="display:flex;"><span>git commit -m <span style="color:#e6db74">&#34;initial test commit&#34;</span> <span style="color:#75715e"># commit contents of ~/blog/</span>
-</span></span></code></pre></div><p>If it all went well, accessing <a href="http://username.github.io">http://username.github.io</a> should take you to your freshly baked blog. Here on, all you need to do is,</p>
+</span></span></code></pre></div><p>If it all went well, accessing <a href="http://username.github.io" target="_blank" rel="noopener">http://username.github.io</a> should take you to your freshly baked blog. Here on, all you need to do is,</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hugo create new posts/postname.md
 </span></span><span style="display:flex;"><span>hugo -t <span style="color:#e6db74">&#34;ananke&#34;</span>
-</span></span></code></pre></div><h3 id="markdown-resources">Markdown resources</h3>
-<p>It is a good idea to read up and familiarise yourself with Markdown Syntax. It is quite compact and can be learned in a single sitting. I would recommend starting with <a href="https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf">The Markdown Cheatsheet</a> to quickly understand how to write posts in any editor using the Markdown syntax. Keep writing! &#x1f918;</p>
-<h3 id="bonus---automate-the-hugo-build">Bonus - Automate the Hugo build</h3>
-<p>To automate your flow even further, you can create a Github Action, which will automatically run Hugo for you and publish to your username.github.io repository for you. This will save you any manual work of building your blog each time and pushing back to your public repo.
+</span></span></code></pre></div><h3 id="markdown-resources">Markdown resources <a href="#markdown-resources" class="anchor">🔗</a></h3><p>It is a good idea to read up and familiarise yourself with Markdown Syntax. It is quite compact and can be learned in a single sitting. I would recommend starting with <a href="https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf" target="_blank" rel="noopener">The Markdown Cheatsheet</a> to quickly understand how to write posts in any editor using the Markdown syntax. Keep writing! &#x1f918;</p>
+<h3 id="bonus---automate-the-hugo-build">Bonus - Automate the Hugo build <a href="#bonus---automate-the-hugo-build" class="anchor">🔗</a></h3><p>To automate your flow even further, you can create a Github Action, which will automatically run Hugo for you and publish to your username.github.io repository for you. This will save you any manual work of building your blog each time and pushing back to your public repo.
 The added benefit of this approach is you no longer need access to the cli. You can log into your Github base repo from your phone, add Mardown posts from the WebUI and your Github Actions pipeline will take care of the rest.
 Begin by adding a GitHub action file to your base repo -</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>vim ./github/workflows/main.yml
@@ -175,46 +167,54 @@ Begin by adding a GitHub action file to your base repo -</p>
 <li>Build - Build the website by calling <strong>hugo -t ananke</strong></li>
 <li>Deploy - Publish the built files to your external public repo username.github.io</li>
 </ol>
-<p><strong>Note:</strong> There is a bit of setup involved where you need to generate your token (indicated by deploy key above). I would highly recommend visiting <a href="https://github.com/peaceiris/actions-gh-pages">https://github.com/peaceiris/actions-gh-pages</a> for details of the external action and how to setup your token.</p>
+<p><strong>Note:</strong> There is a bit of setup involved where you need to generate your token (indicated by deploy key above). I would highly recommend visiting <a href="https://github.com/peaceiris/actions-gh-pages" target="_blank" rel="noopener">https://github.com/peaceiris/actions-gh-pages</a> for details of the external action and how to setup your token.</p>
 <p>This should get you at a stage where you can simply push a post written in Markdown format to your base repo and the rest should happen automatically. Post &ndash;&gt; Commit Base Repo &ndash;&gt; Github Action &ndash;&gt; Build Blog &ndash;&gt; Publish Static HTML.</p>
 
-		</section>
+    </div>
 
-		<div class="post-tags">
-			
-			
-			<nav class="nav tags">
-				<ul class="tags">
-					
-					<li><a href="/tags/hugo">hugo</a></li>
-					
-					<li><a href="/tags/web">web</a></li>
-					
-					<li><a href="/tags/linux">linux</a></li>
-					
-				</ul>
-			</nav>
-			
-			
-		</div>
-		</article>
-</main>
-<footer>
-  <div style="display:flex"><a class="soc" href="https://github.com/intothevoid" rel="me" title="GitHub"><i data-feather="github"></i></a>
-    <a class="border"></a><a class="soc" href="https://twitter.com/karankadam" rel="me" title="Twitter"><i data-feather="twitter"></i></a>
-    <a class="border"></a></div>
-  <div class="footer-info">
-    2024  <a
-      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
-  </div>
+    
+        <div class="tags">
+            
+                <a href="http://localhost:1313/tags/hugo">hugo</a>
+            
+                <a href="http://localhost:1313/tags/web">web</a>
+            
+                <a href="http://localhost:1313/tags/linux">linux</a>
+            
+        </div>
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+
+    <div class="copyright">
+    
+       © Copyright 
+       2024 
+       <span class="split">
+        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
+  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+</svg>
+       </span>
+       
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-mini'>nodejh</a>
+      </div>
+    
 </footer>
 
 
-  
 
-
-<script>
-  feather.replace()
-</script></div>
-    </body>
+  </body>
 </html>

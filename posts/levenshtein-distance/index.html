@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html><head lang="en">
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Levenshtein Distance - Karan Kadam</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="An introduction to Levenshtein distance with an implementation in Go" />
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content="/posts/levenshtein-distance/">
+  <meta property="og:site_name" content="Karan Kadam">
+  <meta property="og:title" content="Levenshtein Distance">
+  <meta property="og:description" content="An introduction to Levenshtein distance with an implementation in Go">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2022-12-26T00:04:51+10:30">
+    <meta property="article:modified_time" content="2022-12-26T00:04:51+10:30">
+    <meta property="article:tag" content="Programming">
+    <meta property="article:tag" content="Code">
+    <meta property="article:tag" content="Golang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Levenshtein Distance">
+  <meta name="twitter:description" content="An introduction to Levenshtein distance with an implementation in Go">
+
+	
+        <link href="/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.ac08a4c9714baa859217f92f051deb58df2938ec352b506df655005dcaf98cc0.css" />
+
+	
+	
+
+	
+	
+	
+	
+		
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="/">Karan Kadam</a>
+	</div>
+	<nav>
+		
+		<a href="/contact/">Contact</a>
+		
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">Levenshtein Distance</h1>
+			<div class="meta">Posted on Dec 26, 2022</div>
+		</div>
+		
+
+		<section class="body">
+			<p>Levenshtein distance is a measure of the similarity between two strings, calculated as the minimum number of single-character edits (insertions, deletions, or substitutions) required to transform one string into the other. Here is an example of how you can calculate the Levenshtein distance between two strings in Go:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Go" data-lang="Go"><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">package</span> main
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">import</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#b44">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#b44">&#34;math&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">main</span>() {
+</span></span><span style="display:flex;"><span>	s1 <span style="color:#666">:=</span> <span style="color:#b44">&#34;kitten&#34;</span>
+</span></span><span style="display:flex;"><span>	s2 <span style="color:#666">:=</span> <span style="color:#b44">&#34;sitting&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	distance <span style="color:#666">:=</span> <span style="color:#00a000">levenshteinDistance</span>(s1, s2)
+</span></span><span style="display:flex;"><span>	fmt.<span style="color:#00a000">Printf</span>(<span style="color:#b44">&#34;The Levenshtein distance between %s and %s is %d\n&#34;</span>, s1, s2, distance)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#00a000">levenshteinDistance</span>(s1, s2 <span style="color:#0b0;font-weight:bold">string</span>) <span style="color:#0b0;font-weight:bold">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#080;font-style:italic">// Convert strings to rune slices for Unicode support
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>	r1 <span style="color:#666">:=</span> []<span style="color:#a2f">rune</span>(s1)
+</span></span><span style="display:flex;"><span>	r2 <span style="color:#666">:=</span> []<span style="color:#a2f">rune</span>(s2)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#080;font-style:italic">// Initialize a two-dimensional matrix with all values set to zero
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>	matrix <span style="color:#666">:=</span> <span style="color:#a2f">make</span>([][]<span style="color:#0b0;font-weight:bold">int</span>, <span style="color:#a2f">len</span>(r1)<span style="color:#666">+</span><span style="color:#666">1</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">for</span> i <span style="color:#666">:=</span> <span style="color:#a2f;font-weight:bold">range</span> matrix {
+</span></span><span style="display:flex;"><span>		matrix[i] = <span style="color:#a2f">make</span>([]<span style="color:#0b0;font-weight:bold">int</span>, <span style="color:#a2f">len</span>(r2)<span style="color:#666">+</span><span style="color:#666">1</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#080;font-style:italic">// Set the initial values of the first row and column of the matrix
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>	<span style="color:#a2f;font-weight:bold">for</span> i <span style="color:#666">:=</span> <span style="color:#666">1</span>; i <span style="color:#666">&lt;=</span> <span style="color:#a2f">len</span>(r1); i<span style="color:#666">++</span> {
+</span></span><span style="display:flex;"><span>		matrix[i][<span style="color:#666">0</span>] = i
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a2f;font-weight:bold">for</span> j <span style="color:#666">:=</span> <span style="color:#666">1</span>; j <span style="color:#666">&lt;=</span> <span style="color:#a2f">len</span>(r2); j<span style="color:#666">++</span> {
+</span></span><span style="display:flex;"><span>		matrix[<span style="color:#666">0</span>][j] = j
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#080;font-style:italic">// Calculate the Levenshtein distance using the dynamic programming algorithm
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>	<span style="color:#a2f;font-weight:bold">for</span> i <span style="color:#666">:=</span> <span style="color:#666">1</span>; i <span style="color:#666">&lt;=</span> <span style="color:#a2f">len</span>(r1); i<span style="color:#666">++</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a2f;font-weight:bold">for</span> j <span style="color:#666">:=</span> <span style="color:#666">1</span>; j <span style="color:#666">&lt;=</span> <span style="color:#a2f">len</span>(r2); j<span style="color:#666">++</span> {
+</span></span><span style="display:flex;"><span>			cost <span style="color:#666">:=</span> <span style="color:#666">0</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a2f;font-weight:bold">if</span> r1[i<span style="color:#666">-</span><span style="color:#666">1</span>] <span style="color:#666">!=</span> r2[j<span style="color:#666">-</span><span style="color:#666">1</span>] {
+</span></span><span style="display:flex;"><span>				cost = <span style="color:#666">1</span>
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>			matrix[i][j] = <span style="color:#a2f">min</span>(matrix[i<span style="color:#666">-</span><span style="color:#666">1</span>][j]<span style="color:#666">+</span><span style="color:#666">1</span>, matrix[i][j<span style="color:#666">-</span><span style="color:#666">1</span>]<span style="color:#666">+</span><span style="color:#666">1</span>, matrix[i<span style="color:#666">-</span><span style="color:#666">1</span>][j<span style="color:#666">-</span><span style="color:#666">1</span>]<span style="color:#666">+</span>cost)
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#080;font-style:italic">// Return the final value in the bottom-right corner of the matrix
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>	<span style="color:#a2f;font-weight:bold">return</span> matrix[<span style="color:#a2f">len</span>(r1)][<span style="color:#a2f">len</span>(r2)]
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">func</span> <span style="color:#a2f">min</span>(a, b, c <span style="color:#0b0;font-weight:bold">int</span>) <span style="color:#0b0;font-weight:bold">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#080;font-style:italic">// Return the minimum of three integers
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>	<span style="color:#a2f;font-weight:bold">return</span> <span style="color:#a2f">int</span>(math.<span style="color:#00a000">Min</span>(<span style="color:#a2f">float64</span>(a), math.<span style="color:#00a000">Min</span>(<span style="color:#a2f">float64</span>(b), <span style="color:#a2f">float64</span>(c))))
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This code defines a function <code>levenshteinDistance</code> that takes in two strings as input and returns an integer representing the Levenshtein distance between them. The function first converts the input strings to slices of runes (Unicode characters) to support Unicode characters. It then initializes a two-dimensional matrix with all values set to zero, and sets the initial values of the first row and column of the matrix to the lengths of the input strings.</p>
+<p>The function then uses a dynamic programming algorithm to calculate the Levenshtein distance. It iterates over the elements of the input strings and compares them, adding a cost of 1 if they are different and 0 if they are the same. It then calculates the minimum of the three values in the matrix: the value above, the value to the left, and the value to the upper-left (diagonal) of the current position. This value is then added to the current position in the matrix.</p>
+<p>Finally, the function returns the final value in the bottom-right corner of the matrix, which represents the Levenshtein distance between the input strings.</p>
+<p>Here is an example of how you can use this function:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>s1 <span style="color:#666">:=</span> <span style="color:#b44">&#34;kitten&#34;</span>
+</span></span><span style="display:flex;"><span>s2 <span style="color:#666">:=</span> <span style="color:#b44">&#34;sitting&#34;</span>
+</span></span><span style="display:flex;"><span>distance <span style="color:#666">:=</span> <span style="color:#00a000">levenshteinDistance</span>(s1, s2)
+</span></span><span style="display:flex;"><span>fmt.<span style="color:#00a000">Printf</span>(<span style="color:#b44">&#34;The Levenshtein distance between %s and %s is %d\n&#34;</span>, s1, s2, distance)
+</span></span></code></pre></div><p>This will output the following:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>The Levenshtein distance between kitten and sitting is <span style="color:#666">3</span>
+</span></span></code></pre></div>
+		</section>
+
+		<div class="post-tags">
+			
+			
+			<nav class="nav tags">
+				<ul class="tags">
+					
+					<li><a href="/tags/programming">programming</a></li>
+					
+					<li><a href="/tags/code">code</a></li>
+					
+					<li><a href="/tags/golang">golang</a></li>
+					
+				</ul>
+			</nav>
+			
+			
+		</div>
+		<div id="disqus_thread"></div>
+<script type="text/javascript">
+    (function () {
+        
+        
+        if (window.location.hostname == "localhost")
+            return;
+
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        var disqus_shortname = 'karanakadam';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+        Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></article>
+</main>
+<footer>
+  <div style="display:flex"></div>
+  <div class="footer-info">
+    2024  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+  
+
+
+</div>
+    </body>
+</html>

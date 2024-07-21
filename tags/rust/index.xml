@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Rust on Into The Void</title>
-    <link>https://intothevoid.github.io/tags/rust/</link>
-    <description>Recent content in Rust on Into The Void</description>
+    <title>Rust on Karan Kadam</title>
+    <link>/tags/rust/</link>
+    <description>Recent content in Rust on Karan Kadam</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 07 Dec 2022 23:07:51 +1030</lastBuildDate>
-    <atom:link href="https://intothevoid.github.io/tags/rust/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="/tags/rust/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Crash Course in Rust</title>
-      <link>https://intothevoid.github.io/2022/12/crash-course-in-rust/</link>
+      <link>/posts/crash-course-in-rust/</link>
       <pubDate>Wed, 07 Dec 2022 23:07:51 +1030</pubDate>
-      <guid>https://intothevoid.github.io/2022/12/crash-course-in-rust/</guid>
+      <guid>/posts/crash-course-in-rust/</guid>
       <description>This article is a crash course in Rust programming and its setup / usage. For a more detailed guide check out -&#xA;Rust Book https://doc.rust-lang.org/stable/book/ Rust By Example https://doc.rust-lang.org/stable/rust-by-example/ Introduction to Rust: This lesson would cover the basics of Rust, including its history, features, and the benefits of using it.&#xA;Setting up a development environment: This lesson would explain how to install Rust on your computer and set up a development environment, including a code editor and any necessary tools and libraries.</description>
     </item>
   </channel>
