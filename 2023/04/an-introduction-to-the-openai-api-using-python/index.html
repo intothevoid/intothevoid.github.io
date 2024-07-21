@@ -79,55 +79,55 @@
 <li>A valid OpenAI API key (you can sign up at <a href="https://beta.openai.com/signup/">https://beta.openai.com/signup/</a>)</li>
 </ul>
 <p>To install the OpenAI package, run the following command:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pip install openai
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pip install openai
 </span></span></code></pre></div><p>Now, let&rsquo;s import the required libraries and set up the API key:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff6ac1">import</span> openai
-</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">import</span> os
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> openai
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>openai<span style="color:#ff6ac1">.</span>api_key <span style="color:#ff6ac1">=</span> os<span style="color:#ff6ac1">.</span>environ[<span style="color:#5af78e">&#34;OPENAI_API_KEY&#34;</span>]
+</span></span><span style="display:flex;"><span>openai<span style="color:#f92672">.</span>api_key <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>environ[<span style="color:#e6db74">&#34;OPENAI_API_KEY&#34;</span>]
 </span></span></code></pre></div><p>Make sure to replace &ldquo;OPENAI_API_KEY&rdquo; with your actual API key or set it as an environment variable.</p>
 <h2 id="interacting-with-the-openai-api">Interacting with the OpenAI API</h2>
 <p>Now that we have the API key set up, let&rsquo;s create a function to send a prompt to the OpenAI API and receive a response. The function will receive the current FEN representation of the chess board and return the next FEN representation after the AI&rsquo;s move.</p>
-<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff6ac1">def</span> <span style="color:#57c7ff">get_next_move</span>(fen):
-</span></span><span style="display:flex;"><span>    prompt <span style="color:#ff6ac1">=</span> <span style="color:#5af78e">f</span><span style="color:#5af78e">&#34;Given the chess position in FEN notation: </span><span style="color:#5af78e">{</span>fen<span style="color:#5af78e">}</span><span style="color:#5af78e">, what is the best move? Please provide the resulting FEN representation after the move.&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_next_move</span>(fen):
+</span></span><span style="display:flex;"><span>    prompt <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Given the chess position in FEN notation: </span><span style="color:#e6db74">{</span>fen<span style="color:#e6db74">}</span><span style="color:#e6db74">, what is the best move? Please provide the resulting FEN representation after the move.&#34;</span>
 </span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    response <span style="color:#ff6ac1">=</span> openai<span style="color:#ff6ac1">.</span>Completion<span style="color:#ff6ac1">.</span>create(
-</span></span><span style="display:flex;"><span>        engine<span style="color:#ff6ac1">=</span><span style="color:#5af78e">&#34;text-davinci-002&#34;</span>,
-</span></span><span style="display:flex;"><span>        prompt<span style="color:#ff6ac1">=</span>prompt,
-</span></span><span style="display:flex;"><span>        max_tokens<span style="color:#ff6ac1">=</span><span style="color:#ff9f43">100</span>,
-</span></span><span style="display:flex;"><span>        n<span style="color:#ff6ac1">=</span><span style="color:#ff9f43">1</span>,
-</span></span><span style="display:flex;"><span>        stop<span style="color:#ff6ac1">=</span><span style="color:#ff6ac1">None</span>,
-</span></span><span style="display:flex;"><span>        temperature<span style="color:#ff6ac1">=</span><span style="color:#ff9f43">0.5</span>,
+</span></span><span style="display:flex;"><span>    response <span style="color:#f92672">=</span> openai<span style="color:#f92672">.</span>Completion<span style="color:#f92672">.</span>create(
+</span></span><span style="display:flex;"><span>        engine<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text-davinci-002&#34;</span>,
+</span></span><span style="display:flex;"><span>        prompt<span style="color:#f92672">=</span>prompt,
+</span></span><span style="display:flex;"><span>        max_tokens<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>,
+</span></span><span style="display:flex;"><span>        n<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>        stop<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>,
+</span></span><span style="display:flex;"><span>        temperature<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>,
 </span></span><span style="display:flex;"><span>    )
 </span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">return</span> response<span style="color:#ff6ac1">.</span>choices[<span style="color:#ff9f43">0</span>]<span style="color:#ff6ac1">.</span>text<span style="color:#ff6ac1">.</span>strip()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> response<span style="color:#f92672">.</span>choices[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>text<span style="color:#f92672">.</span>strip()
 </span></span></code></pre></div><p>This function sends a POST request to the OpenAI API with the current FEN representation and receives the next FEN representation after the AI&rsquo;s move.</p>
 <h2 id="playing-chess">Playing Chess</h2>
 <p>Now let&rsquo;s create a simple chess game loop that takes user input and sends it to the API for processing. We&rsquo;ll be using the python-chess library to handle the FEN representation and validate moves. You can install it with:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pip install python-chess
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pip install python-chess
 </span></span></code></pre></div><p>Here&rsquo;s the code to set up a simple chess game:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff6ac1">import</span> chess
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> chess
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>board <span style="color:#ff6ac1">=</span> chess<span style="color:#ff6ac1">.</span>Board()
+</span></span><span style="display:flex;"><span>board <span style="color:#f92672">=</span> chess<span style="color:#f92672">.</span>Board()
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">while</span> <span style="color:#ff6ac1">not</span> board<span style="color:#ff6ac1">.</span>is_game_over():
-</span></span><span style="display:flex;"><span>    <span style="color:#ff5c57">print</span>(board)
-</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">if</span> board<span style="color:#ff6ac1">.</span>turn <span style="color:#ff6ac1">==</span> chess<span style="color:#ff6ac1">.</span>WHITE:
-</span></span><span style="display:flex;"><span>        move <span style="color:#ff6ac1">=</span> <span style="color:#ff5c57">input</span>(<span style="color:#5af78e">&#34;Your move (in UCI format): &#34;</span>)
-</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">try</span>:
-</span></span><span style="display:flex;"><span>            board<span style="color:#ff6ac1">.</span>push_san(move)
-</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">except</span> ValueError:
-</span></span><span style="display:flex;"><span>            <span style="color:#ff5c57">print</span>(<span style="color:#5af78e">&#34;Invalid move, try again.&#34;</span>)
-</span></span><span style="display:flex;"><span>            <span style="color:#ff6ac1">continue</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">else</span>:
-</span></span><span style="display:flex;"><span>        <span style="color:#ff5c57">print</span>(<span style="color:#5af78e">&#34;AI is thinking...&#34;</span>)
-</span></span><span style="display:flex;"><span>        current_fen <span style="color:#ff6ac1">=</span> board<span style="color:#ff6ac1">.</span>fen()
-</span></span><span style="display:flex;"><span>        next_fen <span style="color:#ff6ac1">=</span> get_next_move(current_fen)
-</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">try</span>:
-</span></span><span style="display:flex;"><span>            board<span style="color:#ff6ac1">.</span>set_fen(next_fen)
-</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">except</span> ValueError:
-</span></span><span style="display:flex;"><span>            <span style="color:#ff5c57">print</span>(<span style="color:#5af78e">&#34;Error: AI provided an invalid FEN.&#34;</span>)
-</span></span><span style="display:flex;"><span>            <span style="color:#ff6ac1">break</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span> <span style="color:#f92672">not</span> board<span style="color:#f92672">.</span>is_game_over():
+</span></span><span style="display:flex;"><span>    print(board)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> board<span style="color:#f92672">.</span>turn <span style="color:#f92672">==</span> chess<span style="color:#f92672">.</span>WHITE:
+</span></span><span style="display:flex;"><span>        move <span style="color:#f92672">=</span> input(<span style="color:#e6db74">&#34;Your move (in UCI format): &#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>            board<span style="color:#f92672">.</span>push_san(move)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">ValueError</span>:
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">&#34;Invalid move, try again.&#34;</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">continue</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;AI is thinking...&#34;</span>)
+</span></span><span style="display:flex;"><span>        current_fen <span style="color:#f92672">=</span> board<span style="color:#f92672">.</span>fen()
+</span></span><span style="display:flex;"><span>        next_fen <span style="color:#f92672">=</span> get_next_move(current_fen)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>            board<span style="color:#f92672">.</span>set_fen(next_fen)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">ValueError</span>:
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">&#34;Error: AI provided an invalid FEN.&#34;</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>
 </span></span></code></pre></div><p>This code sets up a chess board and enters a game loop where the user (White) enters moves in UCI format, and the AI (Black) calculates its move using the OpenAI API.</p>
 <h2 id="conclusion">Conclusion</h2>
 <p>And there you have it! You&rsquo;ve created a simple chess game using the OpenAI API and Python.</p>

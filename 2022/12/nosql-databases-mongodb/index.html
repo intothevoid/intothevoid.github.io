@@ -79,51 +79,51 @@
 <p>One of the main benefits of NoSQL databases is their ability to scale horizontally, meaning that they can easily add more servers to the database cluster as the amount of data or number of users increases. This makes them well-suited for handling the high volume of data and traffic that is common in modern web and mobile applications. NoSQL databases are also generally easier to set up and maintain than traditional relational databases, which can require more complex schema design and administration.</p>
 <p>However, NoSQL databases do have some disadvantages compared to traditional relational databases. One of the main limitations of NoSQL databases is that they do not offer the same level of querying and indexing capabilities as relational databases. This can make it more difficult to perform complex queries and analysis on the data, and it can also make it more difficult to enforce data integrity and consistency. NoSQL databases are also generally not as good at handling transactions and ACID (atomic, consistent, isolated, and durable) guarantees as relational databases.</p>
 <p>Despite these limitations, NoSQL databases are a popular choice for many modern applications, and they have a strong following among developers. If you&rsquo;re interested in using a NoSQL database in your project, one option to consider is MongoDB. MongoDB is a popular open-source document database that is widely used for storing and accessing data in web and mobile applications. Here&rsquo;s some sample Go code that demonstrates how to connect to a MongoDB database and insert a document:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#ff6ac1">package</span> main
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">import</span> (
-</span></span><span style="display:flex;"><span>	<span style="color:#5af78e">&#34;context&#34;</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#5af78e">&#34;fmt&#34;</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#5af78e">&#34;log&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;context&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;log&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#5af78e">&#34;go.mongodb.org/mongo-driver/mongo&#34;</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#5af78e">&#34;go.mongodb.org/mongo-driver/mongo/options&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;go.mongodb.org/mongo-driver/mongo&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;go.mongodb.org/mongo-driver/mongo/options&#34;</span>
 </span></span><span style="display:flex;"><span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#ff5c57">func</span> <span style="color:#57c7ff">main</span>() {
-</span></span><span style="display:flex;"><span>	<span style="color:#78787e">// Set up a connection to the MongoDB server
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>	client, err <span style="color:#ff6ac1">:=</span> mongo.<span style="color:#57c7ff">NewClient</span>(options.<span style="color:#57c7ff">Client</span>().<span style="color:#57c7ff">ApplyURI</span>(<span style="color:#5af78e">&#34;mongodb://localhost:27017&#34;</span>))
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Set up a connection to the MongoDB server
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">client</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">mongo</span>.<span style="color:#a6e22e">NewClient</span>(<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">Client</span>().<span style="color:#a6e22e">ApplyURI</span>(<span style="color:#e6db74">&#34;mongodb://localhost:27017&#34;</span>))
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">if</span> err <span style="color:#ff6ac1">!=</span> <span style="color:#ff6ac1">nil</span> { log.<span style="color:#57c7ff">Fatal</span>(err) } err = client.<span style="color:#57c7ff">Connect</span>(context.<span style="color:#57c7ff">TODO</span>()) <span style="color:#ff6ac1">if</span> err <span style="color:#ff6ac1">!=</span> <span style="color:#ff6ac1">nil</span> { log.<span style="color:#57c7ff">Fatal</span>(err) }
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> { <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>) } <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">client</span>.<span style="color:#a6e22e">Connect</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">TODO</span>()) <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> { <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>) }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#78787e">// Choose the database and collection to use
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>collection <span style="color:#ff6ac1">:=</span> client.<span style="color:#57c7ff">Database</span>(<span style="color:#5af78e">&#34;test&#34;</span>).<span style="color:#57c7ff">Collection</span>(<span style="color:#5af78e">&#34;people&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Choose the database and collection to use
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">collection</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">client</span>.<span style="color:#a6e22e">Database</span>(<span style="color:#e6db74">&#34;test&#34;</span>).<span style="color:#a6e22e">Collection</span>(<span style="color:#e6db74">&#34;people&#34;</span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#78787e">// Insert a new document
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>doc <span style="color:#ff6ac1">:=</span> <span style="color:#ff5c57">map</span>[<span style="color:#9aedfe">string</span>]<span style="color:#ff5c57">interface</span>{}{
-</span></span><span style="display:flex;"><span>	<span style="color:#5af78e">&#34;name&#34;</span>: <span style="color:#5af78e">&#34;John Smith&#34;</span>,
-</span></span><span style="display:flex;"><span>	<span style="color:#5af78e">&#34;age&#34;</span>:  <span style="color:#ff9f43">30</span>,
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Insert a new document
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">doc</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">interface</span>{}{
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;John Smith&#34;</span>,
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;age&#34;</span>:  <span style="color:#ae81ff">30</span>,
 </span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>result, err <span style="color:#ff6ac1">:=</span> collection.<span style="color:#57c7ff">InsertOne</span>(context.<span style="color:#57c7ff">TODO</span>(), doc)
-</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">if</span> err <span style="color:#ff6ac1">!=</span> <span style="color:#ff6ac1">nil</span> {
-</span></span><span style="display:flex;"><span>	log.<span style="color:#57c7ff">Fatal</span>(err)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">result</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">collection</span>.<span style="color:#a6e22e">InsertOne</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">TODO</span>(), <span style="color:#a6e22e">doc</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
 </span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>fmt.<span style="color:#57c7ff">Println</span>(<span style="color:#5af78e">&#34;Inserted document&#34;</span>, result.InsertedID)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Inserted document&#34;</span>, <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">InsertedID</span>)
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#78787e">// Choose the database and collection to use
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>collection <span style="color:#ff6ac1">:=</span> client.<span style="color:#57c7ff">Database</span>(<span style="color:#5af78e">&#34;test&#34;</span>).<span style="color:#57c7ff">Collection</span>(<span style="color:#5af78e">&#34;people&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Choose the database and collection to use
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">collection</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">client</span>.<span style="color:#a6e22e">Database</span>(<span style="color:#e6db74">&#34;test&#34;</span>).<span style="color:#a6e22e">Collection</span>(<span style="color:#e6db74">&#34;people&#34;</span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#78787e">// Insert a new document
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>doc <span style="color:#ff6ac1">:=</span> <span style="color:#ff5c57">map</span>[<span style="color:#9aedfe">string</span>]<span style="color:#ff5c57">interface</span>{}{
-</span></span><span style="display:flex;"><span>	<span style="color:#5af78e">&#34;name&#34;</span>: <span style="color:#5af78e">&#34;John Smith&#34;</span>,
-</span></span><span style="display:flex;"><span>	<span style="color:#5af78e">&#34;age&#34;</span>:  <span style="color:#ff9f43">30</span>,
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Insert a new document
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">doc</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">interface</span>{}{
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;John Smith&#34;</span>,
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;age&#34;</span>:  <span style="color:#ae81ff">30</span>,
 </span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>result, err <span style="color:#ff6ac1">:=</span> collection.<span style="color:#57c7ff">InsertOne</span>(context.<span style="color:#57c7ff">TODO</span>(), doc)
-</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">if</span> err <span style="color:#ff6ac1">!=</span> <span style="color:#ff6ac1">nil</span> {
-</span></span><span style="display:flex;"><span>	log.<span style="color:#57c7ff">Fatal</span>(err)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">result</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">collection</span>.<span style="color:#a6e22e">InsertOne</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">TODO</span>(), <span style="color:#a6e22e">doc</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
 </span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>fmt.<span style="color:#57c7ff">Println</span>(<span style="color:#5af78e">&#34;Inserted document&#34;</span>, result.InsertedID)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Inserted document&#34;</span>, <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">InsertedID</span>)
 </span></span></code></pre></div><p>NoSQL databases are a powerful tool for handling large amounts of unstructured data and for building scalable web and mobile applications. While they do have some limitations compared to traditional relational databases, they are still a popular choice for many developers due to their ease of use and ability to scale. If you&rsquo;re considering using a NoSQL database in your project, be sure to carefully weigh the pros and cons and choose the database that is best suited to your needs.</p>
 
 		</section>

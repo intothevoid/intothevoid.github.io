@@ -72,226 +72,226 @@
 <ol>
 <li>First, you will need to install the <code>spotipy</code> library, which provides a Python interface for the Spotify Web API. You can do this by running the following command:</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pip install spotipy 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pip install spotipy 
 </span></span></code></pre></div><ol start="2">
 <li>Next, you will need to create a Spotify app and obtain a client ID and client secret for the app. You can do this by logging in to the <a href="https://developer.spotify.com/dashboard">Spotify Developer Dashboard</a> and following the instructions on the website.</li>
 </ol>
 <h2 id="creating-the-python-backend">Creating the Python Backend</h2>
 <p>Once you have obtained your client ID and client secret, you can use the <code>spotipy.Spotify</code> class to authenticate yourself and access the Spotify Web API. An example of how you can do this is shown below:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff6ac1">import</span> spotipy
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> spotipy
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>client_id <span style="color:#ff6ac1">=</span> <span style="color:#5af78e">&#34;your-client-id&#34;</span>
-</span></span><span style="display:flex;"><span>client_secret <span style="color:#ff6ac1">=</span> <span style="color:#5af78e">&#34;your-client-secret&#34;</span>
+</span></span><span style="display:flex;"><span>client_id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;your-client-id&#34;</span>
+</span></span><span style="display:flex;"><span>client_secret <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;your-client-secret&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>spotify <span style="color:#ff6ac1">=</span> spotipy<span style="color:#ff6ac1">.</span>Spotify(
-</span></span><span style="display:flex;"><span>    client_id<span style="color:#ff6ac1">=</span>client_id,
-</span></span><span style="display:flex;"><span>    client_secret<span style="color:#ff6ac1">=</span>client_secret
+</span></span><span style="display:flex;"><span>spotify <span style="color:#f92672">=</span> spotipy<span style="color:#f92672">.</span>Spotify(
+</span></span><span style="display:flex;"><span>    client_id<span style="color:#f92672">=</span>client_id,
+</span></span><span style="display:flex;"><span>    client_secret<span style="color:#f92672">=</span>client_secret
 </span></span><span style="display:flex;"><span>)
 </span></span></code></pre></div><p>After authenticating, you can use the <code>spotify.user_playlists()</code> method to retrieve a list of all your Spotify playlists. This method returns a paginated list of playlists, so you will need to iterate through the pages and collect the playlists from each page. Here is an example of how you can do this:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>playlists <span style="color:#ff6ac1">=</span> []
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>playlists <span style="color:#f92672">=</span> []
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>response <span style="color:#ff6ac1">=</span> spotify<span style="color:#ff6ac1">.</span>user_playlists()
-</span></span><span style="display:flex;"><span>playlists<span style="color:#ff6ac1">.</span>extend(response[<span style="color:#5af78e">&#34;items&#34;</span>])
+</span></span><span style="display:flex;"><span>response <span style="color:#f92672">=</span> spotify<span style="color:#f92672">.</span>user_playlists()
+</span></span><span style="display:flex;"><span>playlists<span style="color:#f92672">.</span>extend(response[<span style="color:#e6db74">&#34;items&#34;</span>])
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">while</span> response[<span style="color:#5af78e">&#34;next&#34;</span>]:
-</span></span><span style="display:flex;"><span>    response <span style="color:#ff6ac1">=</span> spotify<span style="color:#ff6ac1">.</span>next(response)
-</span></span><span style="display:flex;"><span>    playlists<span style="color:#ff6ac1">.</span>extend(response[<span style="color:#5af78e">&#34;items&#34;</span>])
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span> response[<span style="color:#e6db74">&#34;next&#34;</span>]:
+</span></span><span style="display:flex;"><span>    response <span style="color:#f92672">=</span> spotify<span style="color:#f92672">.</span>next(response)
+</span></span><span style="display:flex;"><span>    playlists<span style="color:#f92672">.</span>extend(response[<span style="color:#e6db74">&#34;items&#34;</span>])
 </span></span></code></pre></div><p>Once you have collected all your playlists, you can use the <code>json</code> module to convert the list of playlists to a JSON string, and then write the JSON string to a file. Here is an example of how you can do this:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff6ac1">import</span> json
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> json
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">with</span> <span style="color:#ff5c57">open</span>(<span style="color:#5af78e">&#34;playlists.json&#34;</span>, <span style="color:#5af78e">&#34;w&#34;</span>) <span style="color:#ff6ac1">as</span> file:
-</span></span><span style="display:flex;"><span>    json<span style="color:#ff6ac1">.</span>dump(playlists, file)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#34;playlists.json&#34;</span>, <span style="color:#e6db74">&#34;w&#34;</span>) <span style="color:#66d9ef">as</span> file:
+</span></span><span style="display:flex;"><span>    json<span style="color:#f92672">.</span>dump(playlists, file)
 </span></span></code></pre></div><p>Finally, you can create a simple Flask app that exposes a <code>/backup</code> endpoint, which accepts <code>POST</code> requests and uses the code from the previous steps to back up your playlists as a JSON file. Here is an example of how you can do this:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff6ac1">from</span> flask <span style="color:#ff6ac1">import</span> Flask, request
-</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">import</span> spotipy
-</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">import</span> json
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> flask <span style="color:#f92672">import</span> Flask, request
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> spotipy
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> json
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>app <span style="color:#ff6ac1">=</span> Flask(__name__)
+</span></span><span style="display:flex;"><span>app <span style="color:#f92672">=</span> Flask(__name__)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>client_id <span style="color:#ff6ac1">=</span> <span style="color:#5af78e">&#34;your-client-id&#34;</span>
-</span></span><span style="display:flex;"><span>client_secret <span style="color:#ff6ac1">=</span> <span style="color:#5af78e">&#34;your-client-secret&#34;</span>
-</span></span><span style="display:flex;"><span>spotify <span style="color:#ff6ac1">=</span> spotipy<span style="color:#ff6ac1">.</span>Spotify(
-</span></span><span style="display:flex;"><span>    client_id<span style="color:#ff6ac1">=</span>client_id,
-</span></span><span style="display:flex;"><span>    client_secret<span style="color:#ff6ac1">=</span>client_secret
+</span></span><span style="display:flex;"><span>client_id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;your-client-id&#34;</span>
+</span></span><span style="display:flex;"><span>client_secret <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;your-client-secret&#34;</span>
+</span></span><span style="display:flex;"><span>spotify <span style="color:#f92672">=</span> spotipy<span style="color:#f92672">.</span>Spotify(
+</span></span><span style="display:flex;"><span>    client_id<span style="color:#f92672">=</span>client_id,
+</span></span><span style="display:flex;"><span>    client_secret<span style="color:#f92672">=</span>client_secret
 </span></span><span style="display:flex;"><span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#ff9f43">@app.route</span>(<span style="color:#5af78e">&#34;/backup&#34;</span>, methods<span style="color:#ff6ac1">=</span>[<span style="color:#5af78e">&#34;POST&#34;</span>])
-</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">def</span> <span style="color:#57c7ff">backup</span>():
-</span></span><span style="display:flex;"><span>    playlists <span style="color:#ff6ac1">=</span> []
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@app.route</span>(<span style="color:#e6db74">&#34;/backup&#34;</span>, methods<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#34;POST&#34;</span>])
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">backup</span>():
+</span></span><span style="display:flex;"><span>    playlists <span style="color:#f92672">=</span> []
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    response <span style="color:#ff6ac1">=</span> spotify<span style="color:#ff6ac1">.</span>user_playlists()
-</span></span><span style="display:flex;"><span>    playlists<span style="color:#ff6ac1">.</span>extend(response[<span style="color:#5af78e">&#34;items&#34;</span>])
+</span></span><span style="display:flex;"><span>    response <span style="color:#f92672">=</span> spotify<span style="color:#f92672">.</span>user_playlists()
+</span></span><span style="display:flex;"><span>    playlists<span style="color:#f92672">.</span>extend(response[<span style="color:#e6db74">&#34;items&#34;</span>])
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">while</span> response[<span style="color:#5af78e">&#34;next&#34;</span>]:
-</span></span><span style="display:flex;"><span>        response <span style="color:#ff6ac1">=</span> spotify<span style="color:#ff6ac1">.</span>next(response)
-</span></span><span style="display:flex;"><span>        playlists<span style="color:#ff6ac1">.</span>extend(response[<span style="color:#5af78e">&#34;items&#34;</span>])
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> response[<span style="color:#e6db74">&#34;next&#34;</span>]:
+</span></span><span style="display:flex;"><span>        response <span style="color:#f92672">=</span> spotify<span style="color:#f92672">.</span>next(response)
+</span></span><span style="display:flex;"><span>        playlists<span style="color:#f92672">.</span>extend(response[<span style="color:#e6db74">&#34;items&#34;</span>])
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">with</span> <span style="color:#ff5c57">open</span>(<span style="color:#5af78e">&#34;playlists.json&#34;</span>, <span style="color:#5af78e">&#34;w&#34;</span>) <span style="color:#ff6ac1">as</span> file:
-</span></span><span style="display:flex;"><span>        json<span style="color:#ff6ac1">.</span>dump(playlists, file)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#34;playlists.json&#34;</span>, <span style="color:#e6db74">&#34;w&#34;</span>) <span style="color:#66d9ef">as</span> file:
+</span></span><span style="display:flex;"><span>        json<span style="color:#f92672">.</span>dump(playlists, file)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">return</span> <span style="color:#5af78e">&#34;Playlists backed up successfully!&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Playlists backed up successfully!&#34;</span>
 </span></span></code></pre></div><p>To run the Flask app, you will need to first start the Flask development server by running the following command:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#ff5c57">export</span> <span style="color:#ff5c57">FLASK_APP</span><span style="color:#ff6ac1">=</span>app.py
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>export FLASK_APP<span style="color:#f92672">=</span>app.py
 </span></span><span style="display:flex;"><span>flask run
 </span></span></code></pre></div><p>This will start the Flask development server and make your app available at <code>http://localhost:5000</code>. To make a <code>POST</code> request to the <code>/backup</code> endpoint, you can use a tool like <code>curl</code> or <code>Postman</code> to send a <code>POST</code> request to <code>http://localhost:5000/backup</code>.</p>
 <p>Here is an example of how you can use <code>curl</code> to make a <code>POST</code> request:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -X POST http://localhost:5000/backup
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -X POST http://localhost:5000/backup
 </span></span></code></pre></div><p>Once you have made the request, your playlists should be backed up as a JSON file named <code>playlists.json</code> in the current directory.</p>
 <p>Note: This code is provided for illustration purposes only, and is not intended for production use. It does not include error handling or other best practices for building a Flask app.</p>
 <h2 id="creating-the-web-frontend">Creating the Web Frontend</h2>
 <p>Here&rsquo;s how you could create a web page to create a nice frontend for the Python program that backs up your Spotify playlists:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#78787e">&lt;!DOCTYPE html&gt;</span>
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#ff6ac1">html</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#ff6ac1">head</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#ff6ac1">title</span>&gt;Spotify Playlist Backup&lt;/<span style="color:#ff6ac1">title</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#ff6ac1">style</span>&gt;
-</span></span><span style="display:flex;"><span>        <span style="color:#78787e">/* This is some CSS that styles the page */</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">body</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#ff6ac1">font-family</span>: <span style="color:#ff6ac1">sans-serif</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#ff6ac1">text-align</span>: <span style="color:#ff6ac1">center</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">title</span>&gt;Spotify Playlist Backup&lt;/<span style="color:#f92672">title</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">style</span>&gt;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">/* This is some CSS that styles the page */</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">body</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">font-family</span>: <span style="color:#66d9ef">sans-serif</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">text-align</span>: <span style="color:#66d9ef">center</span>;
 </span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">input</span><span style="color:#ff6ac1">,</span> <span style="color:#ff6ac1">button</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#ff6ac1">padding</span>: <span style="color:#ff9f43">10</span><span style="color:#9aedfe">px</span> <span style="color:#ff9f43">20</span><span style="color:#9aedfe">px</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#ff6ac1">font-size</span>: <span style="color:#ff9f43">16</span><span style="color:#9aedfe">px</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">input</span><span style="color:#f92672">,</span> <span style="color:#f92672">button</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">10</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">20</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">font-size</span>: <span style="color:#ae81ff">16</span><span style="color:#66d9ef">px</span>;
 </span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">input</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#ff6ac1">width</span>: <span style="color:#ff9f43">300</span><span style="color:#9aedfe">px</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">input</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">300</span><span style="color:#66d9ef">px</span>;
 </span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">button</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#ff6ac1">background-color</span>: <span style="color:#ff9f43">#1DB954</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#ff6ac1">color</span>: <span style="color:#ff6ac1">white</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#ff6ac1">cursor</span>: <span style="color:#ff6ac1">pointer</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">button</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">background-color</span>: <span style="color:#ae81ff">#1DB954</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">color</span>: <span style="color:#66d9ef">white</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">cursor</span>: <span style="color:#66d9ef">pointer</span>;
 </span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">pre</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#ff6ac1">text-align</span>: <span style="color:#ff6ac1">left</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#ff6ac1">margin</span>: <span style="color:#ff9f43">20</span><span style="color:#9aedfe">px</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#ff6ac1">padding</span>: <span style="color:#ff9f43">20</span><span style="color:#9aedfe">px</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#ff6ac1">border</span>: <span style="color:#ff9f43">1</span><span style="color:#9aedfe">px</span> <span style="color:#ff6ac1">solid</span> <span style="color:#ff9f43">#ccc</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#ff6ac1">background-color</span>: <span style="color:#ff9f43">#f1f1f1</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">pre</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">text-align</span>: <span style="color:#66d9ef">left</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">margin</span>: <span style="color:#ae81ff">20</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">20</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">border</span>: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">px</span> <span style="color:#66d9ef">solid</span> <span style="color:#ae81ff">#ccc</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">background-color</span>: <span style="color:#ae81ff">#f1f1f1</span>;
 </span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#ff6ac1">style</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#ff6ac1">head</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#ff6ac1">body</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#ff6ac1">h1</span>&gt;Spotify Playlist Backup&lt;/<span style="color:#ff6ac1">h1</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#ff6ac1">p</span>&gt;Enter your Spotify credentials and username below to backup your playlists as a JSON file.&lt;/<span style="color:#ff6ac1">p</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#ff6ac1">form</span>&gt;
-</span></span><span style="display:flex;"><span>        &lt;<span style="color:#ff6ac1">input</span> <span style="color:#57c7ff">type</span><span style="color:#ff6ac1">=</span><span style="color:#5af78e">&#34;text&#34;</span> <span style="color:#57c7ff">id</span><span style="color:#ff6ac1">=</span><span style="color:#5af78e">&#34;client_id&#34;</span> <span style="color:#57c7ff">placeholder</span><span style="color:#ff6ac1">=</span><span style="color:#5af78e">&#34;Your Spotify client ID&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>        &lt;<span style="color:#ff6ac1">input</span> <span style="color:#57c7ff">type</span><span style="color:#ff6ac1">=</span><span style="color:#5af78e">&#34;text&#34;</span> <span style="color:#57c7ff">id</span><span style="color:#ff6ac1">=</span><span style="color:#5af78e">&#34;client_secret&#34;</span> <span style="color:#57c7ff">placeholder</span><span style="color:#ff6ac1">=</span><span style="color:#5af78e">&#34;Your Spotify client secret&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>        &lt;<span style="color:#ff6ac1">input</span> <span style="color:#57c7ff">type</span><span style="color:#ff6ac1">=</span><span style="color:#5af78e">&#34;text&#34;</span> <span style="color:#57c7ff">id</span><span style="color:#ff6ac1">=</span><span style="color:#5af78e">&#34;username&#34;</span> <span style="color:#57c7ff">placeholder</span><span style="color:#ff6ac1">=</span><span style="color:#5af78e">&#34;Your Spotify username&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>        &lt;<span style="color:#ff6ac1">button</span> <span style="color:#57c7ff">type</span><span style="color:#ff6ac1">=</span><span style="color:#5af78e">&#34;submit&#34;</span>&gt;Backup Playlists&lt;/<span style="color:#ff6ac1">button</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#ff6ac1">form</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#ff6ac1">pre</span> <span style="color:#57c7ff">id</span><span style="color:#ff6ac1">=</span><span style="color:#5af78e">&#34;output&#34;</span>&gt;&lt;/<span style="color:#ff6ac1">pre</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#ff6ac1">script</span>&gt;
-</span></span><span style="display:flex;"><span>        <span style="color:#78787e">// This is the JavaScript code that runs when the page is loaded
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>
-</span></span><span style="display:flex;"><span>        <span style="color:#78787e">// This gets the form element
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>        <span style="color:#ff6ac1">const</span> form <span style="color:#ff6ac1">=</span> <span style="color:#ff5c57">document</span>.querySelector(<span style="color:#5af78e">&#34;form&#34;</span>);
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">style</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">h1</span>&gt;Spotify Playlist Backup&lt;/<span style="color:#f92672">h1</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">p</span>&gt;Enter your Spotify credentials and username below to backup your playlists as a JSON file.&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">form</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;client_id&#34;</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Your Spotify client ID&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;client_secret&#34;</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Your Spotify client secret&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;username&#34;</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Your Spotify username&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span>&gt;Backup Playlists&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">form</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">pre</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;output&#34;</span>&gt;&lt;/<span style="color:#f92672">pre</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// This is the JavaScript code that runs when the page is loaded
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// This gets the form element
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">form</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#34;form&#34;</span>);
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#78787e">// This adds an event listener that runs when the form is submitted
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>        form.addEventListener(<span style="color:#5af78e">&#34;submit&#34;</span>, <span style="color:#ff6ac1">async</span> (e) =&gt; {
-</span></span><span style="display:flex;"><span>            <span style="color:#78787e">// This prevents the page from reloading
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>            e.preventDefault();
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// This adds an event listener that runs when the form is submitted
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">form</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#34;submit&#34;</span>, <span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">e</span>) =&gt; {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// This prevents the page from reloading
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">preventDefault</span>();
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            <span style="color:#78787e">// This gets the input elements
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>            <span style="color:#ff6ac1">const</span> clientIdInput <span style="color:#ff6ac1">=</span> <span style="color:#ff5c57">document</span>.querySelector(<span style="color:#5af78e">&#34;#client_id&#34;</span>);
-</span></span><span style="display:flex;"><span>            <span style="color:#ff6ac1">const</span> clientSecretInput <span style="color:#ff6ac1">=</span> <span style="color:#ff5c57">document</span>.querySelector(<span style="color:#5af78e">&#34;#client_secret&#34;</span>);
-</span></span><span style="display:flex;"><span>            <span style="color:#ff6ac1">const</span> usernameInput <span style="color:#ff6ac1">=</span> <span style="color:#ff5c57">document</span>.querySelector(<span style="color:#5af78e">&#34;#username&#34;</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// This gets the input elements
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">clientIdInput</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#34;#client_id&#34;</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">clientSecretInput</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#34;#client_secret&#34;</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">usernameInput</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#34;#username&#34;</span>);
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            <span style="color:#78787e">// This gets the values from the input elements
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>            <span style="color:#ff6ac1">const</span> clientId <span style="color:#ff6ac1">=</span> clientIdInput.value;
-</span></span><span style="display:flex;"><span>            <span style="color:#ff6ac1">const</span> clientSecret <span style="color:#ff6ac1">=</span> clientSecretInput.value;
-</span></span><span style="display:flex;"><span>            <span style="color:#ff6ac1">const</span> username <span style="color:#ff6ac1">=</span> usernameInput.value;
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// This gets the values from the input elements
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">clientId</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">clientIdInput</span>.<span style="color:#a6e22e">value</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">clientSecret</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">clientSecretInput</span>.<span style="color:#a6e22e">value</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">username</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">usernameInput</span>.<span style="color:#a6e22e">value</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            <span style="color:#78787e">// This shows a message while the playlists are being backed up
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>            <span style="color:#ff6ac1">const</span> output <span style="color:#ff6ac1">=</span> <span style="color:#ff5c57">document</span>.querySelector(<span style="color:#5af78e">&#34;#output&#34;</span>);
-</span></span><span style="display:flex;"><span>            output.innerHTML <span style="color:#ff6ac1">=</span> <span style="color:#5af78e">&#34;Backing up your playlists... please wait.&#34;</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// This shows a message while the playlists are being backed up
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">output</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#34;#output&#34;</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">output</span>.<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Backing up your playlists... please wait.&#34;</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            <span style="color:#78787e">// This sends a request to the server to backup the playlists
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>            <span style="color:#ff6ac1">const</span> response <span style="color:#ff6ac1">=</span> <span style="color:#ff6ac1">await</span> fetch(<span style="color:#5af78e">&#34;/backup&#34;</span>, {
-</span></span><span style="display:flex;"><span>                method<span style="color:#ff6ac1">:</span> <span style="color:#5af78e">&#34;POST&#34;</span>,
-</span></span><span style="display:flex;"><span>                headers<span style="color:#ff6ac1">:</span> {
-</span></span><span style="display:flex;"><span>                    <span style="color:#5af78e">&#34;Content-Type&#34;</span><span style="color:#ff6ac1">:</span> <span style="color:#5af78e">&#34;application/json&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// This sends a request to the server to backup the playlists
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#34;/backup&#34;</span>, {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;POST&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">headers</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;Content-Type&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;application/json&#34;</span>,
 </span></span><span style="display:flex;"><span>                },
-</span></span><span style="display:flex;"><span>                body<span style="color:#ff6ac1">:</span> JSON.stringify({
-</span></span><span style="display:flex;"><span>                    clientId,
-</span></span><span style="display:flex;"><span>                    clientSecret,
-</span></span><span style="display:flex;"><span>                    username,
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">body</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>({
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">clientId</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">clientSecret</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">username</span>,
 </span></span><span style="display:flex;"><span>                }),
 </span></span><span style="display:flex;"><span>            });
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            <span style="color:#78787e">// This gets the response from the server
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>            <span style="color:#ff6ac1">const</span> data <span style="color:#ff6ac1">=</span> <span style="color:#ff6ac1">await</span> response.json();
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// This gets the response from the server
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>();
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            <span style="color:#78787e">// This displays the response from the server
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>            output.innerHTML <span style="color:#ff6ac1">=</span> JSON.stringify(data, <span style="color:#ff6ac1">null</span>, <span style="color:#ff9f43">4</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// This displays the response from the server
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">output</span>.<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">data</span>, <span style="color:#66d9ef">null</span>, <span style="color:#ae81ff">4</span>);
 </span></span><span style="display:flex;"><span>        });
-</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#ff6ac1">script</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#ff6ac1">body</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
 </span></span></code></pre></div><h2 id="spotify-backup-playlist-as-a-standalone-script">Spotify backup playlist as a standalone script</h2>
-<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#ff6ac1">import</span> json
-</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">import</span> spotipy
-</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">from</span> spotipy.oauth2 <span style="color:#ff6ac1">import</span> SpotifyClientCredentials
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> json
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> spotipy
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> spotipy.oauth2 <span style="color:#f92672">import</span> SpotifyClientCredentials
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#78787e"># This is your Spotify client ID and secret</span>
-</span></span><span style="display:flex;"><span>client_id <span style="color:#ff6ac1">=</span> <span style="color:#5af78e">&#34;YOUR_CLIENT_ID&#34;</span>
-</span></span><span style="display:flex;"><span>client_secret <span style="color:#ff6ac1">=</span> <span style="color:#5af78e">&#34;YOUR_CLIENT_SECRET&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># This is your Spotify client ID and secret</span>
+</span></span><span style="display:flex;"><span>client_id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;YOUR_CLIENT_ID&#34;</span>
+</span></span><span style="display:flex;"><span>client_secret <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;YOUR_CLIENT_SECRET&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#78787e"># This is your Spotify username</span>
-</span></span><span style="display:flex;"><span>username <span style="color:#ff6ac1">=</span> <span style="color:#5af78e">&#34;YOUR_USERNAME&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># This is your Spotify username</span>
+</span></span><span style="display:flex;"><span>username <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;YOUR_USERNAME&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#78787e"># This is the path to the JSON file where your playlists will be saved</span>
-</span></span><span style="display:flex;"><span>json_file <span style="color:#ff6ac1">=</span> <span style="color:#5af78e">&#34;playlists.json&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># This is the path to the JSON file where your playlists will be saved</span>
+</span></span><span style="display:flex;"><span>json_file <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;playlists.json&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#78787e"># This creates a Spotify client using your client ID and secret</span>
-</span></span><span style="display:flex;"><span>client_credentials_manager <span style="color:#ff6ac1">=</span> SpotifyClientCredentials(client_id<span style="color:#ff6ac1">=</span>client_id, client_secret<span style="color:#ff6ac1">=</span>client_secret)
-</span></span><span style="display:flex;"><span>spotify <span style="color:#ff6ac1">=</span> spotipy<span style="color:#ff6ac1">.</span>Spotify(client_credentials_manager<span style="color:#ff6ac1">=</span>client_credentials_manager)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># This creates a Spotify client using your client ID and secret</span>
+</span></span><span style="display:flex;"><span>client_credentials_manager <span style="color:#f92672">=</span> SpotifyClientCredentials(client_id<span style="color:#f92672">=</span>client_id, client_secret<span style="color:#f92672">=</span>client_secret)
+</span></span><span style="display:flex;"><span>spotify <span style="color:#f92672">=</span> spotipy<span style="color:#f92672">.</span>Spotify(client_credentials_manager<span style="color:#f92672">=</span>client_credentials_manager)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#78787e"># This gets your user ID</span>
-</span></span><span style="display:flex;"><span>user_id <span style="color:#ff6ac1">=</span> spotify<span style="color:#ff6ac1">.</span>current_user()[<span style="color:#5af78e">&#34;id&#34;</span>]
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># This gets your user ID</span>
+</span></span><span style="display:flex;"><span>user_id <span style="color:#f92672">=</span> spotify<span style="color:#f92672">.</span>current_user()[<span style="color:#e6db74">&#34;id&#34;</span>]
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#78787e"># This gets all your playlists</span>
-</span></span><span style="display:flex;"><span>playlists <span style="color:#ff6ac1">=</span> spotify<span style="color:#ff6ac1">.</span>user_playlists(user_id)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># This gets all your playlists</span>
+</span></span><span style="display:flex;"><span>playlists <span style="color:#f92672">=</span> spotify<span style="color:#f92672">.</span>user_playlists(user_id)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#78787e"># This creates an empty list where your playlists will be saved</span>
-</span></span><span style="display:flex;"><span>playlists_data <span style="color:#ff6ac1">=</span> []
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># This creates an empty list where your playlists will be saved</span>
+</span></span><span style="display:flex;"><span>playlists_data <span style="color:#f92672">=</span> []
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#78787e"># This iterates over your playlists</span>
-</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">for</span> playlist <span style="color:#ff6ac1">in</span> playlists[<span style="color:#5af78e">&#34;items&#34;</span>]:
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e"># This gets the playlist ID and name</span>
-</span></span><span style="display:flex;"><span>    playlist_id <span style="color:#ff6ac1">=</span> playlist[<span style="color:#5af78e">&#34;id&#34;</span>]
-</span></span><span style="display:flex;"><span>    playlist_name <span style="color:#ff6ac1">=</span> playlist[<span style="color:#5af78e">&#34;name&#34;</span>]
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># This iterates over your playlists</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> playlist <span style="color:#f92672">in</span> playlists[<span style="color:#e6db74">&#34;items&#34;</span>]:
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># This gets the playlist ID and name</span>
+</span></span><span style="display:flex;"><span>    playlist_id <span style="color:#f92672">=</span> playlist[<span style="color:#e6db74">&#34;id&#34;</span>]
+</span></span><span style="display:flex;"><span>    playlist_name <span style="color:#f92672">=</span> playlist[<span style="color:#e6db74">&#34;name&#34;</span>]
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e"># This gets the tracks in the playlist</span>
-</span></span><span style="display:flex;"><span>    tracks <span style="color:#ff6ac1">=</span> spotify<span style="color:#ff6ac1">.</span>user_playlist_tracks(user_id, playlist_id)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># This gets the tracks in the playlist</span>
+</span></span><span style="display:flex;"><span>    tracks <span style="color:#f92672">=</span> spotify<span style="color:#f92672">.</span>user_playlist_tracks(user_id, playlist_id)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e"># This creates an empty list where the tracks will be saved</span>
-</span></span><span style="display:flex;"><span>    tracks_data <span style="color:#ff6ac1">=</span> []
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># This creates an empty list where the tracks will be saved</span>
+</span></span><span style="display:flex;"><span>    tracks_data <span style="color:#f92672">=</span> []
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e"># This iterates over the tracks</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">for</span> track <span style="color:#ff6ac1">in</span> tracks[<span style="color:#5af78e">&#34;items&#34;</span>]:
-</span></span><span style="display:flex;"><span>        <span style="color:#78787e"># This gets the track data</span>
-</span></span><span style="display:flex;"><span>        track_data <span style="color:#ff6ac1">=</span> track[<span style="color:#5af78e">&#34;track&#34;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># This iterates over the tracks</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> track <span style="color:#f92672">in</span> tracks[<span style="color:#e6db74">&#34;items&#34;</span>]:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># This gets the track data</span>
+</span></span><span style="display:flex;"><span>        track_data <span style="color:#f92672">=</span> track[<span style="color:#e6db74">&#34;track&#34;</span>]
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#78787e"># This saves the track data</span>
-</span></span><span style="display:flex;"><span>        tracks_data<span style="color:#ff6ac1">.</span>append({
-</span></span><span style="display:flex;"><span>            <span style="color:#5af78e">&#34;id&#34;</span>: track_data[<span style="color:#5af78e">&#34;id&#34;</span>],
-</span></span><span style="display:flex;"><span>            <span style="color:#5af78e">&#34;name&#34;</span>: track_data[<span style="color:#5af78e">&#34;name&#34;</span>],
-</span></span><span style="display:flex;"><span>            <span style="color:#5af78e">&#34;artists&#34;</span>: [artist[<span style="color:#5af78e">&#34;name&#34;</span>] <span style="color:#ff6ac1">for</span> artist <span style="color:#ff6ac1">in</span> track_data[<span style="color:#5af78e">&#34;artists&#34;</span>]],
-</span></span><span style="display:flex;"><span>            <span style="color:#5af78e">&#34;album&#34;</span>: track_data[<span style="color:#5af78e">&#34;album&#34;</span>][<span style="color:#5af78e">&#34;name&#34;</span>],
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># This saves the track data</span>
+</span></span><span style="display:flex;"><span>        tracks_data<span style="color:#f92672">.</span>append({
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;id&#34;</span>: track_data[<span style="color:#e6db74">&#34;id&#34;</span>],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;name&#34;</span>: track_data[<span style="color:#e6db74">&#34;name&#34;</span>],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;artists&#34;</span>: [artist[<span style="color:#e6db74">&#34;name&#34;</span>] <span style="color:#66d9ef">for</span> artist <span style="color:#f92672">in</span> track_data[<span style="color:#e6db74">&#34;artists&#34;</span>]],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;album&#34;</span>: track_data[<span style="color:#e6db74">&#34;album&#34;</span>][<span style="color:#e6db74">&#34;name&#34;</span>],
 </span></span><span style="display:flex;"><span>        })
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#78787e"># This saves the playlist data</span>
-</span></span><span style="display:flex;"><span>	playlists_data<span style="color:#ff6ac1">.</span>append({
-</span></span><span style="display:flex;"><span>	    <span style="color:#5af78e">&#34;id&#34;</span>: playlist_id,
-</span></span><span style="display:flex;"><span>	    <span style="color:#5af78e">&#34;name&#34;</span>: playlist_name,
-</span></span><span style="display:flex;"><span>	    <span style="color:#5af78e">&#34;tracks&#34;</span>: tracks_data,
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e"># This saves the playlist data</span>
+</span></span><span style="display:flex;"><span>	playlists_data<span style="color:#f92672">.</span>append({
+</span></span><span style="display:flex;"><span>	    <span style="color:#e6db74">&#34;id&#34;</span>: playlist_id,
+</span></span><span style="display:flex;"><span>	    <span style="color:#e6db74">&#34;name&#34;</span>: playlist_name,
+</span></span><span style="display:flex;"><span>	    <span style="color:#e6db74">&#34;tracks&#34;</span>: tracks_data,
 </span></span><span style="display:flex;"><span>	})
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#78787e"># This saves the playlists data to the JSON file</span>
-</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">with</span> <span style="color:#ff5c57">open</span>(json_file, <span style="color:#5af78e">&#34;w&#34;</span>) <span style="color:#ff6ac1">as</span> f: 
-</span></span><span style="display:flex;"><span>	json<span style="color:#ff6ac1">.</span>dump(playlists_data, f, indent<span style="color:#ff6ac1">=</span><span style="color:#ff9f43">4</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># This saves the playlists data to the JSON file</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">with</span> open(json_file, <span style="color:#e6db74">&#34;w&#34;</span>) <span style="color:#66d9ef">as</span> f: 
+</span></span><span style="display:flex;"><span>	json<span style="color:#f92672">.</span>dump(playlists_data, f, indent<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#ff5c57">print</span>(<span style="color:#5af78e">&#34;Successfully backed up your playlists to&#34;</span>, json_file)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;Successfully backed up your playlists to&#34;</span>, json_file)
 </span></span></code></pre></div><p>In this code, we use the <code>spotipy</code> library to access the Spotify API and retrieve the data for your playlists and tracks. We then save this data to a JSON file using the <code>json</code> library.</p>
 <p>To use this program, you will need to replace the <code>client_id</code>, <code>client_secret</code>, and <code>username</code> variables with your own Spotify credentials and username. You will also need to specify the path to the JSON file where you want your playlists to be saved.</p>
 <p>Once you have done this, you can run the program and it will retrieve your playlists and tracks and save them to the JSON file. You can then use this file to backup your playlists or to transfer them to another Spotify account.</p>

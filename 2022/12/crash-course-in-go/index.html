@@ -191,139 +191,139 @@
 </ol>
 <h2 id="examples-of-go">Examples of Go</h2>
 <p>To illustrate how to use the features, syntax, and keywords of Go, here are some examples of Go code:</p>
-<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#78787e">// This is a single-line comment
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#78787e">/*
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e">This is a
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e">multi-line
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e">comment
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e">*/</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// This is a single-line comment
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">This is a
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">multi-line
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">comment
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">package</span> main
+</span></span><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">import</span> <span style="color:#5af78e">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#78787e">// This is a function that takes two arguments and returns their sum
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span><span style="color:#ff5c57">func</span> <span style="color:#57c7ff">add</span>(x <span style="color:#9aedfe">int</span>, y <span style="color:#9aedfe">int</span>) <span style="color:#9aedfe">int</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">return</span> x <span style="color:#ff6ac1">+</span> y
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// This is a function that takes two arguments and returns their sum
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">x</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">y</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">y</span>
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#ff5c57">func</span> <span style="color:#57c7ff">main</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// This is a variable that is inferred to be of type int
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    x <span style="color:#ff6ac1">:=</span> <span style="color:#ff9f43">10</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// This is a variable that is inferred to be of type int
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">x</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">10</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// This is a variable that is explicitly declared to be of type float64
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    <span style="color:#ff5c57">var</span> y <span style="color:#9aedfe">float64</span> = <span style="color:#ff9f43">20.5</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// This is a variable that is explicitly declared to be of type float64
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">y</span> <span style="color:#66d9ef">float64</span> = <span style="color:#ae81ff">20.5</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// This is a constant that cannot be changed at runtime
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    <span style="color:#ff5c57">const</span> z = <span style="color:#5af78e">&#34;hello&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// This is a constant that cannot be changed at runtime
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">z</span> = <span style="color:#e6db74">&#34;hello&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// This is a pointer to the x variable
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    p <span style="color:#ff6ac1">:=</span> <span style="color:#ff6ac1">&amp;</span>x
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// This is a pointer to the x variable
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">x</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// This is a map that associates names with ages
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    ages <span style="color:#ff6ac1">:=</span> <span style="color:#ff5c57">map</span>[<span style="color:#9aedfe">string</span>]<span style="color:#9aedfe">int</span>{
-</span></span><span style="display:flex;"><span>        <span style="color:#5af78e">&#34;Alice&#34;</span>: <span style="color:#ff9f43">25</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#5af78e">&#34;Bob&#34;</span>: <span style="color:#ff9f43">30</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#5af78e">&#34;Carol&#34;</span>: <span style="color:#ff9f43">35</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// This is a map that associates names with ages
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">ages</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">int</span>{
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;Alice&#34;</span>: <span style="color:#ae81ff">25</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;Bob&#34;</span>: <span style="color:#ae81ff">30</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;Carol&#34;</span>: <span style="color:#ae81ff">35</span>,
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// This is a struct that represents a person
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    <span style="color:#ff5c57">type</span> Person <span style="color:#ff5c57">struct</span> {
-</span></span><span style="display:flex;"><span>        name <span style="color:#9aedfe">string</span>
-</span></span><span style="display:flex;"><span>        age <span style="color:#9aedfe">int</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// This is a struct that represents a person
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Person</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">age</span> <span style="color:#66d9ef">int</span>
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// This is a slice of Person objects
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    people <span style="color:#ff6ac1">:=</span> []Person{
-</span></span><span style="display:flex;"><span>        {<span style="color:#5af78e">&#34;Alice&#34;</span>, <span style="color:#ff9f43">25</span>},
-</span></span><span style="display:flex;"><span>        {<span style="color:#5af78e">&#34;Bob&#34;</span>, <span style="color:#ff9f43">30</span>},
-</span></span><span style="display:flex;"><span>        {<span style="color:#5af78e">&#34;Carol&#34;</span>, <span style="color:#ff9f43">35</span>},
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// This is a slice of Person objects
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">people</span> <span style="color:#f92672">:=</span> []<span style="color:#a6e22e">Person</span>{
+</span></span><span style="display:flex;"><span>        {<span style="color:#e6db74">&#34;Alice&#34;</span>, <span style="color:#ae81ff">25</span>},
+</span></span><span style="display:flex;"><span>        {<span style="color:#e6db74">&#34;Bob&#34;</span>, <span style="color:#ae81ff">30</span>},
+</span></span><span style="display:flex;"><span>        {<span style="color:#e6db74">&#34;Carol&#34;</span>, <span style="color:#ae81ff">35</span>},
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// This is an if statement that checks the value of x
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    <span style="color:#ff6ac1">if</span> x &gt; <span style="color:#ff9f43">0</span> {
-</span></span><span style="display:flex;"><span>        fmt.<span style="color:#57c7ff">Println</span>(<span style="color:#5af78e">&#34;x is positive&#34;</span>)
-</span></span><span style="display:flex;"><span>    } <span style="color:#ff6ac1">else</span> {
-</span></span><span style="display:flex;"><span>        fmt.<span style="color:#57c7ff">Println</span>(<span style="color:#5af78e">&#34;x is non-positive&#34;</span>) 
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// This is an if statement that checks the value of x
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">x</span> &gt; <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;x is positive&#34;</span>)
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;x is non-positive&#34;</span>) 
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#78787e">// This is a for loop that iterates over the elements of the people slice
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>	<span style="color:#ff6ac1">for</span> _, person <span style="color:#ff6ac1">:=</span> <span style="color:#ff6ac1">range</span> people {
-</span></span><span style="display:flex;"><span>	    fmt.<span style="color:#57c7ff">Println</span>(person.name, person.age)
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// This is a for loop that iterates over the elements of the people slice
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">person</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">people</span> {
+</span></span><span style="display:flex;"><span>	    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">person</span>.<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">person</span>.<span style="color:#a6e22e">age</span>)
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>	<span style="color:#78787e">// This is a switch statement that checks the value of y
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>	<span style="color:#ff6ac1">switch</span> y {
-</span></span><span style="display:flex;"><span>	<span style="color:#ff6ac1">case</span> <span style="color:#ff9f43">10</span>:
-</span></span><span style="display:flex;"><span>	    fmt.<span style="color:#57c7ff">Println</span>(<span style="color:#5af78e">&#34;y is 10&#34;</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#ff6ac1">case</span> <span style="color:#ff9f43">20</span>:
-</span></span><span style="display:flex;"><span>	    fmt.<span style="color:#57c7ff">Println</span>(<span style="color:#5af78e">&#34;y is 20&#34;</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#ff6ac1">default</span>:
-</span></span><span style="display:flex;"><span>	    fmt.<span style="color:#57c7ff">Println</span>(<span style="color:#5af78e">&#34;y is something else&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// This is a switch statement that checks the value of y
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">y</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">10</span>:
+</span></span><span style="display:flex;"><span>	    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;y is 10&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">20</span>:
+</span></span><span style="display:flex;"><span>	    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;y is 20&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">default</span>:
+</span></span><span style="display:flex;"><span>	    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;y is something else&#34;</span>)
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>In this code, we see examples of comments, packages, functions, variables, constants, pointers, maps, structs, slices, if statements, for loops, and switch statements. These are all common elements of Go programs, and they can be combined in various ways to create powerful and efficient applications.</p>
-<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#ff6ac1">package</span> main
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">import</span> (
-</span></span><span style="display:flex;"><span>    <span style="color:#5af78e">&#34;fmt&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#5af78e">&#34;sync&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;sync&#34;</span>
 </span></span><span style="display:flex;"><span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#78787e">// This is a function that uses a channel to receive a message from another goroutine
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span><span style="color:#ff5c57">func</span> <span style="color:#57c7ff">receiveMessage</span>(name <span style="color:#9aedfe">string</span>, ch <span style="color:#ff5c57">chan</span> <span style="color:#9aedfe">string</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// This is a defer statement that ensures the channel is closed when the function returns
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    <span style="color:#ff6ac1">defer</span> <span style="color:#ff5c57">close</span>(ch)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// This is a function that uses a channel to receive a message from another goroutine
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">receiveMessage</span>(<span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">ch</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// This is a defer statement that ensures the channel is closed when the function returns
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">defer</span> close(<span style="color:#a6e22e">ch</span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// This is a for loop that receives messages from the channel until it is closed
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    <span style="color:#ff6ac1">for</span> message <span style="color:#ff6ac1">:=</span> <span style="color:#ff6ac1">range</span> ch {
-</span></span><span style="display:flex;"><span>        fmt.<span style="color:#57c7ff">Println</span>(name, <span style="color:#5af78e">&#34;received message:&#34;</span>, message)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// This is a for loop that receives messages from the channel until it is closed
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">message</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">ch</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">name</span>, <span style="color:#e6db74">&#34;received message:&#34;</span>, <span style="color:#a6e22e">message</span>)
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#78787e">// This is a function that uses a wait group to wait for multiple goroutines to finish
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span><span style="color:#ff5c57">func</span> <span style="color:#57c7ff">waitForGoroutines</span>(wg <span style="color:#ff6ac1">*</span>sync.WaitGroup) {
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// This is a defer statement that ensures the wait group is done when the function returns
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    <span style="color:#ff6ac1">defer</span> wg.<span style="color:#57c7ff">Done</span>()
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// This is a function that uses a wait group to wait for multiple goroutines to finish
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">waitForGoroutines</span>(<span style="color:#a6e22e">wg</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// This is a defer statement that ensures the wait group is done when the function returns
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Done</span>()
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// This is a for loop that waits for the wait group to reach zero
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    <span style="color:#ff6ac1">for</span> wg.<span style="color:#57c7ff">Wait</span>() {
-</span></span><span style="display:flex;"><span>        fmt.<span style="color:#57c7ff">Println</span>(<span style="color:#5af78e">&#34;Wait group reached zero&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// This is a for loop that waits for the wait group to reach zero
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Wait</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Wait group reached zero&#34;</span>)
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#ff5c57">func</span> <span style="color:#57c7ff">main</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// This is a channel that will be used to send messages between goroutines
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    ch <span style="color:#ff6ac1">:=</span> <span style="color:#ff5c57">make</span>(<span style="color:#ff5c57">chan</span> <span style="color:#9aedfe">string</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// This is a channel that will be used to send messages between goroutines
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">ch</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">string</span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// This is a wait group that will be used to wait for multiple goroutines to finish
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    <span style="color:#ff5c57">var</span> wg sync.WaitGroup
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// This is a wait group that will be used to wait for multiple goroutines to finish
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">wg</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// This is a goroutine that uses the channel to send a message
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    <span style="color:#ff6ac1">go</span> <span style="color:#ff5c57">func</span>() {
-</span></span><span style="display:flex;"><span>        <span style="color:#78787e">// This is a defer statement that ensures the wait group is done when the goroutine finishes
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>        <span style="color:#ff6ac1">defer</span> wg.<span style="color:#57c7ff">Done</span>()
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// This is a goroutine that uses the channel to send a message
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// This is a defer statement that ensures the wait group is done when the goroutine finishes
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Done</span>()
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#78787e">// This is a select statement that sends a message on the channel and waits for a response
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>        <span style="color:#ff6ac1">select</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">case</span> ch <span style="color:#ff6ac1">&lt;-</span> <span style="color:#5af78e">&#34;hello&#34;</span>:
-</span></span><span style="display:flex;"><span>            fmt.<span style="color:#57c7ff">Println</span>(<span style="color:#5af78e">&#34;Sent message: hello&#34;</span>)
-</span></span><span style="display:flex;"><span>            fmt.<span style="color:#57c7ff">Println</span>(<span style="color:#5af78e">&#34;Received response:&#34;</span>, <span style="color:#ff6ac1">&lt;-</span>ch)
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// This is a select statement that sends a message on the channel and waits for a response
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">select</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">ch</span> <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;hello&#34;</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Sent message: hello&#34;</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Received response:&#34;</span>, <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">ch</span>)
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>    }()
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// This is a goroutine that receives messages from the channel
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    <span style="color:#ff6ac1">go</span> <span style="color:#57c7ff">receiveMessage</span>(<span style="color:#5af78e">&#34;Bob&#34;</span>, ch)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// This is a goroutine that receives messages from the channel
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">receiveMessage</span>(<span style="color:#e6db74">&#34;Bob&#34;</span>, <span style="color:#a6e22e">ch</span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#78787e">// This is a goroutine that waits for the other goroutines to finish
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>	<span style="color:#ff6ac1">go</span> <span style="color:#57c7ff">waitForGoroutines</span>(<span style="color:#ff6ac1">&amp;</span>wg)
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// This is a goroutine that waits for the other goroutines to finish
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">waitForGoroutines</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">wg</span>)
 </span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>	<span style="color:#78787e">// This adds the goroutines to the wait group
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>	wg.<span style="color:#57c7ff">Add</span>(<span style="color:#ff9f43">2</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// This adds the goroutines to the wait group
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">2</span>)
 </span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>	<span style="color:#78787e">// This waits for the goroutines to finish
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>	wg.<span style="color:#57c7ff">Wait</span>()
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// This waits for the goroutines to finish
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Wait</span>()
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>In this code, we see examples of channels, goroutines, defer statements, select statements, and wait groups. These are advanced features of Go that allow for concurrent and parallel programming, and they can be used to create powerful and efficient applications that can handle multiple tasks simultaneously.</p>
 <p>In this example, we have three goroutines: one that sends a message on a channel, one that receives messages from the channel, and one that waits for the other goroutines to finish. The goroutines communicate with each other using the channel, and the wait group ensures that they all finish before the main function returns.</p>

@@ -196,62 +196,62 @@
 <h2 id="sample-programs-that-cover-these-concepts">Sample programs that cover these concepts</h2>
 <p>Here are sample Rust applications that cover the concepts discussed in the crash course above:</p>
 <h3 id="-1"># 1</h3>
-<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#78787e">// Import the thread and time modules from the standard library
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span><span style="color:#ff6ac1">use</span> std::thread;
-</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">use</span> std::time::Duration;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">// Import the thread and time modules from the standard library
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">use</span> std::thread;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">use</span> std::time::Duration;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#78787e">// Define a function that uses threading to print &#34;Hello, world!&#34; after a delay
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span><span style="color:#ff6ac1">fn</span> <span style="color:#57c7ff">say_hello</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// Create a new thread that will run the code in the closure
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    <span style="color:#ff5c57">let</span> handle <span style="color:#ff6ac1">=</span> thread::spawn(<span style="color:#ff6ac1">||</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#78787e">// Sleep for one second
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>        thread::sleep(Duration::from_secs(<span style="color:#ff9f43">1</span>));
-</span></span><span style="display:flex;"><span>        <span style="color:#78787e">// Print &#34;Hello, world!&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>        println!(<span style="color:#5af78e">&#34;Hello, world!&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Define a function that uses threading to print &#34;Hello, world!&#34; after a delay
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">say_hello</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Create a new thread that will run the code in the closure
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> handle <span style="color:#f92672">=</span> thread::spawn(<span style="color:#f92672">||</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Sleep for one second
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        thread::sleep(Duration::from_secs(<span style="color:#ae81ff">1</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Print &#34;Hello, world!&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        println!(<span style="color:#e6db74">&#34;Hello, world!&#34;</span>);
 </span></span><span style="display:flex;"><span>    });
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// Wait for the thread to finish
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    handle.join().unwrap();
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Wait for the thread to finish
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    handle.join().unwrap();
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#78787e">// Define the main function
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span><span style="color:#ff6ac1">fn</span> <span style="color:#57c7ff">main</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// Call the say_hello() function
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    say_hello();
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Define the main function
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Call the say_hello() function
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    say_hello();
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>This sample application uses the <code>std::thread</code> module to create a new thread and run a closure in that thread. It also uses the <code>std::time::Duration</code> type to pause the thread for a specific amount of time.</p>
 <p>The application uses the <code>thread::spawn()</code> method to create a new thread, and the <code>thread::sleep()</code> method to pause the thread for one second. The <code>println!()</code> macro is used to print a message to the console.</p>
 <p>The <code>main()</code> function is the entry point of the application, and it calls the <code>say_hello()</code> function to execute the code in the thread. The <code>join()</code> method is used to wait for the thread to finish before the application exits.</p>
 <p>This sample application demonstrates several of the key concepts of Rust programming, including threading, functions, and control flow. It also shows how to use the <code>println!()</code> macro and the <code>Duration</code> type from the standard library.</p>
 <h3 id="-2"># 2</h3>
-<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#ff6ac1">fn</span> <span style="color:#57c7ff">main</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// Declare a variable x and initialize it with the value 5
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    <span style="color:#ff5c57">let</span> x <span style="color:#ff6ac1">=</span> <span style="color:#ff9f43">5</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Declare a variable x and initialize it with the value 5
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// Print the value of x
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    println!(<span style="color:#5af78e">&#34;x = </span><span style="color:#5af78e">{}</span><span style="color:#5af78e">&#34;</span>, x);
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Print the value of x
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    println!(<span style="color:#e6db74">&#34;x = </span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>, x);
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// Borrow the value of x and store it in a new variable y
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    <span style="color:#ff5c57">let</span> y <span style="color:#ff6ac1">=</span> <span style="color:#ff6ac1">&amp;</span>x;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Borrow the value of x and store it in a new variable y
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> y <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>x;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// Print the value of y
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    println!(<span style="color:#5af78e">&#34;y = </span><span style="color:#5af78e">{}</span><span style="color:#5af78e">&#34;</span>, y);
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Print the value of y
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    println!(<span style="color:#e6db74">&#34;y = </span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>, y);
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// Try to modify the value of x
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    <span style="color:#78787e">// This will cause a compile-error because x is not mutable
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    <span style="color:#78787e">// x = 10;
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// Declare a mutable variable z and initialize it with the value 5
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    <span style="color:#ff5c57">let</span> <span style="color:#ff6ac1">mut</span> z <span style="color:#ff6ac1">=</span> <span style="color:#ff9f43">5</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Try to modify the value of x
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// This will cause a compile-error because x is not mutable
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// x = 10;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Declare a mutable variable z and initialize it with the value 5
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> z <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// Print the value of z
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    println!(<span style="color:#5af78e">&#34;z = </span><span style="color:#5af78e">{}</span><span style="color:#5af78e">&#34;</span>, z);
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Print the value of z
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    println!(<span style="color:#e6db74">&#34;z = </span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>, z);
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// Modify the value of z
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    z <span style="color:#ff6ac1">=</span> <span style="color:#ff9f43">10</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Modify the value of z
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    z <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// Print the value of z
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    println!(<span style="color:#5af78e">&#34;z = </span><span style="color:#5af78e">{}</span><span style="color:#5af78e">&#34;</span>, z);
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Print the value of z
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    println!(<span style="color:#e6db74">&#34;z = </span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>, z);
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>In this program, <code>x</code> is a variable that holds the value 5. It is declared using the <code>let</code> keyword, which makes it an immutable variable (i.e., it cannot be changed).</p>
 <p>The program then borrows the value of <code>x</code> and stores it in a new variable <code>y</code>. This is done using the <code>&amp;</code> operator, which creates a reference to the value of <code>x</code>.</p>
@@ -259,93 +259,93 @@
 <p>The program then declares a new variable <code>z</code> and initializes it with the value 5. This time, the <code>let</code> keyword is followed by the <code>mut</code> keyword, which makes <code>z</code> a mutable variable. This allows the program to modify the value of <code>z</code> later on.</p>
 <p>This program demonstrates how ownership, borrowing, and mutability work in Rust, and how they are used to control access to values and prevent common errors.</p>
 <h3 id="3">#3</h3>
-<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#78787e">// Import the io module from the standard library
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span><span style="color:#ff6ac1">use</span> std::io;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">// Import the io module from the standard library
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">use</span> std::io;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">fn</span> <span style="color:#57c7ff">main</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// Declare a constant named &#34;MAX_COUNT&#34; with the value 10
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    <span style="color:#ff6ac1">const</span> <span style="color:#ff9f43">MAX_COUNT</span>: <span style="color:#9aedfe">i32</span> <span style="color:#ff6ac1">=</span> <span style="color:#ff9f43">10</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Declare a constant named &#34;MAX_COUNT&#34; with the value 10
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">MAX_COUNT</span>: <span style="color:#66d9ef">i32</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// Print the value of MAX_COUNT
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    println!(<span style="color:#5af78e">&#34;MAX_COUNT = </span><span style="color:#5af78e">{}</span><span style="color:#5af78e">&#34;</span>, <span style="color:#ff9f43">MAX_COUNT</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Print the value of MAX_COUNT
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    println!(<span style="color:#e6db74">&#34;MAX_COUNT = </span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>, <span style="color:#66d9ef">MAX_COUNT</span>);
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// Declare a mutable variable named &#34;count&#34; and initialize it with the value 0
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    <span style="color:#ff5c57">let</span> <span style="color:#ff6ac1">mut</span> count <span style="color:#ff6ac1">=</span> <span style="color:#ff9f43">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Declare a mutable variable named &#34;count&#34; and initialize it with the value 0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> count <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// Use a loop to increment the value of &#34;count&#34; until it reaches MAX_COUNT
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    <span style="color:#ff6ac1">while</span> count <span style="color:#ff6ac1">&lt;</span> <span style="color:#ff9f43">MAX_COUNT</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#78787e">// Increment the value of &#34;count&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>        count <span style="color:#ff6ac1">+=</span> <span style="color:#ff9f43">1</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Use a loop to increment the value of &#34;count&#34; until it reaches MAX_COUNT
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">while</span> count <span style="color:#f92672">&lt;</span> <span style="color:#66d9ef">MAX_COUNT</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Increment the value of &#34;count&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        count <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#78787e">// Print the current value of &#34;count&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>        println!(<span style="color:#5af78e">&#34;count = </span><span style="color:#5af78e">{}</span><span style="color:#5af78e">&#34;</span>, count);
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Print the current value of &#34;count&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        println!(<span style="color:#e6db74">&#34;count = </span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>, count);
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// Use a match expression to check the final value of &#34;count&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    <span style="color:#ff6ac1">match</span> count {
-</span></span><span style="display:flex;"><span>        <span style="color:#78787e">// If &#34;count&#34; is equal to MAX_COUNT, print a success message
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>        <span style="color:#ff9f43">MAX_COUNT</span> <span style="color:#ff6ac1">=&gt;</span> println!(<span style="color:#5af78e">&#34;Success! count = MAX_COUNT&#34;</span>),
-</span></span><span style="display:flex;"><span>        <span style="color:#78787e">// If &#34;count&#34; is not equal to MAX_COUNT, print an error message
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>        _ <span style="color:#ff6ac1">=&gt;</span> println!(<span style="color:#5af78e">&#34;Error! count != MAX_COUNT&#34;</span>),
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Use a match expression to check the final value of &#34;count&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">match</span> count {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// If &#34;count&#34; is equal to MAX_COUNT, print a success message
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">MAX_COUNT</span> <span style="color:#f92672">=&gt;</span> println!(<span style="color:#e6db74">&#34;Success! count = MAX_COUNT&#34;</span>),
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// If &#34;count&#34; is not equal to MAX_COUNT, print an error message
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        _ <span style="color:#f92672">=&gt;</span> println!(<span style="color:#e6db74">&#34;Error! count != MAX_COUNT&#34;</span>),
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// Use the try! macro to read a line of input from the user
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    <span style="color:#ff5c57">let</span> <span style="color:#ff6ac1">mut</span> input <span style="color:#ff6ac1">=</span> <span style="color:#ff5c57">String</span>::new();
-</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">try</span><span style="color:#ff6ac1">!</span>(io::stdin().read_line(<span style="color:#ff6ac1">&amp;</span><span style="color:#ff6ac1">mut</span> input));
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Use the try! macro to read a line of input from the user
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> input <span style="color:#f92672">=</span> String::new();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span><span style="color:#f92672">!</span>(io::stdin().read_line(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> input));
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// Print the input that the user entered
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    println!(<span style="color:#5af78e">&#34;You entered: </span><span style="color:#5af78e">{}</span><span style="color:#5af78e">&#34;</span>, input);
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Print the input that the user entered
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    println!(<span style="color:#e6db74">&#34;You entered: </span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>, input);
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>This program demonstrates several of Rust&rsquo;s keywords, including <code>const</code>, <code>let</code>, <code>mut</code>, <code>while</code>, <code>match</code>, and <code>try!</code>.</p>
 <h3 id="4">#4</h3>
-<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#ff6ac1">fn</span> <span style="color:#57c7ff">main</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// Declare a mutable variable &#34;x&#34; and initialize it with the value 0
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    <span style="color:#ff5c57">let</span> <span style="color:#ff6ac1">mut</span> x <span style="color:#ff6ac1">=</span> <span style="color:#ff9f43">0</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Declare a mutable variable &#34;x&#34; and initialize it with the value 0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// Use an if/else statement to check the value of &#34;x&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    <span style="color:#ff6ac1">if</span> x <span style="color:#ff6ac1">==</span> <span style="color:#ff9f43">0</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#78787e">// If &#34;x&#34; is 0, print a message and increment &#34;x&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>        println!(<span style="color:#5af78e">&#34;x is 0&#34;</span>);
-</span></span><span style="display:flex;"><span>        x <span style="color:#ff6ac1">+=</span> <span style="color:#ff9f43">1</span>;
-</span></span><span style="display:flex;"><span>    } <span style="color:#ff6ac1">else</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#78787e">// If &#34;x&#34; is not 0, print a different message and decrement &#34;x&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>        println!(<span style="color:#5af78e">&#34;x is not 0&#34;</span>);
-</span></span><span style="display:flex;"><span>        x <span style="color:#ff6ac1">-=</span> <span style="color:#ff9f43">1</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Use an if/else statement to check the value of &#34;x&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> x <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// If &#34;x&#34; is 0, print a message and increment &#34;x&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        println!(<span style="color:#e6db74">&#34;x is 0&#34;</span>);
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// If &#34;x&#34; is not 0, print a different message and decrement &#34;x&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        println!(<span style="color:#e6db74">&#34;x is not 0&#34;</span>);
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>;
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// Use a loop to repeatedly print the value of &#34;x&#34; and then increment it
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    <span style="color:#ff6ac1">loop</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#78787e">// Print the current value of &#34;x&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>        println!(<span style="color:#5af78e">&#34;x = </span><span style="color:#5af78e">{}</span><span style="color:#5af78e">&#34;</span>, x);
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Use a loop to repeatedly print the value of &#34;x&#34; and then increment it
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">loop</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Print the current value of &#34;x&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        println!(<span style="color:#e6db74">&#34;x = </span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>, x);
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#78787e">// Increment the value of &#34;x&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>        x <span style="color:#ff6ac1">+=</span> <span style="color:#ff9f43">1</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Increment the value of &#34;x&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        x <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#78787e">// Use a break statement to exit the loop when &#34;x&#34; reaches 5
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>        <span style="color:#ff6ac1">if</span> x <span style="color:#ff6ac1">==</span> <span style="color:#ff9f43">5</span> {
-</span></span><span style="display:flex;"><span>            <span style="color:#ff6ac1">break</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Use a break statement to exit the loop when &#34;x&#34; reaches 5
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> x <span style="color:#f92672">==</span> <span style="color:#ae81ff">5</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>;
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// Declare a variable &#34;y&#34; and initialize it with the value 10
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    <span style="color:#ff5c57">let</span> y <span style="color:#ff6ac1">=</span> <span style="color:#ff9f43">10</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Declare a variable &#34;y&#34; and initialize it with the value 10
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> y <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// Use a match expression to check the value of &#34;y&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    <span style="color:#ff6ac1">match</span> y {
-</span></span><span style="display:flex;"><span>        <span style="color:#78787e">// If &#34;y&#34; is 10, print a message and assign the value 20 to &#34;y&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>        <span style="color:#ff9f43">10</span> <span style="color:#ff6ac1">=&gt;</span> {
-</span></span><span style="display:flex;"><span>            println!(<span style="color:#5af78e">&#34;y is 10&#34;</span>);
-</span></span><span style="display:flex;"><span>            y <span style="color:#ff6ac1">=</span> <span style="color:#ff9f43">20</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Use a match expression to check the value of &#34;y&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">match</span> y {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// If &#34;y&#34; is 10, print a message and assign the value 20 to &#34;y&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#ae81ff">10</span> <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>            println!(<span style="color:#e6db74">&#34;y is 10&#34;</span>);
+</span></span><span style="display:flex;"><span>            y <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>;
 </span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        <span style="color:#78787e">// If &#34;y&#34; is not 10, print a different message and assign the value 0 to &#34;y&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>        _ <span style="color:#ff6ac1">=&gt;</span> {
-</span></span><span style="display:flex;"><span>            println!(<span style="color:#5af78e">&#34;y is not 10&#34;</span>);
-</span></span><span style="display:flex;"><span>            y <span style="color:#ff6ac1">=</span> <span style="color:#ff9f43">0</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// If &#34;y&#34; is not 10, print a different message and assign the value 0 to &#34;y&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        _ <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>            println!(<span style="color:#e6db74">&#34;y is not 10&#34;</span>);
+</span></span><span style="display:flex;"><span>            y <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#78787e">// Print the final value of &#34;y&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#78787e"></span>    println!(<span style="color:#5af78e">&#34;y = </span><span style="color:#5af78e">{}</span><span style="color:#5af78e">&#34;</span>, y);
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Print the final value of &#34;y&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    println!(<span style="color:#e6db74">&#34;y = </span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>, y);
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>This program demonstrates the <code>if</code>/<code>else</code> statement, the <code>loop</code> construct, and the <code>match</code> expression, which are some of the main control structures in Rust.</p>
 <p>The <code>if</code>/<code>else</code> statement is used to check the value of the <code>x</code> variable and decide what to do based on its value. The <code>loop</code> construct is used to repeat a block of code until a certain condition is met. The <code>match</code> expression is used to compare the value of the <code>y</code> variable against multiple patterns and execute different code for each pattern.</p>
