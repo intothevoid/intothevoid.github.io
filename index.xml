@@ -1,109 +1,109 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Karan Kadam</title>
-    <link>/</link>
-    <description>Recent content on Karan Kadam</description>
+    <title>Into The Void</title>
+    <link>https://intothevoid.github.io/</link>
+    <description>Recent content on Into The Void</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 18 May 2024 21:40:39 +0930</lastBuildDate>
-    <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://intothevoid.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Organise Videos By Resolution</title>
-      <link>/posts/organise-videos-by-resolution/</link>
+      <link>https://intothevoid.github.io/2024/05/organise-videos-by-resolution/</link>
       <pubDate>Sat, 18 May 2024 21:40:39 +0930</pubDate>
-      <guid>/posts/organise-videos-by-resolution/</guid>
+      <guid>https://intothevoid.github.io/2024/05/organise-videos-by-resolution/</guid>
       <description>Recently I was clearing out some old movie rips that I had created from VideoCDs and DVDs many years ago. I wanted a quick and dirty way to organise these i.e. get rid of the videos of resolutions lower than 720p (1280x720)&#xA;With LLMs all the rage at the moment, all it took is a few prompts and corrections and in 15 minutes I had this script ready to go -</description>
     </item>
     <item>
       <title>An introduction to the OpenAI API using Python</title>
-      <link>/posts/an-introduction-to-the-openai-api-using-python/</link>
+      <link>https://intothevoid.github.io/2023/04/an-introduction-to-the-openai-api-using-python/</link>
       <pubDate>Wed, 19 Apr 2023 22:31:18 +0930</pubDate>
-      <guid>/posts/an-introduction-to-the-openai-api-using-python/</guid>
+      <guid>https://intothevoid.github.io/2023/04/an-introduction-to-the-openai-api-using-python/</guid>
       <description>Introduction Ever wanted to play chess against an AI? With the OpenAI API, you can! This blog post will show you how to use Python to interface with the OpenAI API, send and receive requests, and even play a game of chess against an AI opponent. We&amp;rsquo;ll be using the FEN representation of the chess board to communicate game states with the API.&#xA;Setting Up Before we start, make sure you have the following:</description>
     </item>
     <item>
       <title>Type safety in Python with Pydantic</title>
-      <link>/posts/type-safety-in-python-with-pydantic/</link>
+      <link>https://intothevoid.github.io/2023/04/type-safety-in-python-with-pydantic/</link>
       <pubDate>Mon, 10 Apr 2023 16:56:00 +0930</pubDate>
-      <guid>/posts/type-safety-in-python-with-pydantic/</guid>
+      <guid>https://intothevoid.github.io/2023/04/type-safety-in-python-with-pydantic/</guid>
       <description>Introduction to Pydantic Pydantic is a Python library that provides data validation and settings management, using Python type annotations. It is designed to make it easy to define and validate data models, allowing you to catch errors and handle them gracefully, making your code more robust and easier to maintain.&#xA;Pydantic is particularly useful for handling data that is passed between different parts of a system, such as between a front-end web form and a back-end API, or between different microservices.</description>
     </item>
     <item>
       <title>Guide to Docker</title>
-      <link>/posts/guide-to-docker/</link>
+      <link>https://intothevoid.github.io/2023/01/guide-to-docker/</link>
       <pubDate>Mon, 02 Jan 2023 21:33:44 +1030</pubDate>
-      <guid>/posts/guide-to-docker/</guid>
+      <guid>https://intothevoid.github.io/2023/01/guide-to-docker/</guid>
       <description>I. Introduction to Docker What is Docker? How does Docker work? Why is Docker useful? What is Docker? Docker is an open-source containerisation platform that allows you to package an application with all of its dependencies into a single container. This container can then be easily deployed and run on any platform that supports Docker, making it a great tool for building, shipping, and running applications.&#xA;How does Docker work? Docker works by using the host operating system&amp;rsquo;s kernel and automating the creation, deployment, and management of containers.</description>
     </item>
     <item>
       <title>NoSQL Databases - MongoDB</title>
-      <link>/posts/nosql-databases-mongodb/</link>
+      <link>https://intothevoid.github.io/2022/12/nosql-databases-mongodb/</link>
       <pubDate>Fri, 30 Dec 2022 09:51:13 +1030</pubDate>
-      <guid>/posts/nosql-databases-mongodb/</guid>
+      <guid>https://intothevoid.github.io/2022/12/nosql-databases-mongodb/</guid>
       <description>NoSQL databases are a type of database that is designed to handle large amounts of data that is distributed across a large number of servers. NoSQL databases are particularly well-suited for handling unstructured data, such as text, images, and videos, and for handling data that is generated by web and mobile applications.&#xA;There are several different types of NoSQL databases, including:&#xA;Document databases: These databases store data in the form of documents, which are similar to JSON objects.</description>
     </item>
     <item>
       <title>Levenshtein Distance</title>
-      <link>/posts/levenshtein-distance/</link>
+      <link>https://intothevoid.github.io/2022/12/levenshtein-distance/</link>
       <pubDate>Mon, 26 Dec 2022 00:04:51 +1030</pubDate>
-      <guid>/posts/levenshtein-distance/</guid>
+      <guid>https://intothevoid.github.io/2022/12/levenshtein-distance/</guid>
       <description>Levenshtein distance is a measure of the similarity between two strings, calculated as the minimum number of single-character edits (insertions, deletions, or substitutions) required to transform one string into the other. Here is an example of how you can calculate the Levenshtein distance between two strings in Go:&#xA;package main import ( &amp;#34;fmt&amp;#34; &amp;#34;math&amp;#34; ) func main() { s1 := &amp;#34;kitten&amp;#34; s2 := &amp;#34;sitting&amp;#34; distance := levenshteinDistance(s1, s2) fmt.Printf(&amp;#34;The Levenshtein distance between %s and %s is %d\n&amp;#34;, s1, s2, distance) } func levenshteinDistance(s1, s2 string) int { // Convert strings to rune slices for Unicode support r1 := []rune(s1) r2 := []rune(s2) // Initialize a two-dimensional matrix with all values set to zero matrix := make([][]int, len(r1)+1) for i := range matrix { matrix[i] = make([]int, len(r2)+1) } // Set the initial values of the first row and column of the matrix for i := 1; i &amp;lt;= len(r1); i++ { matrix[i][0] = i } for j := 1; j &amp;lt;= len(r2); j++ { matrix[0][j] = j } // Calculate the Levenshtein distance using the dynamic programming algorithm for i := 1; i &amp;lt;= len(r1); i++ { for j := 1; j &amp;lt;= len(r2); j++ { cost := 0 if r1[i-1] !</description>
     </item>
     <item>
       <title>Spotify Playlist Backups using Python</title>
-      <link>/posts/spotify-playlist-backups-using-python/</link>
+      <link>https://intothevoid.github.io/2022/12/spotify-playlist-backups-using-python/</link>
       <pubDate>Sun, 11 Dec 2022 11:43:47 +1030</pubDate>
-      <guid>/posts/spotify-playlist-backups-using-python/</guid>
+      <guid>https://intothevoid.github.io/2022/12/spotify-playlist-backups-using-python/</guid>
       <description>To create a web application that backs up your Spotify playlists as a JSON file, you will need to do the following:&#xA;First, you will need to install the spotipy library, which provides a Python interface for the Spotify Web API. You can do this by running the following command: pip install spotipy Next, you will need to create a Spotify app and obtain a client ID and client secret for the app.</description>
     </item>
     <item>
       <title>Crash Course in Go</title>
-      <link>/posts/crash-course-in-go/</link>
+      <link>https://intothevoid.github.io/2022/12/crash-course-in-go/</link>
       <pubDate>Thu, 08 Dec 2022 15:35:51 +1030</pubDate>
-      <guid>/posts/crash-course-in-go/</guid>
+      <guid>https://intothevoid.github.io/2022/12/crash-course-in-go/</guid>
       <description>Go, also known as Golang, is a modern, open-source programming language developed by Google. It is designed to be fast, efficient, and scalable, and it is widely used in a variety of applications, from web servers and cloud services to games and machine learning.&#xA;In this blog post, we&amp;rsquo;ll provide a crash course on Go programming, including its features, syntax, and available keywords. We&amp;rsquo;ll also include some examples to demonstrate how to use these concepts in your own code.</description>
     </item>
     <item>
       <title>Crash Course in Rust</title>
-      <link>/posts/crash-course-in-rust/</link>
+      <link>https://intothevoid.github.io/2022/12/crash-course-in-rust/</link>
       <pubDate>Wed, 07 Dec 2022 23:07:51 +1030</pubDate>
-      <guid>/posts/crash-course-in-rust/</guid>
+      <guid>https://intothevoid.github.io/2022/12/crash-course-in-rust/</guid>
       <description>This article is a crash course in Rust programming and its setup / usage. For a more detailed guide check out -&#xA;Rust Book https://doc.rust-lang.org/stable/book/ Rust By Example https://doc.rust-lang.org/stable/rust-by-example/ Introduction to Rust: This lesson would cover the basics of Rust, including its history, features, and the benefits of using it.&#xA;Setting up a development environment: This lesson would explain how to install Rust on your computer and set up a development environment, including a code editor and any necessary tools and libraries.</description>
     </item>
     <item>
       <title>Contact</title>
-      <link>/contact/</link>
+      <link>https://intothevoid.github.io/contact/</link>
       <pubDate>Sat, 06 Aug 2022 11:29:40 +0930</pubDate>
-      <guid>/contact/</guid>
+      <guid>https://intothevoid.github.io/contact/</guid>
       <description>You can get in touch with me by leaving me a message here. Feel free to leave feedback good or bad, or simply to say hello. Thank you for your message!&#xA;Submit </description>
     </item>
     <item>
       <title>Transferring Files from iOS to Linux wirelessly</title>
-      <link>/posts/transferring-files-from-ios-to-linux-wirelessly/</link>
+      <link>https://intothevoid.github.io/2022/08/transferring-files-from-ios-to-linux-wirelessly/</link>
       <pubDate>Sat, 06 Aug 2022 09:29:40 +0930</pubDate>
-      <guid>/posts/transferring-files-from-ios-to-linux-wirelessly/</guid>
+      <guid>https://intothevoid.github.io/2022/08/transferring-files-from-ios-to-linux-wirelessly/</guid>
       <description>Overview I was an Android user for a long period of time, right from the Jellybean and Gingerbread days. After almost a decade being with Android I finally moved to iOS, because I was sick of the fragmentation and I wish Android took privacy as seriously as iOS does. One of the most common things I need to do is transfer files across from my iOS device to my Linux laptop.</description>
     </item>
     <item>
       <title>About Me</title>
-      <link>/about/</link>
+      <link>https://intothevoid.github.io/about/</link>
       <pubDate>Tue, 02 Aug 2022 09:29:40 +0930</pubDate>
-      <guid>/about/</guid>
+      <guid>https://intothevoid.github.io/about/</guid>
       <description>Tasmania, 2021 🇦🇺 Hi! My name is Karan and I&amp;rsquo;ve been writing code professionally for about 16 years now.&#xA;My programming journey has taken me from Medical Electronics to Simulation to Defence.&#xA;I started dabbling with computers when I was in 7th grade and my parents bought my sister a Pentium 166MMX. This was a single core processor that ran at a 166Mhz! It had 16mb (yes megabytes) of memory and a 2.</description>
     </item>
     <item>
       <title>Setup Vim (Astro Vim) on a Macbook</title>
-      <link>/posts/setup-vim-astro-vim-on-a-macbook/</link>
+      <link>https://intothevoid.github.io/2022/07/setup-vim-astro-vim-on-a-macbook/</link>
       <pubDate>Sun, 31 Jul 2022 11:53:48 +0930</pubDate>
-      <guid>/posts/setup-vim-astro-vim-on-a-macbook/</guid>
+      <guid>https://intothevoid.github.io/2022/07/setup-vim-astro-vim-on-a-macbook/</guid>
       <description>Overview Use the following steps to have a decent vim installation relatively quickly on a Macbook with a M1 / M2 chipset&#xA;Brew installation Brew is a package manager for MacOS which makes it very easy to install packages. I highly recommend this package manager on MacOS. Its worth the effort to get it installed you will thank yourself later on.&#xA;From www.brew.sh -&#xA;/bin/bash -c &amp;#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&amp;#34; Sample command using brew -</description>
     </item>
     <item>
       <title>Create a blog using Hugo and Github Pages</title>
-      <link>/posts/create-a-blog-using-hugo-and-github-pages/</link>
+      <link>https://intothevoid.github.io/2021/04/create-a-blog-using-hugo-and-github-pages/</link>
       <pubDate>Mon, 05 Apr 2021 14:13:49 +0930</pubDate>
-      <guid>/posts/create-a-blog-using-hugo-and-github-pages/</guid>
+      <guid>https://intothevoid.github.io/2021/04/create-a-blog-using-hugo-and-github-pages/</guid>
       <description>Update: Added section on adding Github Action for Hugo build&#xA;This is a guide on how you can create a blog or website from scratch using Hugo and Github. This is also my first post on this blog, which has been created using the steps mentioned in this article using Hugo and Github Pages.&#xA;It is quite easy to create a blog using Wordpress or some other CMS but the simplicity of Hugo is what drove me to it.</description>
     </item>
   </channel>

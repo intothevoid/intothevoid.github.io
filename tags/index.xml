@@ -1,207 +1,207 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on Karan Kadam</title>
-    <link>/tags/</link>
-    <description>Recent content in Tags on Karan Kadam</description>
+    <title>Tags on Into The Void</title>
+    <link>https://intothevoid.github.io/tags/</link>
+    <description>Recent content in Tags on Into The Void</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 18 May 2024 21:40:39 +0930</lastBuildDate>
-    <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://intothevoid.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Code</title>
-      <link>/tags/code/</link>
+      <link>https://intothevoid.github.io/tags/code/</link>
       <pubDate>Sat, 18 May 2024 21:40:39 +0930</pubDate>
-      <guid>/tags/code/</guid>
+      <guid>https://intothevoid.github.io/tags/code/</guid>
       <description></description>
     </item>
     <item>
       <title>Programming</title>
-      <link>/tags/programming/</link>
+      <link>https://intothevoid.github.io/tags/programming/</link>
       <pubDate>Sat, 18 May 2024 21:40:39 +0930</pubDate>
-      <guid>/tags/programming/</guid>
+      <guid>https://intothevoid.github.io/tags/programming/</guid>
       <description></description>
     </item>
     <item>
       <title>Python</title>
-      <link>/tags/python/</link>
+      <link>https://intothevoid.github.io/tags/python/</link>
       <pubDate>Sat, 18 May 2024 21:40:39 +0930</pubDate>
-      <guid>/tags/python/</guid>
+      <guid>https://intothevoid.github.io/tags/python/</guid>
       <description></description>
     </item>
     <item>
       <title>Scripts</title>
-      <link>/tags/scripts/</link>
+      <link>https://intothevoid.github.io/tags/scripts/</link>
       <pubDate>Sat, 18 May 2024 21:40:39 +0930</pubDate>
-      <guid>/tags/scripts/</guid>
+      <guid>https://intothevoid.github.io/tags/scripts/</guid>
       <description></description>
     </item>
     <item>
       <title>Ai</title>
-      <link>/tags/ai/</link>
+      <link>https://intothevoid.github.io/tags/ai/</link>
       <pubDate>Wed, 19 Apr 2023 22:31:18 +0930</pubDate>
-      <guid>/tags/ai/</guid>
+      <guid>https://intothevoid.github.io/tags/ai/</guid>
       <description></description>
     </item>
     <item>
       <title>Api</title>
-      <link>/tags/api/</link>
+      <link>https://intothevoid.github.io/tags/api/</link>
       <pubDate>Wed, 19 Apr 2023 22:31:18 +0930</pubDate>
-      <guid>/tags/api/</guid>
+      <guid>https://intothevoid.github.io/tags/api/</guid>
       <description></description>
     </item>
     <item>
       <title>Chess</title>
-      <link>/tags/chess/</link>
+      <link>https://intothevoid.github.io/tags/chess/</link>
       <pubDate>Wed, 19 Apr 2023 22:31:18 +0930</pubDate>
-      <guid>/tags/chess/</guid>
+      <guid>https://intothevoid.github.io/tags/chess/</guid>
       <description></description>
     </item>
     <item>
       <title>Openai</title>
-      <link>/tags/openai/</link>
+      <link>https://intothevoid.github.io/tags/openai/</link>
       <pubDate>Wed, 19 Apr 2023 22:31:18 +0930</pubDate>
-      <guid>/tags/openai/</guid>
+      <guid>https://intothevoid.github.io/tags/openai/</guid>
       <description></description>
     </item>
     <item>
       <title>Languages</title>
-      <link>/tags/languages/</link>
+      <link>https://intothevoid.github.io/tags/languages/</link>
       <pubDate>Mon, 10 Apr 2023 16:56:00 +0930</pubDate>
-      <guid>/tags/languages/</guid>
+      <guid>https://intothevoid.github.io/tags/languages/</guid>
       <description></description>
     </item>
     <item>
       <title>Containerisation</title>
-      <link>/tags/containerisation/</link>
+      <link>https://intothevoid.github.io/tags/containerisation/</link>
       <pubDate>Mon, 02 Jan 2023 21:33:44 +1030</pubDate>
-      <guid>/tags/containerisation/</guid>
+      <guid>https://intothevoid.github.io/tags/containerisation/</guid>
       <description></description>
     </item>
     <item>
       <title>Devops</title>
-      <link>/tags/devops/</link>
+      <link>https://intothevoid.github.io/tags/devops/</link>
       <pubDate>Mon, 02 Jan 2023 21:33:44 +1030</pubDate>
-      <guid>/tags/devops/</guid>
+      <guid>https://intothevoid.github.io/tags/devops/</guid>
       <description></description>
     </item>
     <item>
       <title>Docker</title>
-      <link>/tags/docker/</link>
+      <link>https://intothevoid.github.io/tags/docker/</link>
       <pubDate>Mon, 02 Jan 2023 21:33:44 +1030</pubDate>
-      <guid>/tags/docker/</guid>
+      <guid>https://intothevoid.github.io/tags/docker/</guid>
       <description></description>
     </item>
     <item>
       <title>Microservices</title>
-      <link>/tags/microservices/</link>
+      <link>https://intothevoid.github.io/tags/microservices/</link>
       <pubDate>Mon, 02 Jan 2023 21:33:44 +1030</pubDate>
-      <guid>/tags/microservices/</guid>
+      <guid>https://intothevoid.github.io/tags/microservices/</guid>
       <description></description>
     </item>
     <item>
       <title>Golang</title>
-      <link>/tags/golang/</link>
+      <link>https://intothevoid.github.io/tags/golang/</link>
       <pubDate>Fri, 30 Dec 2022 09:51:13 +1030</pubDate>
-      <guid>/tags/golang/</guid>
+      <guid>https://intothevoid.github.io/tags/golang/</guid>
       <description></description>
     </item>
     <item>
       <title>Nosql</title>
-      <link>/tags/nosql/</link>
+      <link>https://intothevoid.github.io/tags/nosql/</link>
       <pubDate>Fri, 30 Dec 2022 09:51:13 +1030</pubDate>
-      <guid>/tags/nosql/</guid>
+      <guid>https://intothevoid.github.io/tags/nosql/</guid>
       <description></description>
     </item>
     <item>
       <title>Automation</title>
-      <link>/tags/automation/</link>
+      <link>https://intothevoid.github.io/tags/automation/</link>
       <pubDate>Sun, 11 Dec 2022 11:43:47 +1030</pubDate>
-      <guid>/tags/automation/</guid>
+      <guid>https://intothevoid.github.io/tags/automation/</guid>
       <description></description>
     </item>
     <item>
       <title>Javascript</title>
-      <link>/tags/javascript/</link>
+      <link>https://intothevoid.github.io/tags/javascript/</link>
       <pubDate>Sun, 11 Dec 2022 11:43:47 +1030</pubDate>
-      <guid>/tags/javascript/</guid>
+      <guid>https://intothevoid.github.io/tags/javascript/</guid>
       <description></description>
     </item>
     <item>
       <title>Webapp</title>
-      <link>/tags/webapp/</link>
+      <link>https://intothevoid.github.io/tags/webapp/</link>
       <pubDate>Sun, 11 Dec 2022 11:43:47 +1030</pubDate>
-      <guid>/tags/webapp/</guid>
+      <guid>https://intothevoid.github.io/tags/webapp/</guid>
       <description></description>
     </item>
     <item>
       <title>Rust</title>
-      <link>/tags/rust/</link>
+      <link>https://intothevoid.github.io/tags/rust/</link>
       <pubDate>Wed, 07 Dec 2022 23:07:51 +1030</pubDate>
-      <guid>/tags/rust/</guid>
+      <guid>https://intothevoid.github.io/tags/rust/</guid>
       <description></description>
     </item>
     <item>
       <title>Fedora</title>
-      <link>/tags/fedora/</link>
+      <link>https://intothevoid.github.io/tags/fedora/</link>
       <pubDate>Sat, 06 Aug 2022 09:29:40 +0930</pubDate>
-      <guid>/tags/fedora/</guid>
+      <guid>https://intothevoid.github.io/tags/fedora/</guid>
       <description></description>
     </item>
     <item>
       <title>Ios</title>
-      <link>/tags/ios/</link>
+      <link>https://intothevoid.github.io/tags/ios/</link>
       <pubDate>Sat, 06 Aug 2022 09:29:40 +0930</pubDate>
-      <guid>/tags/ios/</guid>
+      <guid>https://intothevoid.github.io/tags/ios/</guid>
       <description></description>
     </item>
     <item>
       <title>Linux</title>
-      <link>/tags/linux/</link>
+      <link>https://intothevoid.github.io/tags/linux/</link>
       <pubDate>Sat, 06 Aug 2022 09:29:40 +0930</pubDate>
-      <guid>/tags/linux/</guid>
+      <guid>https://intothevoid.github.io/tags/linux/</guid>
       <description></description>
     </item>
     <item>
       <title>Ssh</title>
-      <link>/tags/ssh/</link>
+      <link>https://intothevoid.github.io/tags/ssh/</link>
       <pubDate>Sat, 06 Aug 2022 09:29:40 +0930</pubDate>
-      <guid>/tags/ssh/</guid>
+      <guid>https://intothevoid.github.io/tags/ssh/</guid>
       <description></description>
     </item>
     <item>
       <title>M1</title>
-      <link>/tags/m1/</link>
+      <link>https://intothevoid.github.io/tags/m1/</link>
       <pubDate>Sun, 31 Jul 2022 11:53:48 +0930</pubDate>
-      <guid>/tags/m1/</guid>
+      <guid>https://intothevoid.github.io/tags/m1/</guid>
       <description></description>
     </item>
     <item>
       <title>Macos</title>
-      <link>/tags/macos/</link>
+      <link>https://intothevoid.github.io/tags/macos/</link>
       <pubDate>Sun, 31 Jul 2022 11:53:48 +0930</pubDate>
-      <guid>/tags/macos/</guid>
+      <guid>https://intothevoid.github.io/tags/macos/</guid>
       <description></description>
     </item>
     <item>
       <title>Vim</title>
-      <link>/tags/vim/</link>
+      <link>https://intothevoid.github.io/tags/vim/</link>
       <pubDate>Sun, 31 Jul 2022 11:53:48 +0930</pubDate>
-      <guid>/tags/vim/</guid>
+      <guid>https://intothevoid.github.io/tags/vim/</guid>
       <description></description>
     </item>
     <item>
       <title>Hugo</title>
-      <link>/tags/hugo/</link>
+      <link>https://intothevoid.github.io/tags/hugo/</link>
       <pubDate>Mon, 05 Apr 2021 14:13:49 +0930</pubDate>
-      <guid>/tags/hugo/</guid>
+      <guid>https://intothevoid.github.io/tags/hugo/</guid>
       <description></description>
     </item>
     <item>
       <title>Web</title>
-      <link>/tags/web/</link>
+      <link>https://intothevoid.github.io/tags/web/</link>
       <pubDate>Mon, 05 Apr 2021 14:13:49 +0930</pubDate>
-      <guid>/tags/web/</guid>
+      <guid>https://intothevoid.github.io/tags/web/</guid>
       <description></description>
     </item>
   </channel>

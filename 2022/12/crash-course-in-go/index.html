@@ -1,78 +1,76 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-    <title>Crash Course in Go | Into The Void</title>
+<html><head lang="en">
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Crash Course in Go - Into The Void</title><link rel="icon" type="image/png" href=ZgotmplZ /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="A crash course on the Go programming language for existing programmers." />
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content="https://intothevoid.github.io/2022/12/crash-course-in-go/">
+  <meta property="og:site_name" content="Into The Void">
+  <meta property="og:title" content="Crash Course in Go">
+  <meta property="og:description" content="A crash course on the Go programming language for existing programmers.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2022-12-08T15:35:51+10:30">
+    <meta property="article:modified_time" content="2022-12-08T15:35:51+10:30">
+    <meta property="article:tag" content="Programming">
+    <meta property="article:tag" content="Code">
+    <meta property="article:tag" content="Golang">
 
-    <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
-<meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="A crash course on the Go programming language for existing programmers.">
-<meta name="generator" content="Hugo 0.129.0">
-
-
-  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
-
-
-<link rel="stylesheet" href="/css/style.css">
-
-
-
-<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
-
-
-
-
-
-
-
-
-  </head>
-
-  <body>
-    <nav class="navigation">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Crash Course in Go">
+  <meta name="twitter:description" content="A crash course on the Go programming language for existing programmers.">
+<script src="https://intothevoid.github.io/js/feather.min.js"></script>
 	
-		<a href="/"> <span class="arrow">←</span>Home</a>
 	
-	<a href="/posts">Archive</a>
-	<a href="/tags">Tags</a>
-	<a href="/about">About</a>
-
+        <link href="https://intothevoid.github.io/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
 	
 
 	
-</nav>
+	<link rel="stylesheet" type="text/css" media="screen" href="https://intothevoid.github.io/css/main.ac08a4c9714baa859217f92f051deb58df2938ec352b506df655005dcaf98cc0.css" />
 
+	
+	
 
-    <main class="main">
-      
+	
+	
+	
+	
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="https://intothevoid.github.io/">Into The Void</a>
+	</div>
+	<nav>
+		
+		<a href="/">Home</a>
+		
+		<a href="/about">About</a>
+		
+		<a href="/tags">Tags</a>
+		
+		<a href="/contact/">Contact</a>
+		
+		<a href="/posts/">Posts</a>
+		
+		
+	</nav>
+</header>
 
-<section id="single">
-    <h1 class="title">Crash Course in Go</h1>
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">Crash Course in Go</h1>
+			<div class="meta">Posted on Dec 8, 2022</div>
+		</div>
+		
 
-    <div class="tip">
-        <time datetime="2022-12-08 15:35:51 &#43;1030 ACDT">Dec 8, 2022</time>
-        <span class="split">
-          ·
-        </span>
-        <span>
-          1816 words
-        </span>
-        <span class="split">
-          ·
-        </span>
-        <span>
-          9 minute read
-        </span>
-    </div>
-
-    
-    
-
-
-    <div class="content">
-      <p>Go, also known as Golang, is a modern, open-source programming language developed by Google. It is designed to be fast, efficient, and scalable, and it is widely used in a variety of applications, from web servers and cloud services to games and machine learning.</p>
+		<section class="body">
+			<p>Go, also known as Golang, is a modern, open-source programming language developed by Google. It is designed to be fast, efficient, and scalable, and it is widely used in a variety of applications, from web servers and cloud services to games and machine learning.</p>
 <p>In this blog post, we&rsquo;ll provide a crash course on Go programming, including its features, syntax, and available keywords. We&rsquo;ll also include some examples to demonstrate how to use these concepts in your own code.</p>
-<h2 id="features-of-go">Features of Go <a href="#features-of-go" class="anchor">🔗</a></h2><p>Go is a compiled, statically-typed language that has a simple, clean syntax and a robust standard library. Some of its key features include:</p>
+<h2 id="features-of-go">Features of Go</h2>
+<p>Go is a compiled, statically-typed language that has a simple, clean syntax and a robust standard library. Some of its key features include:</p>
 <ol>
 <li>
 <p>Concurrency: Go has built-in support for concurrent and parallel programming, using lightweight &ldquo;goroutines&rdquo; and &ldquo;channels&rdquo; to communicate between threads.</p>
@@ -90,7 +88,8 @@
 <p>Standard library: Go has a comprehensive standard library that includes a wide range of modules and functions for common tasks, such as input/output, networking, cryptography, and data structures. This makes it easy to write powerful and efficient programs without relying on external libraries.</p>
 </li>
 </ol>
-<h2 id="syntax-of-go">Syntax of Go <a href="#syntax-of-go" class="anchor">🔗</a></h2><p>Go has a simple, easy-to-learn syntax that is similar to other C-style languages. Here are some of the key elements of Go&rsquo;s syntax:</p>
+<h2 id="syntax-of-go">Syntax of Go</h2>
+<p>Go has a simple, easy-to-learn syntax that is similar to other C-style languages. Here are some of the key elements of Go&rsquo;s syntax:</p>
 <ol>
 <li>
 <p>Comments: Go supports single-line and multi-line comments, using the <code>//</code> and <code>/* */</code> syntax, respectively.</p>
@@ -111,7 +110,8 @@
 <p>Pointers: Go has support for pointers, which are used to refer to the memory address of a variable. Pointers are declared using the <code>*</code> syntax and they can be dereferenced using the <code>&amp;</code> and <code>*</code> operators.</p>
 </li>
 </ol>
-<h2 id="keywords-of-go">Keywords of Go <a href="#keywords-of-go" class="anchor">🔗</a></h2><p>Go has a set of reserved keywords that have special meanings in the language. These keywords cannot be used as variable names or function names, and they must be used according to their specific syntax and semantics. Here are some of the key keywords in Go:</p>
+<h2 id="keywords-of-go">Keywords of Go</h2>
+<p>Go has a set of reserved keywords that have special meanings in the language. These keywords cannot be used as variable names or function names, and they must be used according to their specific syntax and semantics. Here are some of the key keywords in Go:</p>
 <ol>
 <li>
 <p><code>break</code>: This keyword is used to break out of a loop or switch statement.</p>
@@ -189,7 +189,8 @@
 <p><code>var</code>: This keyword is used to declare and initialize a variable.</p>
 </li>
 </ol>
-<h2 id="examples-of-go">Examples of Go <a href="#examples-of-go" class="anchor">🔗</a></h2><p>To illustrate how to use the features, syntax, and keywords of Go, here are some examples of Go code:</p>
+<h2 id="examples-of-go">Examples of Go</h2>
+<p>To illustrate how to use the features, syntax, and keywords of Go, here are some examples of Go code:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// This is a single-line comment
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">/*
@@ -327,53 +328,46 @@
 </span></span></code></pre></div><p>In this code, we see examples of channels, goroutines, defer statements, select statements, and wait groups. These are advanced features of Go that allow for concurrent and parallel programming, and they can be used to create powerful and efficient applications that can handle multiple tasks simultaneously.</p>
 <p>In this example, we have three goroutines: one that sends a message on a channel, one that receives messages from the channel, and one that waits for the other goroutines to finish. The goroutines communicate with each other using the channel, and the wait group ensures that they all finish before the main function returns.</p>
 <p>This is just one example of how to use advanced features of Go to create powerful and efficient programs. There are many other ways to use these features, and you can explore the full potential of Go by experimenting with different combinations and configurations.</p>
-<h2 id="conclusion">Conclusion <a href="#conclusion" class="anchor">🔗</a></h2><p>Go is a modern, powerful programming language that is used for a wide range of applications. It has a simple, clean syntax and a robust standard library, and it offers features like concurrency, memory safety, and garbage collection. In this blog post, we provided a crash course on Go programming, including its features, syntax, keywords, and examples. With this knowledge, you can start writing your own Go programs and exploring the full potential of this exciting language.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Go is a modern, powerful programming language that is used for a wide range of applications. It has a simple, clean syntax and a robust standard library, and it offers features like concurrency, memory safety, and garbage collection. In this blog post, we provided a crash course on Go programming, including its features, syntax, keywords, and examples. With this knowledge, you can start writing your own Go programs and exploring the full potential of this exciting language.</p>
 
-    </div>
+		</section>
 
-    
-        <div class="tags">
-            
-                <a href="http://localhost:1313/tags/programming">programming</a>
-            
-                <a href="http://localhost:1313/tags/code">code</a>
-            
-                <a href="http://localhost:1313/tags/golang">golang</a>
-            
-        </div>
-    
-    
-    
-
-</section>
-
-
-    </main>
-    
-    <footer id="footer">
-    
-
-    <div class="copyright">
-    
-       © Copyright 
-       2024 
-       <span class="split">
-        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
-  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
-</svg>
-       </span>
-       
-    
-    </div>
-
-    
-      <div class="powerby">
-        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-mini'>nodejh</a>
-      </div>
-    
+		<div class="post-tags">
+			
+			
+			<nav class="nav tags">
+				<ul class="tags">
+					
+					<li><a href="/tags/programming">programming</a></li>
+					
+					<li><a href="/tags/code">code</a></li>
+					
+					<li><a href="/tags/golang">golang</a></li>
+					
+				</ul>
+			</nav>
+			
+			
+		</div>
+		</article>
+</main>
+<footer>
+  <div style="display:flex"><a class="soc" href="https://github.com/intothevoid" rel="me" title="GitHub"><i data-feather="github"></i></a>
+    <a class="border"></a><a class="soc" href="https://twitter.com/karankadam" rel="me" title="Twitter"><i data-feather="twitter"></i></a>
+    <a class="border"></a></div>
+  <div class="footer-info">
+    2024  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
 </footer>
 
 
+  
 
-  </body>
+
+<script>
+  feather.replace()
+</script></div>
+    </body>
 </html>
