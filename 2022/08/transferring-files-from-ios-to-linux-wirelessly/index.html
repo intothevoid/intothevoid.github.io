@@ -86,11 +86,11 @@ transfer files to a Linux laptop is via sftp or ftp over ssh.</p>
 <h2 id="install-ssh-server-on-linux">Install ssh server on Linux</h2>
 <p>In this part of the post, I&rsquo;ll show you how to ==install== an SSH server on Fedora Linux.</p>
 <p>First, we&rsquo;ll need to install the openssh-server package:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo dnf install openssh-server
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo dnf install openssh-server
 </span></span></code></pre></div><p>Once the package is installed, we&rsquo;ll need to start the SSH service:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo systemctl enable sshd <span style="color:#75715e"># ensure sshd starts up after reboot</span>
-</span></span><span style="display:flex;"><span>sudo systemctl start sshd <span style="color:#75715e"># starts the ssh daemon</span>
-</span></span><span style="display:flex;"><span>sudo systemctl status sshd <span style="color:#75715e"># check status of service</span>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo systemctl <span style="color:#ff5c57">enable</span> sshd <span style="color:#78787e"># ensure sshd starts up after reboot</span>
+</span></span><span style="display:flex;"><span>sudo systemctl start sshd <span style="color:#78787e"># starts the ssh daemon</span>
+</span></span><span style="display:flex;"><span>sudo systemctl status sshd <span style="color:#78787e"># check status of service</span>
 </span></span></code></pre></div><p>After you have installed the ssh server on your laptop move on to the next part
 of this post. You will need your iOS device - iPhone or iPad for this.</p>
 <h2 id="install-fe-file-explorer-on-your-ios-device">Install FE File Explorer on your iOS device</h2>
@@ -110,7 +110,7 @@ I have not tested it with this option.</p>
 <p>Enter details in the next screen. The &lsquo;Hostname&rsquo; (IP Address), &lsquo;Username&rsquo; and &lsquo;Password&rsquo;
 are the most important fields. You can check the IP address of the target computer
 using the following command -</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ip a
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ip a
 </span></span></code></pre></div><p>The username and password are the account details you use on your Linux computer.</p>
 <p>If you followed the instructions correctly, you should now see an entry for your
 connection at the main screen of the app. Once you tap it, you should be able
