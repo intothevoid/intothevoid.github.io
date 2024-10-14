@@ -6,20 +6,27 @@
     <description>Recent content in Tags on Into The Void</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 18 May 2024 21:40:39 +0930</lastBuildDate>
+    <lastBuildDate>Mon, 14 Oct 2024 09:31:35 +0800</lastBuildDate>
     <atom:link href="https://intothevoid.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Programming</title>
+      <link>https://intothevoid.github.io/tags/programming/</link>
+      <pubDate>Mon, 14 Oct 2024 09:31:35 +0800</pubDate>
+      <guid>https://intothevoid.github.io/tags/programming/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vim</title>
+      <link>https://intothevoid.github.io/tags/vim/</link>
+      <pubDate>Mon, 14 Oct 2024 09:31:35 +0800</pubDate>
+      <guid>https://intothevoid.github.io/tags/vim/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Code</title>
       <link>https://intothevoid.github.io/tags/code/</link>
       <pubDate>Sat, 18 May 2024 21:40:39 +0930</pubDate>
       <guid>https://intothevoid.github.io/tags/code/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Programming</title>
-      <link>https://intothevoid.github.io/tags/programming/</link>
-      <pubDate>Sat, 18 May 2024 21:40:39 +0930</pubDate>
-      <guid>https://intothevoid.github.io/tags/programming/</guid>
       <description></description>
     </item>
     <item>
@@ -181,13 +188,6 @@
       <link>https://intothevoid.github.io/tags/macos/</link>
       <pubDate>Sun, 31 Jul 2022 11:53:48 +0930</pubDate>
       <guid>https://intothevoid.github.io/tags/macos/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Vim</title>
-      <link>https://intothevoid.github.io/tags/vim/</link>
-      <pubDate>Sun, 31 Jul 2022 11:53:48 +0930</pubDate>
-      <guid>https://intothevoid.github.io/tags/vim/</guid>
       <description></description>
     </item>
     <item>

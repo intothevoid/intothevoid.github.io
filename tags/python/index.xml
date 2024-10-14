@@ -13,28 +13,28 @@
       <link>https://intothevoid.github.io/2024/05/organise-videos-by-resolution/</link>
       <pubDate>Sat, 18 May 2024 21:40:39 +0930</pubDate>
       <guid>https://intothevoid.github.io/2024/05/organise-videos-by-resolution/</guid>
-      <description>Recently I was clearing out some old movie rips that I had created from VideoCDs and DVDs many years ago. I wanted a quick and dirty way to organise these i.e. get rid of the videos of resolutions lower than 720p (1280x720)&#xA;With LLMs all the rage at the moment, all it took is a few prompts and corrections and in 15 minutes I had this script ready to go -</description>
+      <description>&lt;p&gt;Recently I was clearing out some old movie rips that I had created from VideoCDs and DVDs many years ago. I wanted a quick and dirty way to organise these i.e. get rid of the videos of resolutions lower than 720p (1280x720)&lt;/p&gt;&#xA;&lt;p&gt;With LLMs all the rage at the moment, all it took is a few prompts and corrections and in 15 minutes I had this script ready to go -&lt;/p&gt;</description>
     </item>
     <item>
       <title>An introduction to the OpenAI API using Python</title>
       <link>https://intothevoid.github.io/2023/04/an-introduction-to-the-openai-api-using-python/</link>
       <pubDate>Wed, 19 Apr 2023 22:31:18 +0930</pubDate>
       <guid>https://intothevoid.github.io/2023/04/an-introduction-to-the-openai-api-using-python/</guid>
-      <description>Introduction Ever wanted to play chess against an AI? With the OpenAI API, you can! This blog post will show you how to use Python to interface with the OpenAI API, send and receive requests, and even play a game of chess against an AI opponent. We&amp;rsquo;ll be using the FEN representation of the chess board to communicate game states with the API.&#xA;Setting Up Before we start, make sure you have the following:</description>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;Ever wanted to play chess against an AI? With the OpenAI API, you can! This blog post will show you how to use Python to interface with the OpenAI API, send and receive requests, and even play a game of chess against an AI opponent. We&amp;rsquo;ll be using the FEN representation of the chess board to communicate game states with the API.&lt;/p&gt;&#xA;&lt;h2 id=&#34;setting-up&#34;&gt;Setting Up&lt;/h2&gt;&#xA;&lt;p&gt;Before we start, make sure you have the following:&lt;/p&gt;</description>
     </item>
     <item>
       <title>Type safety in Python with Pydantic</title>
       <link>https://intothevoid.github.io/2023/04/type-safety-in-python-with-pydantic/</link>
       <pubDate>Mon, 10 Apr 2023 16:56:00 +0930</pubDate>
       <guid>https://intothevoid.github.io/2023/04/type-safety-in-python-with-pydantic/</guid>
-      <description>Introduction to Pydantic Pydantic is a Python library that provides data validation and settings management, using Python type annotations. It is designed to make it easy to define and validate data models, allowing you to catch errors and handle them gracefully, making your code more robust and easier to maintain.&#xA;Pydantic is particularly useful for handling data that is passed between different parts of a system, such as between a front-end web form and a back-end API, or between different microservices.</description>
+      <description>&lt;h2 id=&#34;introduction-to-pydantic&#34;&gt;Introduction to Pydantic&lt;/h2&gt;&#xA;&lt;p&gt;Pydantic is a Python library that provides data validation and settings management, using Python type annotations. It is designed to make it easy to define and validate data models, allowing you to catch errors and handle them gracefully, making your code more robust and easier to maintain.&lt;/p&gt;&#xA;&lt;p&gt;Pydantic is particularly useful for handling data that is passed between different parts of a system, such as between a front-end web form and a back-end API, or between different microservices. By defining a clear schema for the data, you can ensure that it is consistent and valid, regardless of where it comes from.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Spotify Playlist Backups using Python</title>
       <link>https://intothevoid.github.io/2022/12/spotify-playlist-backups-using-python/</link>
       <pubDate>Sun, 11 Dec 2022 11:43:47 +1030</pubDate>
       <guid>https://intothevoid.github.io/2022/12/spotify-playlist-backups-using-python/</guid>
-      <description>To create a web application that backs up your Spotify playlists as a JSON file, you will need to do the following:&#xA;First, you will need to install the spotipy library, which provides a Python interface for the Spotify Web API. You can do this by running the following command: pip install spotipy Next, you will need to create a Spotify app and obtain a client ID and client secret for the app.</description>
+      <description>&lt;p&gt;To create a web application that backs up your Spotify playlists as a JSON file, you will need to do the following:&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;First, you will need to install the &lt;code&gt;spotipy&lt;/code&gt; library, which provides a Python interface for the Spotify Web API. You can do this by running the following command:&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;pip install spotipy &#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;&#xA;&lt;li&gt;Next, you will need to create a Spotify app and obtain a client ID and client secret for the app. You can do this by logging in to the &lt;a href=&#34;https://developer.spotify.com/dashboard&#34;&gt;Spotify Developer Dashboard&lt;/a&gt; and following the instructions on the website.&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;h2 id=&#34;creating-the-python-backend&#34;&gt;Creating the Python Backend&lt;/h2&gt;&#xA;&lt;p&gt;Once you have obtained your client ID and client secret, you can use the &lt;code&gt;spotipy.Spotify&lt;/code&gt; class to authenticate yourself and access the Spotify Web API. An example of how you can do this is shown below:&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

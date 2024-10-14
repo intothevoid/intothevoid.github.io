@@ -2,27 +2,47 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://intothevoid.github.io/</loc>
+    <lastmod>2024-10-14T09:31:35+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/posts/</loc>
+    <lastmod>2024-10-14T09:31:35+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/tags/programming/</loc>
+    <lastmod>2024-10-14T09:31:35+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/tags/</loc>
+    <lastmod>2024-10-14T09:31:35+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/tags/vim/</loc>
+    <lastmod>2024-10-14T09:31:35+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/2024/10/vim-setup-from-scratch/</loc>
+    <lastmod>2024-10-14T09:31:35+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://intothevoid.github.io/2024/07/variable-power-supply/</loc>
+    <lastmod>2024-07-21T22:01:24+09:30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>https://intothevoid.github.io/tags/code/</loc>
     <lastmod>2024-05-18T21:40:39+09:30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://intothevoid.github.io/</loc>
-    <lastmod>2024-05-18T21:40:39+09:30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
     <loc>https://intothevoid.github.io/2024/05/organise-videos-by-resolution/</loc>
-    <lastmod>2024-05-18T21:40:39+09:30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://intothevoid.github.io/posts/</loc>
-    <lastmod>2024-05-18T21:40:39+09:30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://intothevoid.github.io/tags/programming/</loc>
     <lastmod>2024-05-18T21:40:39+09:30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -33,11 +53,6 @@
     <priority>0.5</priority>
   </url><url>
     <loc>https://intothevoid.github.io/tags/scripts/</loc>
-    <lastmod>2024-05-18T21:40:39+09:30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://intothevoid.github.io/tags/</loc>
     <lastmod>2024-05-18T21:40:39+09:30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -203,11 +218,6 @@
     <priority>0.5</priority>
   </url><url>
     <loc>https://intothevoid.github.io/2022/07/setup-vim-astro-vim-on-a-macbook/</loc>
-    <lastmod>2022-07-31T11:53:48+09:30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://intothevoid.github.io/tags/vim/</loc>
     <lastmod>2022-07-31T11:53:48+09:30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>

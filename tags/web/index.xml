@@ -13,7 +13,7 @@
       <link>https://intothevoid.github.io/2021/04/create-a-blog-using-hugo-and-github-pages/</link>
       <pubDate>Mon, 05 Apr 2021 14:13:49 +0930</pubDate>
       <guid>https://intothevoid.github.io/2021/04/create-a-blog-using-hugo-and-github-pages/</guid>
-      <description>Update: Added section on adding Github Action for Hugo build&#xA;This is a guide on how you can create a blog or website from scratch using Hugo and Github. This is also my first post on this blog, which has been created using the steps mentioned in this article using Hugo and Github Pages.&#xA;It is quite easy to create a blog using Wordpress or some other CMS but the simplicity of Hugo is what drove me to it.</description>
+      <description>&lt;p&gt;Update: Added section on adding Github Action for Hugo build&lt;/p&gt;&#xA;&lt;p&gt;This is a guide on how you can create a blog or website from scratch using Hugo and Github. This is also my first post on this blog, which has been created using the steps mentioned in this article using Hugo and Github Pages.&lt;/p&gt;&#xA;&lt;p&gt;It is quite easy to create a blog using Wordpress or some other CMS but the simplicity of Hugo is what drove me to it. Hugo is a static html generator. This means, you write posts using Markdown and templates using any text editor. Hugo then processes these files and generates a bunch of html and css.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
