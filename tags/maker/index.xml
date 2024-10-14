@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Maker on Into The Void</title>
+    <link>https://intothevoid.github.io/tags/maker/</link>
+    <description>Recent content in Maker on Into The Void</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 21 Jul 2024 22:01:24 +0930</lastBuildDate>
+    <atom:link href="https://intothevoid.github.io/tags/maker/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Variable Power Supply</title>
+      <link>https://intothevoid.github.io/2024/07/variable-power-supply/</link>
+      <pubDate>Sun, 21 Jul 2024 22:01:24 +0930</pubDate>
+      <guid>https://intothevoid.github.io/2024/07/variable-power-supply/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;In today&amp;rsquo;s world of electronics and DIY projects, having a reliable power supply is essential. However, purchasing a variable power supply can be quite expensive. In this blog post, we&amp;rsquo;ll guide you through creating your own variable power supply using an old laptop charger. This project not only saves you money but also gives new life to old electronic components that might otherwise end up in landfill.&lt;/p&gt;&#xA;&lt;h2 id=&#34;parts-required&#34;&gt;Parts Required&lt;/h2&gt;&#xA;&lt;p&gt;To embark on this project, you&amp;rsquo;ll need the following items:&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
