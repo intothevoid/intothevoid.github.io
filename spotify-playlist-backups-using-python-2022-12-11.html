@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Awesome Blog - Spotify Playlist Backups using Python</title>
+    <link rel="stylesheet" href="/main.css">
+    
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+
+</head>
+<body>
+    
+<header>
+    <div id="site-title" style="display:flex; justify-content:left; align-items: left;">
+        <a href="/index.html">
+            <h1 style="margin: 0;">My Awesome Blog</h1>
+        </a>
+    </div>
+    <div id="nav-links" style="display:flex; justify-content:right; align-items: right;">
+        <nav>
+            <div style="display: flex;">
+                <a href="/posts.html">All Posts</a>
+                
+                    <a href="/about.html">About</a>
+                
+                    <a href="/projects.html">Projects</a>
+                
+            </div>
+        </nav>
+    </div>
+</header>
+
+    <main>
+    
+<h2>Spotify Playlist Backups using Python</h2>
+<p>Backup Spotify Playlists using Python and Javascript</p>
+<p class="info">Published on Dec 11 2022 at 11:43am</p>
+<p>To create a web application that backs up your Spotify playlists as a JSON file, you will need to do the following:</p>
+
+<ol>
+<li>First, you will need to install the <code>spotipy</code> library, which provides a Python interface for the Spotify Web API. You can do this by running the following command:</li>
+</ol>
+
+<pre><code class="language-bash">pip install spotipy 
+</code></pre>
+
+<ol>
+<li>Next, you will need to create a Spotify app and obtain a client ID and client secret for the app. You can do this by logging in to the <a href="https://developer.spotify.com/dashboard" target="_blank">Spotify Developer Dashboard</a> and following the instructions on the website.</li>
+</ol>
+
+<h2>Creating the Python Backend</h2>
+
+<p>Once you have obtained your client ID and client secret, you can use the <code>spotipy.Spotify</code> class to authenticate yourself and access the Spotify Web API. An example of how you can do this is shown below:</p>
+
+<pre><code class="language-python">import spotipy
+
+client_id = &quot;your-client-id&quot;
+client_secret = &quot;your-client-secret&quot;
+
+spotify = spotipy.Spotify(
+    client_id=client_id,
+    client_secret=client_secret
+)
+</code></pre>
+
+<p>After authenticating, you can use the <code>spotify.user_playlists()</code> method to retrieve a list of all your Spotify playlists. This method returns a paginated list of playlists, so you will need to iterate through the pages and collect the playlists from each page. Here is an example of how you can do this:</p>
+
+<pre><code class="language-python">playlists = []
+
+response = spotify.user_playlists()
+playlists.extend(response[&quot;items&quot;])
+
+while response[&quot;next&quot;]:
+    response = spotify.next(response)
+    playlists.extend(response[&quot;items&quot;])
+
+</code></pre>
+
+<p>Once you have collected all your playlists, you can use the <code>json</code> module to convert the list of playlists to a JSON string, and then write the JSON string to a file. Here is an example of how you can do this:</p>
+
+<pre><code class="language-python">import json
+
+with open(&quot;playlists.json&quot;, &quot;w&quot;) as file:
+    json.dump(playlists, file)
+
+</code></pre>
+
+<p>Finally, you can create a simple Flask app that exposes a <code>/backup</code> endpoint, which accepts <code>POST</code> requests and uses the code from the previous steps to back up your playlists as a JSON file. Here is an example of how you can do this:</p>
+
+<pre><code class="language-python">from flask import Flask, request
+import spotipy
+import json
+
+app = Flask(__name__)
+
+client_id = &quot;your-client-id&quot;
+client_secret = &quot;your-client-secret&quot;
+spotify = spotipy.Spotify(
+    client_id=client_id,
+    client_secret=client_secret
+)
+
+@app.route(&quot;/backup&quot;, methods=[&quot;POST&quot;])
+def backup():
+    playlists = []
+
+    response = spotify.user_playlists()
+    playlists.extend(response[&quot;items&quot;])
+
+    while response[&quot;next&quot;]:
+        response = spotify.next(response)
+        playlists.extend(response[&quot;items&quot;])
+
+    with open(&quot;playlists.json&quot;, &quot;w&quot;) as file:
+        json.dump(playlists, file)
+
+    return &quot;Playlists backed up successfully!&quot;
+
+</code></pre>
+
+<p>To run the Flask app, you will need to first start the Flask development server by running the following command:</p>
+
+<pre><code class="language-bash">export FLASK_APP=app.py
+flask run
+
+</code></pre>
+
+<p>This will start the Flask development server and make your app available at <code>http://localhost:5000</code>. To make a <code>POST</code> request to the <code>/backup</code> endpoint, you can use a tool like <code>curl</code> or <code>Postman</code> to send a <code>POST</code> request to <code>http://localhost:5000/backup</code>.</p>
+
+<p>Here is an example of how you can use <code>curl</code> to make a <code>POST</code> request:</p>
+
+<pre><code class="language-bash">curl -X POST http://localhost:5000/backup
+
+</code></pre>
+
+<p>Once you have made the request, your playlists should be backed up as a JSON file named <code>playlists.json</code> in the current directory.</p>
+
+<p>Note: This code is provided for illustration purposes only, and is not intended for production use. It does not include error handling or other best practices for building a Flask app.</p>
+
+<h2>Creating the Web Frontend</h2>
+
+<p>Here&rsquo;s how you could create a web page to create a nice frontend for the Python program that backs up your Spotify playlists:</p>
+
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Spotify Playlist Backup&lt;/title&gt;
+    &lt;style&gt;
+        /* This is some CSS that styles the page */
+        body {
+            font-family: sans-serif;
+            text-align: center;
+        }
+        input, button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        input {
+            width: 300px;
+        }
+        button {
+            background-color: #1DB954;
+            color: white;
+            cursor: pointer;
+        }
+        pre {
+            text-align: left;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Spotify Playlist Backup&lt;/h1&gt;
+    &lt;p&gt;Enter your Spotify credentials and username below to backup your playlists as a JSON file.&lt;/p&gt;
+    &lt;form&gt;
+        &lt;input type=&quot;text&quot; id=&quot;client_id&quot; placeholder=&quot;Your Spotify client ID&quot;&gt;
+        &lt;input type=&quot;text&quot; id=&quot;client_secret&quot; placeholder=&quot;Your Spotify client secret&quot;&gt;
+        &lt;input type=&quot;text&quot; id=&quot;username&quot; placeholder=&quot;Your Spotify username&quot;&gt;
+        &lt;button type=&quot;submit&quot;&gt;Backup Playlists&lt;/button&gt;
+    &lt;/form&gt;
+    &lt;pre id=&quot;output&quot;&gt;&lt;/pre&gt;
+    &lt;script&gt;
+        // This is the JavaScript code that runs when the page is loaded
+
+        // This gets the form element
+        const form = document.querySelector(&quot;form&quot;);
+
+        // This adds an event listener that runs when the form is submitted
+        form.addEventListener(&quot;submit&quot;, async (e) =&gt; {
+            // This prevents the page from reloading
+            e.preventDefault();
+
+            // This gets the input elements
+            const clientIdInput = document.querySelector(&quot;#client_id&quot;);
+            const clientSecretInput = document.querySelector(&quot;#client_secret&quot;);
+            const usernameInput = document.querySelector(&quot;#username&quot;);
+
+            // This gets the values from the input elements
+            const clientId = clientIdInput.value;
+            const clientSecret = clientSecretInput.value;
+            const username = usernameInput.value;
+
+            // This shows a message while the playlists are being backed up
+            const output = document.querySelector(&quot;#output&quot;);
+            output.innerHTML = &quot;Backing up your playlists... please wait.&quot;;
+
+            // This sends a request to the server to backup the playlists
+            const response = await fetch(&quot;/backup&quot;, {
+                method: &quot;POST&quot;,
+                headers: {
+                    &quot;Content-Type&quot;: &quot;application/json&quot;,
+                },
+                body: JSON.stringify({
+                    clientId,
+                    clientSecret,
+                    username,
+                }),
+            });
+
+            // This gets the response from the server
+            const data = await response.json();
+
+            // This displays the response from the server
+            output.innerHTML = JSON.stringify(data, null, 4);
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+
+</code></pre>
+
+<h2>Spotify backup playlist as a standalone script</h2>
+
+<pre><code class="language-python">import json
+import spotipy
+from spotipy.oauth2 import SpotifyClientCredentials
+
+# This is your Spotify client ID and secret
+client_id = &quot;YOUR_CLIENT_ID&quot;
+client_secret = &quot;YOUR_CLIENT_SECRET&quot;
+
+# This is your Spotify username
+username = &quot;YOUR_USERNAME&quot;
+
+# This is the path to the JSON file where your playlists will be saved
+json_file = &quot;playlists.json&quot;
+
+# This creates a Spotify client using your client ID and secret
+client_credentials_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
+spotify = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+
+# This gets your user ID
+user_id = spotify.current_user()[&quot;id&quot;]
+
+# This gets all your playlists
+playlists = spotify.user_playlists(user_id)
+
+# This creates an empty list where your playlists will be saved
+playlists_data = []
+
+# This iterates over your playlists
+for playlist in playlists[&quot;items&quot;]:
+    # This gets the playlist ID and name
+    playlist_id = playlist[&quot;id&quot;]
+    playlist_name = playlist[&quot;name&quot;]
+
+    # This gets the tracks in the playlist
+    tracks = spotify.user_playlist_tracks(user_id, playlist_id)
+
+    # This creates an empty list where the tracks will be saved
+    tracks_data = []
+
+    # This iterates over the tracks
+    for track in tracks[&quot;items&quot;]:
+        # This gets the track data
+        track_data = track[&quot;track&quot;]
+
+        # This saves the track data
+        tracks_data.append({
+            &quot;id&quot;: track_data[&quot;id&quot;],
+            &quot;name&quot;: track_data[&quot;name&quot;],
+            &quot;artists&quot;: [artist[&quot;name&quot;] for artist in track_data[&quot;artists&quot;]],
+            &quot;album&quot;: track_data[&quot;album&quot;][&quot;name&quot;],
+        })
+
+	# This saves the playlist data
+	playlists_data.append({
+	    &quot;id&quot;: playlist_id,
+	    &quot;name&quot;: playlist_name,
+	    &quot;tracks&quot;: tracks_data,
+	})
+
+# This saves the playlists data to the JSON file
+with open(json_file, &quot;w&quot;) as f: 
+	json.dump(playlists_data, f, indent=4)
+
+print(&quot;Successfully backed up your playlists to&quot;, json_file)
+</code></pre>
+
+<p>In this code, we use the <code>spotipy</code> library to access the Spotify API and retrieve the data for your playlists and tracks. We then save this data to a JSON file using the <code>json</code> library.</p>
+
+<p>To use this program, you will need to replace the <code>client_id</code>, <code>client_secret</code>, and <code>username</code> variables with your own Spotify credentials and username. You will also need to specify the path to the JSON file where you want your playlists to be saved.</p>
+
+<p>Once you have done this, you can run the program and it will retrieve your playlists and tracks and save them to the JSON file. You can then use this file to backup your playlists or to transfer them to another Spotify account.</p>
+
+
+<p class="info">Tags: 
+    
+        
+        <a href="/tags/python.html">python</a>
+    
+        , 
+        <a href="/tags/javascript.html">javascript</a>
+    
+        , 
+        <a href="/tags/automation.html">automation</a>
+    
+        , 
+        <a href="/tags/webapp.html">webapp</a>
+    
+</p>
+
+
+    
+<script>
+    Prism.plugins.autoloader.languages_path = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/';
+</script>
+
+    <main>
+    
+<footer>
+    <p class="footer-content">
+        <span>&copy; 2024 My Awesome Blog.</span>
+        <span>Powered by <a href="https://www.github.com/intothevoid/likho">Likho</a>.</span>
+    </p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Awesome Blog - Organise Videos By Resolution</title>
+    <link rel="stylesheet" href="/main.css">
+    
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+
+</head>
+<body>
+    
+<header>
+    <div id="site-title" style="display:flex; justify-content:left; align-items: left;">
+        <a href="/index.html">
+            <h1 style="margin: 0;">My Awesome Blog</h1>
+        </a>
+    </div>
+    <div id="nav-links" style="display:flex; justify-content:right; align-items: right;">
+        <nav>
+            <div style="display: flex;">
+                <a href="/posts.html">All Posts</a>
+                
+                    <a href="/about.html">About</a>
+                
+                    <a href="/projects.html">Projects</a>
+                
+            </div>
+        </nav>
+    </div>
+</header>
+
+    <main>
+    
+<h2>Organise Videos By Resolution</h2>
+<p>Sort video files using a quick and dirty script in Python</p>
+<p class="info">Published on May 18 2024 at 9:40pm</p>
+<p>Recently I was clearing out some old movie rips that I had created from VideoCDs and DVDs many years ago. I wanted a quick and dirty way to organise these i.e. get rid of the videos of resolutions lower than 720p (1280x720)</p>
+
+<p>With LLMs all the rage at the moment, all it took is a few prompts and corrections and in 15 minutes I had this script ready to go -</p>
+
+<pre><code class="language-python">import os
+import shutil
+from moviepy.editor import VideoFileClip
+
+def analyze_and_move_folders(parent_folder):
+    # Create the 'inferior' folder if it doesn't exist
+    inferior_folder = os.path.join(parent_folder, 'inferior')
+    if not os.path.exists(inferior_folder):
+        os.makedirs(inferior_folder)
+
+    # Walk through all subdirectories
+    for root, dirs, files in os.walk(parent_folder):
+        # Check if the current directory contains any video files
+        video_files_found = False
+        for file in files:
+            if file.endswith(('.mkv', '.avi', '.mp4')):
+                video_files_found = True
+                break
+        
+        if video_files_found:
+            # Load the first video file to check its resolution
+            first_video_file = next((f for f in files if f.endswith(('.mkv', '.avi', '.mp4'))), None)
+            if first_video_file:
+                file_path = os.path.join(root, first_video_file)
+                try:
+                    clip = VideoFileClip(file_path)
+                    
+                    # Check if the video resolution is less than 720p
+                    if clip.size[0] &lt; 1280 or clip.size[1] &lt; 720:
+                        # Use shutil.move() instead of os.rename()
+                        shutil.move(root, os.path.join(inferior_folder, os.path.basename(root)))
+                        print(f'Moved folder {root} to inferior due to low resolution.')
+                except UnicodeDecodeError as e:
+                    print(f&quot;Skipping {file_path} due to decoding error: {e}&quot;)
+                    continue  # Skip this file and continue with the next one
+
+# Specify the path to the parent folder
+parent_folder = '/path/to/your/folder'
+analyze_and_move_folders(parent_folder)
+
+</code></pre>
+
+<p>The script uses the moviepy library to analyse movie files. The script works in the following manner -</p>
+
+<ol>
+<li>Scan all sub-folders within the root folder for movie files i.e. mkv, avi, and mp4 files</li>
+<li>Once a movie file is encountered, analyse this file using moviepy</li>
+<li>Find  out the resolution of the movie</li>
+<li>If the resolution of the movie is &lt; 1280p horizontally or &lt; 720p vertically, move the file to a folder called &lsquo;inferior&rsquo;</li>
+<li>Repeat above steps until all sub-folders within the parent folder have been scanned</li>
+</ol>
+
+<p>That&rsquo;s it. The script saved me time and effort from having to load each movie in a video player before deleting it.</p>
+
+
+<p class="info">Tags: 
+    
+        
+        <a href="/tags/programming.html">programming</a>
+    
+        , 
+        <a href="/tags/code.html">code</a>
+    
+        , 
+        <a href="/tags/python.html">python</a>
+    
+        , 
+        <a href="/tags/scripts.html">scripts</a>
+    
+</p>
+
+
+    
+<script>
+    Prism.plugins.autoloader.languages_path = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/';
+</script>
+
+    <main>
+    
+<footer>
+    <p class="footer-content">
+        <span>&copy; 2024 My Awesome Blog.</span>
+        <span>Powered by <a href="https://www.github.com/intothevoid/likho">Likho</a>.</span>
+    </p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Awesome Blog - Create a blog using Hugo and Github Pages</title>
+    <link rel="stylesheet" href="/main.css">
+    
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+
+</head>
+<body>
+    
+<header>
+    <div id="site-title" style="display:flex; justify-content:left; align-items: left;">
+        <a href="/index.html">
+            <h1 style="margin: 0;">My Awesome Blog</h1>
+        </a>
+    </div>
+    <div id="nav-links" style="display:flex; justify-content:right; align-items: right;">
+        <nav>
+            <div style="display: flex;">
+                <a href="/posts.html">All Posts</a>
+                
+                    <a href="/about.html">About</a>
+                
+                    <a href="/projects.html">Projects</a>
+                
+            </div>
+        </nav>
+    </div>
+</header>
+
+    <main>
+    
+<h2>Create a blog using Hugo and Github Pages</h2>
+<p>Learn how to setup and host your own website using a static html generator - Hugo.</p>
+<p class="info">Published on Apr 5 2021 at 2:13pm</p>
+<p>Update: Added section on adding Github Action for Hugo build</p>
+
+<p>This is a guide on how you can create a blog or website from scratch using Hugo and Github. This is also my first post on this blog, which has been created using the steps mentioned in this article using Hugo and Github Pages.</p>
+
+<p>It is quite easy to create a blog using Wordpress or some other CMS but the simplicity of Hugo is what drove me to it. Hugo is a static html generator. This means, you write posts using Markdown and templates using any text editor. Hugo then processes these files and generates a bunch of html and css.</p>
+
+<p>This has the benefit of making it extremely easy to deploy to just about any cloud service or provider. This is where Github Pages comes in. Github Pages is free and if you have a Github account, you are already well on your way.</p>
+
+<p>I used a Macbook Air M1 for creating this blog and the steps outlined in this article should be more or less the same whether you use Windows / MacOS or Linux. Lets get our elbows greasy.</p>
+
+<h3>Create Repos</h3>
+
+<p>We will begin by creating 2 repositories in our Github account -
+1. Base repo &lsquo;blog&rsquo; for hosting our posts / source code / files created by Hugo
+2. Blog hosting repo &lsquo;username.github.io&rsquo; for hosting the actual blog, which consists of generated html and css</p>
+
+<p>Create the base repo on Github by clicking the &lsquo;+&rsquo; button on your <a href="https://www.github.com" target="_blank">Github page</a>. I&rsquo;ve decided to call my base repo &lsquo;blog&rsquo;. Clone this repository to your machine (even if it doesn&rsquo;t contain any files at the moment)</p>
+
+<pre><code class="language-bash">git clone git@github.com:username/blog.git
+cd blog/
+</code></pre>
+
+<p>From the Github website, click the &lsquo;+&rsquo; button again to create a new repository called &lsquo;username.github.io&rsquo;. Replace username with your Github user name.</p>
+
+<p>Add this second repo (which we will use for hosting our blog) as a submodule of our base repo -</p>
+
+<pre><code class="language-bash">git submodule add git@github.com:username/username.github.io.git public
+</code></pre>
+
+<p>The above command will add the hosting repo as a submodule into the &lsquo;public&rsquo; folder.</p>
+
+<h3>Install Hugo</h3>
+
+<p>Download the Hugo binaries from the <a href="https://github.com/gohugoio/hugo/releases" target="_blank">Hugo Releases</a> page. As I am using MacOS, I used the command -</p>
+
+<pre><code class="language-bash">brew install hugo
+</code></pre>
+
+<p>For detailed installation instructions, visit <a href="https://gohugo.io/getting-started/installing/" target="_blank">https://gohugo.io/getting-started/installing/</a>
+Verify Hugo installed correctly by</p>
+
+<pre><code class="language-bash">hugo version
+</code></pre>
+
+<h3>Create a new site</h3>
+
+<pre><code class="language-bash">hugo create new site myblogname
+</code></pre>
+
+<p>The above command will create a basic website with enough boilerplate to let us get started.</p>
+
+<h3>Add a theme</h3>
+
+<p>Visit <a href="https://themes.gohugo.io/" target="_blank">https://themes.gohugo.io/</a> for a collection of available Hugo themes. Once you have decided which theme you wish to use for your website / blog,</p>
+
+<pre><code class="language-bash">cd myblogname
+git submodule add https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke
+</code></pre>
+
+<p>Your folder structure should now look like
+<strong>~/blog/myblogname/config.toml</strong> | Configuration File
+<strong>~/blog/myblogname/themes/ananke/</strong> | Theme folder
+<strong>~/blog/myblogname/public</strong> | Second hosting repo</p>
+
+<h3>Update config.toml</h3>
+
+<pre><code class="language-toml">theme = &quot;ananke&quot;
+title = &quot;Karan Kadam&quot;
+baseURL = &quot;https://username.github.io&quot;
+theme = &quot;ananke&quot;
+themesDir = &quot;./themes&quot;
+</code></pre>
+
+<h3>Create your first post</h3>
+
+<pre><code class="language-bash">hugo create new posts/my-first-post.md
+</code></pre>
+
+<h3>Build your blog</h3>
+
+<pre><code class="language-bash">hugo -t &quot;ananke&quot;
+</code></pre>
+
+<p>This will generate all the html and styling required for your blog and publish them under the &ldquo;public&rdquo; folder. The -t flag tells hugo to use your selected theme.</p>
+
+<h3>Local test</h3>
+
+<pre><code class="language-bash">hugo server --bind 0.0.0.0
+</code></pre>
+
+<p>This will launch the built in webserver and your blog will be available locally. Goto a webbrowser and access <a href="http://localhost:1313" target="_blank">http://localhost:1313</a> and you should see your blog, styled according to the theme you chose and containing your first sample post.</p>
+
+<h3>Deploy your website to Github Pages</h3>
+
+<p>To be able to share your website with the rest of the world, you will need to host it somewhere. We chose the repository at &lsquo;<a href="https://username.github.io'" target="_blank">https://username.github.io&rsquo;</a>. Check in all your changes and push them to the username.github.io -</p>
+
+<pre><code class="language-bash">cd ~/blog/myblogname/public
+git status
+git add -A
+git commit -m &quot;initial test commit&quot; # commit contents of ~/blog/myblogname/public
+git push
+cd ../..
+git add -A
+git commit -m &quot;initial test commit&quot; # commit contents of ~/blog/
+</code></pre>
+
+<p>If it all went well, accessing <a href="http://username.github.io" target="_blank">http://username.github.io</a> should take you to your freshly baked blog. Here on, all you need to do is,</p>
+
+<pre><code class="language-bash">hugo create new posts/postname.md
+hugo -t &quot;ananke&quot;
+</code></pre>
+
+<h3>Markdown resources</h3>
+
+<p>It is a good idea to read up and familiarise yourself with Markdown Syntax. It is quite compact and can be learned in a single sitting. I would recommend starting with <a href="https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf" target="_blank">The Markdown Cheatsheet</a> to quickly understand how to write posts in any editor using the Markdown syntax. Keep writing! :metal:</p>
+
+<h3>Bonus - Automate the Hugo build</h3>
+
+<p>To automate your flow even further, you can create a Github Action, which will automatically run Hugo for you and publish to your username.github.io repository for you. This will save you any manual work of building your blog each time and pushing back to your public repo.
+The added benefit of this approach is you no longer need access to the cli. You can log into your Github base repo from your phone, add Mardown posts from the WebUI and your Github Actions pipeline will take care of the rest.
+Begin by adding a GitHub action file to your base repo -</p>
+
+<pre><code class="language-bash">vim ./github/workflows/main.yml
+</code></pre>
+
+<p>Here is a what my main.yml file looks like -</p>
+
+<pre><code class="language-yaml">name: CI
+on: push
+jobs:
+  deploy:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v2
+
+      - name: Update theme
+        run: git submodule update --init --recursive
+
+      - name: Setup hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: &quot;0.82.0&quot;
+
+      - name: Build
+        run: cd username &amp;&amp; hugo -t ananke &amp;&amp; pwd &amp;&amp; ls -a ./public
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          external_repository: username/username.github.io
+          publish_dir: ./intothevoid/public
+          user_name: username
+          user_email: username@email.com
+          publish_branch: main
+</code></pre>
+
+<p>Replace values with your own where needed.</p>
+
+<p>A quick explanation of the above Github Action is given below -
+1. Checkout - checkout the base repo
+2. Update - Update your theme which was added as a submodule
+3. Setup Hugo - Call an external action which basically installs Hugo
+4. Build - Build the website by calling <strong>hugo -t ananke</strong>
+5. Deploy - Publish the built files to your external public repo username.github.io</p>
+
+<p><strong>Note:</strong> There is a bit of setup involved where you need to generate your token (indicated by deploy key above). I would highly recommend visiting <a href="https://github.com/peaceiris/actions-gh-pages" target="_blank">https://github.com/peaceiris/actions-gh-pages</a> for details of the external action and how to setup your token.</p>
+
+<p>This should get you at a stage where you can simply push a post written in Markdown format to your base repo and the rest should happen automatically. Post &ndash;&gt; Commit Base Repo &ndash;&gt; Github Action &ndash;&gt; Build Blog &ndash;&gt; Publish Static HTML.</p>
+
+
+<p class="info">Tags: 
+    
+        
+        <a href="/tags/hugo.html">hugo</a>
+    
+        , 
+        <a href="/tags/web.html">web</a>
+    
+        , 
+        <a href="/tags/linux.html">linux</a>
+    
+</p>
+
+
+    
+<script>
+    Prism.plugins.autoloader.languages_path = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/';
+</script>
+
+    <main>
+    
+<footer>
+    <p class="footer-content">
+        <span>&copy; 2024 My Awesome Blog.</span>
+        <span>Powered by <a href="https://www.github.com/intothevoid/likho">Likho</a>.</span>
+    </p>
+</footer>
+
+</body>
+</html>

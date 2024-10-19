@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Awesome Blog - Type safety in Python with Pydantic</title>
+    <link rel="stylesheet" href="/main.css">
+    
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+
+</head>
+<body>
+    
+<header>
+    <div id="site-title" style="display:flex; justify-content:left; align-items: left;">
+        <a href="/index.html">
+            <h1 style="margin: 0;">My Awesome Blog</h1>
+        </a>
+    </div>
+    <div id="nav-links" style="display:flex; justify-content:right; align-items: right;">
+        <nav>
+            <div style="display: flex;">
+                <a href="/posts.html">All Posts</a>
+                
+                    <a href="/about.html">About</a>
+                
+                    <a href="/projects.html">Projects</a>
+                
+            </div>
+        </nav>
+    </div>
+</header>
+
+    <main>
+    
+<h2>Type safety in Python with Pydantic</h2>
+<p>An introduction to Pydantic, and type checking in Python</p>
+<p class="info">Published on Apr 10 2023 at 4:56pm</p>
+<h2>Introduction to Pydantic</h2>
+
+<p>Pydantic is a Python library that provides data validation and settings management, using Python type annotations. It is designed to make it easy to define and validate data models, allowing you to catch errors and handle them gracefully, making your code more robust and easier to maintain.</p>
+
+<p>Pydantic is particularly useful for handling data that is passed between different parts of a system, such as between a front-end web form and a back-end API, or between different microservices. By defining a clear schema for the data, you can ensure that it is consistent and valid, regardless of where it comes from.</p>
+
+<h2>Features of Pydantic</h2>
+
+<p>One of the key features of Pydantic is the use of Python type annotations. These annotations provide a way to specify the expected type of a variable or argument, which can be used to validate the data and catch errors early in the development process. Pydantic also provides a number of built-in validators, such as &ldquo;email&rdquo; and &ldquo;url&rdquo;, that can be used to ensure that data conforms to specific formats.</p>
+
+<p>To define a Pydantic model, you simply create a class that inherits from the BaseModel class. In this class, you define the fields that make up the model, using Python type annotations to specify the expected types. You can also specify default values and validation rules for each field.</p>
+
+<h2>Example</h2>
+
+<pre><code class="language-python">from pydantic import BaseModel
+
+class User(BaseModel):
+    id: int
+    name: str
+    email: str
+    password: str
+
+</code></pre>
+
+<p>In this model, we have defined four fields: id, name, email, and password. The id field is expected to be an integer, while the other fields are expected to be strings.</p>
+
+<p>To create an instance of the User model, we simply pass in the data as a dictionary:</p>
+
+<pre><code class="language-python">data = {
+    &quot;id&quot;: 1,
+    &quot;name&quot;: &quot;Alice&quot;,
+    &quot;email&quot;: &quot;alice@example.com&quot;,
+    &quot;password&quot;: &quot;secretpassword&quot;,
+}
+
+user = User(**data)
+
+</code></pre>
+
+<p>Pydantic will automatically validate the data and ensure that it conforms to the expected types and validation rules. If any errors are found, Pydantic will raise a ValidationError exception, which includes details about the error and the field that caused it.</p>
+
+<p>Pydantic also provides a number of other features, such as support for custom validation functions, automatic conversion of data types, and support for parsing and serializing data to and from JSON.</p>
+
+<p>Pydantic is a powerful library that provides an easy and efficient way to validate data and handle errors in your Python applications. By using Pydantic to define and validate your data models, you can catch errors early in the development process and ensure that your code is more robust and easier to maintain.</p>
+
+<h2>Validation in Pydantic</h2>
+
+<p>In Pydantic, to get error details, you need to use a try/except block. The error type will be pydantic.error_wrappers.ValidationError.</p>
+
+<p>Here is an example:</p>
+
+<pre><code class="language-python">from pydantic import BaseModel, ValidationError
+
+class User(BaseModel):
+    id: int
+    name: str
+    email: str
+    password: str
+
+try:
+
+    data = {
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;Alice&quot;,
+        &quot;email&quot;: &quot;alice@example.com&quot;,
+        &quot;password&quot;: &quot;secret&quot;,
+        }
+
+    user = User(**data)
+
+except ValidationError as e:
+    print(e.json())
+</code></pre>
+
+<h2>Custom Validation</h2>
+
+<p>Pydantic provides a number of built-in validators, such as &ldquo;email&rdquo; and &ldquo;url&rdquo;, that can be used to ensure that data conforms to specific formats. However, you can also define your own custom validation functions, which can be used to validate data in any way you like.</p>
+
+<p>To define a custom validation function, you simply create a function that accepts a single argument, which will be the value of the field being validated. The function should raise a ValueError if the value is invalid, or return the value if it is valid.</p>
+
+<p>Here is an example of a custom validation function that checks whether a string is a valid email address:</p>
+
+<pre><code class="language-python">from pydantic import BaseModel, ValidationError, validator
+from email_validator import validate_email, EmailNotValidError
+
+class User(BaseModel):
+    id: int
+    name: str
+    email: str
+    password: str
+
+    @validator(&quot;email&quot;)
+    def email_validator(cls, v):
+        try:
+            validate_email(v)
+        except EmailNotValidError as e:
+            raise ValueError(&quot;Invalid email address&quot;)
+        return v
+
+try:
+    user = User(**data)
+    pprint(user)
+
+except ValidationError as e:
+    print(e.json())
+</code></pre>
+
+<h2>Conclusion</h2>
+
+<p>In this article, we have looked at Pydantic, a Python library that provides data validation and settings management, using Python type annotations. We have also looked at some of the features of Pydantic, including the use of Python type annotations to specify the expected types of fields, and the use of custom validation functions to validate data in any way you like.</p>
+
+<p>Pydantic is a powerful library that provides an easy and efficient way to validate data and handle errors in your Python applications. By using Pydantic to define and validate your data models, you can catch errors early in the development process and ensure that your code is more robust and easier to maintain.</p>
+
+<h2>References</h2>
+
+<ul>
+<li><a href="https://pydantic-docs.helpmanual.io/" target="_blank">Pydantic</a></li>
+</ul>
+
+
+<p class="info">Tags: 
+    
+        
+        <a href="/tags/python.html">python</a>
+    
+        , 
+        <a href="/tags/languages.html">languages</a>
+    
+        , 
+        <a href="/tags/programming.html">programming</a>
+    
+</p>
+
+
+    
+<script>
+    Prism.plugins.autoloader.languages_path = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/';
+</script>
+
+    <main>
+    
+<footer>
+    <p class="footer-content">
+        <span>&copy; 2024 My Awesome Blog.</span>
+        <span>Powered by <a href="https://www.github.com/intothevoid/likho">Likho</a>.</span>
+    </p>
+</footer>
+
+</body>
+</html>

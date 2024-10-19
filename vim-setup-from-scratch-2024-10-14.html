@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Awesome Blog - Vim Setup From Scratch</title>
+    <link rel="stylesheet" href="/main.css">
+    
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+
+</head>
+<body>
+    
+<header>
+    <div id="site-title" style="display:flex; justify-content:left; align-items: left;">
+        <a href="/index.html">
+            <h1 style="margin: 0;">My Awesome Blog</h1>
+        </a>
+    </div>
+    <div id="nav-links" style="display:flex; justify-content:right; align-items: right;">
+        <nav>
+            <div style="display: flex;">
+                <a href="/posts.html">All Posts</a>
+                
+                    <a href="/about.html">About</a>
+                
+                    <a href="/projects.html">Projects</a>
+                
+            </div>
+        </nav>
+    </div>
+</header>
+
+    <main>
+    
+<h2>Vim Setup From Scratch</h2>
+<p>A guide to setup and configure your Vim installation from scratch</p>
+<p class="info">Published on Oct 14 2024 at 9:31am</p>
+<p>Vim setups can be quite involved. There is the batteries included approach (SpaceVim, LazyVim etc.) and there&rsquo;s the hand rolled approach. Although the readymade approach is easier, manually setting up your Vim configuration can be a good learning experience.</p>
+
+<p>This guide is a way for me to have all the steps I normally follow when installing Vim. I&rsquo;ll try and keep it simple and focus on languages I enjoy using as a developer - Golang and Python.</p>
+
+<p>This guide will also focus on MacOS as I am using an M1 Macbook Pro at the moment. Most of the steps can be easily translated to other operating systems.</p>
+
+<h2>Installation</h2>
+
+<p>Install Vim by issuing the following command -</p>
+
+<pre><code class="language-bash">brew install vim
+</code></pre>
+
+<h2>Sensible defaults</h2>
+
+<p>The sensible defaults plugin is a great way to have a starting point with your .vimrc (Vim&rsquo;s configuration file) without having to copy over someone else&rsquo;s configuration file.</p>
+
+<p>However, this is a plugin which will have to be installed using the steps in section &lsquo;Plugin Manager&rsquo;</p>
+
+<h2>Plugin Manager</h2>
+
+<p>One of the easiest ways to set things up in Vim and install plugins is to use a plugin manager. We&rsquo;ll use vim-plug here in our example -</p>
+
+<pre><code class="language-bash">sh -c 'curl -fLo &quot;${XDG_DATA_HOME:-$HOME/.local/share}&quot;/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+</code></pre>
+
+<p>Add a vim-plug section to your ~/.vimrc (or ~/.config/nvim/init.vim for Neovim)</p>
+
+<pre><code class="language-bash">call plug#begin()
+
+&quot; List your plugins here
+Plug 'tpope/vim-sensible'
+
+call plug#end()
+</code></pre>
+
+<p>Reload the file or restart Vim, then you can,
+<code>:PlugInstall</code> to install the plugins
+<code>:PlugUpdate</code> to install or update the plugins
+<code>:PlugDiff</code> to review the changes from the last update
+<code>:PlugClean</code> to remove plugins no longer in the list</p>
+
+<h2>Useful developer plugins</h2>
+
+<p>Below is a list of useful plugins to install in Vim -</p>
+
+<ul>
+<li>Vim sensible - A set of sensible defaults for your .vimrc</li>
+<li>NERDTree - File explorer</li>
+<li>fzf.vim - Fuzzy file finder</li>
+<li>ALE - Linting and static analysis</li>
+<li>vim-fugitive - Git integration</li>
+</ul>
+
+<p>Add these between the call plug#begin() and call plug#end() sections of your .vimrc -</p>
+
+<pre><code class="language-bash">Plug 'tpope/vim-sensible'
+Plug 'scrooloose/nerdtree'
+Plug 'junegunn/fzf'
+Plug 'w0rp/ale'
+Plug 'tpope/vim-fugitive'
+</code></pre>
+
+<p>Use the <code>:PlugInstall</code> command to install above plugins.</p>
+
+<h2>Language support</h2>
+
+<p>I am tailoring this guide for Golang as it is my preferred programming language for now. Install the following plugins, by modifying your ~/.vimrc file -</p>
+
+<pre><code class="language-bash">Plug 'fatih/vim-go'
+Plug 'vim-python/python-syntax'
+
+</code></pre>
+
+<h2>Colour scheme</h2>
+
+<p>Choose a color scheme that&rsquo;s easy on the eyes for long coding sessions. Molokai is a popular choice -</p>
+
+<h3>Download</h3>
+
+<pre><code class="language-bash">curl -fLo ~/.vim/colors/monokai.vim --create-dirs https://raw.githubusercontent.com/crusoexia/vim-monokai/refs/heads/master/colors/monokai.vim
+</code></pre>
+
+<h3>Installation</h3>
+
+<p>Select the theme by adding the following lines to your ~/.vimrc</p>
+
+<pre><code class="language-bash">colorscheme monokai
+</code></pre>
+
+<h2>Key mappings</h2>
+
+<p>You can add custom keymappings, such as invoking NERDTree, by adding the following to your ~/.vimrc</p>
+
+<pre><code class="language-bash">nnoremap &lt;C-n&gt; :NERDTreeToggle&lt;CR&gt;
+nnoremap &lt;C-p&gt; :FZF&lt;CR&gt;
+</code></pre>
+
+<h2>Go specific plugins</h2>
+
+<pre><code class="language-bash">Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'SirVer/ultisnips'
+Plug 'AndrewRadev/splitjoin.vim'
+</code></pre>
+
+<ul>
+<li>vim-go: The essential plugin for Go development in Vim</li>
+<li>coc.nvim: For advanced code completion (install gopls separately)</li>
+<li>ultisnips: For code snippets</li>
+<li>splitjoin.vim: Useful for splitting/joining struct literals</li>
+</ul>
+
+<h2>Go specific settings</h2>
+
+<p>Use the following settings for an optimal Go programming experience -</p>
+
+<pre><code class="language-bash">&quot; Go syntax highlighting
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_operators = 1
+
+&quot; Auto formatting and importing
+let g:go_fmt_autosave = 1
+let g:go_fmt_command = &quot;goimports&quot;
+
+&quot; Status line types/signatures
+let g:go_auto_type_info = 1
+
+&quot; Run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+
+&quot; Map keys for most used commands.
+&quot; Ex: `\b` for building, `\r` for running and `\b` for running test.
+autocmd FileType go nmap &lt;leader&gt;b :&lt;C-u&gt;call &lt;SID&gt;build_go_files()&lt;CR&gt;
+autocmd FileType go nmap &lt;leader&gt;r  &lt;Plug&gt;(go-run)
+autocmd FileType go nmap &lt;leader&gt;t  &lt;Plug&gt;(go-test)
+</code></pre>
+
+<p>Remember to run :GoInstallBinaries after setting this up to install necessary Go tools. Also, ensure you have gopls installed (go install golang.org/x/tools/gopls@latest) for the best code completion experience with coc.nvim.</p>
+
+<p>This should give you a solid starting point for your Vim install. You can visit a website like <a href="https://vimawesome.com/" target="_blank">https://vimawesome.com/</a> to get inspiration for plugins and further customisation.</p>
+
+
+<p class="info">Tags: 
+    
+        
+        <a href="/tags/programming.html">programming</a>
+    
+        , 
+        <a href="/tags/vim.html">vim</a>
+    
+</p>
+
+
+    
+<script>
+    Prism.plugins.autoloader.languages_path = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/';
+</script>
+
+    <main>
+    
+<footer>
+    <p class="footer-content">
+        <span>&copy; 2024 My Awesome Blog.</span>
+        <span>Powered by <a href="https://www.github.com/intothevoid/likho">Likho</a>.</span>
+    </p>
+</footer>
+
+</body>
+</html>

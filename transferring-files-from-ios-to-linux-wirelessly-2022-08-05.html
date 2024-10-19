@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Awesome Blog - Transferring Files from iOS to Linux wirelessly</title>
+    <link rel="stylesheet" href="/main.css">
+    
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+
+</head>
+<body>
+    
+<header>
+    <div id="site-title" style="display:flex; justify-content:left; align-items: left;">
+        <a href="/index.html">
+            <h1 style="margin: 0;">My Awesome Blog</h1>
+        </a>
+    </div>
+    <div id="nav-links" style="display:flex; justify-content:right; align-items: right;">
+        <nav>
+            <div style="display: flex;">
+                <a href="/posts.html">All Posts</a>
+                
+                    <a href="/about.html">About</a>
+                
+                    <a href="/projects.html">Projects</a>
+                
+            </div>
+        </nav>
+    </div>
+</header>
+
+    <main>
+    
+<h2>Transferring Files from iOS to Linux wirelessly</h2>
+<p>Transfer files wirelessly between iOS devices and a Linux computer using ssh.</p>
+<p class="info">Published on Aug 6 2022 at 9:29am</p>
+<h2>Overview</h2>
+
+<p>I was an Android user for a long period of time, right from the Jellybean and
+Gingerbread days. After almost a decade being with Android I finally moved to
+iOS, because I was sick of the fragmentation and I wish Android took privacy
+as seriously as iOS does. One of the most common things I need to do is transfer
+files across from my iOS device to my Linux laptop. One way of doing this is to
+connect my laptop and iPhone with a lightning cable, however it is super
+inconvenient and you don&rsquo;t always have a cable lying around. You can email
+the file to yourself but thats a really roundabout way to do it.</p>
+
+<p>With an Android device, things are easier as Google allows apps on the playstore
+that have built inservers. iOS does not allow such apps. However, what iOS does
+support is being able to connect to other servers like an ssh server.</p>
+
+<p>If you have a Macbook and an iOS device, a wireless transfer is very easy -
+Airdrop. However, with Linux, you&rsquo;re out of luck. The only reliable way to
+transfer files to a Linux laptop is via sftp or ftp over ssh.</p>
+
+<h2>Install ssh server on Linux</h2>
+
+<p>In this part of the post, I&rsquo;ll show you how to ==install== an SSH server on Fedora Linux.</p>
+
+<p>First, we&rsquo;ll need to install the openssh-server package:</p>
+
+<pre><code class="language-bash">sudo dnf install openssh-server
+</code></pre>
+
+<p>Once the package is installed, we&rsquo;ll need to start the SSH service:</p>
+
+<pre><code class="language-bash">sudo systemctl enable sshd # ensure sshd starts up after reboot
+sudo systemctl start sshd # starts the ssh daemon
+sudo systemctl status sshd # check status of service
+</code></pre>
+
+<p>After you have installed the ssh server on your laptop move on to the next part
+of this post. You will need your iOS device - iPhone or iPad for this.</p>
+
+<h2>Install FE File Explorer on your iOS device</h2>
+
+<p>FE File Explorer is an app which lets you connect to servers from your iOS device.
+It can connect to a variety of sources including NAS, FTP, SAMBA etc.</p>
+
+<p>It is a free application that also has a paid version but even the free version
+has a lot of built in functionality and it will suit the needs of most users.</p>
+
+<p>Once you launch the app, hit the + button on the top right hand corner and the
+following screen will be shown -</p>
+
+<p>{{&lt; figure src=&ldquo;/images/fexplorer/fexplorer_add.jpg&rdquo; title=&ldquo;FE File Explorer New Window&rdquo; &gt;}}</p>
+
+<p>Select &lsquo;SFTP&rsquo;. If &lsquo;SFTP&rsquo; is not available you should be able to select &lsquo;FTP&rsquo; although
+I have not tested it with this option.</p>
+
+<p>Enter details in the next screen. The &lsquo;Hostname&rsquo; (IP Address), &lsquo;Username&rsquo; and &lsquo;Password&rsquo;
+are the most important fields. You can check the IP address of the target computer
+using the following command -</p>
+
+<pre><code class="language-bash">ip a
+</code></pre>
+
+<p>The username and password are the account details you use on your Linux computer.</p>
+
+<p>If you followed the instructions correctly, you should now see an entry for your
+connection at the main screen of the app. Once you tap it, you should be able
+to view all the files and folders of your Linux computer.</p>
+
+<p>{{&lt; figure src=&ldquo;/images/fexplorer/fexplorer_main.png&rdquo; title=&ldquo;FE File Explorer Connection Added&rdquo; &gt;}}</p>
+
+<p>Transferring files is easy, you can simply hit the 3 dots for a File context menu
+as shown below -</p>
+
+<p>{{&lt; figure src=&ldquo;/images/fexplorer/fexplorer_filepopup.png&rdquo; title=&ldquo;FE File Explorer Popup Menu&rdquo; &gt;}}</p>
+
+<p>This seems like a lot of steps but once you have set things up its like using
+any other app on your phone.</p>
+
+
+<p class="info">Tags: 
+    
+        
+        <a href="/tags/ios.html">ios</a>
+    
+        , 
+        <a href="/tags/linux.html">linux</a>
+    
+        , 
+        <a href="/tags/ssh.html">ssh</a>
+    
+        , 
+        <a href="/tags/fedora.html">fedora</a>
+    
+</p>
+
+
+    
+<script>
+    Prism.plugins.autoloader.languages_path = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/';
+</script>
+
+    <main>
+    
+<footer>
+    <p class="footer-content">
+        <span>&copy; 2024 My Awesome Blog.</span>
+        <span>Powered by <a href="https://www.github.com/intothevoid/likho">Likho</a>.</span>
+    </p>
+</footer>
+
+</body>
+</html>

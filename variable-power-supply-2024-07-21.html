@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Awesome Blog - Variable Power Supply</title>
+    <link rel="stylesheet" href="/main.css">
+    
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+
+</head>
+<body>
+    
+<header>
+    <div id="site-title" style="display:flex; justify-content:left; align-items: left;">
+        <a href="/index.html">
+            <h1 style="margin: 0;">My Awesome Blog</h1>
+        </a>
+    </div>
+    <div id="nav-links" style="display:flex; justify-content:right; align-items: right;">
+        <nav>
+            <div style="display: flex;">
+                <a href="/posts.html">All Posts</a>
+                
+                    <a href="/about.html">About</a>
+                
+                    <a href="/projects.html">Projects</a>
+                
+            </div>
+        </nav>
+    </div>
+</header>
+
+    <main>
+    
+<h2>Variable Power Supply</h2>
+<p>Create a variable power supply using an old laptop power supply</p>
+<p class="info">Published on Jul 21 2024 at 10:01pm</p>
+<h2>Introduction</h2>
+
+<p>In today&rsquo;s world of electronics and DIY projects, having a reliable power supply is essential. However, purchasing a variable power supply can be quite expensive. In this blog post, we&rsquo;ll guide you through creating your own variable power supply using an old laptop charger. This project not only saves you money but also gives new life to old electronic components that might otherwise end up in landfill.</p>
+
+<h2>Parts Required</h2>
+
+<p>To embark on this project, you&rsquo;ll need the following items:</p>
+
+<ul>
+<li>A 3D printer</li>
+<li>An old laptop power supply with an output DC voltage greater than 6 volts</li>
+<li>A Programmable Constant Voltage Current Step-down Power Supply Module <a href="https://vi.aliexpress.com/w/wholesale-WZ3605E.html?spm=a2g0o.home.search.0" target="_blank">WZ3605E</a></li>
+<li>Banana plug socket <a href="https://vi.aliexpress.com/w/wholesale-banana-socket.html?spm=a2g0o.productlist.search.0" target="_blank">Link</a></li>
+<li>Barrel connector [Link] <a href="https://vi.aliexpress.com/item/1005006512605602.html?spm=a2g0o.productlist.main.1.154d72a0O2bLhC&amp;algo_pvid=a48a2e5b-c98f-46a3-9efb-e96b140d6b7e&amp;algo_exp_id=a48a2e5b-c98f-46a3-9efb-e96b140d6b7e-0&amp;pdp_npi=4%40dis%21AUD%213.02%213.02%21%21%2114.53%2114.53%21%402101c80017215653450678713e0b25%2112000037482647997%21sea%21AU%212747051205%21&amp;curPageLogUid=9XwmU1UcmZtW&amp;utparam-url=scene%3Asearch%7Cquery_from%3A" target="_blank">https://vi.aliexpress.com/item/1005006512605602.html?spm=a2g0o.productlist.main.1.154d72a0O2bLhC&amp;algo_pvid=a48a2e5b-c98f-46a3-9efb-e96b140d6b7e&amp;algo_exp_id=a48a2e5b-c98f-46a3-9efb-e96b140d6b7e-0&amp;pdp_npi=4%40dis%21AUD%213.02%213.02%21%21%2114.53%2114.53%21%402101c80017215653450678713e0b25%2112000037482647997%21sea%21AU%212747051205%21&amp;curPageLogUid=9XwmU1UcmZtW&amp;utparam-url=scene%3Asearch%7Cquery_from%3A</a></li>
+<li>Soldering iron</li>
+<li>Quality wires rated for ~5amps</li>
+<li>Autodesk Fusion 360 design files</li>
+</ul>
+
+<h2>Steps with Assembly Pics</h2>
+
+<h3>Step 1: Gather All Components</h3>
+
+<p>Ensure all the required components are at hand before starting the assembly process. This includes checking the output voltage of the old laptop charger to confirm it meets the minimum requirement.</p>
+
+<h3>Step 2: 3D Print the Enclosure</h3>
+
+<p>Using the Autodesk Fusion 360 design files provided, print the enclosure for your power supply. This will house all the components securely.</p>
+
+<p><img src="images/power-supply-enclosure.jpg" alt="3D Printed Enclosure" /></p>
+
+<h3>Step 3: Prepare the Laptop Charger</h3>
+
+<p>If the laptop charger does not have the same barrel connector as the socket you purchased, you can splice the cable and only connect the power cables to the barrel jack. I used a 2.1mm barrel jack and socket, purchased from <a href="https://www.jaycar.com.au" target="_blank">Jaycar</a></p>
+
+<h3>Step 4: Assemble the Power Supply Module</h3>
+
+<p>Connect the Programmable Constant Voltage Current Step-down Power Supply Module WZ3605E to the barrel connector attached to the back of the lid (see the STL files linked above). Ensure proper connections for input and output voltages to the module. The module I have linked has simple screw in connectors.</p>
+
+<p>Inputs (6V-36V) - Connected from the barrel connector to the modules input terminals.</p>
+
+<p>Outputs (6V-36V) - Connected to the banana socket terminals (which we will use as our outputs)</p>
+
+<p><img src="link_to_your_image_here" alt="Assembled Power Supply Module" /></p>
+
+<h3>Step 5: Install Banana Plug Socket and Barrel Connector</h3>
+
+<p>Solder the banana plug socket and barrel connector to the output terminals of the power supply module. These will serve as the connection points for your devices.</p>
+
+<p><img src="link_to_your_image_here" alt="Installed Connectors" /></p>
+
+<h3>Step 6: Final Assembly and Testing</h3>
+
+<p>Place all assembled components inside the 3D printed enclosure. Connect the wires appropriately, ensuring safety and functionality. Test the power supply with a multimeter to confirm the output voltage range.</p>
+
+<p><img src="link_to_your_image_here" alt="Final Assembly" /></p>
+
+<h2>Conclusion</h2>
+
+<p>Creating a variable power supply from an old laptop charger is not only cost-effective but also environmentally friendly. By following the steps outlined in this guide, you&rsquo;ve successfully repurposed an old electronic device into a useful tool for your projects. Remember, safety first when dealing with electronics. Enjoy experimenting with your new variable power supply!</p>
+
+<hr>
+
+
+<p class="info">Tags: 
+    
+        
+        <a href="/tags/maker.html">maker</a>
+    
+        , 
+        <a href="/tags/electronics.html">electronics</a>
+    
+        , 
+        <a href="/tags/diy.html">diy</a>
+    
+</p>
+
+
+    
+<script>
+    Prism.plugins.autoloader.languages_path = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/';
+</script>
+
+    <main>
+    
+<footer>
+    <p class="footer-content">
+        <span>&copy; 2024 My Awesome Blog.</span>
+        <span>Powered by <a href="https://www.github.com/intothevoid/likho">Likho</a>.</span>
+    </p>
+</footer>
+
+</body>
+</html>

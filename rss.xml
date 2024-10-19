@@ -5,9 +5,1044 @@
 <link>https://example.com</link>
 <description>A static site generated with Likho</description>
 <item>
+<title>Vim Setup From Scratch</title>
+<link>https://example.com/vim-setup-from-scratch-2024-10-14.html</link>
+<pubDate>Mon, 14 Oct 2024 09:31:35 +0800</pubDate>
+<description><![CDATA[
+
+Vim setups can be quite involved. There is the batteries included approach (SpaceVim, LazyVim etc.) and there's the hand rolled approach. Although the readymade approach is easier, manually setting up your Vim configuration can be a good learning experience.
+
+This guide is a way for me to have all the steps I normally follow when installing Vim. I'll try and keep it simple and focus on languages I enjoy using as a developer - Golang and Python.
+
+This guide will also focus on MacOS as I am using an M1 Macbook Pro at the moment. Most of the steps can be easily translated to other operating systems.
+
+## Installation
+
+Install Vim by issuing the following command -
+
+```bash
+brew install vim
+```
+
+## Sensible defaults
+
+The sensible defaults plugin is a great way to have a starting point with your .vimrc (Vim's configuration file) without having to copy over someone else's configuration file. 
+
+However, this is a plugin which will have to be installed using the steps in section 'Plugin Manager'
+
+## Plugin Manager
+
+One of the easiest ways to set things up in Vim and install plugins is to use a plugin manager. We'll use vim-plug here in our example -
+
+```bash
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+```
+Add a vim-plug section to your ~/.vimrc (or ~/.config/nvim/init.vim for Neovim)
+
+```bash
+call plug#begin()
+
+" List your plugins here
+Plug 'tpope/vim-sensible'
+
+call plug#end()
+```
+Reload the file or restart Vim, then you can,
+`:PlugInstall` to install the plugins
+`:PlugUpdate` to install or update the plugins
+`:PlugDiff` to review the changes from the last update
+`:PlugClean` to remove plugins no longer in the list
+
+
+## Useful developer plugins
+
+Below is a list of useful plugins to install in Vim -
+
+* Vim sensible - A set of sensible defaults for your .vimrc
+* NERDTree - File explorer
+* fzf.vim - Fuzzy file finder
+* ALE - Linting and static analysis
+* vim-fugitive - Git integration
+
+Add these between the call plug#begin() and call plug#end() sections of your .vimrc -
+
+```bash
+Plug 'tpope/vim-sensible'
+Plug 'scrooloose/nerdtree'
+Plug 'junegunn/fzf'
+Plug 'w0rp/ale'
+Plug 'tpope/vim-fugitive'
+```
+
+Use the `:PlugInstall` command to install above plugins.
+
+## Language support
+
+I am tailoring this guide for Golang as it is my preferred programming language for now. Install the following plugins, by modifying your ~/.vimrc file -
+
+```bash
+Plug 'fatih/vim-go'
+Plug 'vim-python/python-syntax'
+
+```
+
+## Colour scheme
+
+Choose a color scheme that's easy on the eyes for long coding sessions. Molokai is a popular choice -
+
+### Download
+
+```bash
+curl -fLo ~/.vim/colors/monokai.vim --create-dirs https://raw.githubusercontent.com/crusoexia/vim-monokai/refs/heads/master/colors/monokai.vim
+```
+
+### Installation
+
+Select the theme by adding the following lines to your ~/.vimrc
+
+```bash
+colorscheme monokai
+```
+## Key mappings
+
+You can add custom keymappings, such as invoking NERDTree, by adding the following to your ~/.vimrc
+
+```bash
+nnoremap <C-n> :NERDTreeToggle<CR>
+nnoremap <C-p> :FZF<CR>
+```
+
+## Go specific plugins
+
+```bash
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'SirVer/ultisnips'
+Plug 'AndrewRadev/splitjoin.vim'
+```
+
+* vim-go: The essential plugin for Go development in Vim
+* coc.nvim: For advanced code completion (install gopls separately)
+* ultisnips: For code snippets
+* splitjoin.vim: Useful for splitting/joining struct literals
+
+## Go specific settings
+
+Use the following settings for an optimal Go programming experience -
+
+```bash
+" Go syntax highlighting
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_operators = 1
+
+" Auto formatting and importing
+let g:go_fmt_autosave = 1
+let g:go_fmt_command = "goimports"
+
+" Status line types/signatures
+let g:go_auto_type_info = 1
+
+" Run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+
+" Map keys for most used commands.
+" Ex: `\b` for building, `\r` for running and `\b` for running test.
+autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+autocmd FileType go nmap <leader>r  <Plug>(go-run)
+autocmd FileType go nmap <leader>t  <Plug>(go-test)
+```
+
+Remember to run :GoInstallBinaries after setting this up to install necessary Go tools. Also, ensure you have gopls installed (go install golang.org/x/tools/gopls@latest) for the best code completion experience with coc.nvim.
+
+This should give you a solid starting point for your Vim install. You can visit a website like https://vimawesome.com/ to get inspiration for plugins and further customisation.
+
+]]></description>
+</item>
+<item>
+<title>Variable Power Supply</title>
+<link>https://example.com/variable-power-supply-2024-07-21.html</link>
+<pubDate>Sun, 21 Jul 2024 22:01:24 +0930</pubDate>
+<description><![CDATA[
+
+## Introduction
+
+In today's world of electronics and DIY projects, having a reliable power supply is essential. However, purchasing a variable power supply can be quite expensive. In this blog post, we'll guide you through creating your own variable power supply using an old laptop charger. This project not only saves you money but also gives new life to old electronic components that might otherwise end up in landfill.
+
+## Parts Required
+
+To embark on this project, you'll need the following items:
+
+- A 3D printer
+- An old laptop power supply with an output DC voltage greater than 6 volts
+- A Programmable Constant Voltage Current Step-down Power Supply Module [WZ3605E](https://vi.aliexpress.com/w/wholesale-WZ3605E.html?spm=a2g0o.home.search.0)
+- Banana plug socket [Link](https://vi.aliexpress.com/w/wholesale-banana-socket.html?spm=a2g0o.productlist.search.0)
+- Barrel connector [Link] https://vi.aliexpress.com/item/1005006512605602.html?spm=a2g0o.productlist.main.1.154d72a0O2bLhC&algo_pvid=a48a2e5b-c98f-46a3-9efb-e96b140d6b7e&algo_exp_id=a48a2e5b-c98f-46a3-9efb-e96b140d6b7e-0&pdp_npi=4%40dis%21AUD%213.02%213.02%21%21%2114.53%2114.53%21%402101c80017215653450678713e0b25%2112000037482647997%21sea%21AU%212747051205%21&curPageLogUid=9XwmU1UcmZtW&utparam-url=scene%3Asearch%7Cquery_from%3A
+- Soldering iron
+- Quality wires rated for ~5amps
+- Autodesk Fusion 360 design files 
+
+## Steps with Assembly Pics
+
+### Step 1: Gather All Components
+
+Ensure all the required components are at hand before starting the assembly process. This includes checking the output voltage of the old laptop charger to confirm it meets the minimum requirement.
+
+### Step 2: 3D Print the Enclosure
+
+Using the Autodesk Fusion 360 design files provided, print the enclosure for your power supply. This will house all the components securely.
+
+![3D Printed Enclosure](images/power-supply-enclosure.jpg)
+
+### Step 3: Prepare the Laptop Charger
+
+If the laptop charger does not have the same barrel connector as the socket you purchased, you can splice the cable and only connect the power cables to the barrel jack. I used a 2.1mm barrel jack and socket, purchased from [Jaycar](https://www.jaycar.com.au)
+
+
+### Step 4: Assemble the Power Supply Module
+
+Connect the Programmable Constant Voltage Current Step-down Power Supply Module WZ3605E to the barrel connector attached to the back of the lid (see the STL files linked above). Ensure proper connections for input and output voltages to the module. The module I have linked has simple screw in connectors.
+
+Inputs (6V-36V) - Connected from the barrel connector to the modules input terminals.
+
+Outputs (6V-36V) - Connected to the banana socket terminals (which we will use as our outputs)
+
+![Assembled Power Supply Module](link_to_your_image_here)
+
+### Step 5: Install Banana Plug Socket and Barrel Connector
+
+Solder the banana plug socket and barrel connector to the output terminals of the power supply module. These will serve as the connection points for your devices.
+
+![Installed Connectors](link_to_your_image_here)
+
+### Step 6: Final Assembly and Testing
+
+Place all assembled components inside the 3D printed enclosure. Connect the wires appropriately, ensuring safety and functionality. Test the power supply with a multimeter to confirm the output voltage range.
+
+![Final Assembly](link_to_your_image_here)
+
+## Conclusion
+
+Creating a variable power supply from an old laptop charger is not only cost-effective but also environmentally friendly. By following the steps outlined in this guide, you've successfully repurposed an old electronic device into a useful tool for your projects. Remember, safety first when dealing with electronics. Enjoy experimenting with your new variable power supply!
+
+---
+]]></description>
+</item>
+<item>
+<title>Organise Videos By Resolution</title>
+<link>https://example.com/organise-videos-by-resolution-2024-05-18.html</link>
+<pubDate>Sat, 18 May 2024 21:40:39 +0930</pubDate>
+<description><![CDATA[
+
+Recently I was clearing out some old movie rips that I had created from VideoCDs and DVDs many years ago. I wanted a quick and dirty way to organise these i.e. get rid of the videos of resolutions lower than 720p (1280x720)
+
+With LLMs all the rage at the moment, all it took is a few prompts and corrections and in 15 minutes I had this script ready to go -
+
+
+```python
+import os
+import shutil
+from moviepy.editor import VideoFileClip
+
+def analyze_and_move_folders(parent_folder):
+    # Create the 'inferior' folder if it doesn't exist
+    inferior_folder = os.path.join(parent_folder, 'inferior')
+    if not os.path.exists(inferior_folder):
+        os.makedirs(inferior_folder)
+
+    # Walk through all subdirectories
+    for root, dirs, files in os.walk(parent_folder):
+        # Check if the current directory contains any video files
+        video_files_found = False
+        for file in files:
+            if file.endswith(('.mkv', '.avi', '.mp4')):
+                video_files_found = True
+                break
+        
+        if video_files_found:
+            # Load the first video file to check its resolution
+            first_video_file = next((f for f in files if f.endswith(('.mkv', '.avi', '.mp4'))), None)
+            if first_video_file:
+                file_path = os.path.join(root, first_video_file)
+                try:
+                    clip = VideoFileClip(file_path)
+                    
+                    # Check if the video resolution is less than 720p
+                    if clip.size[0] < 1280 or clip.size[1] < 720:
+                        # Use shutil.move() instead of os.rename()
+                        shutil.move(root, os.path.join(inferior_folder, os.path.basename(root)))
+                        print(f'Moved folder {root} to inferior due to low resolution.')
+                except UnicodeDecodeError as e:
+                    print(f"Skipping {file_path} due to decoding error: {e}")
+                    continue  # Skip this file and continue with the next one
+
+# Specify the path to the parent folder
+parent_folder = '/path/to/your/folder'
+analyze_and_move_folders(parent_folder)
+
+```
+
+The script uses the moviepy library to analyse movie files. The script works in the following manner -
+
+1. Scan all sub-folders within the root folder for movie files i.e. mkv, avi, and mp4 files
+2. Once a movie file is encountered, analyse this file using moviepy
+3. Find  out the resolution of the movie
+4. If the resolution of the movie is < 1280p horizontally or < 720p vertically, move the file to a folder called 'inferior'
+5. Repeat above steps until all sub-folders within the parent folder have been scanned
+
+That's it. The script saved me time and effort from having to load each movie in a video player before deleting it.
+]]></description>
+</item>
+<item>
+<title>An introduction to the OpenAI API using Python</title>
+<link>https://example.com/an-introduction-to-the-openai-api-using-python-2023-04-19.html</link>
+<pubDate>Wed, 19 Apr 2023 22:31:18 +0930</pubDate>
+<description><![CDATA[
+## Introduction
+
+Ever wanted to play chess against an AI? With the OpenAI API, you can! This blog post will show you how to use Python to interface with the OpenAI API, send and receive requests, and even play a game of chess against an AI opponent. We'll be using the FEN representation of the chess board to communicate game states with the API.
+
+## Setting Up
+
+Before we start, make sure you have the following:
+
+* Python installed on your machine (preferably Python 3.6 or later)
+* A valid OpenAI API key (you can sign up at https://beta.openai.com/signup/)
+
+To install the OpenAI package, run the following command:
+
+```bash
+pip install openai
+```
+
+Now, let's import the required libraries and set up the API key:
+    
+```python
+import openai
+import os
+
+openai.api_key = os.environ["OPENAI_API_KEY"]
+```
+
+Make sure to replace "OPENAI_API_KEY" with your actual API key or set it as an environment variable.
+
+## Interacting with the OpenAI API
+
+Now that we have the API key set up, let's create a function to send a prompt to the OpenAI API and receive a response. The function will receive the current FEN representation of the chess board and return the next FEN representation after the AI's move.
+
+```python
+def get_next_move(fen):
+    prompt = f"Given the chess position in FEN notation: {fen}, what is the best move? Please provide the resulting FEN representation after the move."
+    
+    response = openai.Completion.create(
+        engine="text-davinci-002",
+        prompt=prompt,
+        max_tokens=100,
+        n=1,
+        stop=None,
+        temperature=0.5,
+    )
+    
+    return response.choices[0].text.strip()
+```
+
+This function sends a POST request to the OpenAI API with the current FEN representation and receives the next FEN representation after the AI's move.
+
+## Playing Chess
+
+Now let's create a simple chess game loop that takes user input and sends it to the API for processing. We'll be using the python-chess library to handle the FEN representation and validate moves. You can install it with:
+
+```bash
+pip install python-chess
+```
+
+Here's the code to set up a simple chess game:
+
+```python
+import chess
+
+board = chess.Board()
+
+while not board.is_game_over():
+    print(board)
+    if board.turn == chess.WHITE:
+        move = input("Your move (in UCI format): ")
+        try:
+            board.push_san(move)
+        except ValueError:
+            print("Invalid move, try again.")
+            continue
+    else:
+        print("AI is thinking...")
+        current_fen = board.fen()
+        next_fen = get_next_move(current_fen)
+        try:
+            board.set_fen(next_fen)
+        except ValueError:
+            print("Error: AI provided an invalid FEN.")
+            break
+```
+
+This code sets up a chess board and enters a game loop where the user (White) enters moves in UCI format, and the AI (Black) calculates its move using the OpenAI API.
+
+## Conclusion
+
+And there you have it! You've created a simple chess game using the OpenAI API and Python. ]]></description>
+</item>
+<item>
+<title>Type safety in Python with Pydantic</title>
+<link>https://example.com/type-safety-in-python-with-pydantic-2023-04-10.html</link>
+<pubDate>Mon, 10 Apr 2023 16:56:00 +0930</pubDate>
+<description><![CDATA[
+
+## Introduction to Pydantic
+
+Pydantic is a Python library that provides data validation and settings management, using Python type annotations. It is designed to make it easy to define and validate data models, allowing you to catch errors and handle them gracefully, making your code more robust and easier to maintain.
+
+Pydantic is particularly useful for handling data that is passed between different parts of a system, such as between a front-end web form and a back-end API, or between different microservices. By defining a clear schema for the data, you can ensure that it is consistent and valid, regardless of where it comes from.
+
+## Features of Pydantic
+
+One of the key features of Pydantic is the use of Python type annotations. These annotations provide a way to specify the expected type of a variable or argument, which can be used to validate the data and catch errors early in the development process. Pydantic also provides a number of built-in validators, such as "email" and "url", that can be used to ensure that data conforms to specific formats.
+
+To define a Pydantic model, you simply create a class that inherits from the BaseModel class. In this class, you define the fields that make up the model, using Python type annotations to specify the expected types. You can also specify default values and validation rules for each field.
+
+## Example
+
+```python
+from pydantic import BaseModel
+
+class User(BaseModel):
+    id: int
+    name: str
+    email: str
+    password: str
+
+```
+In this model, we have defined four fields: id, name, email, and password. The id field is expected to be an integer, while the other fields are expected to be strings.
+
+To create an instance of the User model, we simply pass in the data as a dictionary:
+
+```python
+data = {
+    "id": 1,
+    "name": "Alice",
+    "email": "alice@example.com",
+    "password": "secretpassword",
+}
+
+user = User(**data)
+
+```
+Pydantic will automatically validate the data and ensure that it conforms to the expected types and validation rules. If any errors are found, Pydantic will raise a ValidationError exception, which includes details about the error and the field that caused it.
+
+Pydantic also provides a number of other features, such as support for custom validation functions, automatic conversion of data types, and support for parsing and serializing data to and from JSON.
+
+Pydantic is a powerful library that provides an easy and efficient way to validate data and handle errors in your Python applications. By using Pydantic to define and validate your data models, you can catch errors early in the development process and ensure that your code is more robust and easier to maintain.
+
+## Validation in Pydantic
+
+In Pydantic, to get error details, you need to use a try/except block. The error type will be pydantic.error_wrappers.ValidationError.
+
+Here is an example:
+
+```python
+from pydantic import BaseModel, ValidationError
+
+class User(BaseModel):
+    id: int
+    name: str
+    email: str
+    password: str
+
+try:
+
+    data = {
+        "id": 1,
+        "name": "Alice",
+        "email": "alice@example.com",
+        "password": "secret",
+        }
+
+    user = User(**data)
+
+except ValidationError as e:
+    print(e.json())
+``` 
+
+## Custom Validation
+
+Pydantic provides a number of built-in validators, such as "email" and "url", that can be used to ensure that data conforms to specific formats. However, you can also define your own custom validation functions, which can be used to validate data in any way you like.
+
+To define a custom validation function, you simply create a function that accepts a single argument, which will be the value of the field being validated. The function should raise a ValueError if the value is invalid, or return the value if it is valid.
+
+Here is an example of a custom validation function that checks whether a string is a valid email address:
+
+```python
+from pydantic import BaseModel, ValidationError, validator
+from email_validator import validate_email, EmailNotValidError
+
+class User(BaseModel):
+    id: int
+    name: str
+    email: str
+    password: str
+
+    @validator("email")
+    def email_validator(cls, v):
+        try:
+            validate_email(v)
+        except EmailNotValidError as e:
+            raise ValueError("Invalid email address")
+        return v
+
+try:
+    user = User(**data)
+    pprint(user)
+
+except ValidationError as e:
+    print(e.json())
+```
+
+## Conclusion
+
+In this article, we have looked at Pydantic, a Python library that provides data validation and settings management, using Python type annotations. We have also looked at some of the features of Pydantic, including the use of Python type annotations to specify the expected types of fields, and the use of custom validation functions to validate data in any way you like.
+
+Pydantic is a powerful library that provides an easy and efficient way to validate data and handle errors in your Python applications. By using Pydantic to define and validate your data models, you can catch errors early in the development process and ensure that your code is more robust and easier to maintain.
+
+## References
+
+- [Pydantic](https://pydantic-docs.helpmanual.io/)]]></description>
+</item>
+<item>
+<title>NoSQL Databases - MongoDB</title>
+<link>https://example.com/nosql-databases---mongodb-2022-12-29.html</link>
+<pubDate>Fri, 30 Dec 2022 09:51:13 +1030</pubDate>
+<description><![CDATA[
+
+NoSQL databases are a type of database that is designed to handle large amounts of data that is distributed across a large number of servers. NoSQL databases are particularly well-suited for handling unstructured data, such as text, images, and videos, and for handling data that is generated by web and mobile applications.
+
+There are several different types of NoSQL databases, including:
+
+- Document databases: These databases store data in the form of documents, which are similar to JSON objects. Document databases are designed to be flexible and scalable, and they are often used for storing large amounts of data that is not well-suited to the tabular structure of a traditional relational database. Examples of document databases include MongoDB, Apache Cassandra, Couchbase, and Amazon DocumentDB.
+- Key-value stores: These databases store data as a collection of keys and values. Key-value stores are very fast and scalable, but they do not offer the same level of querying and indexing capabilities as other types of NoSQL databases. Examples of key-value stores include Redis and DynamoDB.
+- Column-family databases: These databases store data as a collection of columns, rather than rows. Column-family databases are highly scalable and are often used for storing large amounts of data that needs to be accessed and processed quickly. Examples of column-family databases include Apache Cassandra and Google BigTable.
+- Graph databases: These databases store data as a network of nodes and edges, which can be used to represent complex relationships between data items. Graph databases are often used for storing and querying data that has complex relationships, such as social networks or recommendation systems. Examples of graph databases include Neo4j and TigerGraph.
+
+One of the main benefits of NoSQL databases is their ability to scale horizontally, meaning that they can easily add more servers to the database cluster as the amount of data or number of users increases. This makes them well-suited for handling the high volume of data and traffic that is common in modern web and mobile applications. NoSQL databases are also generally easier to set up and maintain than traditional relational databases, which can require more complex schema design and administration.
+
+However, NoSQL databases do have some disadvantages compared to traditional relational databases. One of the main limitations of NoSQL databases is that they do not offer the same level of querying and indexing capabilities as relational databases. This can make it more difficult to perform complex queries and analysis on the data, and it can also make it more difficult to enforce data integrity and consistency. NoSQL databases are also generally not as good at handling transactions and ACID (atomic, consistent, isolated, and durable) guarantees as relational databases.
+
+Despite these limitations, NoSQL databases are a popular choice for many modern applications, and they have a strong following among developers. If you're interested in using a NoSQL database in your project, one option to consider is MongoDB. MongoDB is a popular open-source document database that is widely used for storing and accessing data in web and mobile applications. Here's some sample Go code that demonstrates how to connect to a MongoDB database and insert a document:
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"log"
+
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
+)
+
+func main() {
+	// Set up a connection to the MongoDB server
+	client, err := mongo.NewClient(options.Client().ApplyURI("mongodb://localhost:27017"))
+
+if err != nil { log.Fatal(err) } err = client.Connect(context.TODO()) if err != nil { log.Fatal(err) }
+
+// Choose the database and collection to use
+collection := client.Database("test").Collection("people")
+
+// Insert a new document
+doc := map[string]interface{}{
+	"name": "John Smith",
+	"age":  30,
+}
+result, err := collection.InsertOne(context.TODO(), doc)
+if err != nil {
+	log.Fatal(err)
+}
+fmt.Println("Inserted document", result.InsertedID)
+}
+
+// Choose the database and collection to use
+collection := client.Database("test").Collection("people")
+
+// Insert a new document
+doc := map[string]interface{}{
+	"name": "John Smith",
+	"age":  30,
+}
+result, err := collection.InsertOne(context.TODO(), doc)
+if err != nil {
+	log.Fatal(err)
+}
+fmt.Println("Inserted document", result.InsertedID)
+
+```
+
+NoSQL databases are a powerful tool for handling large amounts of unstructured data and for building scalable web and mobile applications. While they do have some limitations compared to traditional relational databases, they are still a popular choice for many developers due to their ease of use and ability to scale. If you're considering using a NoSQL database in your project, be sure to carefully weigh the pros and cons and choose the database that is best suited to your needs.
+]]></description>
+</item>
+<item>
+<title>Levenshtein Distance</title>
+<link>https://example.com/levenshtein-distance-2022-12-25.html</link>
+<pubDate>Mon, 26 Dec 2022 00:04:51 +1030</pubDate>
+<description><![CDATA[
+Levenshtein distance is a measure of the similarity between two strings, calculated as the minimum number of single-character edits (insertions, deletions, or substitutions) required to transform one string into the other. Here is an example of how you can calculate the Levenshtein distance between two strings in Go:
+
+```Go
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+func main() {
+	s1 := "kitten"
+	s2 := "sitting"
+
+	distance := levenshteinDistance(s1, s2)
+	fmt.Printf("The Levenshtein distance between %s and %s is %d\n", s1, s2, distance)
+}
+
+func levenshteinDistance(s1, s2 string) int {
+	// Convert strings to rune slices for Unicode support
+	r1 := []rune(s1)
+	r2 := []rune(s2)
+
+	// Initialize a two-dimensional matrix with all values set to zero
+	matrix := make([][]int, len(r1)+1)
+	for i := range matrix {
+		matrix[i] = make([]int, len(r2)+1)
+	}
+
+	// Set the initial values of the first row and column of the matrix
+	for i := 1; i <= len(r1); i++ {
+		matrix[i][0] = i
+	}
+	for j := 1; j <= len(r2); j++ {
+		matrix[0][j] = j
+	}
+
+	// Calculate the Levenshtein distance using the dynamic programming algorithm
+	for i := 1; i <= len(r1); i++ {
+		for j := 1; j <= len(r2); j++ {
+			cost := 0
+			if r1[i-1] != r2[j-1] {
+				cost = 1
+			}
+			matrix[i][j] = min(matrix[i-1][j]+1, matrix[i][j-1]+1, matrix[i-1][j-1]+cost)
+		}
+	}
+
+	// Return the final value in the bottom-right corner of the matrix
+	return matrix[len(r1)][len(r2)]
+}
+
+func min(a, b, c int) int {
+	// Return the minimum of three integers
+	return int(math.Min(float64(a), math.Min(float64(b), float64(c))))
+}
+```
+This code defines a function `levenshteinDistance` that takes in two strings as input and returns an integer representing the Levenshtein distance between them. The function first converts the input strings to slices of runes (Unicode characters) to support Unicode characters. It then initializes a two-dimensional matrix with all values set to zero, and sets the initial values of the first row and column of the matrix to the lengths of the input strings.
+
+The function then uses a dynamic programming algorithm to calculate the Levenshtein distance. It iterates over the elements of the input strings and compares them, adding a cost of 1 if they are different and 0 if they are the same. It then calculates the minimum of the three values in the matrix: the value above, the value to the left, and the value to the upper-left (diagonal) of the current position. This value is then added to the current position in the matrix.
+
+Finally, the function returns the final value in the bottom-right corner of the matrix, which represents the Levenshtein distance between the input strings.
+
+Here is an example of how you can use this function:
+```go
+s1 := "kitten"
+s2 := "sitting"
+distance := levenshteinDistance(s1, s2)
+fmt.Printf("The Levenshtein distance between %s and %s is %d\n", s1, s2, distance)
+```
+
+This will output the following:
+```bash
+The Levenshtein distance between kitten and sitting is 3
+```
+
+
+]]></description>
+</item>
+<item>
+<title>Spotify Playlist Backups using Python</title>
+<link>https://example.com/spotify-playlist-backups-using-python-2022-12-11.html</link>
+<pubDate>Sun, 11 Dec 2022 11:43:47 +1030</pubDate>
+<description><![CDATA[
+
+To create a web application that backs up your Spotify playlists as a JSON file, you will need to do the following:
+
+1.  First, you will need to install the `spotipy` library, which provides a Python interface for the Spotify Web API. You can do this by running the following command:
+```bash
+pip install spotipy 
+```
+2. Next, you will need to create a Spotify app and obtain a client ID and client secret for the app. You can do this by logging in to the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard) and following the instructions on the website.
+
+## Creating the Python Backend
+Once you have obtained your client ID and client secret, you can use the `spotipy.Spotify` class to authenticate yourself and access the Spotify Web API. An example of how you can do this is shown below:
+
+```python
+import spotipy
+
+client_id = "your-client-id"
+client_secret = "your-client-secret"
+
+spotify = spotipy.Spotify(
+    client_id=client_id,
+    client_secret=client_secret
+)
+```
+
+After authenticating, you can use the `spotify.user_playlists()` method to retrieve a list of all your Spotify playlists. This method returns a paginated list of playlists, so you will need to iterate through the pages and collect the playlists from each page. Here is an example of how you can do this:
+
+```python
+playlists = []
+
+response = spotify.user_playlists()
+playlists.extend(response["items"])
+
+while response["next"]:
+    response = spotify.next(response)
+    playlists.extend(response["items"])
+
+```
+
+Once you have collected all your playlists, you can use the `json` module to convert the list of playlists to a JSON string, and then write the JSON string to a file. Here is an example of how you can do this:
+
+```python
+import json
+
+with open("playlists.json", "w") as file:
+    json.dump(playlists, file)
+
+```
+
+Finally, you can create a simple Flask app that exposes a `/backup` endpoint, which accepts `POST` requests and uses the code from the previous steps to back up your playlists as a JSON file. Here is an example of how you can do this:
+
+```python
+from flask import Flask, request
+import spotipy
+import json
+
+app = Flask(__name__)
+
+client_id = "your-client-id"
+client_secret = "your-client-secret"
+spotify = spotipy.Spotify(
+    client_id=client_id,
+    client_secret=client_secret
+)
+
+@app.route("/backup", methods=["POST"])
+def backup():
+    playlists = []
+
+    response = spotify.user_playlists()
+    playlists.extend(response["items"])
+
+    while response["next"]:
+        response = spotify.next(response)
+        playlists.extend(response["items"])
+
+    with open("playlists.json", "w") as file:
+        json.dump(playlists, file)
+
+    return "Playlists backed up successfully!"
+
+```
+
+To run the Flask app, you will need to first start the Flask development server by running the following command:
+
+```bash
+export FLASK_APP=app.py
+flask run
+
+```
+
+This will start the Flask development server and make your app available at `http://localhost:5000`. To make a `POST` request to the `/backup` endpoint, you can use a tool like `curl` or `Postman` to send a `POST` request to `http://localhost:5000/backup`.
+
+Here is an example of how you can use `curl` to make a `POST` request:
+```bash
+curl -X POST http://localhost:5000/backup
+
+```
+
+Once you have made the request, your playlists should be backed up as a JSON file named `playlists.json` in the current directory.
+
+Note: This code is provided for illustration purposes only, and is not intended for production use. It does not include error handling or other best practices for building a Flask app.
+
+## Creating the Web Frontend
+Here's how you could create a web page to create a nice frontend for the Python program that backs up your Spotify playlists:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Spotify Playlist Backup</title>
+    <style>
+        /* This is some CSS that styles the page */
+        body {
+            font-family: sans-serif;
+            text-align: center;
+        }
+        input, button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        input {
+            width: 300px;
+        }
+        button {
+            background-color: #1DB954;
+            color: white;
+            cursor: pointer;
+        }
+        pre {
+            text-align: left;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <h1>Spotify Playlist Backup</h1>
+    <p>Enter your Spotify credentials and username below to backup your playlists as a JSON file.</p>
+    <form>
+        <input type="text" id="client_id" placeholder="Your Spotify client ID">
+        <input type="text" id="client_secret" placeholder="Your Spotify client secret">
+        <input type="text" id="username" placeholder="Your Spotify username">
+        <button type="submit">Backup Playlists</button>
+    </form>
+    <pre id="output"></pre>
+    <script>
+        // This is the JavaScript code that runs when the page is loaded
+
+        // This gets the form element
+        const form = document.querySelector("form");
+
+        // This adds an event listener that runs when the form is submitted
+        form.addEventListener("submit", async (e) => {
+            // This prevents the page from reloading
+            e.preventDefault();
+
+            // This gets the input elements
+            const clientIdInput = document.querySelector("#client_id");
+            const clientSecretInput = document.querySelector("#client_secret");
+            const usernameInput = document.querySelector("#username");
+
+            // This gets the values from the input elements
+            const clientId = clientIdInput.value;
+            const clientSecret = clientSecretInput.value;
+            const username = usernameInput.value;
+
+            // This shows a message while the playlists are being backed up
+            const output = document.querySelector("#output");
+            output.innerHTML = "Backing up your playlists... please wait.";
+
+            // This sends a request to the server to backup the playlists
+            const response = await fetch("/backup", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    clientId,
+                    clientSecret,
+                    username,
+                }),
+            });
+
+            // This gets the response from the server
+            const data = await response.json();
+
+            // This displays the response from the server
+            output.innerHTML = JSON.stringify(data, null, 4);
+        });
+    </script>
+</body>
+
+```
+
+## Spotify backup playlist as a standalone script
+
+```python
+import json
+import spotipy
+from spotipy.oauth2 import SpotifyClientCredentials
+
+# This is your Spotify client ID and secret
+client_id = "YOUR_CLIENT_ID"
+client_secret = "YOUR_CLIENT_SECRET"
+
+# This is your Spotify username
+username = "YOUR_USERNAME"
+
+# This is the path to the JSON file where your playlists will be saved
+json_file = "playlists.json"
+
+# This creates a Spotify client using your client ID and secret
+client_credentials_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
+spotify = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+
+# This gets your user ID
+user_id = spotify.current_user()["id"]
+
+# This gets all your playlists
+playlists = spotify.user_playlists(user_id)
+
+# This creates an empty list where your playlists will be saved
+playlists_data = []
+
+# This iterates over your playlists
+for playlist in playlists["items"]:
+    # This gets the playlist ID and name
+    playlist_id = playlist["id"]
+    playlist_name = playlist["name"]
+
+    # This gets the tracks in the playlist
+    tracks = spotify.user_playlist_tracks(user_id, playlist_id)
+
+    # This creates an empty list where the tracks will be saved
+    tracks_data = []
+
+    # This iterates over the tracks
+    for track in tracks["items"]:
+        # This gets the track data
+        track_data = track["track"]
+
+        # This saves the track data
+        tracks_data.append({
+            "id": track_data["id"],
+            "name": track_data["name"],
+            "artists": [artist["name"] for artist in track_data["artists"]],
+            "album": track_data["album"]["name"],
+        })
+
+	# This saves the playlist data
+	playlists_data.append({
+	    "id": playlist_id,
+	    "name": playlist_name,
+	    "tracks": tracks_data,
+	})
+
+# This saves the playlists data to the JSON file
+with open(json_file, "w") as f: 
+	json.dump(playlists_data, f, indent=4)
+
+print("Successfully backed up your playlists to", json_file)
+```
+
+In this code, we use the `spotipy` library to access the Spotify API and retrieve the data for your playlists and tracks. We then save this data to a JSON file using the `json` library.
+
+To use this program, you will need to replace the `client_id`, `client_secret`, and `username` variables with your own Spotify credentials and username. You will also need to specify the path to the JSON file where you want your playlists to be saved.
+
+Once you have done this, you can run the program and it will retrieve your playlists and tracks and save them to the JSON file. You can then use this file to backup your playlists or to transfer them to another Spotify account.
+]]></description>
+</item>
+<item>
+<title>Transferring Files from iOS to Linux wirelessly</title>
+<link>https://example.com/transferring-files-from-ios-to-linux-wirelessly-2022-08-05.html</link>
+<pubDate>Sat, 06 Aug 2022 09:29:40 +0930</pubDate>
+<description><![CDATA[
+
+## Overview
+I was an Android user for a long period of time, right from the Jellybean and 
+Gingerbread days. After almost a decade being with Android I finally moved to
+iOS, because I was sick of the fragmentation and I wish Android took privacy 
+as seriously as iOS does. One of the most common things I need to do is transfer
+files across from my iOS device to my Linux laptop. One way of doing this is to 
+connect my laptop and iPhone with a lightning cable, however it is super
+inconvenient and you don't always have a cable lying around. You can email 
+the file to yourself but thats a really roundabout way to do it. 
+
+With an Android device, things are easier as Google allows apps on the playstore
+that have built inservers. iOS does not allow such apps. However, what iOS does
+support is being able to connect to other servers like an ssh server.
+
+If you have a Macbook and an iOS device, a wireless transfer is very easy - 
+Airdrop. However, with Linux, you're out of luck. The only reliable way to
+transfer files to a Linux laptop is via sftp or ftp over ssh.
+
+## Install ssh server on Linux
+In this part of the post, I'll show you how to ==install== an SSH server on Fedora Linux. 
+
+First, we'll need to install the openssh-server package:
+```bash
+sudo dnf install openssh-server
+```
+
+Once the package is installed, we'll need to start the SSH service:
+```bash
+sudo systemctl enable sshd # ensure sshd starts up after reboot
+sudo systemctl start sshd # starts the ssh daemon
+sudo systemctl status sshd # check status of service
+```
+
+After you have installed the ssh server on your laptop move on to the next part
+of this post. You will need your iOS device - iPhone or iPad for this.
+
+## Install FE File Explorer on your iOS device
+FE File Explorer is an app which lets you connect to servers from your iOS device.
+It can connect to a variety of sources including NAS, FTP, SAMBA etc.
+
+It is a free application that also has a paid version but even the free version
+has a lot of built in functionality and it will suit the needs of most users.
+
+Once you launch the app, hit the + button on the top right hand corner and the 
+following screen will be shown -
+
+{{< figure src="/images/fexplorer/fexplorer_add.jpg" title="FE File Explorer New Window" >}}
+
+Select 'SFTP'. If 'SFTP' is not available you should be able to select 'FTP' although
+I have not tested it with this option.
+
+Enter details in the next screen. The 'Hostname' (IP Address), 'Username' and 'Password'
+are the most important fields. You can check the IP address of the target computer
+using the following command -
+```bash
+ip a
+```
+
+The username and password are the account details you use on your Linux computer.
+
+If you followed the instructions correctly, you should now see an entry for your
+connection at the main screen of the app. Once you tap it, you should be able
+to view all the files and folders of your Linux computer.
+
+{{< figure src="/images/fexplorer/fexplorer_main.png" title="FE File Explorer Connection Added" >}}
+
+Transferring files is easy, you can simply hit the 3 dots for a File context menu 
+as shown below -
+
+{{< figure src="/images/fexplorer/fexplorer_filepopup.png" title="FE File Explorer Popup Menu" >}}
+
+This seems like a lot of steps but once you have set things up its like using
+any other app on your phone.
+]]></description>
+</item>
+<item>
 <title>Setup Vim (Astro Vim) on a Macbook</title>
-<link>https://example.com/setup-vim-astro-vim-on-a-macbook-2022-07-31.html</link>
-<pubDate>Sun, 31 Jul 2022 00:00:00 +0000</pubDate>
+<link>https://example.com/setup-vim-astro-vim-on-a-macbook-2022-07-31 copy.html</link>
+<pubDate>Sun, 31 Jul 2022 11:53:48 +0930</pubDate>
 <description><![CDATA[
 
 ## Overview
@@ -98,6 +1133,169 @@ These are other optional packages which can be installed -
 
 [Node](https://nodejs.org/en/ "Node") - node repl toggle terminal (leader + tn)
 
+
+]]></description>
+</item>
+<item>
+<title>Create a blog using Hugo and Github Pages</title>
+<link>https://example.com/create-a-blog-using-hugo-and-github-pages-2021-04-05.html</link>
+<pubDate>Mon, 05 Apr 2021 14:13:49 +0930</pubDate>
+<description><![CDATA[
+Update: Added section on adding Github Action for Hugo build
+
+This is a guide on how you can create a blog or website from scratch using Hugo and Github. This is also my first post on this blog, which has been created using the steps mentioned in this article using Hugo and Github Pages.
+
+It is quite easy to create a blog using Wordpress or some other CMS but the simplicity of Hugo is what drove me to it. Hugo is a static html generator. This means, you write posts using Markdown and templates using any text editor. Hugo then processes these files and generates a bunch of html and css. 
+
+This has the benefit of making it extremely easy to deploy to just about any cloud service or provider. This is where Github Pages comes in. Github Pages is free and if you have a Github account, you are already well on your way.
+
+I used a Macbook Air M1 for creating this blog and the steps outlined in this article should be more or less the same whether you use Windows / MacOS or Linux. Lets get our elbows greasy.
+
+### Create Repos
+We will begin by creating 2 repositories in our Github account -
+1. Base repo 'blog' for hosting our posts / source code / files created by Hugo
+2. Blog hosting repo 'username.github.io' for hosting the actual blog, which consists of generated html and css
+
+Create the base repo on Github by clicking the '+' button on your [Github page](https://www.github.com). I've decided to call my base repo 'blog'. Clone this repository to your machine (even if it doesn't contain any files at the moment)
+```bash
+git clone git@github.com:username/blog.git
+cd blog/
+```
+
+From the Github website, click the '+' button again to create a new repository called 'username.github.io'. Replace username with your Github user name.
+
+Add this second repo (which we will use for hosting our blog) as a submodule of our base repo -
+```bash
+git submodule add git@github.com:username/username.github.io.git public
+```
+The above command will add the hosting repo as a submodule into the 'public' folder.
+
+### Install Hugo
+Download the Hugo binaries from the [Hugo Releases](https://github.com/gohugoio/hugo/releases) page. As I am using MacOS, I used the command -
+```bash
+brew install hugo
+```
+For detailed installation instructions, visit https://gohugo.io/getting-started/installing/
+Verify Hugo installed correctly by 
+```bash
+hugo version
+```
+
+### Create a new site
+```bash
+hugo create new site myblogname
+```
+The above command will create a basic website with enough boilerplate to let us get started.
+
+### Add a theme
+Visit https://themes.gohugo.io/ for a collection of available Hugo themes. Once you have decided which theme you wish to use for your website / blog, 
+```bash
+cd myblogname
+git submodule add https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke
+```
+Your folder structure should now look like
+**~/blog/myblogname/config.toml** | Configuration File
+**~/blog/myblogname/themes/ananke/** | Theme folder
+**~/blog/myblogname/public** | Second hosting repo
+
+### Update config.toml 
+```toml
+theme = "ananke"
+title = "Karan Kadam"
+baseURL = "https://username.github.io"
+theme = "ananke"
+themesDir = "./themes"
+```
+
+### Create your first post
+```bash
+hugo create new posts/my-first-post.md
+``` 
+
+### Build your blog
+```bash
+hugo -t "ananke"
+```
+This will generate all the html and styling required for your blog and publish them under the "public" folder. The -t flag tells hugo to use your selected theme.
+
+### Local test
+```bash
+hugo server --bind 0.0.0.0
+```
+This will launch the built in webserver and your blog will be available locally. Goto a webbrowser and access http://localhost:1313 and you should see your blog, styled according to the theme you chose and containing your first sample post.
+
+### Deploy your website to Github Pages
+To be able to share your website with the rest of the world, you will need to host it somewhere. We chose the repository at 'https://username.github.io'. Check in all your changes and push them to the username.github.io -
+```bash
+cd ~/blog/myblogname/public
+git status
+git add -A
+git commit -m "initial test commit" # commit contents of ~/blog/myblogname/public
+git push
+cd ../..
+git add -A
+git commit -m "initial test commit" # commit contents of ~/blog/
+```
+If it all went well, accessing http://username.github.io should take you to your freshly baked blog. Here on, all you need to do is,
+```bash
+hugo create new posts/postname.md
+hugo -t "ananke"
+```
+
+### Markdown resources
+It is a good idea to read up and familiarise yourself with Markdown Syntax. It is quite compact and can be learned in a single sitting. I would recommend starting with [The Markdown Cheatsheet](https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf) to quickly understand how to write posts in any editor using the Markdown syntax. Keep writing! :metal:
+
+### Bonus - Automate the Hugo build
+To automate your flow even further, you can create a Github Action, which will automatically run Hugo for you and publish to your username.github.io repository for you. This will save you any manual work of building your blog each time and pushing back to your public repo.
+The added benefit of this approach is you no longer need access to the cli. You can log into your Github base repo from your phone, add Mardown posts from the WebUI and your Github Actions pipeline will take care of the rest.
+Begin by adding a GitHub action file to your base repo -
+```bash
+vim ./github/workflows/main.yml
+```
+Here is a what my main.yml file looks like -
+```yaml
+name: CI
+on: push
+jobs:
+  deploy:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v2
+
+      - name: Update theme
+        run: git submodule update --init --recursive
+
+      - name: Setup hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: "0.82.0"
+
+      - name: Build
+        run: cd username && hugo -t ananke && pwd && ls -a ./public
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          external_repository: username/username.github.io
+          publish_dir: ./intothevoid/public
+          user_name: username
+          user_email: username@email.com
+          publish_branch: main
+```
+Replace values with your own where needed.
+
+A quick explanation of the above Github Action is given below -
+1. Checkout - checkout the base repo
+2. Update - Update your theme which was added as a submodule
+3. Setup Hugo - Call an external action which basically installs Hugo
+4. Build - Build the website by calling **hugo -t ananke**
+5. Deploy - Publish the built files to your external public repo username.github.io
+
+**Note:** There is a bit of setup involved where you need to generate your token (indicated by deploy key above). I would highly recommend visiting https://github.com/peaceiris/actions-gh-pages for details of the external action and how to setup your token.
+
+This should get you at a stage where you can simply push a post written in Markdown format to your base repo and the rest should happen automatically. Post --> Commit Base Repo --> Github Action --> Build Blog --> Publish Static HTML.
 ]]></description>
 </item>
 </channel>
