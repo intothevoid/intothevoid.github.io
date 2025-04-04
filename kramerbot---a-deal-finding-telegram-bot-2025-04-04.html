@@ -3,20 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Into The Void - Kramerbot - a deal finding Telegram bot</title>
+    <title>My Awesome Blog - Kramerbot - a deal finding Telegram bot</title>
     <link rel="stylesheet" href="/main.css">
     
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+    </script>
 </head>
 <body>
     
 <header>
     <div id="site-title" style="display:flex; justify-content:left; align-items: left;">
         <a href="/index.html">
-            <h1 style="margin: 0;">Into The Void</h1>
+            <h1 style="margin: 0;">My Awesome Blog</h1>
         </a>
     </div>
     <div id="nav-links" style="display:flex; justify-content:right; align-items: right;">
@@ -38,6 +51,10 @@
 <h2>Kramerbot - a deal finding Telegram bot</h2>
 <p>A Telegram bot which scrapes deals from websites like Ozbargain and Amazon</p>
 <p class="info">Published on Apr 4 2025 at 12:13pm</p>
+<h2>Demo</h2>
+
+<p>A demo of the bot is running at <a href="https://t.me/kramerbot" target="_blank">https://t.me/kramerbot</a>.</p>
+
 <h2>Overview</h2>
 
 <p>KramerBot is a Telegram bot designed to help users stay updated with the latest deals from popular websites like www.ozbargain.com.au and Amazon (via CamelCamelCamel). Named after the iconic character from Seinfeld, this bot acts as your personal deal hunter, constantly monitoring for the best bargains and notifying you instantly when they&rsquo;re found.</p>
@@ -285,13 +302,30 @@ docker run -d --name kramerbot \
     
 <script>
     Prism.plugins.autoloader.languages_path = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/';
+    
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        document.querySelectorAll('pre.language-mermaid').forEach(function(element) {
+            
+            var mermaidDiv = document.createElement('div');
+            mermaidDiv.className = 'mermaid';
+            mermaidDiv.innerHTML = element.textContent;
+            
+            
+            element.parentNode.replaceChild(mermaidDiv, element);
+        });
+        
+        
+        mermaid.init();
+    });
 </script>
 
     <main>
     
 <footer>
     <p class="footer-content">
-        <span>&copy; 2025 Into The Void.</span>
+        <span>&copy; 2025 My Awesome Blog.</span>
         <span>Powered by <a href="https://www.github.com/intothevoid/likho">Likho</a>.</span>
     </p>
 </footer>
