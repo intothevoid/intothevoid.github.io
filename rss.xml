@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
 <channel>
-<title>My Awesome Blog</title>
-<link>https://example.com</link>
-<description>A static site generated with Likho</description>
+<title>Into The Void</title>
+<link>https://intothevoid.github.io</link>
+<description>A blog about programming, electronics and technology</description>
 <item>
 <title>Kramerbot - a deal finding Telegram bot</title>
-<link>https://example.com/kramerbot---a-deal-finding-telegram-bot-2025-04-04.html</link>
+<link>https://intothevoid.github.io/kramerbot---a-deal-finding-telegram-bot-2025-04-04.html</link>
 <pubDate>Fri, 04 Apr 2025 12:13:19 +1030</pubDate>
 <description><![CDATA[
 
@@ -206,7 +206,7 @@ The project is open source and welcomes contributions from the community.
 </item>
 <item>
 <title>Vim Setup From Scratch</title>
-<link>https://example.com/vim-setup-from-scratch-2024-10-14.html</link>
+<link>https://intothevoid.github.io/vim-setup-from-scratch-2024-10-14.html</link>
 <pubDate>Mon, 14 Oct 2024 09:31:35 +0800</pubDate>
 <description><![CDATA[
 
@@ -371,7 +371,7 @@ This should give you a solid starting point for your Vim install. You can visit 
 </item>
 <item>
 <title>Variable Power Supply</title>
-<link>https://example.com/variable-power-supply-2024-07-21.html</link>
+<link>https://intothevoid.github.io/variable-power-supply-2024-07-21.html</link>
 <pubDate>Sun, 21 Jul 2024 22:01:24 +0930</pubDate>
 <description><![CDATA[
 
@@ -440,7 +440,7 @@ Creating a variable power supply from an old laptop charger is not only cost-eff
 </item>
 <item>
 <title>Organise Videos By Resolution</title>
-<link>https://example.com/organise-videos-by-resolution-2024-05-18.html</link>
+<link>https://intothevoid.github.io/organise-videos-by-resolution-2024-05-18.html</link>
 <pubDate>Sat, 18 May 2024 21:40:39 +0930</pubDate>
 <description><![CDATA[
 
@@ -505,7 +505,7 @@ That's it. The script saved me time and effort from having to load each movie in
 </item>
 <item>
 <title>An introduction to the OpenAI API using Python</title>
-<link>https://example.com/an-introduction-to-the-openai-api-using-python-2023-04-19.html</link>
+<link>https://intothevoid.github.io/an-introduction-to-the-openai-api-using-python-2023-04-19.html</link>
 <pubDate>Wed, 19 Apr 2023 22:31:18 +0930</pubDate>
 <description><![CDATA[
 ## Introduction
@@ -601,7 +601,7 @@ And there you have it! You've created a simple chess game using the OpenAI API a
 </item>
 <item>
 <title>Type safety in Python with Pydantic</title>
-<link>https://example.com/type-safety-in-python-with-pydantic-2023-04-10.html</link>
+<link>https://intothevoid.github.io/type-safety-in-python-with-pydantic-2023-04-10.html</link>
 <pubDate>Mon, 10 Apr 2023 16:56:00 +0930</pubDate>
 <description><![CDATA[
 
@@ -726,7 +726,7 @@ Pydantic is a powerful library that provides an easy and efficient way to valida
 </item>
 <item>
 <title>NoSQL Databases - MongoDB</title>
-<link>https://example.com/nosql-databases---mongodb-2022-12-29.html</link>
+<link>https://intothevoid.github.io/nosql-databases---mongodb-2022-12-29.html</link>
 <pubDate>Fri, 30 Dec 2022 09:51:13 +1030</pubDate>
 <description><![CDATA[
 
@@ -799,7 +799,7 @@ NoSQL databases are a powerful tool for handling large amounts of unstructured d
 </item>
 <item>
 <title>Levenshtein Distance</title>
-<link>https://example.com/levenshtein-distance-2022-12-25.html</link>
+<link>https://intothevoid.github.io/levenshtein-distance-2022-12-25.html</link>
 <pubDate>Mon, 26 Dec 2022 00:04:51 +1030</pubDate>
 <description><![CDATA[
 Levenshtein distance is a measure of the similarity between two strings, calculated as the minimum number of single-character edits (insertions, deletions, or substitutions) required to transform one string into the other. Here is an example of how you can calculate the Levenshtein distance between two strings in Go:
@@ -883,7 +883,7 @@ The Levenshtein distance between kitten and sitting is 3
 </item>
 <item>
 <title>Spotify Playlist Backups using Python</title>
-<link>https://example.com/spotify-playlist-backups-using-python-2022-12-11.html</link>
+<link>https://intothevoid.github.io/spotify-playlist-backups-using-python-2022-12-11.html</link>
 <pubDate>Sun, 11 Dec 2022 11:43:47 +1030</pubDate>
 <description><![CDATA[
 
@@ -1160,7 +1160,7 @@ Once you have done this, you can run the program and it will retrieve your playl
 </item>
 <item>
 <title>Transferring Files from iOS to Linux wirelessly</title>
-<link>https://example.com/transferring-files-from-ios-to-linux-wirelessly-2022-08-05.html</link>
+<link>https://intothevoid.github.io/transferring-files-from-ios-to-linux-wirelessly-2022-08-05.html</link>
 <pubDate>Sat, 06 Aug 2022 09:29:40 +0930</pubDate>
 <description><![CDATA[
 
@@ -1244,7 +1244,7 @@ any other app on your phone.
 </item>
 <item>
 <title>Setup Vim (Astro Vim) on a Macbook</title>
-<link>https://example.com/setup-vim-astro-vim-on-a-macbook-2022-07-31.html</link>
+<link>https://intothevoid.github.io/setup-vim-astro-vim-on-a-macbook-2022-07-31.html</link>
 <pubDate>Sun, 31 Jul 2022 11:53:48 +0930</pubDate>
 <description><![CDATA[
 
@@ -1341,7 +1341,7 @@ These are other optional packages which can be installed -
 </item>
 <item>
 <title>Create a blog using Hugo and Github Pages</title>
-<link>https://example.com/create-a-blog-using-hugo-and-github-pages-2021-04-05.html</link>
+<link>https://intothevoid.github.io/create-a-blog-using-hugo-and-github-pages-2021-04-05.html</link>
 <pubDate>Mon, 05 Apr 2021 14:13:49 +0930</pubDate>
 <description><![CDATA[
 Update: Added section on adding Github Action for Hugo build
