@@ -398,16 +398,25 @@ To embark on this project, you'll need the following items:
 
 Ensure all the required components are at hand before starting the assembly process. This includes checking the output voltage of the old laptop charger to confirm it meets the minimum requirement.
 
-### Step 2: 3D Print the Enclosure
+### Step 2.1: Design the Enclosure in Autodesk Fusion 360
+
+I designed the enclosure in Autodesk Fusion 360. The sketch of the enclosure is shown below.
+
+![Enclosure Sketch](images/power-supply/sketch.jpg)
+
+The enclosure is a simple box with a lid. The lid has a hole for the power supply module and a hole for the barrel connector. The enclosure will be 3D printed in PLA. The enclosure looks like this once it has been designed.
+
+![Enclosure Design](images/power-supply/model.jpg)
+
+### Step 2.2: 3D Print the Enclosure
 
 Using the Autodesk Fusion 360 design files provided, print the enclosure for your power supply. This will house all the components securely.
 
-![3D Printed Enclosure](images/power-supply-enclosure.jpg)
+![3D Printed Enclosure](images/power-supply/box.jpg)
 
 ### Step 3: Prepare the Laptop Charger
 
 If the laptop charger does not have the same barrel connector as the socket you purchased, you can splice the cable and only connect the power cables to the barrel jack. I used a 2.1mm barrel jack and socket, purchased from [Jaycar](https://www.jaycar.com.au)
-
 
 ### Step 4: Assemble the Power Supply Module
 
@@ -417,19 +426,19 @@ Inputs (6V-36V) - Connected from the barrel connector to the modules input termi
 
 Outputs (6V-36V) - Connected to the banana socket terminals (which we will use as our outputs)
 
-![Assembled Power Supply Module](link_to_your_image_here)
+![Assembled Power Supply](images/power-supply/assemble.jpg)
 
 ### Step 5: Install Banana Plug Socket and Barrel Connector
 
 Solder the banana plug socket and barrel connector to the output terminals of the power supply module. These will serve as the connection points for your devices.
 
-![Installed Connectors](link_to_your_image_here)
+![2.1mm Barrel Connector](images/power-supply/barrel.jpg)
 
 ### Step 6: Final Assembly and Testing
 
 Place all assembled components inside the 3D printed enclosure. Connect the wires appropriately, ensuring safety and functionality. Test the power supply with a multimeter to confirm the output voltage range.
 
-![Final Assembly](link_to_your_image_here)
+![Final Assembly](images/power-supply/finished.jpg)
 
 ## Conclusion
 
