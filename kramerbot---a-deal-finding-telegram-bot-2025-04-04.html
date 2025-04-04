@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Into The Void - Kramerbot - a deal finding Telegram bot</title>
+    <link rel="stylesheet" href="/main.css">
+    
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+
+</head>
+<body>
+    
+<header>
+    <div id="site-title" style="display:flex; justify-content:left; align-items: left;">
+        <a href="/index.html">
+            <h1 style="margin: 0;">Into The Void</h1>
+        </a>
+    </div>
+    <div id="nav-links" style="display:flex; justify-content:right; align-items: right;">
+        <nav>
+            <div style="display: flex;">
+                <a href="/posts.html">All Posts</a>
+                
+                    <a href="/about.html">About</a>
+                
+                    <a href="/projects.html">Projects</a>
+                
+            </div>
+        </nav>
+    </div>
+</header>
+
+    <main>
+    
+<h2>Kramerbot - a deal finding Telegram bot</h2>
+<p>A Telegram bot which scrapes deals from websites like Ozbargain and Amazon</p>
+<p class="info">Published on Apr 4 2025 at 12:13pm</p>
+<h1>KramerBot: A Telegram Bot for Deal Hunting</h1>
+
+<h2>Overview</h2>
+
+<p>KramerBot is a Telegram bot designed to help users stay updated with the latest deals from popular websites like www.ozbargain.com.au and Amazon (via CamelCamelCamel). Named after the iconic character from Seinfeld, this bot acts as your personal deal hunter, constantly monitoring for the best bargains and notifying you instantly when they&rsquo;re found.</p>
+
+<p>I wrote this bot to help me keep track of deals on OzBargain and Amazon. I was getting annoyed of checking the websites constantly and decided to write a bot that would do it for me.</p>
+
+<h2>Key Features</h2>
+
+<p>The bot is built using Go and uses the Telegram Bot API to send messages to users. Some of its features are:</p>
+
+<ul>
+<li><strong>Real-time Deal Notifications</strong>: Get instant updates about deals through Telegram</li>
+<li><strong>Multiple Deal Sources</strong>:
+
+<ul>
+<li>OzBargain (Good deals with 25+ votes)</li>
+<li>OzBargain (Super deals with 50+ votes)</li>
+<li>Amazon Australia (Daily deals)</li>
+<li>Amazon Australia (Weekly deals)</li>
+</ul></li>
+<li><strong>Custom Keyword Watchlists</strong>: Set up personalized deal alerts based on keywords</li>
+<li><strong>Android TV Notifications</strong>: Optional integration with Pipup for TV notifications</li>
+<li><strong>Admin Features</strong>: Send announcements to all users, if you are an admin</li>
+<li><strong>SQLite Database</strong>: Persistent storage of user preferences and deal history</li>
+<li><strong>Docker Support</strong>: Easy deployment with containerization</li>
+</ul>
+
+<h2>Architecture</h2>
+
+<p>The architecture of the bot and its main system components are shown in the diagram below:</p>
+
+<h3>System Components</h3>
+
+<pre><code class="language-mermaid">graph TD
+    A[Telegram Bot API] --&gt; B[KramerBot]
+    B --&gt; C[OzBargain Scraper]
+    B --&gt; D[Amazon Scraper]
+    B --&gt; E[SQLite Database]
+    B --&gt; F[Pipup Service]
+    C --&gt; G[OzBargain Website]
+    D --&gt; H[Amazon/CamelCamelCamel]
+</code></pre>
+
+<h3>Core Components</h3>
+
+<ol>
+<li><p><strong>Bot Core (<code>bot/</code>)</strong></p>
+
+<ul>
+<li>Handles Telegram API interactions</li>
+<li>Manages user commands and responses</li>
+<li>Processes deal notifications</li>
+</ul></li>
+
+<li><p><strong>Scrapers (<code>scrapers/</code>)</strong></p>
+
+<ul>
+<li>OzBargainScraper: Monitors OzBargain deals</li>
+<li>CamCamCamScraper: Tracks Amazon deals via CamelCamelCamel</li>
+</ul></li>
+
+<li><p><strong>Data Models (<code>models/</code>)</strong></p>
+
+<ul>
+<li>UserData: Stores user preferences and settings</li>
+<li>Deal structures for different platforms</li>
+<li>Notification configurations</li>
+</ul></li>
+
+<li><p><strong>Persistence Layer</strong></p>
+
+<ul>
+<li>SQLite database for user data</li>
+<li>Deal history tracking</li>
+<li>User preferences storage</li>
+</ul></li>
+</ol>
+
+<h2>Design</h2>
+
+<p>The data model and the flow of the deal processing are shown in the diagrams below:</p>
+
+<h3>User Data Model</h3>
+
+<pre><code class="language-mermaid">classDiagram
+    class UserData {
+        +int64 ChatID
+        +string Username
+        +bool OzbGood
+        +bool OzbSuper
+        +bool AmzDaily
+        +bool AmzWeekly
+        +[]string Keywords
+        +[]string OzbSent
+        +[]string AmzSent
+    }
+</code></pre>
+
+<h3>Deal Processing Flow</h3>
+
+<pre><code class="language-mermaid">sequenceDiagram
+    participant S as Scraper
+    participant B as Bot
+    participant D as Database
+    participant U as User
+    
+    S-&gt;&gt;B: New Deal Found
+    B-&gt;&gt;D: Check Deal History
+    D--&gt;&gt;B: Deal Status
+    B-&gt;&gt;U: Send Notification
+    B-&gt;&gt;D: Update History
+</code></pre>
+
+<h2>Functionality</h2>
+
+<h3>User Commands</h3>
+
+<p>The bot supports the following commands:</p>
+
+<ol>
+<li><p><strong>Basic Commands</strong></p>
+
+<ul>
+<li><code>/start</code> - Register or view status</li>
+<li><code>/help</code> - Show help message</li>
+<li><code>/preferences</code> - View current settings</li>
+<li><code>/test</code> - Send test notification</li>
+</ul></li>
+
+<li><p><strong>Deal Type Toggles</strong></p>
+
+<ul>
+<li><code>/ozbgood</code> - Toggle OzBargain Good deals</li>
+<li><code>/ozbsuper</code> - Toggle OzBargain Super deals</li>
+<li><code>/amzdaily</code> - Toggle Amazon Daily deals</li>
+<li><code>/amzweekly</code> - Toggle Amazon Weekly deals</li>
+</ul></li>
+
+<li><p><strong>Keyword Management</strong></p>
+
+<ul>
+<li><code>/addkeyword &lt;keyword&gt;</code> - Add keyword to watchlist</li>
+<li><code>/removekeyword &lt;keyword&gt;</code> - Remove keyword</li>
+<li><code>/listkeywords</code> - View current keywords</li>
+</ul></li>
+</ol>
+
+<h3>Deal Processing</h3>
+
+<ol>
+<li><p><strong>Scraping</strong></p>
+
+<ul>
+<li>Regular interval-based scraping</li>
+<li>Configurable scrape intervals</li>
+<li>Maximum deal storage limits</li>
+<li>Duplicate detection</li>
+</ul></li>
+
+<li><p><strong>Notification</strong></p>
+
+<ul>
+<li>Instant Telegram notifications</li>
+<li>Optional Android TV notifications</li>
+<li>Deal history tracking</li>
+<li>Custom formatting for different deal types</li>
+</ul></li>
+</ol>
+
+<h3>Admin Features</h3>
+
+<ul>
+<li>Send announcements to all users</li>
+<li>System status monitoring</li>
+<li>User management capabilities</li>
+</ul>
+
+<h2>Deployment</h2>
+
+<h3>Requirements</h3>
+
+<ul>
+<li>Go 1.18+</li>
+<li>SQLite3</li>
+<li>Telegram Bot Token</li>
+<li>(Optional) Pipup configuration for TV notifications</li>
+</ul>
+
+<h3>Configuration</h3>
+
+<p>Primary configuration through <code>config.yaml</code>:
+- Scraper intervals
+- Logging settings
+- Database paths
+- Notification settings</p>
+
+<p>Environment variables for sensitive data:
+- <code>TELEGRAM_BOT_TOKEN</code>
+- <code>KRAMERBOT_ADMIN_PASS</code>
+- <code>SQLITE_DB_PATH</code></p>
+
+<h3>Docker Deployment</h3>
+
+<pre><code class="language-bash"># Build
+docker build -t kramerbot:latest .
+
+# Run
+docker run -d --name kramerbot \
+  --env-file ./kramerbot.env \
+  -v &quot;$(pwd)/data:/app/data&quot; \
+  --restart unless-stopped \
+  kramerbot:latest
+</code></pre>
+
+<h2>In the pipeline (and some ideas)</h2>
+
+<ol>
+<li>Web interface for user management</li>
+<li>Additional deal sources</li>
+<li>Advanced filtering options</li>
+<li>Deal analytics and trends</li>
+<li>User preferences synchronization</li>
+<li>Enhanced admin dashboard</li>
+</ol>
+
+<p>KramerBot provides a solution for deal hunters who want to stay updated with the latest bargains without constantly checking multiple websites. It has been designed to be modular and easy to extend. New websites can be added by implementing the <code>scraper</code> interface.</p>
+
+<p>The project is open source and welcomes contributions from the community.</p>
+
+
+<p class="info">Tags: 
+    
+        
+        <a href="/tags/golang.html">golang</a>
+    
+        , 
+        <a href="/tags/telegram.html">telegram</a>
+    
+        , 
+        <a href="/tags/programming.html">programming</a>
+    
+</p>
+
+
+    
+<script>
+    Prism.plugins.autoloader.languages_path = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/';
+</script>
+
+    <main>
+    
+<footer>
+    <p class="footer-content">
+        <span>&copy; 2025 Into The Void.</span>
+        <span>Powered by <a href="https://www.github.com/intothevoid/likho">Likho</a>.</span>
+    </p>
+</footer>
+
+</body>
+</html>
