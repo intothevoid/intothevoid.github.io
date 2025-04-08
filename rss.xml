@@ -16,9 +16,13 @@ A demo of the bot is running at [https://t.me/kramerbot](https://t.me/kramerbot)
 
 ## Overview
 
-KramerBot is a Telegram bot designed to help users stay updated with the latest deals from popular websites like www.ozbargain.com.au and Amazon (via CamelCamelCamel). Named after the iconic character from Seinfeld, this bot acts as your personal deal hunter, constantly monitoring for the best bargains and notifying you instantly when they're found.
+KramerBot is a Telegram bot designed to help users stay updated with the latest deals from websites like www.ozbargain.com.au and Amazon (via CamelCamelCamel). This bot acts as your personal deal hunter, constantly monitoring for the best bargains and notifying you instantly when they're found.
 
-I wrote this bot to help me keep track of deals on OzBargain and Amazon. I was getting annoyed of checking the websites constantly and decided to write a bot that would do it for me.
+This bot was created out of a need to find specific deals. Each time I wanted to purchase something online, it was tedious waiting for that product to go on sale. So I decided to write a bot that would notify me when the price dropped below a certain threshold.
+
+Ozbargain is a community driven website where users post deals they find. The deals are voted on by other users and the top deals are displayed on the front page. 
+
+Amazon needs no introduction. CamelCamelCamel is a website that scrapes Amazon and provides an API for the price history of a given product.
 
 ## Key Features
 
@@ -199,10 +203,7 @@ docker run -d --name kramerbot \
 5. User preferences synchronization
 6. Enhanced admin dashboard
 
-KramerBot provides a solution for deal hunters who want to stay updated with the latest bargains without constantly checking multiple websites. It has been designed to be modular and easy to extend. New websites can be added by implementing the `scraper` interface.
-
-The project is open source and welcomes contributions from the community. 
-]]></description>
+KramerBot provides a solution for deal hunters who want to stay updated with the latest bargains without constantly checking multiple websites. It has been designed to be modular and easy to extend. New websites can be added by implementing the `scraper` interface.]]></description>
 </item>
 <item>
 <title>Vim Setup From Scratch</title>
