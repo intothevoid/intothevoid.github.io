@@ -5,6 +5,270 @@
 <link>https://intothevoid.github.io</link>
 <description>Programming, technology, electronics, and other random thoughts</description>
 <item>
+<title>Daysync - An ESP32 based smart screen for your desk</title>
+<link>https://intothevoid.github.io/daysync---an-esp32-based-smart-screen-for-your-desk-2025-04-17.html</link>
+<pubDate>Thu, 17 Apr 2025 15:32:35 +0930</pubDate>
+<description><![CDATA[
+
+## Overview
+
+![Daysync](images/esp32/daysync.gif)
+
+Daysync combines an ESP32 microcontroller with a TFT display (ESP32-2432S028R) to create a smart information display system. It fetches and displays various types of data including weather information, MotoGP and Formula 1 race calendars, cryptocurrency prices, stock market data and news headlines.
+
+```mermaid
+graph LR
+    subgraph ESP32["ESP32 Display"]
+        E[ESP32 Board]
+        T[TFT Display]
+        E --> T
+    end
+
+    subgraph Backend["Go Backend"]
+        B[API Server]
+        W[Weather API]
+        M[MotoGP API]
+        F[F1 API]
+        C[Crypto API]
+        N[News API]
+        S[Stock API]
+    end
+
+    E <-->|HTTP Requests| B
+    B <-->|Data Fetch| W
+    B <-->|Data Fetch| M
+    B <-->|Data Fetch| F
+    B <-->|Data Fetch| C
+    B <-->|Data Fetch| N
+    B <-->|Data Fetch| S
+```
+
+## Parts
+
+### ESP32-2432S028R with 2.4" TFT Display
+
+These boards are cheap and easy to find on AliExpress. You can find them [here](https://vi.aliexpress.com/item/1005008598530650.html?spm=a2g0o.productlist.main.73.472b1ae23nfIwc&algo_pvid=2f24f0e3-cf71-4b57-84db-2e338bede7a4&algo_exp_id=2f24f0e3-cf71-4b57-84db-2e338bede7a4-36&pdp_ext_f=%7B%22order%22%3A%22-1%22%2C%22eval%22%3A%221%22%7D&pdp_npi=4%40dis%21AUD%2120.59%2113.59%21%21%2194.28%2162.23%21%40210337bc17448542486703194e17c5%2112000045890694919%21sea%21AU%212747051205%21X&curPageLogUid=nbT3rzhrKgn2&utparam-url=scene%3Asearch%7Cquery_from%3A).
+
+### 3D Printed Enclosure 
+
+I designed a 3D printed enclosure using the free version of Autodesk Fusion 360 for the ESP32-2432S028R with 2.4" TFT Display. This was quite time consuming and I had to use Vernier Callipers to get accurate measurements.
+
+![Enclosure Design](images/esp32/cyd-case.jpg)
+
+You can download the STL file [here](other/esp32/esp32-2432s028r-bindok.stl)
+
+### Other Parts
+
+- Micro USB Cable for programming the ESP32
+- USB power (any cheap 5V adaptor)
+- USB-C to micro usb adaptor if your PC only has USB-C ports
+- Vernier Callipers
+
+## Source Code
+
+The source code is available on [GitHub](https://github.com/intothevoid/daysync).
+
+## System Architecture
+
+The project consists of two main components:
+
+1. **ESP32 Display System**
+   - ESP32 microcontroller
+   - TFT display
+   - WiFi connectivity
+   - LVGL for UI rendering
+
+2. **Go Backend Server**
+   - RESTful API endpoints
+   - Data caching
+   - External API integration
+   - Configuration management
+
+```mermaid
+graph TD
+    subgraph ESP32["ESP32 System"]
+        W[WiFi Module]
+        M[Memory]
+        D[Display Driver]
+        W --> M
+        M --> D
+    end
+
+    subgraph Backend["Backend Services"]
+        C[Cache Layer]
+        A[API Layer]
+        E[External APIs]
+        C --> A
+        A --> E
+    end
+
+    ESP32 <-->|HTTP| Backend
+```
+
+## Backend Functionality
+
+### API Endpoints
+
+The Go backend provides several RESTful endpoints:
+
+```mermaid
+graph TD
+    API[API Server] --> MotoGP[MotoGP Endpoints]
+    API --> F1[F1 Endpoints]
+    API --> Weather[Weather Endpoint]
+    API --> Crypto[Crypto Endpoint]
+    API --> News[News Endpoint]
+    API --> Finance[Finance Endpoint]
+
+    MotoGP --> |/api/motogp| SeasonData
+    MotoGP --> |/api/motogpnextrace| NextRace
+    F1 --> |/api/formula1| SeasonData
+    F1 --> |/api/formula1nextrace| NextRace
+    Weather --> |/api/weather| LocationData
+    Crypto --> |/api/crypto| PriceData
+    News --> |/api/news| Headlines
+    Finance --> |/api/finance| StockData
+```
+
+### Data Flow
+
+```mermaid
+sequenceDiagram
+    participant ESP32
+    participant Backend
+    participant ExternalAPI
+
+    ESP32->>Backend: HTTP Request
+    Backend->>Backend: Check Cache
+    alt Cache Hit
+        Backend-->>ESP32: Return Cached Data
+    else Cache Miss
+        Backend->>ExternalAPI: Fetch New Data
+        ExternalAPI-->>Backend: Return Data
+        Backend->>Backend: Update Cache
+        Backend-->>ESP32: Return Fresh Data
+    end
+```
+
+## ESP32 Display Features
+
+### Screen Management
+
+The ESP32 display automatically cycles through different information screens:
+
+```mermaid
+stateDiagram-v2
+    [*] --> Weather
+    Weather --> MotoGP
+    MotoGP --> Formula1
+    Formula1 --> StockMarket
+    StockMarket --> Cryptocurrency
+    Cryptocurrency --> News1
+    News1 --> News2
+    News2 --> About
+    About --> Weather
+```
+
+### Data Display
+
+Each screen type has specific information layout:
+
+```mermaid
+graph TD
+    subgraph Weather["Weather Screen"]
+        W1[Location]
+        W2[Date/Time]
+        W3[Temperature]
+        W4[Humidity]
+        W5[Conditions]
+    end
+
+    subgraph Racing["Race Calendar Screen"]
+        R1[Race Name]
+        R2[Circuit]
+        R3[Date]
+        R4[Next Race Info]
+    end
+
+    subgraph Finance["Financial Screen"]
+        F1[Symbol]
+        F2[Current Price]
+        F3[Price Change]
+        F4[Market Data]
+    end
+```
+
+## Technical Implementation
+
+### Backend Features
+
+1. **Caching System**
+   - 60-minute cache duration
+   - Memory-efficient storage
+   - Automatic cache invalidation
+
+2. **API Integration**
+   - RESTful endpoints
+   - Error handling
+   - Rate limiting
+   - CORS support
+
+3. **Configuration Management**
+   - YAML configuration
+   - Environment variables
+   - Test mode support
+
+### ESP32 Features
+
+1. **Display Management**
+   - LVGL for UI
+   - Screen rotation
+   - Automatic updates (Server side, microcontroller auto updates not supported)
+   - Error handling
+
+2. **Data Processing**
+   - JSON parsing
+   - Data validation
+   - Error recovery
+   - WiFi reconnection
+
+## Development and Testing
+
+The project includes several development features:
+
+```mermaid
+graph LR
+    subgraph Dev["Development Tools"]
+        T[Test Mode]
+        C[Cache Control]
+        D[Debug Logging]
+        M[Mock Data]
+    end
+
+    subgraph Test["Testing Features"]
+        U[Unit Tests]
+        I[Integration Tests]
+        E[Error Simulation]
+        P[Performance Tests]
+    end
+```
+
+## Possible Future Enhancements
+
+1. **Planned Features**
+   - Ability for user to change their wifi SSID and password (harcoded at the moment)
+   - Custom screen layouts
+   - User preferences
+   - More data sources
+   - Offline mode
+   - Automatic OTA updates
+
+This was a fun project that taught me how to use a low power microcontroller to display information. The ESP32 only makes REST calls, the heavy lifting is done by the Go backend. By combining the power of ESP32 with a Go backend, it provides a flexible way to display various types of real-time data.
+
+There can be many improvements to enhance the user experience. User preferences via a web interface would be great. I'll hopefully find time to keep improving this project and make it more user friendly.
+]]></description>
+</item>
+<item>
 <title>Kramerbot - a deal finding Telegram bot</title>
 <link>https://intothevoid.github.io/kramerbot---a-deal-finding-telegram-bot-2025-04-04.html</link>
 <pubDate>Fri, 04 Apr 2025 12:13:19 +1030</pubDate>

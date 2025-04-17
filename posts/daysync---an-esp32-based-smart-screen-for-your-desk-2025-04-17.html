@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Into The Void - Daysync - An ESP32 based smart screen for your desk</title>
+    <link rel="stylesheet" href="/css/main.css">
+    
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+    </script>
+</head>
+<body>
+    
+<header>
+    <div id="site-title" style="display:flex; justify-content:left; align-items: left;">
+        <a href="/index.html">
+            <h1 style="margin: 0;">Into The Void</h1>
+        </a>
+    </div>
+    <div id="nav-links" style="display:flex; justify-content:right; align-items: right;">
+        <nav>
+            <div style="display: flex;">
+                <a href="/posts.html">All Posts</a>
+                
+                    <a href="/pages/about.html">About</a>
+                
+                    <a href="/pages/projects.html">Projects</a>
+                
+            </div>
+        </nav>
+    </div>
+</header>
+
+    <main>
+    
+<h2>Daysync - An ESP32 based smart screen for your desk</h2>
+<p>A low power smart display for your desk with news, weather, crypto, stocks and other information</p>
+<p class="info">Published on Apr 17 2025 at 3:32pm</p>
+<h2>Overview</h2>
+
+<p><img src="/images/esp32/daysync.gif" alt="Daysync" /></p>
+
+<p>Daysync combines an ESP32 microcontroller with a TFT display (ESP32-2432S028R) to create a smart information display system. It fetches and displays various types of data including weather information, MotoGP and Formula 1 race calendars, cryptocurrency prices, stock market data and news headlines.</p>
+
+<pre><code class="language-mermaid">graph LR
+    subgraph ESP32[&quot;ESP32 Display&quot;]
+        E[ESP32 Board]
+        T[TFT Display]
+        E --&gt; T
+    end
+
+    subgraph Backend[&quot;Go Backend&quot;]
+        B[API Server]
+        W[Weather API]
+        M[MotoGP API]
+        F[F1 API]
+        C[Crypto API]
+        N[News API]
+        S[Stock API]
+    end
+
+    E &lt;--&gt;|HTTP Requests| B
+    B &lt;--&gt;|Data Fetch| W
+    B &lt;--&gt;|Data Fetch| M
+    B &lt;--&gt;|Data Fetch| F
+    B &lt;--&gt;|Data Fetch| C
+    B &lt;--&gt;|Data Fetch| N
+    B &lt;--&gt;|Data Fetch| S
+</code></pre>
+
+<h2>Parts</h2>
+
+<h3>ESP32-2432S028R with 2.4&rdquo; TFT Display</h3>
+
+<p>These boards are cheap and easy to find on AliExpress. You can find them <a href="https://vi.aliexpress.com/item/1005008598530650.html?spm=a2g0o.productlist.main.73.472b1ae23nfIwc&amp;algo_pvid=2f24f0e3-cf71-4b57-84db-2e338bede7a4&amp;algo_exp_id=2f24f0e3-cf71-4b57-84db-2e338bede7a4-36&amp;pdp_ext_f=%7B%22order%22%3A%22-1%22%2C%22eval%22%3A%221%22%7D&amp;pdp_npi=4%40dis%21AUD%2120.59%2113.59%21%21%2194.28%2162.23%21%40210337bc17448542486703194e17c5%2112000045890694919%21sea%21AU%212747051205%21X&amp;curPageLogUid=nbT3rzhrKgn2&amp;utparam-url=scene%3Asearch%7Cquery_from%3A" target="_blank">here</a>.</p>
+
+<h3>3D Printed Enclosure</h3>
+
+<p>I designed a 3D printed enclosure using the free version of Autodesk Fusion 360 for the ESP32-2432S028R with 2.4&rdquo; TFT Display. This was quite time consuming and I had to use Vernier Callipers to get accurate measurements.</p>
+
+<p><img src="/images/esp32/cyd-case.jpg" alt="Enclosure Design" /></p>
+
+<p>You can download the STL file <a href="other/esp32/esp32-2432s028r-bindok.stl" target="_blank">here</a></p>
+
+<h3>Other Parts</h3>
+
+<ul>
+<li>Micro USB Cable for programming the ESP32</li>
+<li>USB power (any cheap 5V adaptor)</li>
+<li>USB-C to micro usb adaptor if your PC only has USB-C ports</li>
+<li>Vernier Callipers</li>
+</ul>
+
+<h2>Source Code</h2>
+
+<p>The source code is available on <a href="https://github.com/intothevoid/daysync" target="_blank">GitHub</a>.</p>
+
+<h2>System Architecture</h2>
+
+<p>The project consists of two main components:</p>
+
+<ol>
+<li><p><strong>ESP32 Display System</strong></p>
+
+<ul>
+<li>ESP32 microcontroller</li>
+<li>TFT display</li>
+<li>WiFi connectivity</li>
+<li>LVGL for UI rendering</li>
+</ul></li>
+
+<li><p><strong>Go Backend Server</strong></p>
+
+<ul>
+<li>RESTful API endpoints</li>
+<li>Data caching</li>
+<li>External API integration</li>
+<li>Configuration management</li>
+</ul></li>
+</ol>
+
+<pre><code class="language-mermaid">graph TD
+    subgraph ESP32[&quot;ESP32 System&quot;]
+        W[WiFi Module]
+        M[Memory]
+        D[Display Driver]
+        W --&gt; M
+        M --&gt; D
+    end
+
+    subgraph Backend[&quot;Backend Services&quot;]
+        C[Cache Layer]
+        A[API Layer]
+        E[External APIs]
+        C --&gt; A
+        A --&gt; E
+    end
+
+    ESP32 &lt;--&gt;|HTTP| Backend
+</code></pre>
+
+<h2>Backend Functionality</h2>
+
+<h3>API Endpoints</h3>
+
+<p>The Go backend provides several RESTful endpoints:</p>
+
+<pre><code class="language-mermaid">graph TD
+    API[API Server] --&gt; MotoGP[MotoGP Endpoints]
+    API --&gt; F1[F1 Endpoints]
+    API --&gt; Weather[Weather Endpoint]
+    API --&gt; Crypto[Crypto Endpoint]
+    API --&gt; News[News Endpoint]
+    API --&gt; Finance[Finance Endpoint]
+
+    MotoGP --&gt; |/api/motogp| SeasonData
+    MotoGP --&gt; |/api/motogpnextrace| NextRace
+    F1 --&gt; |/api/formula1| SeasonData
+    F1 --&gt; |/api/formula1nextrace| NextRace
+    Weather --&gt; |/api/weather| LocationData
+    Crypto --&gt; |/api/crypto| PriceData
+    News --&gt; |/api/news| Headlines
+    Finance --&gt; |/api/finance| StockData
+</code></pre>
+
+<h3>Data Flow</h3>
+
+<pre><code class="language-mermaid">sequenceDiagram
+    participant ESP32
+    participant Backend
+    participant ExternalAPI
+
+    ESP32-&gt;&gt;Backend: HTTP Request
+    Backend-&gt;&gt;Backend: Check Cache
+    alt Cache Hit
+        Backend--&gt;&gt;ESP32: Return Cached Data
+    else Cache Miss
+        Backend-&gt;&gt;ExternalAPI: Fetch New Data
+        ExternalAPI--&gt;&gt;Backend: Return Data
+        Backend-&gt;&gt;Backend: Update Cache
+        Backend--&gt;&gt;ESP32: Return Fresh Data
+    end
+</code></pre>
+
+<h2>ESP32 Display Features</h2>
+
+<h3>Screen Management</h3>
+
+<p>The ESP32 display automatically cycles through different information screens:</p>
+
+<pre><code class="language-mermaid">stateDiagram-v2
+    [*] --&gt; Weather
+    Weather --&gt; MotoGP
+    MotoGP --&gt; Formula1
+    Formula1 --&gt; StockMarket
+    StockMarket --&gt; Cryptocurrency
+    Cryptocurrency --&gt; News1
+    News1 --&gt; News2
+    News2 --&gt; About
+    About --&gt; Weather
+</code></pre>
+
+<h3>Data Display</h3>
+
+<p>Each screen type has specific information layout:</p>
+
+<pre><code class="language-mermaid">graph TD
+    subgraph Weather[&quot;Weather Screen&quot;]
+        W1[Location]
+        W2[Date/Time]
+        W3[Temperature]
+        W4[Humidity]
+        W5[Conditions]
+    end
+
+    subgraph Racing[&quot;Race Calendar Screen&quot;]
+        R1[Race Name]
+        R2[Circuit]
+        R3[Date]
+        R4[Next Race Info]
+    end
+
+    subgraph Finance[&quot;Financial Screen&quot;]
+        F1[Symbol]
+        F2[Current Price]
+        F3[Price Change]
+        F4[Market Data]
+    end
+</code></pre>
+
+<h2>Technical Implementation</h2>
+
+<h3>Backend Features</h3>
+
+<ol>
+<li><p><strong>Caching System</strong></p>
+
+<ul>
+<li>60-minute cache duration</li>
+<li>Memory-efficient storage</li>
+<li>Automatic cache invalidation</li>
+</ul></li>
+
+<li><p><strong>API Integration</strong></p>
+
+<ul>
+<li>RESTful endpoints</li>
+<li>Error handling</li>
+<li>Rate limiting</li>
+<li>CORS support</li>
+</ul></li>
+
+<li><p><strong>Configuration Management</strong></p>
+
+<ul>
+<li>YAML configuration</li>
+<li>Environment variables</li>
+<li>Test mode support</li>
+</ul></li>
+</ol>
+
+<h3>ESP32 Features</h3>
+
+<ol>
+<li><p><strong>Display Management</strong></p>
+
+<ul>
+<li>LVGL for UI</li>
+<li>Screen rotation</li>
+<li>Automatic updates (Server side, microcontroller auto updates not supported)</li>
+<li>Error handling</li>
+</ul></li>
+
+<li><p><strong>Data Processing</strong></p>
+
+<ul>
+<li>JSON parsing</li>
+<li>Data validation</li>
+<li>Error recovery</li>
+<li>WiFi reconnection</li>
+</ul></li>
+</ol>
+
+<h2>Development and Testing</h2>
+
+<p>The project includes several development features:</p>
+
+<pre><code class="language-mermaid">graph LR
+    subgraph Dev[&quot;Development Tools&quot;]
+        T[Test Mode]
+        C[Cache Control]
+        D[Debug Logging]
+        M[Mock Data]
+    end
+
+    subgraph Test[&quot;Testing Features&quot;]
+        U[Unit Tests]
+        I[Integration Tests]
+        E[Error Simulation]
+        P[Performance Tests]
+    end
+</code></pre>
+
+<h2>Possible Future Enhancements</h2>
+
+<ol>
+<li><strong>Planned Features</strong>
+
+<ul>
+<li>Ability for user to change their wifi SSID and password (harcoded at the moment)</li>
+<li>Custom screen layouts</li>
+<li>User preferences</li>
+<li>More data sources</li>
+<li>Offline mode</li>
+<li>Automatic OTA updates</li>
+</ul></li>
+</ol>
+
+<p>This was a fun project that taught me how to use a low power microcontroller to display information. The ESP32 only makes REST calls, the heavy lifting is done by the Go backend. By combining the power of ESP32 with a Go backend, it provides a flexible way to display various types of real-time data.</p>
+
+<p>There can be many improvements to enhance the user experience. User preferences via a web interface would be great. I&rsquo;ll hopefully find time to keep improving this project and make it more user friendly.</p>
+
+
+<p class="info">Tags: 
+    
+        
+        <a href="/tags/golang.html">golang</a>
+    
+        , 
+        <a href="/tags/c.html">c&#43;&#43;</a>
+    
+        , 
+        <a href="/tags/programming.html">programming</a>
+    
+        , 
+        <a href="/tags/electronics.html">electronics</a>
+    
+        , 
+        <a href="/tags/iot.html">iot</a>
+    
+</p>
+
+
+    
+<script>
+    Prism.plugins.autoloader.languages_path = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/';
+    
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        document.querySelectorAll('pre.language-mermaid').forEach(function(element) {
+            
+            var mermaidDiv = document.createElement('div');
+            mermaidDiv.className = 'mermaid';
+            mermaidDiv.innerHTML = element.textContent;
+            
+            
+            element.parentNode.replaceChild(mermaidDiv, element);
+        });
+        
+        
+        mermaid.init();
+    });
+</script>
+
+    <main>
+    
+<footer>
+    <p class="footer-content">
+        <span>&copy; 2025 Into The Void.</span>
+        <span>Powered by <a href="https://www.github.com/intothevoid/likho">Likho</a>.</span>
+    </p>
+</footer>
+
+</body>
+</html>
