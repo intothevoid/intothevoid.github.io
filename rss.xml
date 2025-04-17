@@ -51,7 +51,9 @@ These boards are cheap and easy to find on AliExpress. You can find them [here](
 
 ### 3D Printed Enclosure 
 
-I designed a 3D printed enclosure using the free version of Autodesk Fusion 360 for the ESP32-2432S028R with 2.4" TFT Display. This was quite time consuming and I had to use Vernier Callipers to get accurate measurements.
+I designed a 3D printed enclosure using the free version of Autodesk Fusion 360 for the ESP32-2432S028R with 2.4" TFT Display. This was quite time consuming and I had to use Vernier Callipers to get accurate measurements. At the end of it, the result was better than I expected. I used a Bambu Labs P1S printer to print the enclosure. I even managed to get a cool `bindok` logo etched at the back of the enclosure.
+
+`bindok` meaning no brains is my gamer alias 🤣 
 
 ![Enclosure Design](images/esp32/cyd-case.jpg)
 
@@ -62,7 +64,7 @@ You can download the STL file [here](other/esp32/esp32-2432s028r-bindok.stl)
 - Micro USB Cable for programming the ESP32
 - USB power (any cheap 5V adaptor)
 - USB-C to micro usb adaptor if your PC only has USB-C ports
-- Vernier Callipers
+- Vernier Callipers for measuring the dimensions of the board
 
 ## Source Code
 
