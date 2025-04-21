@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Into The Void - Top CLI Tools For Programmers on Mac</title>
+    <link rel="stylesheet" href="/css/main.css">
+    
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+    </script>
+</head>
+<body>
+    
+<header>
+    <div id="site-title" style="display:flex; justify-content:left; align-items: left;">
+        <a href="/index.html">
+            <h1 style="margin: 0;">Into The Void</h1>
+        </a>
+    </div>
+    <div id="nav-links" style="display:flex; justify-content:right; align-items: right;">
+        <nav>
+            <div style="display: flex;">
+                <a href="/posts.html">All Posts</a>
+                
+                    <a href="/pages/about.html">About</a>
+                
+                    <a href="/pages/projects.html">Projects</a>
+                
+            </div>
+        </nav>
+    </div>
+</header>
+
+    <main>
+    
+<h2>Top CLI Tools For Programmers on Mac</h2>
+<p>A list of top cli tools for programmers to increase productivity on a Mac</p>
+<p class="info">Published on Apr 21 2025 at 9:42am</p>
+<h1>Top CLI Tools For Programmers</h1>
+
+<p>The aim of this post is to enhance your terminal experience and speed up terminal usage on Mac. As a programmer you will spend a significant amount of time on the terminal. These tools should help speed up common actions and help you become more productive. This post assumes you have Homebrew installed. If you don&rsquo;t follow the instructions on <a href="https://brew.sh/" target="_blank">https://brew.sh/</a></p>
+
+<pre><code class="language-zsh">/bin/bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&quot;
+</code></pre>
+
+<h2>1. Mas - The Terminal App Store Manager</h2>
+
+<p>Tired of the clunky Mac App Store? <strong>Mas</strong> is a terminal app store manager that allows you to easily control and manage your apps downloaded from the App Store. It can be quite annoying and slow to open the App Store on your Macbook and this is a much cleaner and faster way to manage your apps.</p>
+
+<p><strong>Installation:</strong></p>
+
+<p>To install Mas, run the following command in your terminal:</p>
+
+<pre><code class="language-bash">brew install mas
+</code></pre>
+
+<p><strong>Usage:</strong></p>
+
+<ul>
+<li><p><strong>Listing installed apps:</strong> To see a list of your installed apps and their versions, use:</p>
+
+<pre><code class="language-bash">mas list
+</code></pre>
+<p>![Screenshot of <code>mas list</code> output]</p></li>
+
+<li><p><strong>Getting app information:</strong> You can retrieve detailed information about an app using its ID:</p>
+
+<pre><code class="language-bash">mas info &lt;app_id&gt;
+</code></pre>
+<p>To find the app ID, you can use <code>mas list</code>. For example, for the &ldquo;Neptune&rdquo; app, you can grab its ID and run:</p>
+
+<pre><code class="language-bash">mas info &lt;Neptune_app_id&gt;
+</code></pre>
+<p>![Screenshot of <code>mas info &lt;app_id&gt;</code> output]</p></li>
+
+<li><p><strong>Checking for outdated apps:</strong> To see if any of your installed apps have updates available, run:</p>
+
+<pre><code class="language-bash">mas outdated
+</code></pre>
+<p>![Screenshot of <code>mas outdated</code> output]</p></li>
+
+<li><p><strong>Upgrading apps:</strong> To install available updates, use:</p>
+
+<pre><code class="language-bash">mas upgrade
+</code></pre>
+<p>This is particularly useful for updating Xcode command-line tools, which the App Store might not always handle correctly.</p></li>
+
+<li><p><strong>Searching for apps:</strong> You can search for specific apps in the App Store using:</p>
+
+<pre><code class="language-bash">mas search &lt;app_name&gt;
+</code></pre>
+<p>![Screenshot of <code>mas search &lt;app_name&gt;</code> output]</p></li>
+
+<li><p><strong>Downloading apps:</strong> To download an app from the App Store, use its ID with the <code>purchase</code> command:</p>
+
+<pre><code class="language-bash">mas purchase &lt;app_id&gt;
+</code></pre>
+<p>For more commands, you can refer to the Mas GitHub page.</p></li>
+</ul>
+
+<h2>2. fzf - Fuzzy Finder</h2>
+
+<p><strong>fzf</strong> is a powerful fuzzy finder that allows you to search through your files and directories efficiently in the terminal. The lesser you need to <code>cd</code>into directories, the faster your navigation will be.</p>
+
+<p><strong>Installation:</strong></p>
+
+<p>Install fzf using Homebrew:</p>
+
+<pre><code class="language-bash">brew install fzf
+</code></pre>
+
+<p><strong>Integration:</strong></p>
+
+<p>To integrate fzf with your shell (like zsh), you need to initialize it by adding the following line to your <code>~/.zshrc</code> (or equivalent RC file):</p>
+
+<pre><code class="language-bash">[[ -s &quot;$(brew --prefix)/opt/fzf/shell/completion.zsh&quot; ]] &amp;&amp; source &quot;$(brew --prefix)/opt/fzf/shell/completion.zsh&quot;
+[[ -s &quot;$(brew --prefix)/opt/fzf/shell/key-bindings.zsh&quot; ]] &amp;&amp; source &quot;$(brew --prefix)/opt/fzf/shell/key-bindings.zsh&quot;
+</code></pre>
+
+<p>After adding these lines, <strong>save and source your RC file</strong> (e.g., <code>source ~/.zshrc</code>). You can verify the installation by running <code>fzf</code> or <code>fzf --version</code>.</p>
+
+<p><strong>Key Bindings and Usage</strong></p>
+
+<p>Custom fzf configurations in the <code>.zshrc</code> file.</p>
+
+<ul>
+<li><p><strong><code>Ctrl+T</code>:</strong> This key binding performs a fuzzy search for all files in the current directory (and subdirectories), using <code>fd</code> (explained later) to speed up the search and excluding <code>.git</code> files.</p>
+
+<p>![Screenshot of <code>Ctrl+T</code> in action]</p></li>
+
+<li><p><strong><code>Option+C</code> (or <code>Alt+C</code>):</strong> This command specifically searches for directories, allowing you to quickly jump to a desired directory.</p>
+
+<p>![Screenshot of <code>Option+C</code> in action]</p></li>
+
+<li><p><strong>Custom Command (<code>envm Ctrl+T</code> or <code>Cod Ctrl+T</code>):</strong> You can also use fzf with other commands like <code>nvim</code> (neovim) and <code>Code</code> (VS Code) to fuzzy find files and open them in the respective editor. For example, <code>envm</code> followed by <code>Ctrl+T</code> allows fuzzy searching through all files and opening the selected one in neovim. Similarly, <code>Cod Ctrl+T</code> does the same for VS Code.</p>
+
+<p>![Screenshot of <code>envm Ctrl+T</code> in action]
+![Screenshot of <code>Cod Ctrl+T</code> in action]</p></li>
+</ul>
+
+<h2>3. fd - A Simple, Fast and User-Friendly Alternative to &lsquo;find&rsquo;</h2>
+
+<p>You can use <strong>fd</strong> as a faster alternative to the <code>find</code> command, especially in your fzf setup.</p>
+
+<p><strong>Installation:</strong></p>
+
+<p>Install fd using Homebrew:</p>
+
+<pre><code class="language-bash">brew install fd
+</code></pre>
+
+<p>fd is used in the default fzf command (<code>Ctrl+T</code>) with the <code>-H</code> flag to show hidden directories and the <code>-I</code> flag to ignore <code>.git</code> files.</p>
+
+<h2>4. bat - A cat(1) Clone with Wings</h2>
+
+<p><strong>bat</strong> is a &ldquo;must-have&rdquo; tool, acting as a <code>cat</code> replacement but with syntax highlighting for code views.</p>
+
+<p><strong>Installation:</strong></p>
+
+<p>Install bat using Homebrew:</p>
+
+<pre><code class="language-bash">brew install bat
+</code></pre>
+
+<p><strong>Usage:</strong></p>
+
+<p>Simply use <code>bat</code> followed by a filename to view its content with syntax highlighting:</p>
+
+<pre><code class="language-bash">bat &lt;filename&gt;
+</code></pre>
+
+<p>![Screenshot of <code>bat &lt;filename&gt;</code> output]</p>
+
+<p>This is especially useful when combined with fzf.</p>
+
+<h2>5. tldr - Collaborative Cheat Sheets for Console Commands</h2>
+
+<p><strong>tldr</strong> is similar to man pages but providing only the most commonly used commands and examples. You can use it to quickly get the essential commands without diving into the detailed explanations of man pages.</p>
+
+<p><strong>Installation:</strong></p>
+
+<p>Install tldr using Homebrew:</p>
+
+<pre><code class="language-bash">brew install tldr
+</code></pre>
+
+<p><strong>Usage:</strong></p>
+
+<p>To get a quick overview of a command, use <code>tldr</code> followed by the command name:</p>
+
+<pre><code class="language-bash">tldr &lt;command&gt;
+</code></pre>
+
+<p>For example:</p>
+
+<pre><code class="language-bash">tldr git
+</code></pre>
+
+<p>![Screenshot of <code>tldr git</code> output]</p>
+
+<h2>6. fzf.git - Fuzzy Finder Extensions for Git</h2>
+
+<p><strong>fzf.git</strong> integrates fzf with Git, providing convenient fuzzy searching for Git branches, remotes, and worktrees. This can be sourced into your .zshrc file</p>
+
+<p><strong>Installation:</strong></p>
+
+<p>Start by cloning the fzf.git repository:</p>
+
+<pre><code class="language-bash">git clone https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+</code></pre>
+
+<p><strong>Usage (via key bindings):</strong></p>
+
+<p>The following key bindings should work in a Git repository with a remote:</p>
+
+<ul>
+<li><p><strong><code>Ctrl+GB</code>:</strong> Shows all Git branches.</p>
+
+<p>![Screenshot of <code>Ctrl+GB</code> output]</p></li>
+
+<li><p><strong><code>Ctrl+GR</code>:</strong> Shows all Git remotes.</p>
+
+<p>![Screenshot of <code>Ctrl+GR</code> output]</p></li>
+
+<li><p><strong><code>Ctrl+GW</code>:</strong> Shows Git worktrees.</p>
+
+<p>![Screenshot of <code>Ctrl+GW</code> output]</p></li>
+</ul>
+
+<h2>7. zoxide - A Smarter cd Command</h2>
+
+<p><strong>zoxide</strong> is a tool that learns your most frequently used directories and allows you to jump to them quickly without typing the full path. It remembers paths based on recency.</p>
+
+<p><strong>Installation:</strong></p>
+
+<p>Install zoxide using Homebrew:</p>
+
+<pre><code class="language-bash">brew install zoxide
+</code></pre>
+
+<p><strong>Integration:</strong></p>
+
+<p>Add the following line to your <code>~/.zshrc</code> file to initialize zoxide:</p>
+
+<pre><code class="language-bash">eval &quot;$(zoxide init zsh)&quot;
+</code></pre>
+
+<p><strong>Save and source your RC file</strong>.</p>
+
+<p><strong>Usage:</strong></p>
+
+<ul>
+<li><p><strong>Jumping to a directory:</strong> Once zoxide has learned some directories (by you navigating into them using <code>cd</code> at least once), you can jump to them using the <code>z</code> command followed by a part of the directory name:</p>
+
+<pre><code class="language-bash">z &lt;partial_directory_name&gt;
+</code></pre>
+<p>For example, after navigating to a &ldquo;projects&rdquo; directory, you can later jump back with <code>z pro</code>.</p>
+
+<p>![Screenshot of <code>z pro</code> output]</p></li>
+
+<li><p><strong>Returning to home:</strong> Typing <code>z</code> alone will take you back to your home directory.</p></li>
+</ul>
+
+<h2>8. eza - A Modern, Feature-Rich Replacement for ls</h2>
+
+<p><strong>eza</strong> is an enhanced version of the <code>ls</code> command, offering improved output with icons, colors, and more. The presenter uses it for better visual clarity.</p>
+
+<p><strong>Installation:</strong></p>
+
+<p>Install eza using Homebrew:</p>
+
+<pre><code class="language-bash">brew install eza
+</code></pre>
+
+<p><strong>Usage:</strong></p>
+
+<p>You can have your <code>ls</code> command aliased to <code>eza</code> with various options configured in your <code>.zshrc</code>:</p>
+
+<pre><code class="language-bash">alias ls=&quot;eza -l --icons --group-directories-first&quot;
+</code></pre>
+
+<ul>
+<li><p><strong>Basic listing:</strong> Running <code>ls</code> (which is <code>eza</code> in this case) will provide a detailed listing with icons and grouped directories.</p>
+
+<p>![Screenshot of basic <code>eza</code> output]</p></li>
+
+<li><p><strong>Grid view:</strong> You can also configure eza to display output in a grid format:</p>
+
+<pre><code class="language-bash">alias ls=&quot;eza --grid --icons&quot;
+</code></pre>
+<p>![Screenshot of <code>eza --grid</code> output]</p></li>
+
+<li><p><strong>Integration with fzf:</strong> The <code>Option+C</code> (directory search) in fzf also includes eza for previews, showing detailed information about the selected directory.</p>
+
+<p>![Screenshot of fzf with eza preview]</p></li>
+</ul>
+
+<h2>9. yazi - A Blazing Fast Terminal File Manager</h2>
+
+<p><strong>yazi</strong> is a terminal file manager built on Rust. It is a great addition to your terminal.</p>
+
+<p><strong>Installation:</strong></p>
+
+<p>Install yazi using Homebrew:</p>
+
+<pre><code class="language-bash">brew install yazi
+</code></pre>
+
+<p><strong>Usage:</strong></p>
+
+<p>Running <code>yi</code> will open the yazi file manager.</p>
+
+<ul>
+<li><p><strong>Navigation:</strong> Use the up and down arrow keys to navigate within the current directory, and the left and right arrow keys to go to the previous and next directories.</p>
+
+<p>![Screenshot of the yazi interface]</p></li>
+
+<li><p><strong>Customization:</strong> Yazi can be customized by creating a <code>.config/yazi</code> directory and adding configuration files like <code>yazi.toml</code>, <code>keymaps.toml</code>, and <code>themes.toml</code>. Themes can be downloaded from the Yazi GitHub repository.</p></li>
+
+<li><p><strong>Key Mappings:</strong> Use Vim-like key mappings (configured in <code>keymaps.toml</code>) such as <code>j</code> and <code>k</code> for moving up and down, <code>l</code> to enter a directory, and <code>h</code> to go back.</p></li>
+
+<li><p><strong>Themes:</strong> Themes can be configured in the <code>themes.toml</code> file.</p></li>
+
+<li><p><strong>Basic File Operations:</strong> Yazi offers various commands:</p>
+
+<ul>
+<li><code>a</code>: Add a file (e.g., <code>test.js</code>).</li>
+<li><code>/</code>: Create a directory.</li>
+<li><code>y</code>: Yank (copy) a file.</li>
+<li><code>p</code>: Paste a file.</li>
+<li><code>d</code>: Delete a file to trash.</li>
+<li><code>D</code>: Permanently delete a file.</li>
+<li><code>x</code>: Cut a file.</li>
+<li><code>/</code> or <code>?</code>: Start a search.</li>
+<li><code>Enter</code>: Open a file with the default editor (can be configured, e.g., to neovim).</li>
+<li><code>:</code>: Run a shell command.</li>
+</ul>
+
+<p>![Screenshot of yazi performing a file operation]</p></li>
+</ul>
+
+<h2>10. tmux - Terminal Multiplexer</h2>
+
+<p><strong>tmux</strong> is a powerful terminal multiplexer that allows you to manage multiple terminal sessions within a single window.</p>
+
+<p><strong>Installation:</strong></p>
+
+<p>Install tmux using Homebrew:</p>
+
+<pre><code class="language-bash">brew install tmux
+</code></pre>
+
+<p><strong>Configuration:</strong></p>
+
+<p>The <code>~/.tmux.conf</code> file is used for custom configurations and there&rsquo;s a <code>~/.tmux/plugins</code> directory for tmux plugins.</p>
+
+<p><strong>Key Bindings and Usage (from the presenter&rsquo;s config):</strong></p>
+
+<ul>
+<li><p><strong>Prefix Key:</strong> <code>Ctrl+b</code> is used as the prefix key.</p></li>
+
+<li><p><strong>Splitting Panes:</strong></p>
+
+<ul>
+<li><code>Ctrl+b</code> then <code>|</code>: Split vertically.</li>
+<li><code>Ctrl+b</code> then <code>-</code>: Split horizontally.</li>
+</ul></li>
+
+<li><p><strong>Reload Configuration:</strong> <code>Ctrl+b</code> then <code>r</code>: Reloads the tmux configuration.</p></li>
+
+<li><p><strong>Pane Resizing:</strong> <code>Ctrl+b</code> then <code>H</code>, <code>J</code>, <code>K</code>, or <code>L</code> (using Vim-like motion keys): Resizes panes.</p></li>
+
+<li><p><strong>Selection Mode:</strong> <code>Ctrl+b</code> then <code>[</code>: Enters selection mode, allowing you to copy text.</p></li>
+
+<li><p><strong>Tmux Sessionizer (via script):</strong> The presenter uses a script to manage tmux sessions.</p></li>
+
+<li><p><strong>Tmux Plugin Manager (TPM):</strong> TPM is used to manage tmux plugins. After installing TPM (by cloning its GitHub repository), you need to add a line to the end of your <code>~/.tmux.conf</code> to run the TPM configuration.</p>
+
+<pre><code class="language-tmux">run '~/.tmux/plugins/tpm/tpm'
+</code></pre></li>
+
+<li><p><strong>Plugins:</strong> The presenter uses the following plugins:</p>
+
+<ul>
+<li><code>tmux-plugins/tpm</code>: The tmux plugin manager itself.</li>
+<li><code>catppuccin/tmux</code>: A Catppuccin theme for tmux.</li>
+<li><code>christoomey/vim-tmux-navigator</code>: Allows seamless navigation between Vim and tmux panes using Vim motion keys.</li>
+<li><code>thewtex/tmux-sessionx</code>: Provides an enhanced session management interface, accessible with <code>Ctrl+b</code> then <code>O</code>. It allows easy switching, creation (by typing a new name), and renaming (with <code>Ctrl+r</code>) of tmux sessions.</li>
+<li>Plugins for online status, battery, and theming.</li>
+<li><code>tmux-plugins/tmux-resurrect</code>: Saves and restores tmux sessions.</li>
+<li><code>tmux-plugins/tmux-continuum</code>: Automatically saves tmux sessions every 15 minutes (requires <code>tmux-resurrect</code>).</li>
+</ul></li>
+</ul>
+
+<p><strong>Plugin Management:</strong> After setting up TPM and listing plugins in <code>~/.tmux.conf</code>, you need to:</p>
+
+<ol>
+<li>Save the <code>~/.tmux.conf</code> file.</li>
+<li>Reload the tmux configuration: <code>Ctrl+b</code> then <code>r</code>.</li>
+<li>Install the plugins: <code>Ctrl+b</code> then <code>I</code> (capital I).</li>
+</ol>
+
+<p>After this, kill all tmux servers (<code>tmux kill-server</code>) and start a new tmux session.</p>
+
+<p>Tmux allows for quickly switching between different project sessions, reducing the need to constantly navigate through directories.</p>
+
+<h2>Conclusion</h2>
+
+<p>These command-line tools can significantly enhance a programmer&rsquo;s terminal experience, making tasks more efficient and enjoyable. By following the installation and usage instructions on this page, you can start integrating these tools into your workflow. Don&rsquo;t hesitate to explore their advanced features and configurations to tailor them to your specific needs. Remember to refer to the respective project GitHub pages for more detailed information and options.</p>
+
+
+<p class="info">Tags: 
+    
+        
+        <a href="/tags/zsh.html">zsh</a>
+    
+        , 
+        <a href="/tags/programming.html">programming</a>
+    
+</p>
+
+
+    
+<script>
+    Prism.plugins.autoloader.languages_path = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/';
+    
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        document.querySelectorAll('pre.language-mermaid').forEach(function(element) {
+            
+            var mermaidDiv = document.createElement('div');
+            mermaidDiv.className = 'mermaid';
+            mermaidDiv.innerHTML = element.textContent;
+            
+            
+            element.parentNode.replaceChild(mermaidDiv, element);
+        });
+        
+        
+        mermaid.init();
+    });
+</script>
+
+    <main>
+    
+<footer>
+    <p class="footer-content">
+        <span>&copy; 2025 Into The Void.</span>
+        <span>Powered by <a href="https://www.github.com/intothevoid/likho">Likho</a>.</span>
+    </p>
+</footer>
+
+</body>
+</html>
