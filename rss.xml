@@ -240,7 +240,7 @@ eval "$(zoxide init zsh)"
 
 ## 8. eza - A Modern, Feature-Rich Replacement for ls
 
-**eza** is an enhanced version of the `ls` command, offering improved output with icons, colors, and more. The presenter uses it for better visual clarity.
+**eza** is an enhanced version of the `ls` command, offering improved output with icons, colors, and more. It provides better visual clarity.
 
 **Installation:**
 
@@ -327,7 +327,7 @@ brew install tmux
 
 The `~/.tmux.conf` file is used for custom configurations and there's a `~/.tmux/plugins` directory for tmux plugins.
 
-**Key Bindings and Usage (from the presenter's config):**
+**Key Bindings and Usage:**
 
 *   **Prefix Key:** `Ctrl+b` is used as the prefix key.
 *   **Splitting Panes:**
@@ -336,14 +336,14 @@ The `~/.tmux.conf` file is used for custom configurations and there's a `~/.tmux
 *   **Reload Configuration:** `Ctrl+b` then `r`: Reloads the tmux configuration.
 *   **Pane Resizing:** `Ctrl+b` then `H`, `J`, `K`, or `L` (using Vim-like motion keys): Resizes panes.
 *   **Selection Mode:** `Ctrl+b` then `[`: Enters selection mode, allowing you to copy text.
-*   **Tmux Sessionizer (via script):** The presenter uses a script to manage tmux sessions.
+*   **Tmux Sessionizer (via script):** A script to manage tmux sessions.
 *   **Tmux Plugin Manager (TPM):** TPM is used to manage tmux plugins. After installing TPM (by cloning its GitHub repository), you need to add a line to the end of your `~/.tmux.conf` to run the TPM configuration.
 
     ```tmux
     run '~/.tmux/plugins/tpm/tpm'
     ```
 
-*   **Plugins:** The presenter uses the following plugins:
+*   **Plugins:** The following plugins can be used:
     *   `tmux-plugins/tpm`: The tmux plugin manager itself.
     *   `catppuccin/tmux`: A Catppuccin theme for tmux.
     *   `christoomey/vim-tmux-navigator`: Allows seamless navigation between Vim and tmux panes using Vim motion keys.
@@ -361,8 +361,6 @@ The `~/.tmux.conf` file is used for custom configurations and there's a `~/.tmux
 After this, kill all tmux servers (`tmux kill-server`) and start a new tmux session.
 
 Tmux allows for quickly switching between different project sessions, reducing the need to constantly navigate through directories.
-
-## Conclusion
 
 These command-line tools can significantly enhance a programmer's terminal experience, making tasks more efficient and enjoyable. By following the installation and usage instructions on this page, you can start integrating these tools into your workflow. Don't hesitate to explore their advanced features and configurations to tailor them to your specific needs. Remember to refer to the respective project GitHub pages for more detailed information and options.
 ]]></description>
