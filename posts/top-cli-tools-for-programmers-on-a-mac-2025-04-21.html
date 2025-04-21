@@ -49,7 +49,7 @@
     <main>
     
 <h2>Top CLI tools for programmers on a Mac</h2>
-<p>A list of top cli tools for programmers to increase productivity on a Mac</p>
+<p>A list of top command line tools for programmers to increase speed and productivity on a Mac</p>
 <p class="info">Published on Apr 21 2025 at 9:42am</p>
 <p>The aim of this post is to enhance your terminal experience and speed up terminal usage on Mac. As a programmer you will spend a significant amount of time on the terminal. These tools should help speed up common actions and help you become more productive. This post assumes you have Homebrew installed. If you don&rsquo;t follow the instructions on <a href="https://brew.sh/" target="_blank">https://brew.sh/</a></p>
 
@@ -74,7 +74,7 @@
 
 <pre><code class="language-bash">mas list
 </code></pre>
-<p>![Screenshot of <code>mas list</code> output]</p></li>
+<p><img src="/images/cli-tools/mas-list.jpg" alt="Screenshot of `mas list` output" /></p></li>
 
 <li><p><strong>Getting app information:</strong> You can retrieve detailed information about an app using its ID:</p>
 
@@ -83,14 +83,12 @@
 <p>To find the app ID, you can use <code>mas list</code>. For example, for the &ldquo;Neptune&rdquo; app, you can grab its ID and run:</p>
 
 <pre><code class="language-bash">mas info &lt;Neptune_app_id&gt;
-</code></pre>
-<p>![Screenshot of <code>mas info &lt;app_id&gt;</code> output]</p></li>
+</code></pre></li>
 
 <li><p><strong>Checking for outdated apps:</strong> To see if any of your installed apps have updates available, run:</p>
 
 <pre><code class="language-bash">mas outdated
-</code></pre>
-<p>![Screenshot of <code>mas outdated</code> output]</p></li>
+</code></pre></li>
 
 <li><p><strong>Upgrading apps:</strong> To install available updates, use:</p>
 
@@ -101,8 +99,7 @@
 <li><p><strong>Searching for apps:</strong> You can search for specific apps in the App Store using:</p>
 
 <pre><code class="language-bash">mas search &lt;app_name&gt;
-</code></pre>
-<p>![Screenshot of <code>mas search &lt;app_name&gt;</code> output]</p></li>
+</code></pre></li>
 
 <li><p><strong>Downloading apps:</strong> To download an app from the App Store, use its ID with the <code>purchase</code> command:</p>
 
@@ -114,6 +111,8 @@
 <h2>2. fzf - Fuzzy Finder</h2>
 
 <p><strong>fzf</strong> is a powerful fuzzy finder that allows you to search through your files and directories efficiently in the terminal. The lesser you need to <code>cd</code>into directories, the faster your navigation will be.</p>
+
+<p><img src="/images/cli-tools/fzf.jpg" alt="Screenshot of `fzf` output" /></p>
 
 <p><strong>Installation:</strong></p>
 
@@ -137,18 +136,11 @@
 <p>Custom fzf configurations in the <code>.zshrc</code> file.</p>
 
 <ul>
-<li><p><strong><code>Ctrl+T</code>:</strong> This key binding performs a fuzzy search for all files in the current directory (and subdirectories), using <code>fd</code> (explained later) to speed up the search and excluding <code>.git</code> files.</p>
+<li><p><strong><code>Ctrl+T</code>:</strong> This key binding performs a fuzzy search for all files in the current directory (and subdirectories), using <code>fd</code> (explained later) to speed up the search and excluding <code>.git</code> files.</p></li>
 
-<p>![Screenshot of <code>Ctrl+T</code> in action]</p></li>
+<li><p><strong><code>Option+C</code> (or <code>Alt+C</code>):</strong> This command specifically searches for directories, allowing you to quickly jump to a desired directory.</p></li>
 
-<li><p><strong><code>Option+C</code> (or <code>Alt+C</code>):</strong> This command specifically searches for directories, allowing you to quickly jump to a desired directory.</p>
-
-<p>![Screenshot of <code>Option+C</code> in action]</p></li>
-
-<li><p><strong>Custom Command (<code>envm Ctrl+T</code> or <code>Cod Ctrl+T</code>):</strong> You can also use fzf with other commands like <code>nvim</code> (neovim) and <code>Code</code> (VS Code) to fuzzy find files and open them in the respective editor. For example, <code>envm</code> followed by <code>Ctrl+T</code> allows fuzzy searching through all files and opening the selected one in neovim. Similarly, <code>Cod Ctrl+T</code> does the same for VS Code.</p>
-
-<p>![Screenshot of <code>envm Ctrl+T</code> in action]
-![Screenshot of <code>Cod Ctrl+T</code> in action]</p></li>
+<li><p><strong>Custom Command (<code>envm Ctrl+T</code> or <code>Cod Ctrl+T</code>):</strong> You can also use fzf with other commands like <code>nvim</code> (neovim) and <code>Code</code> (VS Code) to fuzzy find files and open them in the respective editor. For example, <code>envm</code> followed by <code>Ctrl+T</code> allows fuzzy searching through all files and opening the selected one in neovim. Similarly, <code>Cod Ctrl+T</code> does the same for VS Code.</p></li>
 </ul>
 
 <h2>3. fd - A Simple, Fast and User-Friendly Alternative to &lsquo;find&rsquo;</h2>
@@ -182,7 +174,7 @@
 <pre><code class="language-bash">bat &lt;filename&gt;
 </code></pre>
 
-<p>![Screenshot of <code>bat &lt;filename&gt;</code> output]</p>
+<p><img src="/images/cli-tools/bat.jpg" alt="Screenshot of `bat` output" /></p>
 
 <p>This is especially useful when combined with fzf.</p>
 
@@ -209,7 +201,7 @@
 <pre><code class="language-bash">tldr git
 </code></pre>
 
-<p>![Screenshot of <code>tldr git</code> output]</p>
+<p><img src="/images/cli-tools/tldr-git.jpg" alt="Screenshot of `tldr git` output" /></p>
 
 <h2>6. fzf.git - Fuzzy Finder Extensions for Git</h2>
 
@@ -228,17 +220,11 @@
 <p>The following key bindings should work in a Git repository with a remote:</p>
 
 <ul>
-<li><p><strong><code>Ctrl+GB</code>:</strong> Shows all Git branches.</p>
+<li><p><strong><code>Ctrl+GB</code>:</strong> Shows all Git branches.</p></li>
 
-<p>![Screenshot of <code>Ctrl+GB</code> output]</p></li>
+<li><p><strong><code>Ctrl+GR</code>:</strong> Shows all Git remotes.</p></li>
 
-<li><p><strong><code>Ctrl+GR</code>:</strong> Shows all Git remotes.</p>
-
-<p>![Screenshot of <code>Ctrl+GR</code> output]</p></li>
-
-<li><p><strong><code>Ctrl+GW</code>:</strong> Shows Git worktrees.</p>
-
-<p>![Screenshot of <code>Ctrl+GW</code> output]</p></li>
+<li><p><strong><code>Ctrl+GW</code>:</strong> Shows Git worktrees.</p></li>
 </ul>
 
 <h2>7. zoxide - A Smarter cd Command</h2>
@@ -259,6 +245,8 @@
 <pre><code class="language-bash">eval &quot;$(zoxide init zsh)&quot;
 </code></pre>
 
+<p><img src="/images/cli-tools/zoxide.jpg" alt="Screenshot of `zoxide` output" /></p>
+
 <p><strong>Save and source your RC file</strong>.</p>
 
 <p><strong>Usage:</strong></p>
@@ -268,9 +256,7 @@
 
 <pre><code class="language-bash">z &lt;partial_directory_name&gt;
 </code></pre>
-<p>For example, after navigating to a &ldquo;projects&rdquo; directory, you can later jump back with <code>z pro</code>.</p>
-
-<p>![Screenshot of <code>z pro</code> output]</p></li>
+<p>For example, after navigating to a &ldquo;projects&rdquo; directory, you can later jump back with <code>z pro</code>.</p></li>
 
 <li><p><strong>Returning to home:</strong> Typing <code>z</code> alone will take you back to your home directory.</p></li>
 </ul>
@@ -293,20 +279,17 @@
 <pre><code class="language-bash">alias ls=&quot;eza -l --icons --group-directories-first&quot;
 </code></pre>
 
-<ul>
-<li><p><strong>Basic listing:</strong> Running <code>ls</code> (which is <code>eza</code> in this case) will provide a detailed listing with icons and grouped directories.</p>
+<p><img src="/images/cli-tools/eza.jpg" alt="Screenshot of `eza` output" /></p>
 
-<p>![Screenshot of basic <code>eza</code> output]</p></li>
+<ul>
+<li><p><strong>Basic listing:</strong> Running <code>ls</code> (which is <code>eza</code> in this case) will provide a detailed listing with icons and grouped directories.</p></li>
 
 <li><p><strong>Grid view:</strong> You can also configure eza to display output in a grid format:</p>
 
 <pre><code class="language-bash">alias ls=&quot;eza --grid --icons&quot;
-</code></pre>
-<p>![Screenshot of <code>eza --grid</code> output]</p></li>
+</code></pre></li>
 
-<li><p><strong>Integration with fzf:</strong> The <code>Option+C</code> (directory search) in fzf also includes eza for previews, showing detailed information about the selected directory.</p>
-
-<p>![Screenshot of fzf with eza preview]</p></li>
+<li><p><strong>Integration with fzf:</strong> The <code>Option+C</code> (directory search) in fzf also includes eza for previews, showing detailed information about the selected directory.</p></li>
 </ul>
 
 <h2>9. yazi - A Blazing Fast Terminal File Manager</h2>
@@ -317,8 +300,10 @@
 
 <p>Install yazi using Homebrew:</p>
 
-<pre><code class="language-bash">brew install yazi
+<pre><code class="language-bash">brew install yazi ffmpeg sevenzip jq poppler fd ripgrep fzf zoxide resvg imagemagick font-symbols-only-nerd-font
 </code></pre>
+
+<p>yazi works well with other tools but if you don&rsquo;t want to install the others use <code>brew install yazi</code> only</p>
 
 <p><strong>Usage:</strong></p>
 
@@ -327,7 +312,7 @@
 <ul>
 <li><p><strong>Navigation:</strong> Use the up and down arrow keys to navigate within the current directory, and the left and right arrow keys to go to the previous and next directories.</p>
 
-<p>![Screenshot of the yazi interface]</p></li>
+<p><img src="/images/cli-tools/yazi.jpg" alt="Screenshot of the yazi interface" /></p></li>
 
 <li><p><strong>Customization:</strong> Yazi can be customized by creating a <code>.config/yazi</code> directory and adding configuration files like <code>yazi.toml</code>, <code>keymaps.toml</code>, and <code>themes.toml</code>. Themes can be downloaded from the Yazi GitHub repository.</p></li>
 
@@ -348,9 +333,7 @@
 <li><code>/</code> or <code>?</code>: Start a search.</li>
 <li><code>Enter</code>: Open a file with the default editor (can be configured, e.g., to neovim).</li>
 <li><code>:</code>: Run a shell command.</li>
-</ul>
-
-<p>![Screenshot of yazi performing a file operation]</p></li>
+</ul></li>
 </ul>
 
 <h2>10. tmux - Terminal Multiplexer</h2>
