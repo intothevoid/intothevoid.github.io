@@ -10,6 +10,8 @@
 <pubDate>Thu, 24 Apr 2025 17:34:16 +0930</pubDate>
 <description><![CDATA[
 
+![Likho](/images/likho/logo.png "Likho")
+
 `Likho` (_verb_): means `to write` (Hindi).
 
 A static site generator is a tool that converts markdown files into a static website. It's a great way to create a simple and fast website. I have been using different static site generators to create my blog in the past. I really liked using [Hugo](https://gohugo.io/) but I always felt it was too much for my needs. I wanted something simple and have always wanted to write my own static site generator.
