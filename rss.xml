@@ -10,7 +10,7 @@
 <pubDate>Mon, 21 Apr 2025 09:42:47 +0930</pubDate>
 <description><![CDATA[
 
-The aim of this post is to enhance your terminal experience and speed up terminal usage on Mac. As a programmer you will spend a significant amount of time on the terminal. These tools should help speed up common actions and help you become more productive. This post assumes you have Homebrew installed. If you don't follow the instructions on https://brew.sh/
+The aim of this post is to enhance and speed up your terminal terminal usage on a Mac. As a programmer you will spend a significant amount of time on the terminal. These tools will speed up common actions and help you become more productive. This post assumes you have Homebrew installed. If you don't follow the instructions on https://brew.sh/
 
 ```zsh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -111,7 +111,7 @@ Custom fzf configurations in the `.zshrc` file.
 
 *   **`Option+C` (or `Alt+C`):** This command specifically searches for directories, allowing you to quickly jump to a desired directory.
 
-*   **Custom Command (`envm Ctrl+T` or `Cod Ctrl+T`):** You can also use fzf with other commands like `nvim` (neovim) and `Code` (VS Code) to fuzzy find files and open them in the respective editor. For example, `envm` followed by `Ctrl+T` allows fuzzy searching through all files and opening the selected one in neovim. Similarly, `Cod Ctrl+T` does the same for VS Code.
+*   **Custom Command (`nvim Ctrl+T` or `code Ctrl+T`):** You can also use fzf with other commands like `nvim` (neovim) and `code` (VS Code) to fuzzy find files and open them in the respective editor. For example, `nvim` followed by `Ctrl+T` allows fuzzy searching through all files and opening the selected one in neovim. Similarly, `code Ctrl+T` does the same for VS Code.
 
 ## 3. fd - A Simple, Fast and User-Friendly Alternative to 'find'
 
@@ -222,6 +222,14 @@ Add the following line to your `~/.zshrc` file to initialize zoxide:
 eval "$(zoxide init zsh)"
 ```
 
+I have added an alias to zoxide in my ~/.bashrc to replace the `cd` command -
+
+```bash
+alias cd='z'
+```
+
+This can be super convenient if you frequently traverse deep folder hierarchies.
+
 ![Screenshot of `zoxide` output](images/cli-tools/zoxide.jpg)
 
 **Save and source your RC file**.
@@ -287,7 +295,18 @@ yazi works well with other tools but if you don't want to install the others use
 
 **Usage:**
 
-Running `yi` will open the yazi file manager.
+Running `y` will open the yazi file manager if you add the following function to your ~/.bashrc -
+
+```bash
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+```
 
 *   **Navigation:** Use the up and down arrow keys to navigate within the current directory, and the left and right arrow keys to go to the previous and next directories.
 
@@ -331,8 +350,8 @@ The `~/.tmux.conf` file is used for custom configurations and there's a `~/.tmux
 
 *   **Prefix Key:** `Ctrl+b` is used as the prefix key.
 *   **Splitting Panes:**
-    *   `Ctrl+b` then `|`: Split vertically.
-    *   `Ctrl+b` then `-`: Split horizontally.
+    *   `Ctrl+b` then `%` Split vertically.
+    *   `Ctrl+b` then `"`: Split horizontally.
 *   **Reload Configuration:** `Ctrl+b` then `r`: Reloads the tmux configuration.
 *   **Pane Resizing:** `Ctrl+b` then `H`, `J`, `K`, or `L` (using Vim-like motion keys): Resizes panes.
 *   **Selection Mode:** `Ctrl+b` then `[`: Enters selection mode, allowing you to copy text.
@@ -345,7 +364,6 @@ The `~/.tmux.conf` file is used for custom configurations and there's a `~/.tmux
 
 *   **Plugins:** The following plugins can be used:
     *   `tmux-plugins/tpm`: The tmux plugin manager itself.
-    *   `catppuccin/tmux`: A Catppuccin theme for tmux.
     *   `christoomey/vim-tmux-navigator`: Allows seamless navigation between Vim and tmux panes using Vim motion keys.
     *   `thewtex/tmux-sessionx`: Provides an enhanced session management interface, accessible with `Ctrl+b` then `O`. It allows easy switching, creation (by typing a new name), and renaming (with `Ctrl+r`) of tmux sessions.
     *   Plugins for online status, battery, and theming.
@@ -360,7 +378,7 @@ The `~/.tmux.conf` file is used for custom configurations and there's a `~/.tmux
 
 After this, kill all tmux servers (`tmux kill-server`) and start a new tmux session.
 
-Tmux allows for quickly switching between different project sessions, reducing the need to constantly navigate through directories.
+Tmux allows for quickly switching between different project sessions, reducing the need to constantly navigate through directories. I might end up writing a more detailed post on Tmux because it offers so much functionality and deep customisation.
 
 These command-line tools can significantly enhance a programmer's terminal experience, making tasks more efficient and enjoyable. By following the installation and usage instructions on this page, you can start integrating these tools into your workflow. Don't hesitate to explore their advanced features and configurations to tailor them to your specific needs. Remember to refer to the respective project GitHub pages for more detailed information and options.
 ]]></description>

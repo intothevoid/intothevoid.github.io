@@ -51,7 +51,7 @@
 <h2>Top CLI tools for programmers on a Mac</h2>
 <p>A list of top command line tools for programmers to increase speed and productivity on a Mac</p>
 <p class="info">Published on Apr 21 2025 at 9:42am</p>
-<p>The aim of this post is to enhance your terminal experience and speed up terminal usage on Mac. As a programmer you will spend a significant amount of time on the terminal. These tools should help speed up common actions and help you become more productive. This post assumes you have Homebrew installed. If you don&rsquo;t follow the instructions on <a href="https://brew.sh/" target="_blank">https://brew.sh/</a></p>
+<p>The aim of this post is to enhance and speed up your terminal terminal usage on a Mac. As a programmer you will spend a significant amount of time on the terminal. These tools will speed up common actions and help you become more productive. This post assumes you have Homebrew installed. If you don&rsquo;t follow the instructions on <a href="https://brew.sh/" target="_blank">https://brew.sh/</a></p>
 
 <pre><code class="language-zsh">/bin/bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&quot;
 </code></pre>
@@ -140,7 +140,7 @@
 
 <li><p><strong><code>Option+C</code> (or <code>Alt+C</code>):</strong> This command specifically searches for directories, allowing you to quickly jump to a desired directory.</p></li>
 
-<li><p><strong>Custom Command (<code>envm Ctrl+T</code> or <code>Cod Ctrl+T</code>):</strong> You can also use fzf with other commands like <code>nvim</code> (neovim) and <code>Code</code> (VS Code) to fuzzy find files and open them in the respective editor. For example, <code>envm</code> followed by <code>Ctrl+T</code> allows fuzzy searching through all files and opening the selected one in neovim. Similarly, <code>Cod Ctrl+T</code> does the same for VS Code.</p></li>
+<li><p><strong>Custom Command (<code>nvim Ctrl+T</code> or <code>code Ctrl+T</code>):</strong> You can also use fzf with other commands like <code>nvim</code> (neovim) and <code>code</code> (VS Code) to fuzzy find files and open them in the respective editor. For example, <code>nvim</code> followed by <code>Ctrl+T</code> allows fuzzy searching through all files and opening the selected one in neovim. Similarly, <code>code Ctrl+T</code> does the same for VS Code.</p></li>
 </ul>
 
 <h2>3. fd - A Simple, Fast and User-Friendly Alternative to &lsquo;find&rsquo;</h2>
@@ -245,6 +245,13 @@
 <pre><code class="language-bash">eval &quot;$(zoxide init zsh)&quot;
 </code></pre>
 
+<p>I have added an alias to zoxide in my ~/.bashrc to replace the <code>cd</code> command -</p>
+
+<pre><code class="language-bash">alias cd='z'
+</code></pre>
+
+<p>This can be super convenient if you frequently traverse deep folder hierarchies.</p>
+
 <p><img src="/images/cli-tools/zoxide.jpg" alt="Screenshot of `zoxide` output" /></p>
 
 <p><strong>Save and source your RC file</strong>.</p>
@@ -307,7 +314,17 @@
 
 <p><strong>Usage:</strong></p>
 
-<p>Running <code>yi</code> will open the yazi file manager.</p>
+<p>Running <code>y</code> will open the yazi file manager if you add the following function to your ~/.bashrc -</p>
+
+<pre><code class="language-bash">function y() {
+	local tmp=&quot;$(mktemp -t &quot;yazi-cwd.XXXXXX&quot;)&quot; cwd
+	yazi &quot;$@&quot; --cwd-file=&quot;$tmp&quot;
+	if cwd=&quot;$(command cat -- &quot;$tmp&quot;)&quot; &amp;&amp; [ -n &quot;$cwd&quot; ] &amp;&amp; [ &quot;$cwd&quot; != &quot;$PWD&quot; ]; then
+		builtin cd -- &quot;$cwd&quot;
+	fi
+	rm -f -- &quot;$tmp&quot;
+}
+</code></pre>
 
 <ul>
 <li><p><strong>Navigation:</strong> Use the up and down arrow keys to navigate within the current directory, and the left and right arrow keys to go to the previous and next directories.</p>
@@ -359,8 +376,8 @@
 <li><p><strong>Splitting Panes:</strong></p>
 
 <ul>
-<li><code>Ctrl+b</code> then <code>|</code>: Split vertically.</li>
-<li><code>Ctrl+b</code> then <code>-</code>: Split horizontally.</li>
+<li><code>Ctrl+b</code> then <code>%</code> Split vertically.</li>
+<li><code>Ctrl+b</code> then <code>&quot;</code>: Split horizontally.</li>
 </ul></li>
 
 <li><p><strong>Reload Configuration:</strong> <code>Ctrl+b</code> then <code>r</code>: Reloads the tmux configuration.</p></li>
@@ -380,7 +397,6 @@
 
 <ul>
 <li><code>tmux-plugins/tpm</code>: The tmux plugin manager itself.</li>
-<li><code>catppuccin/tmux</code>: A Catppuccin theme for tmux.</li>
 <li><code>christoomey/vim-tmux-navigator</code>: Allows seamless navigation between Vim and tmux panes using Vim motion keys.</li>
 <li><code>thewtex/tmux-sessionx</code>: Provides an enhanced session management interface, accessible with <code>Ctrl+b</code> then <code>O</code>. It allows easy switching, creation (by typing a new name), and renaming (with <code>Ctrl+r</code>) of tmux sessions.</li>
 <li>Plugins for online status, battery, and theming.</li>
@@ -399,7 +415,7 @@
 
 <p>After this, kill all tmux servers (<code>tmux kill-server</code>) and start a new tmux session.</p>
 
-<p>Tmux allows for quickly switching between different project sessions, reducing the need to constantly navigate through directories.</p>
+<p>Tmux allows for quickly switching between different project sessions, reducing the need to constantly navigate through directories. I might end up writing a more detailed post on Tmux because it offers so much functionality and deep customisation.</p>
 
 <p>These command-line tools can significantly enhance a programmer&rsquo;s terminal experience, making tasks more efficient and enjoyable. By following the installation and usage instructions on this page, you can start integrating these tools into your workflow. Don&rsquo;t hesitate to explore their advanced features and configurations to tailor them to your specific needs. Remember to refer to the respective project GitHub pages for more detailed information and options.</p>
 
