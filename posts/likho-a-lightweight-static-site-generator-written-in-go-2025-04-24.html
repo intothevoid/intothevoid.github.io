@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Into The Void - Likho: A lightweight static site generator written in Go</title>
+    <link rel="stylesheet" href="/css/main.css">
+    
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+    </script>
+</head>
+<body>
+    
+<header>
+    <div id="site-title" style="display:flex; justify-content:left; align-items: left;">
+        <a href="/index.html">
+            <h1 style="margin: 0;">Into The Void</h1>
+        </a>
+    </div>
+    <div id="nav-links" style="display:flex; justify-content:right; align-items: right;">
+        <nav>
+            <div style="display: flex;">
+                <a href="/posts.html">All Posts</a>
+                
+                    <a href="/pages/about.html">About</a>
+                
+                    <a href="/pages/projects.html">Projects</a>
+                
+            </div>
+        </nav>
+    </div>
+</header>
+
+    <main>
+    
+<h2>Likho: A lightweight static site generator written in Go</h2>
+<p>A look at Likho, a fast and simple static site generator written in Go</p>
+<p class="info">Published on Apr 24 2025 at 5:34pm</p>
+<p><code>Likho</code> (<em>verb</em>): means <code>to write</code> (Hindi).</p>
+
+<p>A static site generator is a tool that converts markdown files into a static website. It&rsquo;s a great way to create a simple and fast website. I have been using different static site generators to create my blog in the past. I really liked using <a href="https://gohugo.io/" target="_blank">Hugo</a> but I always felt it was too much for my needs. I wanted something simple and have always wanted to write my own static site generator.</p>
+
+<p>Likho is a static site generator that transforms markdown files into a beautiful, functional website. It&rsquo;s designed with simplicity in mind while providing powerful features that modern websites need. Whether you&rsquo;re a blogger, technical writer, or just someone who wants to maintain a personal website, Likho has you covered.</p>
+
+<h2>Core Features</h2>
+
+<ul>
+<li>🚀 <strong>Speed</strong>: Built in Go for performance</li>
+<li>📝 <strong>Markdown First</strong>: Write content in your favorite markdown editor</li>
+<li>🎨 <strong>Customizable</strong>: Flexible theming system with support for custom templates</li>
+<li>📊 <strong>Mermaid Diagrams</strong>: Create beautiful diagrams directly in your markdown</li>
+<li>🔍 <strong>Syntax Highlighting</strong>: Code blocks that look great</li>
+<li>📱 <strong>Responsive Design</strong>: Looks great on all devices</li>
+<li>📰 <strong>RSS &amp; Sitemap</strong>: Automatic generation of RSS feeds and sitemaps</li>
+</ul>
+
+<h2>System Architecture</h2>
+
+<p>Here&rsquo;s how Likho works under the hood:</p>
+
+<pre><code class="language-mermaid">graph TD
+    A[Markdown Files] --&gt; B[Likho]
+    B --&gt; C[Content Parser]
+    C --&gt; D[Template Engine]
+    D --&gt; E[HTML Generator]
+    E --&gt; F[Static Site]
+    G[Config] --&gt; B
+    H[Theme Files] --&gt; D
+</code></pre>
+
+<p>The system follows a clear pipeline:</p>
+
+<ol>
+<li><strong>Content Parser</strong>: Reads markdown files and YAML frontmatter</li>
+<li><strong>Template Engine</strong>: Processes templates with Go&rsquo;s template engine</li>
+<li><strong>HTML Generator</strong>: Converts markdown to HTML and applies templates</li>
+<li><strong>Asset Processor</strong>: Handles static assets and theme files</li>
+</ol>
+
+<h2>Directory Structure</h2>
+
+<pre><code class="language-mermaid">graph TD
+    A[Project Root] --&gt; B[content]
+    A --&gt; C[themes]
+    A --&gt; D[public]
+    B --&gt; E[posts]
+    B --&gt; F[pages]
+    B --&gt; G[images]
+    C --&gt; H[default]
+    H --&gt; I[static]
+    H --&gt; J[templates]
+    I --&gt; K[css]
+    I --&gt; L[js]
+    I --&gt; M[images]
+</code></pre>
+
+<h2>How It Works</h2>
+
+<h3>1. Content Processing</h3>
+
+<p>Likho processes your content in three main steps:</p>
+
+<pre><code class="language-mermaid">sequenceDiagram
+    participant User
+    participant Likho
+    participant Parser
+    participant Generator
+    
+    User-&gt;&gt;Likho: Run generate command
+    Likho-&gt;&gt;Parser: Read markdown files
+    Parser-&gt;&gt;Parser: Parse frontmatter
+    Parser-&gt;&gt;Parser: Convert markdown to HTML
+    Parser-&gt;&gt;Generator: Pass processed content
+    Generator-&gt;&gt;Generator: Apply templates
+    Generator-&gt;&gt;Generator: Generate static files
+    Generator-&gt;&gt;User: Output static site
+</code></pre>
+
+<h3>2. Theme System</h3>
+
+<p>The theme system is modular and easy to customize:</p>
+
+<pre><code class="language-mermaid">graph LR
+    A[Theme] --&gt; B[Base Template]
+    B --&gt; C[Post Template]
+    B --&gt; D[Page Template]
+    B --&gt; E[Index Template]
+    A --&gt; F[Static Assets]
+    F --&gt; G[CSS]
+    F --&gt; H[JS]
+    F --&gt; I[Images]
+</code></pre>
+
+<h2>Usage Example</h2>
+
+<p>Creating a new post is as simple as:</p>
+
+<pre><code class="language-bash">./likho create post &quot;My New Post&quot; -t &quot;technology,golang&quot; -i &quot;https://example.com/image.jpg&quot;
+</code></pre>
+
+<p>This generates a new markdown file with the following structure:</p>
+
+<pre><code class="language-yaml">---
+title: &quot;My New Post&quot;
+date: &quot;2024-03-21&quot;
+tags: [&quot;technology&quot;, &quot;golang&quot;]
+image: &quot;https://example.com/image.jpg&quot;
+description: &quot;&quot;
+---
+</code></pre>
+
+<h2>Performance</h2>
+
+<p>One of Likho&rsquo;s key strengths is its speed and simplicity. Being written in Go, it can process thousands of markdown files in seconds. Here&rsquo;s a distribution of time taken to process files:</p>
+
+<pre><code class="language-mermaid">pie title Processing Time
+    &quot;Parsing&quot; : 30
+    &quot;Template Processing&quot; : 20
+    &quot;File Generation&quot; : 10
+    &quot;Asset Copying&quot; : 5
+</code></pre>
+
+<h2>Getting Started</h2>
+
+<ol>
+<li>Install Go 1.23 or later</li>
+<li>Clone the repository</li>
+<li>Build the application</li>
+<li>Start creating content</li>
+</ol>
+
+<pre><code class="language-bash">git clone https://github.com/intothevoid/likho.git
+cd likho
+go build -o likho cmd/likho/main.go
+</code></pre>
+
+<h2>Building and serving your website</h2>
+
+<p>Running the <code>generate</code> command will read all the markdown files in the <code>content</code> directory and generate the static website in the <code>public</code> directory.</p>
+
+<pre><code class="language-bash">./likho generate
+</code></pre>
+
+<p>You can now locally serve your website using the <code>serve</code> command.</p>
+
+<pre><code class="language-bash">./likho serve
+</code></pre>
+
+<p>This will start a local server and you can view your website at <code>http://localhost:8080</code>.</p>
+
+<p>Pro-tip: You can use Github pages to host your website for free, all you need to do is create a repository with the name <code>username.github.io</code> and push your <code>public</code> directory to the <code>gh-pages</code> branch. Github actions will automatically build and serve your website.</p>
+
+<h2>Customizing your website</h2>
+
+<p>You can customize the look of your website by editing the themes inside the <code>themes/</code> directory. A few example themes have been provided for you to get started.</p>
+
+<h2>Why Likho?</h2>
+
+<p>Likho combines the power of Go with the simplicity of markdown to create a static site generator that&rsquo;s both powerful and easy to use. Whether you&rsquo;re a developer looking to document your projects or a writer wanting to share your thoughts, Likho provides all the tools you need to create a beautiful, functional website.</p>
+
+<h3>Proof is in the pudding</h3>
+
+<p>This website you are reading is built and powered by Likho. You can find the source code <a href="https://github.com/intothevoid/likho-blog" target="_blank">here</a>.</p>
+
+<p>Here&rsquo;s how the deployment pipeline works:</p>
+
+<pre><code class="language-mermaid">graph LR
+    A[Markdown Files] --&gt; B[Likho]
+    B --&gt; C[HTML Files]
+    C --&gt; D[GitHub Repository]
+    D --&gt; E[GitHub Actions]
+    E --&gt; F[GitHub Pages]
+    
+    subgraph &quot;Local Development&quot;
+        A
+        B
+        C
+    end
+    
+    subgraph &quot;Deployment&quot;
+        D
+        E
+        F
+    end
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style C fill:#bbf,stroke:#333,stroke-width:2px
+    style F fill:#bfb,stroke:#333,stroke-width:2px
+</code></pre>
+
+<p>The process is fully automated:
+1. Write content in Markdown
+2. Likho converts it to HTML
+3. Push changes to GitHub
+4. GitHub Actions automatically builds and deploys
+5. Your site is live on GitHub Pages</p>
+
+<p>Give it a try and let me know what you think! You can find the project on <a href="https://github.com/intothevoid/likho" target="_blank">GitHub</a>.</p>
+
+
+<p class="info">Tags: 
+    
+        
+        <a href="/tags/go.html">go</a>
+    
+        , 
+        <a href="/tags/projects.html">projects</a>
+    
+        , 
+        <a href="/tags/html.html">html</a>
+    
+        , 
+        <a href="/tags/javascript.html">javascript</a>
+    
+        , 
+        <a href="/tags/css.html">css</a>
+    
+        , 
+        <a href="/tags/programming.html">programming</a>
+    
+</p>
+
+
+    
+<script>
+    Prism.plugins.autoloader.languages_path = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/';
+    
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        document.querySelectorAll('pre.language-mermaid').forEach(function(element) {
+            
+            var mermaidDiv = document.createElement('div');
+            mermaidDiv.className = 'mermaid';
+            mermaidDiv.innerHTML = element.textContent;
+            
+            
+            element.parentNode.replaceChild(mermaidDiv, element);
+        });
+        
+        
+        mermaid.init();
+    });
+</script>
+
+    <main>
+    
+<footer>
+    <p class="footer-content">
+        <span>&copy; 2025 Into The Void.</span>
+        <span>Powered by <a href="https://www.github.com/intothevoid/likho">Likho</a>.</span>
+    </p>
+</footer>
+
+</body>
+</html>

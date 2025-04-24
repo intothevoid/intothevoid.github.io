@@ -5,6 +5,218 @@
 <link>https://intothevoid.github.io</link>
 <description>Programming, technology, electronics, and other random thoughts</description>
 <item>
+<title>Likho: A lightweight static site generator written in Go</title>
+<link>https://intothevoid.github.io/likho-a-lightweight-static-site-generator-written-in-go-2025-04-24.html</link>
+<pubDate>Thu, 24 Apr 2025 17:34:16 +0930</pubDate>
+<description><![CDATA[
+
+`Likho` (_verb_): means `to write` (Hindi).
+
+A static site generator is a tool that converts markdown files into a static website. It's a great way to create a simple and fast website. I have been using different static site generators to create my blog in the past. I really liked using [Hugo](https://gohugo.io/) but I always felt it was too much for my needs. I wanted something simple and have always wanted to write my own static site generator.
+
+Likho is a static site generator that transforms markdown files into a beautiful, functional website. It's designed with simplicity in mind while providing powerful features that modern websites need. Whether you're a blogger, technical writer, or just someone who wants to maintain a personal website, Likho has you covered.
+
+## Core Features
+
+- 🚀 **Speed**: Built in Go for performance
+- 📝 **Markdown First**: Write content in your favorite markdown editor
+- 🎨 **Customizable**: Flexible theming system with support for custom templates
+- 📊 **Mermaid Diagrams**: Create beautiful diagrams directly in your markdown
+- 🔍 **Syntax Highlighting**: Code blocks that look great
+- 📱 **Responsive Design**: Looks great on all devices
+- 📰 **RSS & Sitemap**: Automatic generation of RSS feeds and sitemaps
+
+## System Architecture
+
+Here's how Likho works under the hood:
+
+```mermaid
+graph TD
+    A[Markdown Files] --> B[Likho]
+    B --> C[Content Parser]
+    C --> D[Template Engine]
+    D --> E[HTML Generator]
+    E --> F[Static Site]
+    G[Config] --> B
+    H[Theme Files] --> D
+```
+
+The system follows a clear pipeline:
+
+1. **Content Parser**: Reads markdown files and YAML frontmatter
+2. **Template Engine**: Processes templates with Go's template engine
+3. **HTML Generator**: Converts markdown to HTML and applies templates
+4. **Asset Processor**: Handles static assets and theme files
+
+## Directory Structure
+
+```mermaid
+graph TD
+    A[Project Root] --> B[content]
+    A --> C[themes]
+    A --> D[public]
+    B --> E[posts]
+    B --> F[pages]
+    B --> G[images]
+    C --> H[default]
+    H --> I[static]
+    H --> J[templates]
+    I --> K[css]
+    I --> L[js]
+    I --> M[images]
+```
+
+## How It Works
+
+### 1. Content Processing
+
+Likho processes your content in three main steps:
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Likho
+    participant Parser
+    participant Generator
+    
+    User->>Likho: Run generate command
+    Likho->>Parser: Read markdown files
+    Parser->>Parser: Parse frontmatter
+    Parser->>Parser: Convert markdown to HTML
+    Parser->>Generator: Pass processed content
+    Generator->>Generator: Apply templates
+    Generator->>Generator: Generate static files
+    Generator->>User: Output static site
+```
+
+### 2. Theme System
+
+The theme system is modular and easy to customize:
+
+```mermaid
+graph LR
+    A[Theme] --> B[Base Template]
+    B --> C[Post Template]
+    B --> D[Page Template]
+    B --> E[Index Template]
+    A --> F[Static Assets]
+    F --> G[CSS]
+    F --> H[JS]
+    F --> I[Images]
+```
+
+## Usage Example
+
+Creating a new post is as simple as:
+
+```bash
+./likho create post "My New Post" -t "technology,golang" -i "https://example.com/image.jpg"
+```
+
+This generates a new markdown file with the following structure:
+
+```yaml
+---
+title: "My New Post"
+date: "2024-03-21"
+tags: ["technology", "golang"]
+image: "https://example.com/image.jpg"
+description: ""
+---
+```
+
+## Performance
+
+One of Likho's key strengths is its speed and simplicity. Being written in Go, it can process thousands of markdown files in seconds. Here's a distribution of time taken to process files:
+
+```mermaid
+pie title Processing Time
+    "Parsing" : 30
+    "Template Processing" : 20
+    "File Generation" : 10
+    "Asset Copying" : 5
+```
+
+## Getting Started
+
+1. Install Go 1.23 or later
+2. Clone the repository
+3. Build the application
+4. Start creating content
+
+```bash
+git clone https://github.com/intothevoid/likho.git
+cd likho
+go build -o likho cmd/likho/main.go
+```
+
+## Building and serving your website
+
+Running the `generate` command will read all the markdown files in the `content` directory and generate the static website in the `public` directory.
+
+```bash
+./likho generate
+```
+You can now locally serve your website using the `serve` command.
+
+```bash
+./likho serve
+```
+
+This will start a local server and you can view your website at `http://localhost:8080`.
+
+Pro-tip: You can use Github pages to host your website for free, all you need to do is create a repository with the name `username.github.io` and push your `public` directory to the `gh-pages` branch. Github actions will automatically build and serve your website.
+
+## Customizing your website
+
+You can customize the look of your website by editing the themes inside the `themes/` directory. A few example themes have been provided for you to get started.
+
+## Why Likho?
+
+Likho combines the power of Go with the simplicity of markdown to create a static site generator that's both powerful and easy to use. Whether you're a developer looking to document your projects or a writer wanting to share your thoughts, Likho provides all the tools you need to create a beautiful, functional website.
+
+### Proof is in the pudding
+
+This website you are reading is built and powered by Likho. You can find the source code [here](https://github.com/intothevoid/likho-blog).
+
+Here's how the deployment pipeline works:
+
+```mermaid
+graph LR
+    A[Markdown Files] --> B[Likho]
+    B --> C[HTML Files]
+    C --> D[GitHub Repository]
+    D --> E[GitHub Actions]
+    E --> F[GitHub Pages]
+    
+    subgraph "Local Development"
+        A
+        B
+        C
+    end
+    
+    subgraph "Deployment"
+        D
+        E
+        F
+    end
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style C fill:#bbf,stroke:#333,stroke-width:2px
+    style F fill:#bfb,stroke:#333,stroke-width:2px
+```
+
+The process is fully automated:
+1. Write content in Markdown
+2. Likho converts it to HTML
+3. Push changes to GitHub
+4. GitHub Actions automatically builds and deploys
+5. Your site is live on GitHub Pages
+
+Give it a try and let me know what you think! You can find the project on [GitHub](https://github.com/intothevoid/likho). 
+]]></description>
+</item>
+<item>
 <title>Top CLI tools for programmers on a Mac</title>
 <link>https://intothevoid.github.io/top-cli-tools-for-programmers-on-a-mac-2025-04-21.html</link>
 <pubDate>Mon, 21 Apr 2025 09:42:47 +0930</pubDate>
