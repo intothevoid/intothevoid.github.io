@@ -16,51 +16,24 @@ This page introduces the Model Context Protocol (MCP). MCP is a protocol to prov
 
 MCPs provide a standard way for LLMs to connect to services and data.
 
-## Architecture
+## Architecture / Components
 
-The following diagram shows the architecture of MCP -
+The following diagram shows the main components of MCP -
 
-graph TB
-    subgraph "Model Context Protocol"
-        MCP[Model Context Protocol] --> Embedding[Context Embedding]
-        MCP --> Retrieval[Context Retrieval]
-        MCP --> Transformation[Context Transformation]
-        MCP --> Insertion[Context Insertion]
-    end
+```mermaid
+sequenceDiagram
+    participant Host as MCP Host
+    participant Client as MCP Client
+    participant Local as Local MCP Server
+    participant Remote as Remote MCP Server
 
-    subgraph "Context Sources"
-        CS[Context Sources] --> VectorDB[Vector Databases]
-        CS --> FileSystem[File System]
-        CS --> API[External APIs]
-        CS --> KB[Knowledge Bases]
-    end
-
-    subgraph "Prompt Engineering"
-        PE[Prompt Engineering] --> TemplateEngine[Template Engine]
-        PE --> ContextWindow[Context Window Management]
-        PE --> Chunking[Content Chunking]
-    end
-
-    subgraph "Model Interaction"
-        MI[Model Interaction] --> LLM[Large Language Model]
-        MI --> Inference[Inference Engine]
-        MI --> ResponseProcessing[Response Processing]
-    end
-
-    CS --> MCP
-    MCP --> PE
-    PE --> MI
-    MI --> Output[Generated Response]
-
-    classDef primary fill:#6495ED,stroke:#333,stroke-width:1px;
-    classDef secondary fill:#90EE90,stroke:#333,stroke-width:1px;
-    classDef tertiary fill:#FFD700,stroke:#333,stroke-width:1px;
-    classDef output fill:#FF6347,stroke:#333,stroke-width:1px;
-    
-    class MCP,CS,PE,MI primary;
-    class Embedding,Retrieval,Transformation,Insertion,VectorDB,FileSystem,API,KB secondary;
-    class TemplateEngine,ContextWindow,Chunking,LLM,Inference,ResponseProcessing tertiary;
-    class Output output;
+    Host->>Client: 1. User Request
+    Client->>Local: 2. Process Request
+    Local-->>Client: 3. Local Response
+    Client->>Remote: 4. Additional Context
+    Remote-->>Client: 5. Remote Response
+    Client-->>Host: 6. Combined Response
+```
 
 Fig. The key components of the Model Context Protocol architecture
 
@@ -80,7 +53,7 @@ The flow illustrates the basic chain of communication in the Model Context Proto
 
 Lets dive straight in, and try and build a MCP server, that does something simple - access Stock information. Here's what we are trying to accomplish -
 
-
+```mermaid
 graph TD
     MCP_Host -->|Request| LLM
     LLM -->|Processed Request| MCP_Server(Stocks)
@@ -88,6 +61,7 @@ graph TD
     Remote_Service(Yahoo Stocks API) -->|Response| MCP_Server(Stocks)
     MCP_Server(Stocks) -->|Response| LLM
     LLM -->|Final Response| MCP_Host
+```
 
 Fig. Simple Stocks MCP Server
 
@@ -453,7 +427,7 @@ def mcp_info():
         "name": "Stock Price Lookup",
         "version": "1.0.0",
         "description": "Get real-time stock prices from Yahoo Finance",
-        "author": "Your Name",
+        "author": "Karan Kadam",
         "properties": {
             "max_tokens_to_sample": 1000,
             "temperature": 0
@@ -498,8 +472,6 @@ if __name__ == "__main__":
 ```
 
 #### What This Implementation Includes:
-
-1. MCP Protocol Support:
 
 - Implements the /mcp endpoint required by Claude Desktop
 
@@ -554,22 +526,21 @@ Here is what your `claude_desktop_config.json` should look like -
       ]
     },
      "stock_price_server": {
-        "command": "/Users/bindok/bikeshed/github/bikeshed/python/mcp_server_stocks/venv/bin/python",
+        "command": "python",
         "args": [
-          "/Users/bindok/bikeshed/github/bikeshed/python/mcp_server_stocks/mcp_server.py"
+          "mcp_server.py"
         ],
         "env": {
-          "FLASK_APP": "/Users/bindok/bikeshed/github/bikeshed/python/mcp_server_stocks/mcp_server.py",
+          "FLASK_APP": "mcp_server.py",
           "FLASK_ENV": "production",
           "PORT": "8081"
         }
       }
     }
   }
-
 ```
 
-Update the paths according to your machine. Verify that your mcp server is registered and working well under Settings > Developer.
+`Note`: Update the paths according to your machine. Verify that your mcp server is registered and working well under Settings > Developer.
 
 ![Claude Developer Settings](images/mcp/claude-settings.jpg)
 

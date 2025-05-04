@@ -57,51 +57,22 @@
 
 <p>MCPs provide a standard way for LLMs to connect to services and data.</p>
 
-<h2>Architecture</h2>
+<h2>Architecture / Components</h2>
 
-<p>The following diagram shows the architecture of MCP -</p>
+<p>The following diagram shows the main components of MCP -</p>
 
-<p>graph TB
-    subgraph &ldquo;Model Context Protocol&rdquo;
-        MCP[Model Context Protocol] &ndash;&gt; Embedding[Context Embedding]
-        MCP &ndash;&gt; Retrieval[Context Retrieval]
-        MCP &ndash;&gt; Transformation[Context Transformation]
-        MCP &ndash;&gt; Insertion[Context Insertion]
-    end</p>
+<pre><code class="language-mermaid">sequenceDiagram
+    participant Host as MCP Host
+    participant Client as MCP Client
+    participant Local as Local MCP Server
+    participant Remote as Remote MCP Server
 
-<pre><code>subgraph &quot;Context Sources&quot;
-    CS[Context Sources] --&gt; VectorDB[Vector Databases]
-    CS --&gt; FileSystem[File System]
-    CS --&gt; API[External APIs]
-    CS --&gt; KB[Knowledge Bases]
-end
-
-subgraph &quot;Prompt Engineering&quot;
-    PE[Prompt Engineering] --&gt; TemplateEngine[Template Engine]
-    PE --&gt; ContextWindow[Context Window Management]
-    PE --&gt; Chunking[Content Chunking]
-end
-
-subgraph &quot;Model Interaction&quot;
-    MI[Model Interaction] --&gt; LLM[Large Language Model]
-    MI --&gt; Inference[Inference Engine]
-    MI --&gt; ResponseProcessing[Response Processing]
-end
-
-CS --&gt; MCP
-MCP --&gt; PE
-PE --&gt; MI
-MI --&gt; Output[Generated Response]
-
-classDef primary fill:#6495ED,stroke:#333,stroke-width:1px;
-classDef secondary fill:#90EE90,stroke:#333,stroke-width:1px;
-classDef tertiary fill:#FFD700,stroke:#333,stroke-width:1px;
-classDef output fill:#FF6347,stroke:#333,stroke-width:1px;
-
-class MCP,CS,PE,MI primary;
-class Embedding,Retrieval,Transformation,Insertion,VectorDB,FileSystem,API,KB secondary;
-class TemplateEngine,ContextWindow,Chunking,LLM,Inference,ResponseProcessing tertiary;
-class Output output;
+    Host-&gt;&gt;Client: 1. User Request
+    Client-&gt;&gt;Local: 2. Process Request
+    Local--&gt;&gt;Client: 3. Local Response
+    Client-&gt;&gt;Remote: 4. Additional Context
+    Remote--&gt;&gt;Client: 5. Remote Response
+    Client--&gt;&gt;Host: 6. Combined Response
 </code></pre>
 
 <p>Fig. The key components of the Model Context Protocol architecture</p>
@@ -124,13 +95,14 @@ class Output output;
 
 <p>Lets dive straight in, and try and build a MCP server, that does something simple - access Stock information. Here&rsquo;s what we are trying to accomplish -</p>
 
-<p>graph TD
-    MCP_Host &ndash;&gt;|Request| LLM
-    LLM &ndash;&gt;|Processed Request| MCP_Server(Stocks)
-    MCP_Server(Stocks) &ndash;&gt;|Request| Remote_Service(Yahoo Stocks API)
-    Remote_Service(Yahoo Stocks API) &ndash;&gt;|Response| MCP_Server(Stocks)
-    MCP_Server(Stocks) &ndash;&gt;|Response| LLM
-    LLM &ndash;&gt;|Final Response| MCP_Host</p>
+<pre><code class="language-mermaid">graph TD
+    MCP_Host --&gt;|Request| LLM
+    LLM --&gt;|Processed Request| MCP_Server(Stocks)
+    MCP_Server(Stocks) --&gt;|Request| Remote_Service(Yahoo Stocks API)
+    Remote_Service(Yahoo Stocks API) --&gt;|Response| MCP_Server(Stocks)
+    MCP_Server(Stocks) --&gt;|Response| LLM
+    LLM --&gt;|Final Response| MCP_Host
+</code></pre>
 
 <p>Fig. Simple Stocks MCP Server</p>
 
@@ -495,7 +467,7 @@ def mcp_info():
         &quot;name&quot;: &quot;Stock Price Lookup&quot;,
         &quot;version&quot;: &quot;1.0.0&quot;,
         &quot;description&quot;: &quot;Get real-time stock prices from Yahoo Finance&quot;,
-        &quot;author&quot;: &quot;Your Name&quot;,
+        &quot;author&quot;: &quot;Karan Kadam&quot;,
         &quot;properties&quot;: {
             &quot;max_tokens_to_sample&quot;: 1000,
             &quot;temperature&quot;: 0
@@ -540,10 +512,6 @@ if __name__ == &quot;__main__&quot;:
 </code></pre>
 
 <h4>What This Implementation Includes:</h4>
-
-<ol>
-<li>MCP Protocol Support:</li>
-</ol>
 
 <ul>
 <li><p>Implements the /mcp endpoint required by Claude Desktop</p></li>
@@ -600,22 +568,21 @@ python mcp_server.py
       ]
     },
      &quot;stock_price_server&quot;: {
-        &quot;command&quot;: &quot;/Users/bindok/bikeshed/github/bikeshed/python/mcp_server_stocks/venv/bin/python&quot;,
+        &quot;command&quot;: &quot;python&quot;,
         &quot;args&quot;: [
-          &quot;/Users/bindok/bikeshed/github/bikeshed/python/mcp_server_stocks/mcp_server.py&quot;
+          &quot;mcp_server.py&quot;
         ],
         &quot;env&quot;: {
-          &quot;FLASK_APP&quot;: &quot;/Users/bindok/bikeshed/github/bikeshed/python/mcp_server_stocks/mcp_server.py&quot;,
+          &quot;FLASK_APP&quot;: &quot;mcp_server.py&quot;,
           &quot;FLASK_ENV&quot;: &quot;production&quot;,
           &quot;PORT&quot;: &quot;8081&quot;
         }
       }
     }
   }
-
 </code></pre>
 
-<p>Update the paths according to your machine. Verify that your mcp server is registered and working well under Settings &gt; Developer.</p>
+<p><code>Note</code>: Update the paths according to your machine. Verify that your mcp server is registered and working well under Settings &gt; Developer.</p>
 
 <p><img src="/images/mcp/claude-settings.jpg" alt="Claude Developer Settings" /></p>
 
