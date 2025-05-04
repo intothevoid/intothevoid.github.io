@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Into The Void - A dive into the Model Context Protocol (MCP) by Anthropic</title>
+    <link rel="stylesheet" href="/css/main.css">
+    
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+    </script>
+</head>
+<body>
+    
+<header>
+    <div id="site-title" style="display:flex; justify-content:left; align-items: left;">
+        <a href="/index.html">
+            <h1 style="margin: 0;">Into The Void</h1>
+        </a>
+    </div>
+    <div id="nav-links" style="display:flex; justify-content:right; align-items: right;">
+        <nav>
+            <div style="display: flex;">
+                <a href="/posts.html">All Posts</a>
+                
+                    <a href="/pages/about.html">About</a>
+                
+                    <a href="/pages/projects.html">Projects</a>
+                
+            </div>
+        </nav>
+    </div>
+</header>
+
+    <main>
+    
+<h2>A dive into the Model Context Protocol (MCP) by Anthropic</h2>
+<p>A look at MCP servers, along with an example implementation in Python</p>
+<p class="info">Published on May 4 2025 at 6:07pm</p>
+<h2>Overview</h2>
+
+<p>This page introduces the Model Context Protocol (MCP). MCP is a protocol to provide context to a Large Language Model. LLMs are all the rage at the moment, with a large number of high quality open source LLMs now available with permissive licensing. MCPs are a great way to extend the capabilities of LLMs to access data and services.</p>
+
+<p>MCPs provide a standard way for LLMs to connect to services and data.</p>
+
+<h2>Architecture</h2>
+
+<p>The following diagram shows the architecture of MCP -</p>
+
+<p>graph TB
+    subgraph &ldquo;Model Context Protocol&rdquo;
+        MCP[Model Context Protocol] &ndash;&gt; Embedding[Context Embedding]
+        MCP &ndash;&gt; Retrieval[Context Retrieval]
+        MCP &ndash;&gt; Transformation[Context Transformation]
+        MCP &ndash;&gt; Insertion[Context Insertion]
+    end</p>
+
+<pre><code>subgraph &quot;Context Sources&quot;
+    CS[Context Sources] --&gt; VectorDB[Vector Databases]
+    CS --&gt; FileSystem[File System]
+    CS --&gt; API[External APIs]
+    CS --&gt; KB[Knowledge Bases]
+end
+
+subgraph &quot;Prompt Engineering&quot;
+    PE[Prompt Engineering] --&gt; TemplateEngine[Template Engine]
+    PE --&gt; ContextWindow[Context Window Management]
+    PE --&gt; Chunking[Content Chunking]
+end
+
+subgraph &quot;Model Interaction&quot;
+    MI[Model Interaction] --&gt; LLM[Large Language Model]
+    MI --&gt; Inference[Inference Engine]
+    MI --&gt; ResponseProcessing[Response Processing]
+end
+
+CS --&gt; MCP
+MCP --&gt; PE
+PE --&gt; MI
+MI --&gt; Output[Generated Response]
+
+classDef primary fill:#6495ED,stroke:#333,stroke-width:1px;
+classDef secondary fill:#90EE90,stroke:#333,stroke-width:1px;
+classDef tertiary fill:#FFD700,stroke:#333,stroke-width:1px;
+classDef output fill:#FF6347,stroke:#333,stroke-width:1px;
+
+class MCP,CS,PE,MI primary;
+class Embedding,Retrieval,Transformation,Insertion,VectorDB,FileSystem,API,KB secondary;
+class TemplateEngine,ContextWindow,Chunking,LLM,Inference,ResponseProcessing tertiary;
+class Output output;
+</code></pre>
+
+<p>Fig. The key components of the Model Context Protocol architecture</p>
+
+<p>This diagram shows:</p>
+
+<ol>
+<li><p>An MCP Client - that sends requests using the Model Context Protocol to an MCP Server</p></li>
+
+<li><p>The MCP Server - which accesses a local data source for information and makes MCP requests to another remote MCP server when needed</p></li>
+
+<li><p>The Remote MCP Server - that communicates with a remote service returns responses back to the original MCP server</p></li>
+</ol>
+
+<p><code>Note</code>: An MCP Host (Claude desktop, IDEs etc.) access data via MCP clients and MCP servers.</p>
+
+<p>The flow illustrates the basic chain of communication in the Model Context Protocol ecosystem, showing how MCP enables standardized access to both local and remote data sources through a consistent protocol.RetryClaude does not have the ability to run the code it generates yet.Claude can make mistakes. Please double-check responses.</p>
+
+<h2>MCP Server Development</h2>
+
+<p>Lets dive straight in, and try and build a MCP server, that does something simple - access Stock information. Here&rsquo;s what we are trying to accomplish -</p>
+
+<p>graph TD
+    MCP_Host &ndash;&gt;|Request| LLM
+    LLM &ndash;&gt;|Processed Request| MCP_Server(Stocks)
+    MCP_Server(Stocks) &ndash;&gt;|Request| Remote_Service(Yahoo Stocks API)
+    Remote_Service(Yahoo Stocks API) &ndash;&gt;|Response| MCP_Server(Stocks)
+    MCP_Server(Stocks) &ndash;&gt;|Response| LLM
+    LLM &ndash;&gt;|Final Response| MCP_Host</p>
+
+<p>Fig. Simple Stocks MCP Server</p>
+
+<p>The key elements here are the actual server which we will develop, and the Yahoo Stocks API (external service). We access the Stocks API via a standard protocol, and the MCP server
+which we are about to build will help us accomplish this.</p>
+
+<p>To keep things simple, we will develop a MCP server which supports a <code>get_stock_data(ticker)</code> function only.</p>
+
+<h3>Creating Stocks API (based on Yahoo Stocks API)</h3>
+
+<h4>Install required libraries</h4>
+
+<pre><code class="language-bash">pip install flask requests
+</code></pre>
+
+<h4>Stocks API source code</h4>
+
+<pre><code class="language-python">from flask import Flask, request, jsonify
+import requests
+import time
+import random
+import logging
+from functools import lru_cache
+
+# Configure logging
+logging.basicConfig(level=logging.INFO, 
+                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger('stock_api')
+
+app = Flask(__name__)
+
+# Yahoo Finance API endpoint for stock chart data
+def get_chart_url(ticker):
+    return f&quot;https://query1.finance.yahoo.com/v8/finance/chart/{ticker}?range=1d&amp;interval=1d&quot;
+
+def get_stock_price(ticker):
+    &quot;&quot;&quot;
+    Fetch stock chart data from Yahoo Finance API by properly mimicking a browser request.
+    &quot;&quot;&quot;
+    # No query parameters needed in URL as they're now part of the URL itself
+    url = get_chart_url(ticker)
+    
+    # Comprehensive browser-like headers - this is critical to avoid 429 errors
+    headers = {
+        &quot;User-Agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36&quot;,
+        &quot;Accept&quot;: &quot;text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7&quot;,
+        &quot;Accept-Language&quot;: &quot;en-US,en;q=0.9&quot;,
+        &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+        &quot;Referer&quot;: &quot;https://finance.yahoo.com/&quot;,
+        &quot;sec-ch-ua&quot;: '&quot;Google Chrome&quot;;v=&quot;120&quot;, &quot;Chromium&quot;;v=&quot;120&quot;, &quot;Not-A.Brand&quot;;v=&quot;99&quot;',
+        &quot;sec-ch-ua-mobile&quot;: &quot;?0&quot;,
+        &quot;sec-ch-ua-platform&quot;: '&quot;Windows&quot;',
+        &quot;sec-fetch-dest&quot;: &quot;document&quot;,
+        &quot;sec-fetch-mode&quot;: &quot;navigate&quot;,
+        &quot;sec-fetch-site&quot;: &quot;same-origin&quot;,
+        &quot;Cache-Control&quot;: &quot;max-age=0&quot;,
+        &quot;Connection&quot;: &quot;keep-alive&quot;
+    }
+    
+    try:
+        # Use a new session for each request to avoid cookie tracking issues
+        with requests.Session() as session:
+            # First visit the base page to get cookies (like a real browser would)
+            session.get(&quot;https://finance.yahoo.com/&quot;, headers=headers)
+            
+            # Then make the actual API request
+            response = session.get(url, headers=headers)
+            response.raise_for_status()
+            
+            data = response.json()
+            
+            # Extract data from chart response structure
+            chart_result = data.get(&quot;chart&quot;, {}).get(&quot;result&quot;, [])
+            if not chart_result:
+                return {&quot;error&quot;: f&quot;Chart data not found for {ticker}&quot;}
+                
+            quote = chart_result[0].get(&quot;meta&quot;, {})
+            indicators = chart_result[0].get(&quot;indicators&quot;, {})
+            
+            # Get the latest price from quote
+            current_price = quote.get(&quot;regularMarketPrice&quot;)
+            
+            if current_price is not None:
+                return {
+                    &quot;ticker&quot;: ticker,
+                    &quot;price&quot;: float(current_price),
+                    &quot;currency&quot;: quote.get(&quot;currency&quot;, &quot;USD&quot;),
+                    &quot;exchange&quot;: quote.get(&quot;exchangeName&quot;, &quot;&quot;),
+                    &quot;timestamp&quot;: quote.get(&quot;regularMarketTime&quot;, 0)
+                }
+            else:
+                return {&quot;error&quot;: f&quot;Price data not found for {ticker}&quot;}
+                
+    except requests.exceptions.RequestException as e:
+        logger.error(f&quot;Request failed: {str(e)}&quot;)
+        return {&quot;error&quot;: f&quot;API request failed: {str(e)}&quot;}
+    except (KeyError, IndexError, ValueError) as e:
+        logger.error(f&quot;Error parsing response: {str(e)}&quot;)
+        return {&quot;error&quot;: f&quot;Failed to parse API response: {str(e)}&quot;}
+
+@app.route(&quot;/get_stock_data&quot;, methods=[&quot;GET&quot;])
+def handle_get_stock_data():
+    ticker = request.args.get(&quot;ticker&quot;)
+    if not ticker:
+        return jsonify({&quot;error&quot;: &quot;Missing 'ticker' parameter&quot;}), 400
+    
+    result = get_stock_price(ticker)
+    
+    # Return appropriate status code based on result
+    if &quot;error&quot; in result and &quot;not found&quot; in result[&quot;error&quot;]:
+        return jsonify(result), 404
+    elif &quot;error&quot; in result:
+        return jsonify(result), 500
+    
+    return jsonify(result)
+
+@app.route(&quot;/health&quot;, methods=[&quot;GET&quot;])
+def health_check():
+    &quot;&quot;&quot;Simple health check endpoint&quot;&quot;&quot;
+    return jsonify({&quot;status&quot;: &quot;healthy&quot;})
+
+if __name__ == &quot;__main__&quot;:
+    app.run(host=&quot;0.0.0.0&quot;, port=5566, debug=True)
+
+</code></pre>
+
+<h4>Usage</h4>
+
+<p>You can use and test this server in the foll. manner -</p>
+
+<ol>
+<li>Start the server</li>
+</ol>
+
+<pre><code class="language-bash">python mcp_server.py
+</code></pre>
+
+<ol>
+<li>Test with curl</li>
+</ol>
+
+<pre><code class="language-bash">curl &quot;http://localhost:5566/get_stock_data?ticker=AAPL&quot;
+</code></pre>
+
+<p>So far we&rsquo;ve created an API /get_stock_data which accepts a ticker and returns stock price information. Now we move on to adding MCP support.</p>
+
+<h3>Implementing the MCP protocol</h3>
+
+<p>To add this as an MCP (Model Control Protocol) server for Claude Desktop, we need to implement the MCP protocol in our Flask application.</p>
+
+<h4>Updated Stocks API source code</h4>
+
+<p>Ok, I need to complain a little. I had this annoying issue with Flask putting out debug output which was messing up the Claude desktop MCP parsing. I was about to give up for the day, but Claude AI suggested I try waitress. I updated the code to use waitress to avoid putting out any debug output. <strong>Voila</strong> it works.</p>
+
+<pre><code class="language-python">from flask import Flask, request, jsonify
+import requests
+import logging
+import json
+import time
+import sys
+import os
+import socket
+from waitress import serve
+
+# Completely disable all logging
+logging.basicConfig(level=logging.CRITICAL)
+logger = logging.getLogger('mcp_stock_server')
+logger.disabled = True
+
+# Create Flask app with minimal configuration
+app = Flask(__name__)
+app.config['JSONIFY_PRETTYPRINT_REGULAR'] = False
+app.config['JSON_SORT_KEYS'] = False
+
+# Disable all Flask logging
+app.logger.disabled = True
+log = logging.getLogger('werkzeug')
+log.disabled = True
+
+def is_port_in_use(port):
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        return s.connect_ex(('localhost', port)) == 0
+
+def find_available_port(start_port):
+    port = start_port
+    while is_port_in_use(port):
+        port += 1
+    return port
+
+# Yahoo Finance API endpoint for stock chart data
+def get_chart_url(ticker):
+    return f&quot;https://query1.finance.yahoo.com/v8/finance/chart/{ticker}?range=1d&amp;interval=1d&quot;
+
+def get_stock_price(ticker):
+    &quot;&quot;&quot;
+    Fetch stock chart data from Yahoo Finance API by properly mimicking a browser request.
+    &quot;&quot;&quot;
+    # No query parameters needed in URL as they're now part of the URL itself
+    url = get_chart_url(ticker)
+    
+    # Comprehensive browser-like headers - this is critical to avoid 429 errors
+    headers = {
+        &quot;User-Agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36&quot;,
+        &quot;Accept&quot;: &quot;text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7&quot;,
+        &quot;Accept-Language&quot;: &quot;en-US,en;q=0.9&quot;,
+        &quot;Accept-Encoding&quot;: &quot;gzip, deflate, br&quot;,
+        &quot;Referer&quot;: &quot;https://finance.yahoo.com/&quot;,
+        &quot;sec-ch-ua&quot;: '&quot;Google Chrome&quot;;v=&quot;120&quot;, &quot;Chromium&quot;;v=&quot;120&quot;, &quot;Not-A.Brand&quot;;v=&quot;99&quot;',
+        &quot;sec-ch-ua-mobile&quot;: &quot;?0&quot;,
+        &quot;sec-ch-ua-platform&quot;: '&quot;Windows&quot;',
+        &quot;sec-fetch-dest&quot;: &quot;document&quot;,
+        &quot;sec-fetch-mode&quot;: &quot;navigate&quot;,
+        &quot;sec-fetch-site&quot;: &quot;same-origin&quot;,
+        &quot;Cache-Control&quot;: &quot;max-age=0&quot;,
+        &quot;Connection&quot;: &quot;keep-alive&quot;
+    }
+    
+    try:
+        # Use a new session for each request to avoid cookie tracking issues
+        with requests.Session() as session:
+            # First visit the base page to get cookies (like a real browser would)
+            session.get(&quot;https://finance.yahoo.com/&quot;, headers=headers)
+            
+            # Then make the actual API request
+            response = session.get(url, headers=headers)
+            response.raise_for_status()
+            
+            data = response.json()
+            
+            # Extract data from chart response structure
+            chart_result = data.get(&quot;chart&quot;, {}).get(&quot;result&quot;, [])
+            if not chart_result:
+                return {&quot;error&quot;: f&quot;Chart data not found for {ticker}&quot;}
+                
+            quote = chart_result[0].get(&quot;meta&quot;, {})
+            
+            # Get the latest price from quote
+            current_price = quote.get(&quot;regularMarketPrice&quot;)
+            
+            if current_price is not None:
+                return {
+                    &quot;ticker&quot;: ticker,
+                    &quot;price&quot;: float(current_price),
+                    &quot;currency&quot;: quote.get(&quot;currency&quot;, &quot;USD&quot;),
+                    &quot;exchange&quot;: quote.get(&quot;exchangeName&quot;, &quot;&quot;),
+                    &quot;timestamp&quot;: quote.get(&quot;regularMarketTime&quot;, 0)
+                }
+            else:
+                return {&quot;error&quot;: f&quot;Price data not found for {ticker}&quot;}
+                
+    except requests.exceptions.RequestException as e:
+        logger.error(f&quot;Request failed: {str(e)}&quot;)
+        return {&quot;error&quot;: f&quot;API request failed: {str(e)}&quot;}
+    except (KeyError, IndexError, ValueError) as e:
+        logger.error(f&quot;Error parsing response: {str(e)}&quot;)
+        return {&quot;error&quot;: f&quot;Failed to parse API response: {str(e)}&quot;}
+
+# Original stock data endpoint
+@app.route(&quot;/get_stock_data&quot;, methods=[&quot;GET&quot;])
+def handle_get_stock_data():
+    ticker = request.args.get(&quot;ticker&quot;)
+    if not ticker:
+        return jsonify({&quot;error&quot;: &quot;Missing 'ticker' parameter&quot;}), 400
+    
+    result = get_stock_price(ticker)
+    
+    # Return appropriate status code based on result
+    if &quot;error&quot; in result and &quot;not found&quot; in result[&quot;error&quot;]:
+        return jsonify(result), 404
+    elif &quot;error&quot; in result:
+        return jsonify(result), 500
+    
+    return jsonify(result)
+
+# MCP Protocol Implementation
+@app.route(&quot;/mcp&quot;, methods=[&quot;POST&quot;])
+def mcp_endpoint():
+    try:
+        # Parse the incoming request
+        mcp_request = request.json
+        
+        # Check for required fields in MCP request
+        if not mcp_request or &quot;messages&quot; not in mcp_request:
+            return jsonify({
+                &quot;error&quot;: &quot;Invalid MCP request format&quot;
+            }), 400
+        
+        # Extract the latest user message
+        user_messages = [msg for msg in mcp_request[&quot;messages&quot;] if msg.get(&quot;role&quot;) == &quot;user&quot;]
+        if not user_messages:
+            return jsonify({
+                &quot;error&quot;: &quot;No user message found in request&quot;
+            }), 400
+            
+        latest_user_message = user_messages[-1][&quot;content&quot;]
+        
+        # Process the user message to extract ticker symbol
+        # This is a simple implementation - you might want to add more sophisticated parsing
+        ticker = None
+        
+        # Check if message contains stock price query format
+        words = latest_user_message.lower().split()
+        
+        # Look for patterns like &quot;price of AAPL&quot; or &quot;AAPL stock price&quot; or &quot;stock price for AAPL&quot;
+        for i, word in enumerate(words):
+            if word.upper() == word and len(word) &gt;= 1 and len(word) &lt;= 5 and word.isalpha():
+                # This looks like a ticker symbol (all caps, 1-5 letters)
+                ticker = word.upper()
+                break
+                
+            if i &lt; len(words) - 1:
+                if (word == &quot;for&quot; or word == &quot;of&quot;) and words[i+1].upper() == words[i+1] and len(words[i+1]) &lt;= 5:
+                    ticker = words[i+1].upper()
+                    break
+        
+        # If we couldn't find a ticker in the message
+        if not ticker:
+            return jsonify({
+                &quot;messages&quot;: [{
+                    &quot;role&quot;: &quot;assistant&quot;,
+                    &quot;content&quot;: &quot;I couldn't identify a stock ticker symbol in your message. Please specify a valid stock symbol like AAPL, MSFT, or TSLA.&quot;
+                }]
+            })
+        
+        # Get stock data
+        stock_data = get_stock_price(ticker)
+        
+        # Format the response for Claude Desktop
+        if &quot;error&quot; in stock_data:
+            response_content = f&quot;I encountered an error looking up {ticker}: {stock_data['error']}&quot;
+        else:
+            # Format price with 2 decimal places
+            price = f&quot;{stock_data['price']:.2f}&quot;
+            response_content = f&quot;The current price of {ticker} is {price} {stock_data['currency']} on {stock_data['exchange']}.&quot;
+        
+        # Return response in MCP format
+        return jsonify({
+            &quot;messages&quot;: [{
+                &quot;role&quot;: &quot;assistant&quot;,
+                &quot;content&quot;: response_content
+            }]
+        })
+        
+    except Exception as e:
+        logger.error(f&quot;MCP processing error: {str(e)}&quot;)
+        return jsonify({
+            &quot;messages&quot;: [{
+                &quot;role&quot;: &quot;assistant&quot;,
+                &quot;content&quot;: f&quot;I encountered an error processing your request: {str(e)}&quot;
+            }]
+        })
+
+@app.route(&quot;/health&quot;, methods=[&quot;GET&quot;])
+def health_check():
+    &quot;&quot;&quot;Simple health check endpoint&quot;&quot;&quot;
+    return jsonify({&quot;status&quot;: &quot;healthy&quot;, &quot;service&quot;: &quot;MCP Stock Server&quot;})
+
+# MCP Info endpoint to provide information about this MCP server
+@app.route(&quot;/mcp/info&quot;, methods=[&quot;GET&quot;])
+def mcp_info():
+    return jsonify({
+        &quot;name&quot;: &quot;Stock Price Lookup&quot;,
+        &quot;version&quot;: &quot;1.0.0&quot;,
+        &quot;description&quot;: &quot;Get real-time stock prices from Yahoo Finance&quot;,
+        &quot;author&quot;: &quot;Your Name&quot;,
+        &quot;properties&quot;: {
+            &quot;max_tokens_to_sample&quot;: 1000,
+            &quot;temperature&quot;: 0
+        }
+    })
+
+if __name__ == &quot;__main__&quot;:
+    # Get port from environment or use default
+    default_port = 8081
+    port = int(os.environ.get('PORT', default_port))
+    
+    # Find an available port if the specified one is in use
+    if is_port_in_use(port):
+        port = find_available_port(port)
+        print(f&quot;Port {port} is available&quot;, file=sys.stderr)
+    
+    # Check if running in Claude Desktop environment
+    if 'WERKZEUG_SERVER_FD' in os.environ:
+        try:
+            # Running in Claude Desktop - use the provided file descriptor
+            serve(
+                app,
+                host=&quot;0.0.0.0&quot;,
+                port=port,
+                threads=1,
+                _quiet=True,
+                fd=int(os.environ[&quot;WERKZEUG_SERVER_FD&quot;])
+            )
+        except Exception as e:
+            print(f&quot;Error starting server: {str(e)}&quot;, file=sys.stderr)
+            sys.exit(1)
+    else:
+        # Running standalone - use waitress server
+        serve(
+            app,
+            host=&quot;0.0.0.0&quot;,
+            port=port,
+            threads=1,
+            _quiet=True
+        )
+
+</code></pre>
+
+<h4>What This Implementation Includes:</h4>
+
+<ol>
+<li>MCP Protocol Support:</li>
+</ol>
+
+<ul>
+<li><p>Implements the /mcp endpoint required by Claude Desktop</p></li>
+
+<li><p>Handles MCP request format and returns proper MCP responses</p></li>
+
+<li><p>Provides /mcp/info endpoint with metadata about your service</p></li>
+
+<li><p>Smart Ticker Symbol Detection:
+a. Tries to identify stock symbols in natural language queries
+b. Looks for uppercase words that are 1-5 letters long
+c. Handles common phrases like &ldquo;price of AAPL&rdquo; or &ldquo;AAPL stock price&rdquo;</p></li>
+
+<li><p>Formatted Responses: Returns nicely formatted answers with price, currency and exchange</p></li>
+</ul>
+
+<h2>Integration with a LLM</h2>
+
+<p>Lets integrate this server we created with a LLM. I will be using Claude desktop as an example here -</p>
+
+<h3>Install Claude for desktop</h3>
+
+<p>You can download Claude for desktop here <a href="https://claude.ai/download" target="_blank">Download</a></p>
+
+<h3>Run the server</h3>
+
+<p>Install dependencies and run the server we created -</p>
+
+<pre><code class="language-bash">python -m venv venv
+source venv/bin/activate
+pip install flask requests waitressç
+python mcp_server.py
+</code></pre>
+
+<p>This will start the server on port 8081 if everything worked properly.</p>
+
+<h3>Add server to Claude desktop</h3>
+
+<ol>
+<li>Open Claude Desktop</li>
+<li>Go to Settings &gt; Developer</li>
+<li>Click &ldquo;Edit Config&rdquo;</li>
+<li>Update the config <code>claude_desktop_config.json</code> as shown below</li>
+<li>Restart Claude Desktop</li>
+</ol>
+
+<p>Here is what your <code>claude_desktop_config.json</code> should look like -</p>
+
+<pre><code class="language-json">{
+    &quot;serverConfig&quot;: {
+      &quot;command&quot;: &quot;/bin/sh&quot;,
+      &quot;args&quot;: [
+        &quot;-c&quot;
+      ]
+    },
+     &quot;stock_price_server&quot;: {
+        &quot;command&quot;: &quot;/Users/bindok/bikeshed/github/bikeshed/python/mcp_server_stocks/venv/bin/python&quot;,
+        &quot;args&quot;: [
+          &quot;/Users/bindok/bikeshed/github/bikeshed/python/mcp_server_stocks/mcp_server.py&quot;
+        ],
+        &quot;env&quot;: {
+          &quot;FLASK_APP&quot;: &quot;/Users/bindok/bikeshed/github/bikeshed/python/mcp_server_stocks/mcp_server.py&quot;,
+          &quot;FLASK_ENV&quot;: &quot;production&quot;,
+          &quot;PORT&quot;: &quot;8081&quot;
+        }
+      }
+    }
+  }
+
+</code></pre>
+
+<p>Update the paths according to your machine. Verify that your mcp server is registered and working well under Settings &gt; Developer.</p>
+
+<p><img src="/images/mcp/claude-settings.jpg" alt="Claude Developer Settings" /></p>
+
+<h3>Using the MCP server from Claude desktop</h3>
+
+<p>Once connected, you can ask Claude Desktop questions about stock prices like:</p>
+
+<pre><code>&quot;What's the stock price of AAPL?&quot;
+&quot;Get me the current stock price for MSFT&quot;
+&quot;How much is TSLA stock trading for?&quot;
+</code></pre>
+
+<p>Claude will recognize these queries and route them to your MCP server, which will fetch the real-time stock data and return it.</p>
+
+<h2>Testing and Troubleshooting:</h2>
+
+<ol>
+<li>You can test the stock data API directly at: <a href="http://localhost:8081/get_stock_data?ticker=AAPL" target="_blank">http://localhost:8081/get_stock_data?ticker=AAPL</a></li>
+<li>You can check if the server is running at: <a href="http://localhost:8081/health" target="_blank">http://localhost:8081/health</a></li>
+<li>You can verify the MCP info at: <a href="http://localhost:8081/mcp/info" target="_blank">http://localhost:8081/mcp/info</a></li>
+</ol>
+
+<p>The server keeps your existing stock API implementation intact while adding the MCP functionality on top, so both can be used independently.</p>
+
+<p>MCP is a great way to extend the capabilities of LLMs to access data and services. It is a simple protocol to implement and can be used to access a wide range of data sources. I see myself implementing more MCP servers to access different data sources in the future.</p>
+
+
+<p class="info">Tags: 
+    
+        
+        <a href="/tags/python.html">python</a>
+    
+        , 
+        <a href="/tags/ai.html">ai</a>
+    
+        , 
+        <a href="/tags/mcp.html">mcp</a>
+    
+        , 
+        <a href="/tags/programming.html">programming</a>
+    
+</p>
+
+
+    
+<script>
+    Prism.plugins.autoloader.languages_path = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/';
+    
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        document.querySelectorAll('pre.language-mermaid').forEach(function(element) {
+            
+            var mermaidDiv = document.createElement('div');
+            mermaidDiv.className = 'mermaid';
+            mermaidDiv.innerHTML = element.textContent;
+            
+            
+            element.parentNode.replaceChild(mermaidDiv, element);
+        });
+        
+        
+        mermaid.init();
+    });
+</script>
+
+    <main>
+    
+<footer>
+    <p class="footer-content">
+        <span>&copy; 2025 Into The Void.</span>
+        <span>Powered by <a href="https://www.github.com/intothevoid/likho">Likho</a>.</span>
+    </p>
+</footer>
+
+</body>
+</html>
