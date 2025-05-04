@@ -12,9 +12,7 @@
 
 ## Overview
 
-This page introduces the Model Context Protocol (MCP). MCP is a protocol to provide context to a Large Language Model. LLMs are all the rage at the moment, with a large number of high quality open source LLMs now available with permissive licensing. MCPs are a great way to extend the capabilities of LLMs to access data and services.
-
-MCPs provide a standard way for LLMs to connect to services and data.
+This page introduces the Model Context Protocol (MCP). MCP is a protocol to provide context to a Large Language Model. LLMs are all the rage at the moment, with a large number of high quality open source LLMs now available with permissive licensing. MCPs are a great way to extend the capabilities of LLMs to access data and services, acting as a bridge between the LLM and the services it needs to access.
 
 ## Architecture / Components
 
@@ -47,7 +45,7 @@ This diagram shows:
 
 `Note`: An MCP Host (Claude desktop, IDEs etc.) access data via MCP clients and MCP servers.
 
-The flow illustrates the basic chain of communication in the Model Context Protocol ecosystem, showing how MCP enables standardized access to both local and remote data sources through a consistent protocol.RetryClaude does not have the ability to run the code it generates yet.Claude can make mistakes. Please double-check responses.
+The flow illustrates the basic chain of communication in the Model Context Protocol ecosystem, showing how MCP enables standardized access to both local and remote data sources through a consistent protocol.
 
 ## MCP Server Development
 
