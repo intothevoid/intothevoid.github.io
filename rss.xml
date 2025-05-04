@@ -14,9 +14,35 @@
 
 This page introduces the Model Context Protocol (MCP). MCP is a protocol to provide context to a Large Language Model. LLMs are all the rage at the moment, with a large number of high quality open source LLMs now available with permissive licensing. MCPs are a great way to extend the capabilities of LLMs to access data and services, acting as a bridge between the LLM and the services it needs to access.
 
-## Architecture / Components
+## Architecture and Components
 
-The following diagram shows the main components of MCP -
+### Architecture
+
+```mermaid
+flowchart LR
+    Client[MCP Client] -->|MCP Request| Server[MCP Server]
+    
+    Server -->|Query| LocalDB[(Local Data Source)]
+    LocalDB -->|Results| Server
+    
+    Server -->|MCP Request| RemoteServer[Remote MCP Server]
+    RemoteServer -->|Query| RemoteService[Remote Service]
+    RemoteService -->|Results| RemoteServer
+    RemoteServer -->|MCP Response| Server
+    
+    Server -->|MCP Response| Client
+```
+Fig. The architecture of the Model Context Protocol
+
+1. An MCP Client - that sends requests using the Model Context Protocol to an MCP Server
+
+2. The MCP Server - which accesses a local data source for information and makes MCP requests to another remote MCP server when needed
+
+3. The Remote MCP Server - that communicates with a remote service returns responses back to the original MCP server
+
+`Note`: An MCP Host (Claude desktop, IDEs etc.) access data via MCP clients and MCP servers.
+
+### Key Components
 
 ```mermaid
 sequenceDiagram
@@ -35,15 +61,7 @@ sequenceDiagram
 
 Fig. The key components of the Model Context Protocol architecture
 
-This diagram shows:
 
-1. An MCP Client - that sends requests using the Model Context Protocol to an MCP Server
-
-2. The MCP Server - which accesses a local data source for information and makes MCP requests to another remote MCP server when needed
-
-3. The Remote MCP Server - that communicates with a remote service returns responses back to the original MCP server
-
-`Note`: An MCP Host (Claude desktop, IDEs etc.) access data via MCP clients and MCP servers.
 
 The flow illustrates the basic chain of communication in the Model Context Protocol ecosystem, showing how MCP enables standardized access to both local and remote data sources through a consistent protocol.
 
