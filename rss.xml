@@ -62,36 +62,22 @@ Whether shooting urban landscapes, street photography, or documentary work, Clas
 
 Building upon Classic Chrome's exceptional foundation, I've developed a personalised recipe that enhances its characteristics whilst maintaining its distinctive character. This tweaked version addresses some of the simulation's more challenging aspects while amplifying its strengths:
 
-**Base Settings:**
-- **Film Simulation:** Classic Chrome
-- **Dynamic Range:** DR100 (expanded highlight retention without compromising shadow detail)
-- **Grain Effect:** Strong (adds authentic film-like texture that scales naturally with ISO)
-
-**Tone Adjustments:**
-- **Highlight:** -1 (prevents blown highlights whilst maintaining natural light rolloff)
-- **Shadow:** -1 (deepens shadow contrast for a moodier look)
-
-**Colour and Processing:**
-- **Colour:** +2 (slight saturation boost to counter the muted base without losing sophistication)
-- **Sharpness:** -4 (softens the image slightly for a more organic, film-like appearance)
-- **Noise Reduction:** -4 (preserves natural texture and fine detail at higher ISOs)
-
-**White Balance:**
-- **Auto WB with shift:** +2 Red, -4 Blue (adds warmth to skin tones and counteracts the cool bias)
+![Classy Chrome Recipe)](images/fuji/cc_card.jpg)
+*Classy Chrome Recipe Settings*
 
 ### Image Examples
 
 ![Provia Standard)](images/fuji/Provia1.jpg)
-*Caption: A photo captured using the Provia Standard recipe*
+*A photo captured using the Provia Standard recipe*
 
 ![Classy Chrome)](images/fuji/ClassyChrome1.jpg)
-*Caption: A photo captured using the Classy Chrome recipe*
+*A photo captured using the Classy Chrome recipe*
 
 ![Provia Standard)](images/fuji/Provia2.jpg)
-*Caption: A photo captured using the Provia Standard recipe*
+*A photo captured using the Provia Standard recipe*
 
 ![Classy Chrome)](images/fuji/ClassyChrome2.jpg)
-*Caption: A photo captured using the Classy Chrome recipe*
+*A photo captured using the Classy Chrome recipe*
 
 This recipe maintains Classic Chrome's sophisticated character whilst adding slightly more warmth and shadow detail. The modest grain effect provides subtle texture reminiscent of actual film photography, whilst the adjusted highlight and shadow settings improve the overall tonal balance for more challenging lighting conditions commonly encountered in street and documentary work. I add some warmth to skin tones to make them more flattering, especially in mixed lighting.
 
@@ -122,35 +108,22 @@ The simulation's ability to maintain detail across the entire tonal range makes 
 
 ## My Favourite Acros Recipe - Acros The Street
 
-**Base Settings:**
-- **Film Simulation:** Acros + Y (Yellow Filter)
-- **Dynamic Range:** DR100 (expands highlight retention without compromising shadow detail)
-- **Grain Effect:** Strong (adds authentic film-like texture that scales naturally with ISO)
-
-**Tone Adjustments:**
-- **Highlight:** -1 (prevents blown highlights whilst maintaining natural light rolloff)
-- **Shadow:** 0 (neutral shadow contrast to preserve detail without excessive deepening)
-
-**Colour and Processing:**
-- **Sharpness:** -4 (softens the image slightly for a more organic, film-like appearance)
-- **Noise Reduction:** -4 (preserves natural texture and fine detail at higher ISOs)
-
-**White Balance:**
-- **Auto WB with shift:** +4 Red, -3 Blue
+![Acros The Street Recipe)](images/fuji/acros_card.jpg)
+*Acros The Street Recipe Settings*
 
 ### Image Examples
 
 ![Provia Standard)](images/fuji/Provia1.jpg)
-*Caption: A photo captured using the Provia Standard recipe*
+*A photo captured using the Provia Standard recipe*
 
 ![Acros The Street)](images/fuji/AcrosTheStreet1.jpg)
-*Caption: A photo captured using the Acros The Street recipe*
+*A photo captured using the Acros The Street recipe*
 
 ![Provia Standard)](images/fuji/Provia2.jpg)
-*Caption: A photo captured using the Provia Standard recipe*
+*A photo captured using the Provia Standard recipe*
 
 ![Acros The Street)](images/fuji/AcrosTheStreet2.jpg)
-*Caption: A photo captured using the Acros The Street recipe*
+*A photo captured using the Acros The Street recipe*
 
 This recipe enhances some of Acros's already exceptional characteristics. I've tweaked it to suit my everyday walk around street photography needs. The yellow filter variant provides a nice balance between contrast and tonal separation without being too harsh.
 
@@ -158,31 +131,33 @@ This recipe enhances some of Acros's already exceptional characteristics. I've t
 
 Fujifilm cameras offer extensive customisation options that can dramatically alter any film simulation's character. Understanding these controls allows photographers to create truly personalised looks that suit their vision and shooting style:
 
-**Tone Curve Controls:**
-- **Highlight (-2 to +4)** - Adjusts bright area contrast and detail retention. Negative values preserve highlight detail, while positive values increase contrast
-- **Shadow (-2 to +4)** - Controls dark area detail and overall mood. Positive values lift shadows for a more open look, negative values deepen shadows for drama
+### Tone Curve Controls:
 
-**Colour and Detail Enhancement:**
-- **Colour (-4 to +4)** - Global saturation adjustment that works differently with each simulation's colour science
-- **Sharpness (-4 to +4)** - In-camera detail enhancement that affects both capture and JPEG processing
-- **Noise Reduction (-4 to +4)** - Controls texture preservation vs. smoothing, crucial for maintaining film-like character
+#### **Highlight (-2 to +4)** - Adjusts bright area contrast and detail retention. Negative values preserve highlight detail, while positive values increase contrast
+#### **Shadow (-2 to +4)** - Controls dark area detail and overall mood. Positive values lift shadows for a more open look, negative values deepen shadows for drama
 
-**Dynamic Range and Exposure:**
-- **DR100/200/400** - Expanded highlight retention at higher ISO settings, particularly useful in challenging lighting
-- **Auto ISO** - Intelligent exposure control that works seamlessly with simulation characteristics
+### Colour and Detail Enhancement:
 
-**Film-Like Effects:**
-- **Grain Effect (Off/Weak/Strong)** - Adds authentic film-like texture that scales naturally with ISO and simulation choice
-- **Colour Chrome Effect** - Enhanced colour separation in highly saturated areas for more natural colour transitions (available on newer models)
-- **Colour Chrome FX Blue** - Improved sky and water rendering with better gradation and colour depth (available on newer models)
+#### **Colour (-4 to +4)** - Global saturation adjustment that works differently with each simulation's colour science
+#### **Sharpness (-4 to +4)** - In-camera detail enhancement that affects both capture and JPEG processing
+#### **Noise Reduction (-4 to +4)** - Controls texture preservation vs. smoothing, crucial for maintaining film-like character
 
-**White Balance Fine-Tuning:**
-- **Red/Blue bias adjustments** - Fine-tune colour temperature and tint to match shooting conditions or creative vision
-- **Custom white balance presets** - Create specific colour temperature settings for consistent results
+### Dynamic Range and Exposure:
+#### **DR100/200/400** - Expanded highlight retention at higher ISO settings, particularly useful in challenging lighting
+#### **Auto ISO** - Intelligent exposure control that works seamlessly with simulation characteristics
 
-**Advanced Processing (newer cameras):**
-- **Clarity** - Localised contrast enhancement that adds punch without global contrast adjustments (available on newer models)
-- **Color Chrome Blue** - Enhanced blue colour reproduction for more natural skies and water (available on newer models)
+### Film-Like Effects:
+#### **Grain Effect (Off/Weak/Strong)** - Adds authentic film-like texture that scales naturally with ISO and simulation choice
+#### **Colour Chrome Effect** - Enhanced colour separation in highly saturated areas for more natural colour transitions (available on newer models)
+#### **Colour Chrome FX Blue** - Improved sky and water rendering with better gradation and colour depth (available on newer models)
+
+### White Balance Fine-Tuning:
+#### **Red/Blue bias adjustments** - Fine-tune colour temperature and tint to match shooting conditions or creative vision
+#### **Custom white balance presets** - Create specific colour temperature settings for consistent results
+
+### Advanced Processing (newer cameras):
+#### **Clarity** - Localised contrast enhancement that adds punch without global contrast adjustments (available on newer models)
+#### **Color Chrome Blue** - Enhanced blue colour reproduction for more natural skies and water (available on newer models)
 
 I hope you like my two favourite recipes and use them while shooting with you Fujifilm camera. Fujifilm cameras may not be the best in autofocus and low light performance, but their film simulations provide film and analog shooters a way to recreate the look of film in a digital world.]]></description>
 </item>
