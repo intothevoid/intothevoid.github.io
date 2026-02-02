@@ -55,27 +55,36 @@
 
 <p>In this post, we&rsquo;ll walk through building a web application: a searchable database for the game Elden Ring: Nightreign. This project demonstrates modern web development practices, from Excel data parsing to Docker deployment.</p>
 
-<p><strong>What we&rsquo;ll build:</strong>
-* A React-based single-page application (SPA)
-* Excel file parsing and dynamic search functionality
-* Category-based filtering with custom icons
-* Expandable data cards with smart field display
-* Fully responsive mobile-first design
-* Production-ready Docker deployment with nginx</p>
+<p><strong>What we&rsquo;ll build:</strong></p>
 
-<p><strong>Tech Stack:</strong>
-* Frontend: React 18 + Vite
-* Styling: Tailwind CSS
-* Data: SheetJS (xlsx) for Excel parsing
-* Icons: Lucide React
-* Deployment: Docker + nginx</p>
+<ul>
+<li>A React-based single-page application (SPA)</li>
+<li>Excel file parsing and dynamic search functionality</li>
+<li>Category-based filtering with custom icons</li>
+<li>Expandable data cards with smart field display</li>
+<li>Fully responsive mobile-first design</li>
+<li>Production-ready Docker deployment with nginx</li>
+</ul>
 
-<p><strong>Live Features:</strong>
-* Real-time search across all game items, effects, and stats
-* Category filtering (Weapons, Talismans, Relics, etc.)
-* Expandable cards showing detailed information
-* Mobile-responsive design
-* Fast load times with optimized builds</p>
+<p><strong>Tech Stack:</strong></p>
+
+<ul>
+<li>Frontend: React 18 + Vite</li>
+<li>Styling: Tailwind CSS</li>
+<li>Data: SheetJS (xlsx) for Excel parsing</li>
+<li>Icons: Lucide React</li>
+<li>Deployment: Docker + nginx</li>
+</ul>
+
+<p><strong>Live Features:</strong></p>
+
+<ul>
+<li>Real-time search across all game items, effects, and stats</li>
+<li>Category filtering (Weapons, Talismans, Relics, etc.)</li>
+<li>Expandable cards showing detailed information</li>
+<li>Mobile-responsive design</li>
+<li>Fast load times with optimized builds</li>
+</ul>
 
 <hr>
 
@@ -193,23 +202,32 @@
 
 <h3>Key Design Decisions</h3>
 
-<p><strong>Why Vite over Create React App?</strong>
-* Faster development server startup (uses native ES modules)
-* Optimized production builds with Rollup
-* Better hot module replacement (HMR) experience
-* Smaller bundle sizes out of the box</p>
+<p><strong>Why Vite over Create React App?</strong></p>
 
-<p><strong>Why Tailwind CSS?</strong>
-* Utility-first approach reduces CSS file size
-* Built-in responsive design utilities
-* No context switching between HTML and CSS files
-* Easy to maintain consistent design system</p>
+<ul>
+<li>Faster development server startup (uses native ES modules)</li>
+<li>Optimized production builds with Rollup</li>
+<li>Better hot module replacement (HMR) experience</li>
+<li>Smaller bundle sizes out of the box</li>
+</ul>
 
-<p><strong>Why SheetJS for data?</strong>
-* Client-side parsing = no backend needed
-* Familiar Excel format for non-technical data updates
-* Rich ecosystem and good documentation
-* Handles complex multi-sheet workbooks</p>
+<p><strong>Why Tailwind CSS?</strong></p>
+
+<ul>
+<li>Utility-first approach reduces CSS file size</li>
+<li>Built-in responsive design utilities</li>
+<li>No context switching between HTML and CSS files</li>
+<li>Easy to maintain consistent design system</li>
+</ul>
+
+<p><strong>Why SheetJS for data?</strong></p>
+
+<ul>
+<li>Client-side parsing = no backend needed</li>
+<li>Familiar Excel format for non-technical data updates</li>
+<li>Rich ecosystem and good documentation</li>
+<li>Handles complex multi-sheet workbooks</li>
+</ul>
 
 <hr>
 
@@ -225,15 +243,18 @@
 
 <p>This sheet contained a lot of information about the game, but it is frustrating to quickly find relevant information in it, especially on a mobile screen.</p>
 
-<p>We have an Excel workbook with 18 sheets containing different types of game data:
-* Weapon Effects
-* Talisman Effects
-* Relic Effects
-* Dormant Powers
-* Character Stats
-* Boss Stats (Nightlord, Everdark Sovereign)
-* Consumables
-* And more&hellip;</p>
+<p>We have an Excel workbook with 18 sheets containing different types of game data:</p>
+
+<ul>
+<li>Weapon Effects</li>
+<li>Talisman Effects</li>
+<li>Relic Effects</li>
+<li>Dormant Powers</li>
+<li>Character Stats</li>
+<li>Boss Stats (Nightlord, Everdark Sovereign)</li>
+<li>Consumables</li>
+<li>And more&hellip;</li>
+</ul>
 
 <p>Each sheet has different columns, and we need to parse them all into a searchable format.</p>
 
@@ -334,10 +355,13 @@ const arrayBuffer = await response.arrayBuffer();
 <li>Each row becomes one object in the array</li>
 </ul>
 
-<p><strong>3. Dynamic Sheet Handling</strong>
-* No hardcoded column names
-* Automatically adapts to any Excel structure
-* Easy to add new sheets without code changes</p>
+<p><strong>3. Dynamic Sheet Handling</strong></p>
+
+<ul>
+<li>No hardcoded column names</li>
+<li>Automatically adapts to any Excel structure</li>
+<li>Easy to add new sheets without code changes</li>
+</ul>
 
 <h3>Custom Hook for Data Management</h3>
 
@@ -379,11 +403,14 @@ export function useExcelData(fileUrl = '/nightreign-data.xlsx') {
 }
 </code></pre>
 
-<p><strong>Why a Custom Hook?</strong>
-* Encapsulates data loading logic
-* Provides loading/error states automatically
-* Reusable across components
-* Follows React best practices for data fetching</p>
+<p><strong>Why a Custom Hook?</strong></p>
+
+<ul>
+<li>Encapsulates data loading logic</li>
+<li>Provides loading/error states automatically</li>
+<li>Reusable across components</li>
+<li>Follows React best practices for data fetching</li>
+</ul>
 
 <p><strong>Usage in Components:</strong></p>
 
@@ -499,22 +526,31 @@ export function searchAllSheets(data, query = '', categoryFilter = 'all') {
 
 <h3>Algorithm Analysis</h3>
 
-<p><strong>Time Complexity:</strong> O(n × m × k)
-* n = number of sheets
-* m = number of rows per sheet
-* k = number of columns per row</p>
+<p><strong>Time Complexity:</strong> O(n × m × k)</p>
 
-<p><strong>Why This Is Fast Enough:</strong>
-1. JavaScript engines optimize string operations
-2. Early returns reduce unnecessary iterations
-3. Client-side means no network latency
-4. Typical dataset: ~500 rows across 18 sheets = fast enough</p>
+<ul>
+<li>n = number of sheets</li>
+<li>m = number of rows per sheet</li>
+<li>k = number of columns per row</li>
+</ul>
 
-<p><strong>Performance Optimization Opportunities:</strong>
-* Add debouncing to search input (wait for user to stop typing)
-* Use Web Workers for parsing/searching (non-blocking)
-* Implement virtual scrolling for results (only render visible cards)
-* Cache search results for repeated queries</p>
+<p><strong>Why This Is Fast Enough:</strong></p>
+
+<ol>
+<li>JavaScript engines optimize string operations</li>
+<li>Early returns reduce unnecessary iterations</li>
+<li>Client-side means no network latency</li>
+<li>Typical dataset: ~500 rows across 18 sheets = fast enough</li>
+</ol>
+
+<p><strong>Performance Optimization Opportunities:</strong></p>
+
+<ul>
+<li>Add debouncing to search input (wait for user to stop typing)</li>
+<li>Use Web Workers for parsing/searching (non-blocking)</li>
+<li>Implement virtual scrolling for results (only render visible cards)</li>
+<li>Cache search results for repeated queries</li>
+</ul>
 
 <h3>Category Extraction</h3>
 
@@ -534,10 +570,13 @@ export function searchAllSheets(data, query = '', categoryFilter = 'all') {
 }
 </code></pre>
 
-<p><strong>Why Set?</strong>
-* Automatically removes duplicates
-* O(1) lookups and insertions
-* Clean API with <code>add()</code>, <code>has()</code>, etc.</p>
+<p><strong>Why Set?</strong></p>
+
+<ul>
+<li>Automatically removes duplicates</li>
+<li>O(1) lookups and insertions</li>
+<li>Clean API with <code>add()</code>, <code>has()</code>, etc.</li>
+</ul>
 
 <hr>
 
@@ -547,12 +586,15 @@ export function searchAllSheets(data, query = '', categoryFilter = 'all') {
 
 <p>The heart of the application - displays individual items with smart field handling.</p>
 
-<p><strong>Key Features:</strong>
-* Dynamic title selection based on sheet type
-* Expandable fields (show first 8, expand for all)
-* Syntax highlighting for search matches
-* Category-based color coding
-* Responsive design</p>
+<p><strong>Key Features:</strong></p>
+
+<ul>
+<li>Dynamic title selection based on sheet type</li>
+<li>Expandable fields (show first 8, expand for all)</li>
+<li>Syntax highlighting for search matches</li>
+<li>Category-based color coding</li>
+<li>Responsive design</li>
+</ul>
 
 <p><strong><code>src/components/DataCard.jsx</code></strong></p>
 
@@ -679,10 +721,13 @@ export function DataCard({ item, searchQuery }) {
 }
 </code></pre>
 
-<p><strong>Key Points:</strong>
-* Controlled component (parent manages state)
-* Conditional clear button (only show when value exists)
-* Accessible (proper labels, keyboard navigation)</p>
+<p><strong>Key Points:</strong></p>
+
+<ul>
+<li>Controlled component (parent manages state)</li>
+<li>Conditional clear button (only show when value exists)</li>
+<li>Accessible (proper labels, keyboard navigation)</li>
+</ul>
 
 <h3>3. CategoryFilter Component</h3>
 
@@ -723,10 +768,13 @@ export function CategoryFilter({ categories, activeCategory, onCategoryChange })
 }
 </code></pre>
 
-<p><strong>Responsive Design:</strong>
-* <code>flex-wrap</code> allows buttons to wrap on small screens
-* Touch-friendly button sizes on mobile
-* Icons scale with text size</p>
+<p><strong>Responsive Design:</strong></p>
+
+<ul>
+<li><code>flex-wrap</code> allows buttons to wrap on small screens</li>
+<li>Touch-friendly button sizes on mobile</li>
+<li>Icons scale with text size</li>
+</ul>
 
 <hr>
 
@@ -851,11 +899,14 @@ const searchResults = useMemo(() =&gt; {
 }, [data, searchQuery, activeCategory]);
 </code></pre>
 
-<p><strong>Why It Matters:</strong>
-* Searching 500+ rows is expensive
-* React re-renders on any state change
-* useMemo caches results until dependencies change
-* Result: Smooth UI, no lag when typing</p>
+<p><strong>Why It Matters:</strong></p>
+
+<ul>
+<li>Searching 500+ rows is expensive</li>
+<li>React re-renders on any state change</li>
+<li>useMemo caches results until dependencies change</li>
+<li>Result: Smooth UI, no lag when typing</li>
+</ul>
 
 <hr>
 
@@ -965,15 +1016,21 @@ EXPOSE 80
 CMD [&quot;nginx&quot;, &quot;-g&quot;, &quot;daemon off;&quot;]
 </code></pre>
 
-<p><strong>Why Multi-Stage Build?</strong>
-1. <strong>Smaller Image</strong>: Final image only includes built files, not source code or build tools
-2. <strong>Security</strong>: No development dependencies in production
-3. <strong>Faster Deploys</strong>: Smaller images = faster transfers
-4. <strong>Clean Separation</strong>: Build environment isolated from runtime</p>
+<p><strong>Why Multi-Stage Build?</strong></p>
 
-<p><strong>Size Comparison:</strong>
-* Single-stage: ~400MB (includes Node.js, npm, source)
-* Multi-stage: ~25MB (only nginx + built files)</p>
+<ol>
+<li><strong>Smaller Image</strong>: Final image only includes built files, not source code or build tools</li>
+<li><strong>Security</strong>: No development dependencies in production</li>
+<li><strong>Faster Deploys</strong>: Smaller images = faster transfers</li>
+<li><strong>Clean Separation</strong>: Build environment isolated from runtime</li>
+</ol>
+
+<p><strong>Size Comparison:</strong></p>
+
+<ul>
+<li>Single-stage: ~400MB (includes Node.js, npm, source)</li>
+<li>Multi-stage: ~25MB (only nginx + built files)</li>
+</ul>
 
 <h3>nginx Configuration</h3>
 
@@ -1014,10 +1071,13 @@ CMD [&quot;nginx&quot;, &quot;-g&quot;, &quot;daemon off;&quot;]
 <p><strong>Key Configurations Explained:</strong></p>
 
 <ol>
-<li><strong>MIME Types</strong>: Ensures browsers know how to handle files</li>
-<li><strong>SPA Fallback</strong>: All routes serve index.html (React Router)</li>
-<li><strong>Excel MIME Type</strong>: Critical for fetch() to work correctly</li>
-<li><strong>Caching Strategy</strong>:
+<li><p><strong>MIME Types</strong>: Ensures browsers know how to handle files</p></li>
+
+<li><p><strong>SPA Fallback</strong>: All routes serve index.html (React Router)</p></li>
+
+<li><p><strong>Excel MIME Type</strong>: Critical for fetch() to work correctly</p></li>
+
+<li><p><strong>Caching Strategy</strong>:</p>
 
 <ul>
 <li>Excel: 1 hour (data may update)</li>
@@ -1084,18 +1144,24 @@ docker-compose logs -f
 });
 </code></pre>
 
-<p><strong>Benefits:</strong>
-* Vendor code cached separately (rarely changes)
-* Parallel loading of chunks
-* Better browser caching
-* Faster subsequent loads</p>
+<p><strong>Benefits:</strong></p>
+
+<ul>
+<li>Vendor code cached separately (rarely changes)</li>
+<li>Parallel loading of chunks</li>
+<li>Better browser caching</li>
+<li>Faster subsequent loads</li>
+</ul>
 
 <h3>2. Code Splitting</h3>
 
-<p>Vite automatically splits:
-* <code>main.js</code> - App code
-* <code>vendor.js</code> - React, ReactDOM
-* <code>xlsx.js</code> - SheetJS library</p>
+<p>Vite automatically splits:</p>
+
+<ul>
+<li><code>main.js</code> - App code</li>
+<li><code>vendor.js</code> - React, ReactDOM</li>
+<li><code>xlsx.js</code> - SheetJS library</li>
+</ul>
 
 <h3>3. Image Optimization</h3>
 
@@ -1136,11 +1202,14 @@ npm run build -- --mode=analyze
 ls -lh dist/assets/
 </code></pre>
 
-<p><strong>Current Bundle Sizes:</strong>
-* Main JS: ~45KB (gzipped)
-* Vendor JS: ~140KB (gzipped) - React + dependencies
-* XLSX JS: ~180KB (gzipped) - Excel parsing library
-* CSS: ~12KB (gzipped)</p>
+<p><strong>Current Bundle Sizes:</strong></p>
+
+<ul>
+<li>Main JS: ~45KB (gzipped)</li>
+<li>Vendor JS: ~140KB (gzipped) - React + dependencies</li>
+<li>XLSX JS: ~180KB (gzipped) - Excel parsing library</li>
+<li>CSS: ~12KB (gzipped)</li>
+</ul>
 
 <p><strong>Total: ~377KB</strong> *Reasonable for a data-heavy application</p>
 
@@ -1150,63 +1219,93 @@ ls -lh dist/assets/
 
 <h3>1. Excel as a Data Source</h3>
 
-<p><strong>Pros:</strong>
-* Non-technical users can update data
-* Familiar format for game data management
-* No database setup required
-* Version control with Git</p>
+<p><strong>Pros:</strong></p>
 
-<p><strong>Cons:</strong>
-* Large file size (1MB+ Excel files)
-* Parse time on initial load (~500ms)
-* No real-time updates
-* Limited query capabilities</p>
+<ul>
+<li>Non-technical users can update data</li>
+<li>Familiar format for game data management</li>
+<li>No database setup required</li>
+<li>Version control with Git</li>
+</ul>
 
-<p><strong>When to Use:</strong>
-* Small to medium datasets (&lt; 10,000 rows)
-* Infrequent updates
-* Non-technical content editors
-* Static data (not user-generated)</p>
+<p><strong>Cons:</strong></p>
 
-<p><strong>When to Avoid:</strong>
-* Frequently changing data
-* Large datasets (&gt; 100MB)
-* Need for relational queries
-* User-generated content</p>
+<ul>
+<li>Large file size (1MB+ Excel files)</li>
+<li>Parse time on initial load (~500ms)</li>
+<li>No real-time updates</li>
+<li>Limited query capabilities</li>
+</ul>
+
+<p><strong>When to Use:</strong></p>
+
+<ul>
+<li>Small to medium datasets (&lt; 10,000 rows)</li>
+<li>Infrequent updates</li>
+<li>Non-technical content editors</li>
+<li>Static data (not user-generated)</li>
+</ul>
+
+<p><strong>When to Avoid:</strong></p>
+
+<ul>
+<li>Frequently changing data</li>
+<li>Large datasets (&gt; 100MB)</li>
+<li>Need for relational queries</li>
+<li>User-generated content</li>
+</ul>
 
 <h3>2. Client-Side Search Limitations</h3>
 
-<p><strong>Works Well For:</strong>
-* &lt; 10,000 total items
-* Simple text matching
-* Single-user applications</p>
+<p><strong>Works Well For:</strong></p>
 
-<p><strong>Breaks Down At:</strong>
-* &gt; 100,000 items (slow search)
-* Complex queries (joins, aggregations)
-* Multi-user scenarios (no shared state)</p>
+<ul>
+<li>&lt; 10,000 total items</li>
+<li>Simple text matching</li>
+<li>Single-user applications</li>
+</ul>
 
-<p><strong>Solution for Scale:</strong>
-* Backend search API (Elasticsearch, Algolia)
-* Database with indexes
-* Server-side filtering/pagination</p>
+<p><strong>Breaks Down At:</strong></p>
+
+<ul>
+<li>&gt; 100,000 items (slow search)</li>
+<li>Complex queries (joins, aggregations)</li>
+<li>Multi-user scenarios (no shared state)</li>
+</ul>
+
+<p><strong>Solution for Scale:</strong></p>
+
+<ul>
+<li>Backend search API (Elasticsearch, Algolia)</li>
+<li>Database with indexes</li>
+<li>Server-side filtering/pagination</li>
+</ul>
 
 <h3>3. Responsive Design Insights</h3>
 
-<p><strong>Mobile-First Is Critical:</strong>
-* 60%+ of traffic is mobile
-* Easier to scale up than down
-* Forces focus on essential features</p>
+<p><strong>Mobile-First Is Critical:</strong></p>
 
-<p><strong>Common Mobile Issues:</strong>
-* Font size &lt; 16px triggers zoom (iOS)
-* Touch targets &lt; 44px are hard to tap
-* Horizontal scrolling is frustrating</p>
+<ul>
+<li>60%+ of traffic is mobile</li>
+<li>Easier to scale up than down</li>
+<li>Forces focus on essential features</li>
+</ul>
 
-<p><strong>Testing Strategy:</strong>
-* Chrome DevTools device emulation
-* Real device testing (iPhone, Android)
-* Lighthouse mobile audits</p>
+<p><strong>Common Mobile Issues:</strong></p>
+
+<ul>
+<li>Font size &lt; 16px triggers zoom (iOS)</li>
+<li>Touch targets &lt; 44px are hard to tap</li>
+<li>Horizontal scrolling is frustrating</li>
+</ul>
+
+<p><strong>Testing Strategy:</strong></p>
+
+<ul>
+<li>Chrome DevTools device emulation</li>
+<li>Real device testing (iPhone, Android)</li>
+<li>Lighthouse mobile audits</li>
+</ul>
 
 <h3>4. Docker Deployment Gotchas</h3>
 
@@ -1230,20 +1329,29 @@ add_header Access-Control-Allow-Origin * always;
 
 <h3>5. Component Architecture Lessons</h3>
 
-<p><strong>Keep Components Small:</strong>
-* Single responsibility principle
-* Easier to test and debug
-* Better reusability</p>
+<p><strong>Keep Components Small:</strong></p>
 
-<p><strong>Lift State Up:</strong>
-* Shared state in parent components
-* Props flow down, events flow up
-* Predictable data flow</p>
+<ul>
+<li>Single responsibility principle</li>
+<li>Easier to test and debug</li>
+<li>Better reusability</li>
+</ul>
 
-<p><strong>Use Custom Hooks:</strong>
-* Encapsulate complex logic
+<p><strong>Lift State Up:</strong></p>
+
+<ul>
+<li>Shared state in parent components</li>
+<li>Props flow down, events flow up</li>
+<li>Predictable data flow</li>
+</ul>
+
+<p><strong>Use Custom Hooks:</strong></p>
+
+<ul>
+<li>Encapsulate complex logic
 *Share stateful logic between components
-*Cleaner component code</p>
+*Cleaner component code</li>
+</ul>
 
 <hr>
 
@@ -1269,45 +1377,66 @@ add_header Access-Control-Allow-Origin * always;
 
 <h3>Next Steps &amp; Improvements</h3>
 
-<p><strong>Short Term:</strong>
-* Add keyboard shortcuts (Cmd+K for search)
-* Implement URL-based search (shareable links)
-* Add favorites/bookmarking
-* Export search results to CSV</p>
+<p><strong>Short Term:</strong></p>
 
-<p><strong>Medium Term:</strong>
-* Backend API for search (Elasticsearch)
-* User accounts and saved searches
-* Comment system for community notes
-* Mobile app (React Native)</p>
+<ul>
+<li>Add keyboard shortcuts (Cmd+K for search)</li>
+<li>Implement URL-based search (shareable links)</li>
+<li>Add favorites/bookmarking</li>
+<li>Export search results to CSV</li>
+</ul>
 
-<p><strong>Long Term:</strong>
-* Real-time data updates (WebSockets)
-* Collaborative editing of Excel data
-* Advanced filtering (multi-select, ranges)
-* Analytics dashboard for popular searches</p>
+<p><strong>Medium Term:</strong></p>
 
-<p><strong>Ideas:</strong>
-* Add a build creation engine for different characters in the game
-* Allow social posting of various builds, ability to add screenshots, comments etc.</p>
+<ul>
+<li>Backend API for search (Elasticsearch)</li>
+<li>User accounts and saved searches</li>
+<li>Comment system for community notes</li>
+<li>Mobile app (React Native)</li>
+</ul>
+
+<p><strong>Long Term:</strong></p>
+
+<ul>
+<li>Real-time data updates (WebSockets)</li>
+<li>Collaborative editing of Excel data</li>
+<li>Advanced filtering (multi-select, ranges)</li>
+<li>Analytics dashboard for popular searches</li>
+</ul>
+
+<p><strong>Ideas:</strong></p>
+
+<ul>
+<li>Add a build creation engine for different characters in the game</li>
+<li>Allow social posting of various builds, ability to add screenshots, comments etc.</li>
+</ul>
 
 <h3>Resources</h3>
 
-<p><strong>Documentation:</strong>
-* <a href="https://react.dev" target="_blank">React Docs</a>
-* <a href="https://vitejs.dev/guide/" target="_blank">Vite Guide</a>
-* <a href="https://tailwindcss.com/docs" target="_blank">Tailwind CSS</a>
-* <a href="https://docs.sheetjs.com" target="_blank">SheetJS Documentation</a></p>
+<p><strong>Documentation:</strong></p>
 
-<p><strong>Tools Used:</strong>
-* <a href="https://claude.ai" target="_blank">Claude</a>
-* <a href="https://lucide.dev" target="_blank">Lucide Icons</a>
-* <a href="https://docs.docker.com" target="_blank">Docker</a>
-* <a href="https://nginx.org/en/docs/" target="_blank">nginx</a></p>
+<ul>
+<li><a href="https://react.dev" target="_blank">React Docs</a></li>
+<li><a href="https://vitejs.dev/guide/" target="_blank">Vite Guide</a></li>
+<li><a href="https://tailwindcss.com/docs" target="_blank">Tailwind CSS</a></li>
+<li><a href="https://docs.sheetjs.com" target="_blank">SheetJS Documentation</a></li>
+</ul>
 
-<p><strong>Source Code:</strong>
-* Full project available on GitHub [<a href="https://github.com/intothevoid/nightreign" target="_blank">https://github.com/intothevoid/nightreign</a>]
-* Live demo at [<a href="https://nightreign.karan.myds.me" target="_blank">https://nightreign.karan.myds.me</a>]</p>
+<p><strong>Tools Used:</strong></p>
+
+<ul>
+<li><a href="https://claude.ai" target="_blank">Claude</a></li>
+<li><a href="https://lucide.dev" target="_blank">Lucide Icons</a></li>
+<li><a href="https://docs.docker.com" target="_blank">Docker</a></li>
+<li><a href="https://nginx.org/en/docs/" target="_blank">nginx</a></li>
+</ul>
+
+<p><strong>Source Code:</strong></p>
+
+<ul>
+<li>Full project available on GitHub [<a href="https://github.com/intothevoid/nightreign" target="_blank">https://github.com/intothevoid/nightreign</a>]</li>
+<li>Live demo at [<a href="https://nightreign.karan.myds.me" target="_blank">https://nightreign.karan.myds.me</a>]</li>
+</ul>
 
 <hr>
 
@@ -1315,15 +1444,21 @@ add_header Access-Control-Allow-Origin * always;
 
 <p><strong>Elden Ring: Nightreign DB</strong> is a database for Elden Ring: Nightreign. Built with modern web technologies, it provides fast, searchable access to game mechanics, items, and stats.</p>
 
-<p><strong>Tech Stack Summary:</strong>
-* React 18 + Vite
-* Tailwind CSS
-* SheetJS (xlsx)
-* Docker + nginx</p>
+<p><strong>Tech Stack Summary:</strong></p>
 
-<p><strong>Contributing:</strong>
-* Data updates via Excel file PRs welcome! See CONTRIBUTING.md for guidelines.
-* Github PRs for bugs and features also welcome!</p>
+<ul>
+<li>React 18 + Vite</li>
+<li>Tailwind CSS</li>
+<li>SheetJS (xlsx)</li>
+<li>Docker + nginx</li>
+</ul>
+
+<p><strong>Contributing:</strong></p>
+
+<ul>
+<li>Data updates via Excel file PRs welcome! See CONTRIBUTING.md for guidelines.</li>
+<li>Github PRs for bugs and features also welcome!</li>
+</ul>
 
 <hr>
 
