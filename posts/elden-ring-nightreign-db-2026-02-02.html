@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Into The Void - Elden Ring: Nightreign DB</title>
+    <link rel="stylesheet" href="/css/main.css">
+    
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+    </script>
+</head>
+<body>
+    
+<header>
+    <div id="site-title" style="display:flex; justify-content:left; align-items: left;">
+        <a href="/index.html">
+            <h1 style="margin: 0;">Into The Void</h1>
+        </a>
+    </div>
+    <div id="nav-links" style="display:flex; justify-content:right; align-items: right;">
+        <nav>
+            <div style="display: flex;">
+                <a href="/posts.html">All Posts</a>
+                
+                    <a href="/pages/about.html">About</a>
+                
+                    <a href="/pages/projects.html">Projects</a>
+                
+            </div>
+        </nav>
+    </div>
+</header>
+
+    <main>
+    
+<h2>Elden Ring: Nightreign DB</h2>
+<p>A searchable database web application</p>
+<p class="info">Published on Feb 2 2026 at 2:08pm</p>
+<h2>Introduction</h2>
+
+<p>In this post, we&rsquo;ll walk through building a web application: a searchable database for the game Elden Ring: Nightreign. This project demonstrates modern web development practices, from Excel data parsing to Docker deployment.</p>
+
+<p><strong>What we&rsquo;ll build:</strong>
+- A React-based single-page application (SPA)
+- Excel file parsing and dynamic search functionality
+- Category-based filtering with custom icons
+- Expandable data cards with smart field display
+- Fully responsive mobile-first design
+- Production-ready Docker deployment with nginx</p>
+
+<p><strong>Tech Stack:</strong>
+- Frontend: React 18 + Vite
+- Styling: Tailwind CSS
+- Data: SheetJS (xlsx) for Excel parsing
+- Icons: Lucide React
+- Deployment: Docker + nginx</p>
+
+<p><strong>Live Features:</strong>
+- Real-time search across all game items, effects, and stats
+- Category filtering (Weapons, Talismans, Relics, etc.)
+- Expandable cards showing detailed information
+- Mobile-responsive design
+- Fast load times with optimized builds</p>
+
+<hr>
+
+<h2>Table of Contents</h2>
+
+<ol>
+<li><a href="#architecture-overview">Architecture Overview</a></li>
+<li><a href="#project-structure">Project Structure</a></li>
+<li><a href="#data-layer-excel-parsing">Data Layer: Excel Parsing</a></li>
+<li><a href="#search-engine-implementation">Search Engine Implementation</a></li>
+<li><a href="#component-architecture">Component Architecture</a></li>
+<li><a href="#state-management--data-flow">State Management &amp; Data Flow</a></li>
+<li><a href="#responsive-design-patterns">Responsive Design Patterns</a></li>
+<li><a href="#docker-deployment">Docker Deployment</a></li>
+<li><a href="#performance-optimizations">Performance Optimizations</a></li>
+<li><a href="#lessons-learned">Lessons Learned</a></li>
+</ol>
+
+<hr>
+
+<h2>Architecture Overview</h2>
+
+<h3>High-Level Architecture</h3>
+
+<pre><code class="language-mermaid">graph TB
+    subgraph Browser[&quot;User Browser&quot;]
+        subgraph UI[&quot;UI Layer&quot;]
+            Header[&quot;Header Component&quot;]
+            SearchBar[&quot;SearchBar Component&quot;]
+            CategoryFilter[&quot;Category Filter&quot;]
+        end
+
+        subgraph App[&quot;Main App Component&quot;]
+            AppState[&quot;Global State Management&lt;br/&gt;- Search Query&lt;br/&gt;- Active Category&lt;br/&gt;- Filtered Results&quot;]
+        end
+
+        subgraph Results[&quot;Results Display&quot;]
+            DataCardGrid[&quot;DataCard Grid&lt;br/&gt;- Dynamic rendering&lt;br/&gt;- Expandable cards&lt;br/&gt;- Smart field display&quot;]
+        end
+
+        subgraph DataLayer[&quot;Data Layer&quot;]
+            Hook[&quot;useExcelData Hook&quot;]
+            Parser[&quot;ExcelParser Utility&quot;]
+            Search[&quot;SearchEngine Utility&quot;]
+        end
+    end
+
+    subgraph Assets[&quot;Static Assets&quot;]
+        Excel[&quot;nightreign-data.xlsx&quot;]
+        Images[&quot;Character Images&quot;]
+    end
+
+    SearchBar --&gt; AppState
+    CategoryFilter --&gt; AppState
+    AppState --&gt; DataCardGrid
+
+    App --&gt; Hook
+    Hook --&gt; Parser
+    Parser --&gt; Search
+    Search --&gt; AppState
+
+    Parser -.loads.-&gt; Excel
+    Header -.loads.-&gt; Images
+
+    style Browser fill:#1a1a1a,stroke:#666,stroke-width:2px,color:#fff
+    style DataLayer fill:#2a2a2a,stroke:#888,stroke-width:2px,color:#fff
+    style Assets fill:#3a3a3a,stroke:#aaa,stroke-width:2px,color:#fff
+</code></pre>
+
+<h3>Why This Architecture?</h3>
+
+<ol>
+<li><strong>Separation of Concerns</strong>: Components handle UI, hooks manage state/data fetching, utilities handle business logic</li>
+<li><strong>Reusability</strong>: Each component is self-contained and can be reused or tested independently</li>
+<li><strong>Performance</strong>: Client-side Excel parsing means no backend needed, reducing infrastructure costs</li>
+<li><strong>Scalability</strong>: Easy to add new data sources or features without refactoring core logic</li>
+</ol>
+
+<hr>
+
+<h2>Project Structure</h2>
+
+<pre><code>nightreign-dashboard/
+├── public/                          # Static assets served directly
+│   ├── duchess.png                  # Logo 
+│   └── nightreign-data.xlsx         # Game data (Excel format)
+│
+├── src/
+│   ├── components/                  # React components
+│   │   ├── DataCard.jsx            # Individual result card with expand/collapse
+│   │   ├── SearchBar.jsx           # Search input with clear button
+│   │   ├── CategoryFilter.jsx      # Category filtering buttons
+│   │   └── Header.jsx              # App header with branding
+│   │
+│   ├── hooks/                       # Custom React hooks
+│   │   └── useExcelData.js         # Hook for loading &amp; caching Excel data
+│   │
+│   ├── utils/                       # Business logic utilities
+│   │   ├── excelParser.js          # Excel file parsing with SheetJS
+│   │   └── searchEngine.js         # Search &amp; categorization logic
+│   │
+│   ├── styles/
+│   │   └── index.css               # Tailwind imports + custom styles
+│   │
+│   ├── App.jsx                      # Main application component
+│   └── main.jsx                     # Application entry point
+│
+├── Dockerfile                       # Multi-stage Docker build
+├── docker-compose.yml               # Container orchestration
+├── nginx.conf                       # Web server configuration
+├── vite.config.js                  # Build tool configuration
+├── tailwind.config.js              # Styling configuration
+└── package.json                    # Dependencies &amp; scripts
+</code></pre>
+
+<h3>Key Design Decisions</h3>
+
+<p><strong>Why Vite over Create React App?</strong>
+- Faster development server startup (uses native ES modules)
+- Optimized production builds with Rollup
+- Better hot module replacement (HMR) experience
+- Smaller bundle sizes out of the box</p>
+
+<p><strong>Why Tailwind CSS?</strong>
+- Utility-first approach reduces CSS file size
+- Built-in responsive design utilities
+- No context switching between HTML and CSS files
+- Easy to maintain consistent design system</p>
+
+<p><strong>Why SheetJS for data?</strong>
+- Client-side parsing = no backend needed
+- Familiar Excel format for non-technical data updates
+- Rich ecosystem and good documentation
+- Handles complex multi-sheet workbooks</p>
+
+<hr>
+
+<h2>Data Layer: Excel Parsing</h2>
+
+<h3>The Challenge</h3>
+
+<p>I&rsquo;ve been a huge fan of this difficult and deep game. There&rsquo;s a lot of scattered information about it all over the internet but I wanted to organise and have all this information in one place.</p>
+
+<p>I first came across this excel sheet on Reddit created by data miners of the game -</p>
+
+<p><img src="https://steamcommunity.com/app/2622380/discussions/0/597404329477993941/" alt="Nightreign Relic Stat Spreadsheet" /></p>
+
+<p>This sheet contained a lot of information about the game, but it is frustrating to quickly find relevant information in it, especially on a mobile screen.</p>
+
+<p>We have an Excel workbook with 18 sheets containing different types of game data:
+- Weapon Effects
+- Talisman Effects
+- Relic Effects
+- Dormant Powers
+- Character Stats
+- Boss Stats (Nightlord, Everdark Sovereign)
+- Consumables
+- And more&hellip;</p>
+
+<p>Each sheet has different columns, and we need to parse them all into a searchable format.</p>
+
+<h3>Solution: Flexible Parser</h3>
+
+<p><strong><code>src/utils/excelParser.js</code></strong></p>
+
+<pre><code class="language-javascript">import * as XLSX from 'xlsx';
+
+// Sheets we want to ignore (credits, outdated data, etc.)
+const IGNORED_SHEETS = [
+  'Credits and Useful Links',
+  'Chalices',
+  'Character Stats Table (Outdated',
+  'Guaranteed Relics'
+];
+
+/**
+ * Loads Excel file from URL and parses all sheets
+ * Returns: { sheetName: [row1, row2, ...], ... }
+ */
+export async function loadExcelFile(url) {
+  try {
+    // Fetch the Excel file
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch: ${response.statusText}`);
+    }
+
+    // Convert to ArrayBuffer (binary data)
+    const arrayBuffer = await response.arrayBuffer();
+
+    // Parse with SheetJS
+    const workbook = XLSX.read(arrayBuffer, { type: 'array' });
+
+    return parseWorkbook(workbook);
+  } catch (error) {
+    console.error('Error loading Excel file:', error);
+    throw error;
+  }
+}
+
+/**
+ * Parses workbook into structured data
+ */
+export function parseWorkbook(workbook) {
+  const data = {};
+
+  workbook.SheetNames.forEach(sheetName =&gt; {
+    // Skip ignored sheets
+    if (IGNORED_SHEETS.includes(sheetName)) {
+      return;
+    }
+
+    const worksheet = workbook.Sheets[sheetName];
+
+    // Convert sheet to JSON array of objects
+    // Each row becomes an object with column names as keys
+    const jsonData = XLSX.utils.sheet_to_json(worksheet, {
+      raw: false,  // Convert dates/numbers to strings
+      defval: ''   // Default value for empty cells
+    });
+
+    // Only include sheets with data
+    if (jsonData.length &gt; 0) {
+      data[sheetName] = jsonData;
+    }
+  });
+
+  return data;
+}
+</code></pre>
+
+<h3>Key Concepts</h3>
+
+<p><strong>1. Fetch API for File Loading</strong></p>
+
+<pre><code class="language-javascript">const response = await fetch(url);
+const arrayBuffer = await response.arrayBuffer();
+</code></pre>
+
+<ul>
+<li>Modern way to load files from URLs</li>
+<li><code>arrayBuffer()</code> gives us raw binary data needed by SheetJS</li>
+</ul>
+
+<p><strong>2. SheetJS sheet_to_json()</strong></p>
+
+<pre><code class="language-javascript">XLSX.utils.sheet_to_json(worksheet, {
+  raw: false,  // Why? Ensures consistent string values
+  defval: ''   // Why? Prevents null/undefined in our data
+});
+</code></pre>
+
+<ul>
+<li>Converts spreadsheet rows to JavaScript objects</li>
+<li>Column headers become object keys</li>
+<li>Each row becomes one object in the array</li>
+</ul>
+
+<p><strong>3. Dynamic Sheet Handling</strong>
+- No hardcoded column names
+- Automatically adapts to any Excel structure
+- Easy to add new sheets without code changes</p>
+
+<h3>Custom Hook for Data Management</h3>
+
+<p><strong><code>src/hooks/useExcelData.js</code></strong></p>
+
+<pre><code class="language-javascript">import { useState, useEffect } from 'react';
+import { loadExcelFile } from '../utils/excelParser';
+
+export function useExcelData(fileUrl = '/nightreign-data.xlsx') {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const loadData = async () =&gt; {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const parsedData = await loadExcelFile(fileUrl);
+      setData(parsedData);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Load data on component mount
+  useEffect(() =&gt; {
+    loadData();
+  }, [fileUrl]);
+
+  return {
+    data,      // Parsed Excel data
+    loading,   // Loading state for UI
+    error,     // Error message if load fails
+    reload: loadData  // Function to reload data
+  };
+}
+</code></pre>
+
+<p><strong>Why a Custom Hook?</strong>
+- Encapsulates data loading logic
+- Provides loading/error states automatically
+- Reusable across components
+- Follows React best practices for data fetching</p>
+
+<p><strong>Usage in Components:</strong></p>
+
+<pre><code class="language-javascript">function App() {
+  const { data, loading, error } = useExcelData();
+
+  if (loading) return &lt;div&gt;Loading...&lt;/div&gt;;
+  if (error) return &lt;div&gt;Error: {error}&lt;/div&gt;;
+  if (!data) return &lt;div&gt;No data&lt;/div&gt;;
+
+  // Use data...
+}
+</code></pre>
+
+<hr>
+
+<h2>Search Engine Implementation</h2>
+
+<h3>The Requirements</h3>
+
+<ol>
+<li>Search across ALL sheets and ALL columns</li>
+<li>Case-insensitive partial matching</li>
+<li>Category-based filtering</li>
+<li>Fast enough for real-time search (as user types)</li>
+<li>Return results with metadata (sheet name, category)</li>
+</ol>
+
+<h3>Solution: Efficient Search Algorithm</h3>
+
+<p><strong><code>src/utils/searchEngine.js</code></strong></p>
+
+<pre><code class="language-javascript">/**
+ * Categorizes sheet names into display categories
+ */
+export function categorizeSheet(sheetName) {
+  const lower = sheetName.toLowerCase();
+
+  // Priority order matters! More specific checks first
+  if (lower === 'level up cost') return 'Levels';
+  if (lower.includes('nightlord')) return 'Nightlord Stats';
+  if (lower.includes('everdark') || lower.includes('sovereign'))
+    return 'Everdark Sovereign Stats';
+
+  if (lower.includes('talisman')) return 'Talismans';
+  if (lower.includes('weapon')) return 'Weapons';
+  if (lower.includes('dormant')) return 'Dormant Powers';
+  if (lower.includes('relic')) return 'Relics';
+  if (lower.includes('consumable')) return 'Consumables';
+  if (lower.includes('character') &amp;&amp; lower.includes('stat')) return 'Stats';
+
+  return 'Other';  // Catch-all for unknown sheets
+}
+
+/**
+ * Searches all sheets for matching rows
+ */
+export function searchAllSheets(data, query = '', categoryFilter = 'all') {
+  if (!data || typeof data !== 'object') return [];
+
+  const normalizedQuery = query.toLowerCase().trim();
+  const results = [];
+
+  // Iterate through each sheet
+  Object.entries(data).forEach(([sheetName, rows]) =&gt; {
+    if (!Array.isArray(rows)) return;
+
+    const category = categorizeSheet(sheetName);
+
+    // Skip 'Other' category completely
+    if (category === 'Other') return;
+
+    // Apply category filter
+    if (categoryFilter !== 'all' &amp;&amp; category !== categoryFilter) {
+      return;
+    }
+
+    // Search through rows
+    rows.forEach(row =&gt; {
+      // If no query, include all items (with category filter applied)
+      if (normalizedQuery === '') {
+        results.push({
+          ...row,
+          _sheet: sheetName,
+          _category: category
+        });
+        return;
+      }
+
+      // Check if any cell value contains the search term
+      const matches = Object.entries(row).some(([key, value]) =&gt; {
+        // Skip empty values
+        if (value === null || value === undefined || value === '')
+          return false;
+
+        // Convert to string and search (case-insensitive)
+        return String(value).toLowerCase().includes(normalizedQuery);
+      });
+
+      if (matches) {
+        results.push({
+          ...row,
+          _sheet: sheetName,
+          _category: category
+        });
+      }
+    });
+  });
+
+  return results;
+}
+</code></pre>
+
+<h3>Algorithm Analysis</h3>
+
+<p><strong>Time Complexity:</strong> O(n × m × k)
+- n = number of sheets
+- m = number of rows per sheet
+- k = number of columns per row</p>
+
+<p><strong>Why This Is Fast Enough:</strong>
+1. JavaScript engines optimize string operations
+2. Early returns reduce unnecessary iterations
+3. Client-side means no network latency
+4. Typical dataset: ~500 rows across 18 sheets = fast enough</p>
+
+<p><strong>Performance Optimization Opportunities:</strong>
+- Add debouncing to search input (wait for user to stop typing)
+- Use Web Workers for parsing/searching (non-blocking)
+- Implement virtual scrolling for results (only render visible cards)
+- Cache search results for repeated queries</p>
+
+<h3>Category Extraction</h3>
+
+<pre><code class="language-javascript">export function getCategories(data) {
+  if (!data || typeof data !== 'object') return [];
+
+  const categories = new Set();  // Set = no duplicates
+
+  Object.keys(data).forEach(sheetName =&gt; {
+    const category = categorizeSheet(sheetName);
+    if (category !== 'Other') {
+      categories.add(category);
+    }
+  });
+
+  return Array.from(categories).sort();  // Alphabetical order
+}
+</code></pre>
+
+<p><strong>Why Set?</strong>
+- Automatically removes duplicates
+- O(1) lookups and insertions
+- Clean API with <code>add()</code>, <code>has()</code>, etc.</p>
+
+<hr>
+
+<h2>Component Architecture</h2>
+
+<h3>1. DataCard Component</h3>
+
+<p>The heart of the application - displays individual items with smart field handling.</p>
+
+<p><strong>Key Features:</strong>
+- Dynamic title selection based on sheet type
+- Expandable fields (show first 8, expand for all)
+- Syntax highlighting for search matches
+- Category-based color coding
+- Responsive design</p>
+
+<p><strong><code>src/components/DataCard.jsx</code></strong></p>
+
+<pre><code class="language-javascript">import React, { useState } from 'react';
+import { ChevronDown, ChevronUp, /* ...icons... */ } from 'lucide-react';
+
+// Color schemes for each category
+const CATEGORY_CONFIG = {
+  'Talismans': {
+    icon: Shield,
+    color: 'text-blue-400 border-blue-900/30 bg-blue-900/10',
+    accent: 'bg-blue-600'
+  },
+  'Weapons': {
+    icon: Sword,
+    color: 'text-red-400 border-red-900/30 bg-red-900/10',
+    accent: 'bg-red-600'
+  },
+  // ... more categories
+};
+
+// Sheet-specific title columns
+const SHEET_TITLE_COLUMN = {
+  'Weapon Effects': 'Effect Description In-Game',
+  'Relic Effects': 'Relic Description',
+  'Dormant Powers': 'Dormant Power'
+};
+
+export function DataCard({ item, searchQuery }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const category = item._category || 'Other';
+  const sheetName = item._sheet || 'Unknown';
+  const config = CATEGORY_CONFIG[category] || CATEGORY_CONFIG['Other'];
+
+  // Determine title column for this sheet
+  const titleColumn = SHEET_TITLE_COLUMN[sheetName];
+  const title = titleColumn &amp;&amp; item[titleColumn]
+    ? item[titleColumn]
+    : item.Name || 'Unknown Item';
+
+  // Filter display keys (exclude metadata and title)
+  const displayKeys = Object.keys(item).filter(key =&gt;
+    !key.startsWith('_') &amp;&amp;
+    key !== titleColumn &amp;&amp;
+    item[key] !== null &amp;&amp;
+    item[key] !== undefined &amp;&amp;
+    item[key] !== ''
+  );
+
+  const hasMoreFields = displayKeys.length &gt; 8;
+  const fieldsToShow = isExpanded ? displayKeys : displayKeys.slice(0, 8);
+
+  return (
+    &lt;div className=&quot;card-container&quot;&gt;
+      {/* Colored accent line */}
+      &lt;div className={`accent-line ${config.accent}`} /&gt;
+
+      &lt;div className=&quot;card-content&quot;&gt;
+        {/* Header with title and icon */}
+        &lt;div className=&quot;card-header&quot;&gt;
+          &lt;h3&gt;{title}&lt;/h3&gt;
+          &lt;span className=&quot;category-badge&quot;&gt;{category}&lt;/span&gt;
+        &lt;/div&gt;
+
+        {/* Data fields */}
+        &lt;div className=&quot;fields-container&quot;&gt;
+          {fieldsToShow.map(key =&gt; (
+            &lt;div key={key} className=&quot;field-row&quot;&gt;
+              &lt;span className=&quot;field-label&quot;&gt;{key}&lt;/span&gt;
+              &lt;span className=&quot;field-value&quot;&gt;{item[key]}&lt;/span&gt;
+            &lt;/div&gt;
+          ))}
+
+          {/* Expand/collapse button */}
+          {hasMoreFields &amp;&amp; (
+            &lt;button onClick={() =&gt; setIsExpanded(!isExpanded)}&gt;
+              {isExpanded ? (
+                &lt;&gt;Show less &lt;ChevronUp /&gt;&lt;/&gt;
+              ) : (
+                &lt;&gt;+{displayKeys.length - 8} more fields &lt;ChevronDown /&gt;&lt;/&gt;
+              )}
+            &lt;/button&gt;
+          )}
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+
+<p><strong>Design Patterns Used:</strong></p>
+
+<ol>
+<li><strong>Controlled Components</strong>: <code>isExpanded</code> state controlled by React</li>
+<li><strong>Conditional Rendering</strong>: Show different UI based on state</li>
+<li><strong>Dynamic Styling</strong>: Tailwind classes computed from data</li>
+<li><strong>Component Composition</strong>: Small, focused component with single responsibility</li>
+</ol>
+
+<h3>2. SearchBar Component</h3>
+
+<p>Simple but effective search input with clear functionality.</p>
+
+<p><strong><code>src/components/SearchBar.jsx</code></strong></p>
+
+<pre><code class="language-javascript">export function SearchBar({ value, onChange, onClear }) {
+  return (
+    &lt;div className=&quot;search-container&quot;&gt;
+      &lt;Search className=&quot;search-icon&quot; /&gt;
+      &lt;input
+        type=&quot;text&quot;
+        placeholder=&quot;Search for effects, items, stats...&quot;
+        value={value}
+        onChange={(e) =&gt; onChange(e.target.value)}
+      /&gt;
+      {value &amp;&amp; (
+        &lt;button onClick={onClear}&gt;
+          &lt;X className=&quot;clear-icon&quot; /&gt;
+        &lt;/button&gt;
+      )}
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+
+<p><strong>Key Points:</strong>
+- Controlled component (parent manages state)
+- Conditional clear button (only show when value exists)
+- Accessible (proper labels, keyboard navigation)</p>
+
+<h3>3. CategoryFilter Component</h3>
+
+<p>Dynamic category buttons generated from data.</p>
+
+<p><strong><code>src/components/CategoryFilter.jsx</code></strong></p>
+
+<pre><code class="language-javascript">const CATEGORY_ICONS = {
+  'All': Sparkles,
+  'Talismans': Shield,
+  'Weapons': Sword,
+  'Levels': TrendingUp,
+  // ... more mappings
+};
+
+export function CategoryFilter({ categories, activeCategory, onCategoryChange }) {
+  const allCategories = ['All', ...categories];
+
+  return (
+    &lt;div className=&quot;category-filters&quot;&gt;
+      {allCategories.map(category =&gt; {
+        const Icon = CATEGORY_ICONS[category] || Sparkles;
+        const isActive = activeCategory === category;
+
+        return (
+          &lt;button
+            key={category}
+            onClick={() =&gt; onCategoryChange(category)}
+            className={isActive ? 'active' : 'inactive'}
+          &gt;
+            &lt;Icon /&gt;
+            {category}
+          &lt;/button&gt;
+        );
+      })}
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+
+<p><strong>Responsive Design:</strong>
+- <code>flex-wrap</code> allows buttons to wrap on small screens
+- Touch-friendly button sizes on mobile
+- Icons scale with text size</p>
+
+<hr>
+
+<h2>State Management &amp; Data Flow</h2>
+
+<h3>Application State Architecture</h3>
+
+<p><strong><code>src/App.jsx</code></strong></p>
+
+<pre><code class="language-javascript">import { useState, useMemo } from 'react';
+import { useExcelData } from './hooks/useExcelData';
+import { searchAllSheets, getCategories } from './utils/searchEngine';
+
+function App() {
+  // Load Excel data
+  const { data, loading, error } = useExcelData();
+
+  // UI state
+  const [searchQuery, setSearchQuery] = useState('');
+  const [activeCategory, setActiveCategory] = useState('All');
+
+  // Derive categories from data
+  const categories = useMemo(() =&gt; {
+    return data ? getCategories(data) : [];
+  }, [data]);
+
+  // Perform search (memoized for performance)
+  const searchResults = useMemo(() =&gt; {
+    if (!data) return [];
+
+    const categoryFilter = activeCategory === 'All'
+      ? 'all'
+      : activeCategory;
+
+    return searchAllSheets(data, searchQuery, categoryFilter);
+  }, [data, searchQuery, activeCategory]);
+
+  // Event handlers
+  const handleSearch = (query) =&gt; {
+    setSearchQuery(query);
+  };
+
+  const handleCategoryChange = (category) =&gt; {
+    setActiveCategory(category);
+  };
+
+  const handleClearSearch = () =&gt; {
+    setSearchQuery('');
+  };
+
+  // Render
+  return (
+    &lt;div className=&quot;app&quot;&gt;
+      &lt;Header loading={loading} /&gt;
+
+      &lt;main&gt;
+        &lt;SearchBar
+          value={searchQuery}
+          onChange={handleSearch}
+          onClear={handleClearSearch}
+        /&gt;
+
+        &lt;CategoryFilter
+          categories={categories}
+          activeCategory={activeCategory}
+          onCategoryChange={handleCategoryChange}
+        /&gt;
+
+        &lt;div className=&quot;results-grid&quot;&gt;
+          {searchResults.map((item, index) =&gt; (
+            &lt;DataCard
+              key={`${item._sheet}-${index}`}
+              item={item}
+              searchQuery={searchQuery}
+            /&gt;
+          ))}
+        &lt;/div&gt;
+
+        {searchResults.length === 0 &amp;&amp; (
+          &lt;div className=&quot;no-results&quot;&gt;
+            No results found for &quot;{searchQuery}&quot;
+          &lt;/div&gt;
+        )}
+      &lt;/main&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+
+<h3>Data Flow Diagram</h3>
+
+<pre><code class="language-mermaid">flowchart TD
+    A[User Input&lt;br/&gt;Search/Filter] --&gt; B[Update State&lt;br/&gt;useState]
+    B --&gt; C[Trigger Recalculation&lt;br/&gt;useMemo]
+    C --&gt; D[searchAllSheets&lt;br/&gt;runs]
+    D --&gt; E[Return Filtered&lt;br/&gt;Results]
+    E --&gt; F[React Re-renders&lt;br/&gt;Components]
+    F --&gt; G[Display Updated&lt;br/&gt;Results]
+
+    style A fill:#4a5568,stroke:#718096,stroke-width:2px,color:#fff
+    style B fill:#2d3748,stroke:#4a5568,stroke-width:2px,color:#fff
+    style C fill:#2d3748,stroke:#4a5568,stroke-width:2px,color:#fff
+    style D fill:#d97706,stroke:#f59e0b,stroke-width:2px,color:#fff
+    style E fill:#2d3748,stroke:#4a5568,stroke-width:2px,color:#fff
+    style F fill:#059669,stroke:#10b981,stroke-width:2px,color:#fff
+    style G fill:#059669,stroke:#10b981,stroke-width:2px,color:#fff
+</code></pre>
+
+<h3>Performance: useMemo Explained</h3>
+
+<p><strong>Without useMemo:</strong></p>
+
+<pre><code class="language-javascript">// BAD: Runs on EVERY render, even unrelated changes
+const searchResults = searchAllSheets(data, searchQuery, activeCategory);
+</code></pre>
+
+<p><strong>With useMemo:</strong></p>
+
+<pre><code class="language-javascript">// GOOD: Only runs when dependencies change
+const searchResults = useMemo(() =&gt; {
+  return searchAllSheets(data, searchQuery, activeCategory);
+}, [data, searchQuery, activeCategory]);
+</code></pre>
+
+<p><strong>Why It Matters:</strong>
+- Searching 500+ rows is expensive
+- React re-renders on any state change
+- useMemo caches results until dependencies change
+- Result: Smooth UI, no lag when typing</p>
+
+<hr>
+
+<h2>Responsive Design Patterns</h2>
+
+<h3>Mobile-First Approach</h3>
+
+<p>This was an important requirement for me since quickly finding information in the excel workbook on a mobile screen was a major pain point for me, which led to the creation of this webapp.</p>
+
+<p>Tailwind&rsquo;s responsive utilities work mobile-first:</p>
+
+<pre><code class="language-javascript">// Mobile: text-base (16px) → Desktop: md:text-lg (18px)
+className=&quot;text-base md:text-lg&quot;
+</code></pre>
+
+<h3>Key Breakpoints</h3>
+
+<pre><code class="language-javascript">// Tailwind default breakpoints
+sm: 640px   // Small tablets
+md: 768px   // Tablets
+lg: 1024px  // Laptops
+xl: 1280px  // Desktops
+</code></pre>
+
+<h3>Common Patterns Used</h3>
+
+<p><strong>1. Responsive Spacing:</strong></p>
+
+<pre><code class="language-javascript">// Mobile: 4px, Desktop: 8px
+className=&quot;mt-4 md:mt-8&quot;
+</code></pre>
+
+<p><strong>2. Responsive Sizing:</strong></p>
+
+<pre><code class="language-javascript">// Header logo: 112px mobile, 160px desktop
+className=&quot;h-28 w-28 md:h-40 md:w-40&quot;
+</code></pre>
+
+<p><strong>3. Flex Wrapping:</strong></p>
+
+<pre><code class="language-javascript">// Single column mobile, wraps to multi-column desktop
+className=&quot;flex flex-wrap gap-2&quot;
+</code></pre>
+
+<p><strong>4. Text Scaling:</strong></p>
+
+<pre><code class="language-javascript">// Button text: 12px mobile, 14px desktop
+className=&quot;text-xs md:text-sm&quot;
+</code></pre>
+
+<h3>Mobile-Specific Fixes</h3>
+
+<p><strong>Problem: iOS Auto-Zoom on Input Focus</strong></p>
+
+<pre><code class="language-css">/* BAD: iOS zooms on inputs &lt; 16px */
+font-size: 14px;
+
+/* GOOD: Prevents auto-zoom */
+font-size: 16px;
+</code></pre>
+
+<p><strong>Solution in Code:</strong></p>
+
+<pre><code class="language-javascript">className=&quot;text-base md:text-lg&quot;  // 16px mobile, 18px desktop
+</code></pre>
+
+<hr>
+
+<h2>Docker Deployment</h2>
+
+<h3>Multi-Stage Build</h3>
+
+<p><strong><code>Dockerfile</code></strong></p>
+
+<pre><code class="language-dockerfile"># Stage 1: Build
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+# Copy dependency files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm ci --only=production
+
+# Copy source code
+COPY . .
+
+# Build production bundle
+RUN npm run build
+
+# Stage 2: Production
+FROM nginx:alpine
+
+# Copy built files from builder stage
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+# Copy nginx configuration
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Fix file permissions for nginx user
+RUN chmod -R 755 /usr/share/nginx/html &amp;&amp; \
+    chown -R nginx:nginx /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD [&quot;nginx&quot;, &quot;-g&quot;, &quot;daemon off;&quot;]
+</code></pre>
+
+<p><strong>Why Multi-Stage Build?</strong>
+1. <strong>Smaller Image</strong>: Final image only includes built files, not source code or build tools
+2. <strong>Security</strong>: No development dependencies in production
+3. <strong>Faster Deploys</strong>: Smaller images = faster transfers
+4. <strong>Clean Separation</strong>: Build environment isolated from runtime</p>
+
+<p><strong>Size Comparison:</strong>
+- Single-stage: ~400MB (includes Node.js, npm, source)
+- Multi-stage: ~25MB (only nginx + built files)</p>
+
+<h3>nginx Configuration</h3>
+
+<p><strong><code>nginx.conf</code></strong></p>
+
+<pre><code class="language-nginx">server {
+    listen 80;
+    server_name localhost;
+    root /usr/share/nginx/html;
+    index index.html;
+
+    # Include default MIME types (CRITICAL!)
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+
+    # Enable CORS (for local dev/testing)
+    add_header Access-Control-Allow-Origin * always;
+
+    # SPA fallback: serve index.html for all routes
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    # Excel files: correct content type
+    location ~* \.(xlsx|xls)$ {
+        add_header Content-Type application/vnd.openxmlformats-officedocument.spreadsheetml.sheet always;
+        add_header Cache-Control &quot;public, max-age=3600&quot; always;
+    }
+
+    # Static assets: aggressive caching
+    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg)$ {
+        expires 1y;
+        add_header Cache-Control &quot;public, immutable&quot;;
+    }
+}
+</code></pre>
+
+<p><strong>Key Configurations Explained:</strong></p>
+
+<ol>
+<li><strong>MIME Types</strong>: Ensures browsers know how to handle files</li>
+<li><strong>SPA Fallback</strong>: All routes serve index.html (React Router)</li>
+<li><strong>Excel MIME Type</strong>: Critical for fetch() to work correctly</li>
+<li><strong>Caching Strategy</strong>:
+
+<ul>
+<li>Excel: 1 hour (data may update)</li>
+<li>Static assets: 1 year (hashed filenames)</li>
+</ul></li>
+</ol>
+
+<h3>Docker Compose</h3>
+
+<p><strong><code>docker-compose.yml</code></strong></p>
+
+<pre><code class="language-yaml">version: '3.8'
+
+services:
+  nightreign-dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nightreign-dashboard
+    ports:
+      - &quot;3383:80&quot;
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+</code></pre>
+
+<p><strong>Usage:</strong></p>
+
+<pre><code class="language-bash"># Build and start
+docker-compose up --build
+
+# Run in background
+docker-compose up -d
+
+# Stop
+docker-compose down
+
+# View logs
+docker-compose logs -f
+</code></pre>
+
+<hr>
+
+<h2>Performance Optimizations</h2>
+
+<h3>1. Vite Build Optimizations</h3>
+
+<p><strong><code>vite.config.js</code></strong></p>
+
+<pre><code class="language-javascript">export default defineConfig({
+  plugins: [react()],
+  build: {
+    outDir: 'dist',
+    sourcemap: false,  // Smaller production bundle
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor': ['react', 'react-dom'],  // Separate vendor chunk
+          'xlsx': ['xlsx']  // Separate Excel library
+        }
+      }
+    }
+  }
+});
+</code></pre>
+
+<p><strong>Benefits:</strong>
+- Vendor code cached separately (rarely changes)
+- Parallel loading of chunks
+- Better browser caching
+- Faster subsequent loads</p>
+
+<h3>2. Code Splitting</h3>
+
+<p>Vite automatically splits:
+- <code>main.js</code> - App code
+- <code>vendor.js</code> - React, ReactDOM
+- <code>xlsx.js</code> - SheetJS library</p>
+
+<h3>3. Image Optimization</h3>
+
+<pre><code class="language-javascript">// Duchess character image
+&lt;img
+  src=&quot;/duchess.png&quot;
+  alt=&quot;The Duchess&quot;
+  className=&quot;h-28 w-28 md:h-40 md:w-40 object-cover&quot;
+  loading=&quot;lazy&quot;  // Lazy load if off-screen
+/&gt;
+</code></pre>
+
+<h3>4. React Performance</h3>
+
+<p><strong>useMemo for Expensive Calculations:</strong></p>
+
+<pre><code class="language-javascript">const searchResults = useMemo(() =&gt; {
+  return searchAllSheets(data, searchQuery, activeCategory);
+}, [data, searchQuery, activeCategory]);
+</code></pre>
+
+<p><strong>Proper Key Props:</strong></p>
+
+<pre><code class="language-javascript">{results.map((item, index) =&gt; (
+  &lt;DataCard
+    key={`${item._sheet}-${index}`}  // Unique key
+    item={item}
+  /&gt;
+))}
+</code></pre>
+
+<h3>5. Bundle Size Analysis</h3>
+
+<pre><code class="language-bash"># Build with analysis
+npm run build -- --mode=analyze
+
+# Or manually check
+ls -lh dist/assets/
+</code></pre>
+
+<p><strong>Current Bundle Sizes:</strong>
+- Main JS: ~45KB (gzipped)
+- Vendor JS: ~140KB (gzipped) - React + dependencies
+- XLSX JS: ~180KB (gzipped) - Excel parsing library
+- CSS: ~12KB (gzipped)</p>
+
+<p><strong>Total: ~377KB</strong> - Reasonable for a data-heavy application</p>
+
+<hr>
+
+<h2>Lessons Learned</h2>
+
+<h3>1. Excel as a Data Source</h3>
+
+<p><strong>Pros:</strong>
+- Non-technical users can update data
+- Familiar format for game data management
+- No database setup required
+- Version control with Git</p>
+
+<p><strong>Cons:</strong>
+- Large file size (1MB+ Excel files)
+- Parse time on initial load (~500ms)
+- No real-time updates
+- Limited query capabilities</p>
+
+<p><strong>When to Use:</strong>
+- Small to medium datasets (&lt; 10,000 rows)
+- Infrequent updates
+- Non-technical content editors
+- Static data (not user-generated)</p>
+
+<p><strong>When to Avoid:</strong>
+- Frequently changing data
+- Large datasets (&gt; 100MB)
+- Need for relational queries
+- User-generated content</p>
+
+<h3>2. Client-Side Search Limitations</h3>
+
+<p><strong>Works Well For:</strong>
+- &lt; 10,000 total items
+- Simple text matching
+- Single-user applications</p>
+
+<p><strong>Breaks Down At:</strong>
+- &gt; 100,000 items (slow search)
+- Complex queries (joins, aggregations)
+- Multi-user scenarios (no shared state)</p>
+
+<p><strong>Solution for Scale:</strong>
+- Backend search API (Elasticsearch, Algolia)
+- Database with indexes
+- Server-side filtering/pagination</p>
+
+<h3>3. Responsive Design Insights</h3>
+
+<p><strong>Mobile-First Is Critical:</strong>
+- 60%+ of traffic is mobile
+- Easier to scale up than down
+- Forces focus on essential features</p>
+
+<p><strong>Common Mobile Issues:</strong>
+- Font size &lt; 16px triggers zoom (iOS)
+- Touch targets &lt; 44px are hard to tap
+- Horizontal scrolling is frustrating</p>
+
+<p><strong>Testing Strategy:</strong>
+- Chrome DevTools device emulation
+- Real device testing (iPhone, Android)
+- Lighthouse mobile audits</p>
+
+<h3>4. Docker Deployment Gotchas</h3>
+
+<p><strong>MIME Types Are Critical:</strong></p>
+
+<pre><code class="language-nginx"># Without this, browsers download HTML as .dms files!
+include /etc/nginx/mime.types;
+</code></pre>
+
+<p><strong>File Permissions Matter:</strong></p>
+
+<pre><code class="language-dockerfile"># nginx user needs read access
+RUN chmod -R 755 /usr/share/nginx/html
+</code></pre>
+
+<p><strong>CORS for Local Dev:</strong></p>
+
+<pre><code class="language-nginx"># Allow localhost testing
+add_header Access-Control-Allow-Origin * always;
+</code></pre>
+
+<h3>5. Component Architecture Lessons</h3>
+
+<p><strong>Keep Components Small:</strong>
+- Single responsibility principle
+- Easier to test and debug
+- Better reusability</p>
+
+<p><strong>Lift State Up:</strong>
+- Shared state in parent components
+- Props flow down, events flow up
+- Predictable data flow</p>
+
+<p><strong>Use Custom Hooks:</strong>
+- Encapsulate complex logic
+- Share stateful logic between components
+- Cleaner component code</p>
+
+<hr>
+
+<h2>Conclusion</h2>
+
+<p>We&rsquo;ve built a complete, production-ready web application that demonstrates:</p>
+
+<p>✅ <strong>Modern React Patterns</strong>: Hooks, custom hooks, memoization
+✅ <strong>Responsive Design</strong>: Mobile-first, Tailwind utilities
+✅ <strong>Client-Side Data Processing</strong>: Excel parsing, search algorithms
+✅ <strong>Production Deployment</strong>: Docker, nginx, optimizations
+✅ <strong>User Experience</strong>: Fast search, expandable cards, clear UI</p>
+
+<h3>Key Takeaways</h3>
+
+<ol>
+<li><strong>Architecture Matters</strong>: Separation of concerns makes code maintainable</li>
+<li><strong>Performance First</strong>: useMemo, code splitting, caching strategies</li>
+<li><strong>Responsive is Non-Negotiable</strong>: Mobile-first design is table stakes</li>
+<li><strong>Deploy Early</strong>: Docker + nginx = production-ready from day one</li>
+<li><strong>User Experience</strong>: Small details (expand cards, clear search) matter</li>
+</ol>
+
+<h3>Next Steps &amp; Improvements</h3>
+
+<p><strong>Short Term:</strong>
+- Add keyboard shortcuts (Cmd+K for search)
+- Implement URL-based search (shareable links)
+- Add favorites/bookmarking
+- Export search results to CSV</p>
+
+<p><strong>Medium Term:</strong>
+- Backend API for search (Elasticsearch)
+- User accounts and saved searches
+- Comment system for community notes
+- Mobile app (React Native)</p>
+
+<p><strong>Long Term:</strong>
+- Real-time data updates (WebSockets)
+- Collaborative editing of Excel data
+- Advanced filtering (multi-select, ranges)
+- Analytics dashboard for popular searches</p>
+
+<p><strong>Ideas:</strong>
+- Add a build creation engine for different characters in the game
+- Allow social posting of various builds, ability to add screenshots, comments etc.</p>
+
+<h3>Resources</h3>
+
+<p><strong>Documentation:</strong>
+- <a href="https://react.dev" target="_blank">React Docs</a>
+- <a href="https://vitejs.dev/guide/" target="_blank">Vite Guide</a>
+- <a href="https://tailwindcss.com/docs" target="_blank">Tailwind CSS</a>
+- <a href="https://docs.sheetjs.com" target="_blank">SheetJS Documentation</a></p>
+
+<p><strong>Tools Used:</strong>
+- <a href="https://claude.ai" target="_blank">Claude</a>
+- <a href="https://lucide.dev" target="_blank">Lucide Icons</a>
+- <a href="https://docs.docker.com" target="_blank">Docker</a>
+- <a href="https://nginx.org/en/docs/" target="_blank">nginx</a></p>
+
+<p><strong>Source Code:</strong>
+- Full project available on GitHub [<a href="https://github.com/intothevoid/nightreign" target="_blank">https://github.com/intothevoid/nightreign</a>]
+- Live demo at [<a href="https://nightreign.karan.myds.me" target="_blank">https://nightreign.karan.myds.me</a>]</p>
+
+<hr>
+
+<h2>About This Project</h2>
+
+<p><strong>Elden Ring: Nightreign DB</strong> is a database for Elden Ring: Nightreign. Built with modern web technologies, it provides fast, searchable access to game mechanics, items, and stats.</p>
+
+<p><strong>Tech Stack Summary:</strong>
+- React 18 + Vite
+- Tailwind CSS
+- SheetJS (xlsx)
+- Docker + nginx</p>
+
+<p><strong>Contributing:</strong>
+- Data updates via Excel file PRs welcome! See CONTRIBUTING.md for guidelines.
+- Github PRs for bugs and features also welcome!</p>
+
+<hr>
+
+
+<p class="info">Tags: 
+    
+        
+        <a href="/tags/elden-ring.html">elden ring</a>
+    
+        , 
+        <a href="/tags/nightreign.html">nightreign</a>
+    
+        , 
+        <a href="/tags/react.html">react</a>
+    
+        , 
+        <a href="/tags/ai.html">ai</a>
+    
+</p>
+
+
+    
+<script>
+    Prism.plugins.autoloader.languages_path = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/';
+    
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        document.querySelectorAll('pre.language-mermaid').forEach(function(element) {
+            
+            var mermaidDiv = document.createElement('div');
+            mermaidDiv.className = 'mermaid';
+            mermaidDiv.innerHTML = element.textContent;
+            
+            
+            element.parentNode.replaceChild(mermaidDiv, element);
+        });
+        
+        
+        mermaid.init();
+    });
+</script>
+
+    <main>
+    
+<footer>
+    <p class="footer-content">
+        <span>&copy; 2026 Into The Void.</span>
+        <span>Powered by <a href="https://www.github.com/intothevoid/likho">Likho</a>.</span>
+    </p>
+</footer>
+
+</body>
+</html>
