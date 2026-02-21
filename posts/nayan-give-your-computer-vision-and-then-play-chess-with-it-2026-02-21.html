@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Into The Void - Nayan: Give your computer vision, and then play Chess with it</title>
+    <link rel="stylesheet" href="/css/main.css">
+    
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+    </script>
+</head>
+<body>
+    
+<header>
+    <div id="site-title" style="display:flex; justify-content:left; align-items: left;">
+        <a href="/index.html">
+            <h1 style="margin: 0;">Into The Void</h1>
+        </a>
+    </div>
+    <div id="nav-links" style="display:flex; justify-content:right; align-items: right;">
+        <nav>
+            <div style="display: flex;">
+                <a href="/posts.html">All Posts</a>
+                
+                    <a href="/pages/about.html">About</a>
+                
+                    <a href="/pages/projects.html">Projects</a>
+                
+            </div>
+        </nav>
+    </div>
+</header>
+
+    <main>
+    
+<h2>Nayan: Give your computer vision, and then play Chess with it</h2>
+<p>A computer vision Chess companion with Go, OpenCV and Stockfish</p>
+<p class="info">Published on Feb 21 2026 at 10:41pm</p>
+<h1>Building Nayan: A Computer Vision Chess Companion with Go, OpenCV, and Stockfish</h1>
+
+<p><strong>Nayan</strong> (meaning &ldquo;vision&rdquo; in Hindi) is a chess companion that watches a physical chessboard through a webcam, detects the board and pieces using computer vision, and recommends moves by consulting a local Stockfish engine. It bridges the physical and digital worlds — you play on a real board with real pieces, while an AI assistant watches and coaches you in real time, complete with voice commentary.</p>
+
+<p>This post walks through how Nayan works, the architecture behind it, the challenges of building a real-time vision-based chess system, and where the project is headed.</p>
+
+<hr>
+
+<h2>The Problem</h2>
+
+<p>Playing chess against a computer usually means staring at a screen and clicking squares. Playing on a physical board is more satisfying, but you lose access to engine analysis. Nayan solves this by observing a physical board through a webcam and maintaining a synchronised digital representation. The engine analyses the digital board; you make moves on the physical one.</p>
+
+<p>The key insight that makes this tractable: <strong>you don&rsquo;t need to recognise piece types</strong>. If you know the starting position and can detect which squares are occupied vs. empty, you can infer every move by comparing the observed occupancy against all legal moves in the current position. The chess rules engine does the disambiguation for you.</p>
+
+<hr>
+
+<h2>High-Level Architecture</h2>
+
+<pre><code class="language-mermaid">graph TB
+    subgraph Physical World
+        CAM[Webcam&lt;br/&gt;640x480]
+        BOARD[Physical Chessboard]
+    end
+
+    subgraph Vision Pipeline
+        PRE[Preprocessing&lt;br/&gt;Grey → Blur → Canny → Dilate]
+        WARP[Perspective Warp&lt;br/&gt;to 800x800 top-down]
+        OCC[Occupancy Detection&lt;br/&gt;Variance + Edge analysis]
+    end
+
+    subgraph Game Logic
+        INFER[Move Inference&lt;br/&gt;Match occupancy to legal moves]
+        STATE[GameState&lt;br/&gt;notnil/chess library]
+        FEN[FEN Generation]
+    end
+
+    subgraph Engine
+        SF[Stockfish Binary&lt;br/&gt;UCI Protocol]
+    end
+
+    subgraph UI - Fyne
+        FEED[Camera Feed&lt;br/&gt;VideoDisplay widget]
+        DEBUG[Debug Views&lt;br/&gt;Grey / Edges / Warped]
+        VBOARD[Virtual Board&lt;br/&gt;BoardWidget]
+        CTRL[Controls&lt;br/&gt;Calibrate / Start / Voiceover]
+        VO[Voice-Over&lt;br/&gt;macOS say command]
+    end
+
+    CAM --&gt;|Raw frames| PRE
+    PRE --&gt; WARP
+    WARP --&gt; OCC
+    OCC --&gt;|8x8 bool grid| INFER
+    INFER --&gt; STATE
+    STATE --&gt;|FEN string| SF
+    SF --&gt;|Best move| STATE
+    STATE --&gt; VBOARD
+    STATE --&gt; FEN
+    CAM --&gt; FEED
+    PRE --&gt; DEBUG
+    SF --&gt; VO
+    STATE --&gt; CTRL
+</code></pre>
+
+<hr>
+
+<h2>Project Structure</h2>
+
+<pre><code>nayan/
+├── cmd/app/
+│   ├── main.go          # Entry point, orchestration, UI layout
+│   └── Funk.aiff        # Embedded alert sound
+├── pkg/
+│   ├── camera/
+│   │   └── camera.go    # Webcam capture via GoCV
+│   ├── vision/
+│   │   ├── processor.go # Preprocessing, board detection, perspective warp
+│   │   ├── squares.go   # Per-square occupancy analysis
+│   │   └── geometry.go  # Euclidean distance helper
+│   ├── chess/
+│   │   ├── board.go     # GameState, move inference, coordinate mapping
+│   │   └── board_test.go
+│   ├── engine/
+│   │   └── stockfish.go # UCI protocol wrapper
+│   └── ui/
+│       ├── board.go     # Virtual chessboard widget
+│       ├── video.go     # Live video display widget
+│       ├── assets.go    # Embedded SVG piece images
+│       └── pieces/      # 12 SVG files (wK, wQ, ... bP)
+├── go.mod
+├── go.sum
+└── CLAUDE.md
+</code></pre>
+
+<hr>
+
+<h2>The Vision Pipeline</h2>
+
+<p>The vision system runs once per frame (~30 FPS) and transforms a raw webcam image into an 8x8 boolean occupancy grid.</p>
+
+<h3>Step 1: Manual Calibration</h3>
+
+<p>Automatic board detection via contour analysis was the original approach — find the largest quadrilateral in the edge map — but it proved unreliable in practice (more on this in the Challenges section). The current system uses <strong>manual 4-corner calibration</strong>: the user clicks the four corners of the board on the camera feed, and the system locks those corners for perspective correction.</p>
+
+<pre><code class="language-mermaid">sequenceDiagram
+    participant U as User
+    participant UI as Camera Feed
+    participant V as Vision System
+
+    U-&gt;&gt;UI: Clicks &quot;Calibrate&quot;
+    UI-&gt;&gt;U: &quot;Click corner 1/4: top-left&quot;
+    U-&gt;&gt;UI: Clicks top-left corner
+    UI-&gt;&gt;U: &quot;Click corner 2/4: top-right&quot;
+    U-&gt;&gt;UI: Clicks top-right corner
+    UI-&gt;&gt;U: &quot;Click corner 3/4: bottom-right&quot;
+    U-&gt;&gt;UI: Clicks bottom-right corner
+    UI-&gt;&gt;U: &quot;Click corner 4/4: bottom-left&quot;
+    U-&gt;&gt;UI: Clicks bottom-left corner
+    V-&gt;&gt;V: ReorderPoints() — sort TL, TR, BR, BL
+    V-&gt;&gt;UI: &quot;Calibration complete!&quot;
+    Note over V: Warping begins every frame
+</code></pre>
+
+<p>The <code>ReorderPoints</code> function sorts the four clicked points into a canonical order (top-left, top-right, bottom-right, bottom-left) using a sum/difference heuristic: the top-left corner has the smallest <code>x+y</code>, the bottom-right has the largest, and so on.</p>
+
+<h3>Step 2: Preprocessing</h3>
+
+<p>Each frame passes through a standard OpenCV preprocessing pipeline:</p>
+
+<ol>
+<li><strong>Greyscale conversion</strong> — removes colour information, reduces computation</li>
+<li><strong>Gaussian blur</strong> (7x7 kernel) — suppresses internal square textures and noise</li>
+<li><strong>Canny edge detection</strong> (thresholds: 50, 150) — finds strong edges</li>
+<li><strong>Morphological closing</strong> (5x5 kernel) — seals small gaps in the board outline</li>
+</ol>
+
+<p>These intermediate stages are displayed in three debug views below the main camera feed, letting the user see exactly what the vision system sees.</p>
+
+<h3>Step 3: Perspective Warp</h3>
+
+<p>Using the four calibrated corners, <code>WarpBoard</code> applies a perspective transform to produce an 800x800 pixel top-down view of the board. Each of the 64 squares becomes a clean 100x100 pixel region, regardless of the camera angle.</p>
+
+<pre><code>Camera view (perspective)          Warped view (top-down)
+┌─────────────────┐               ┌────────────────────┐
+│  ╱──────────╲   │               │ ┌──┬──┬──┬──┬──┐  │
+│ ╱            ╲  │    warp       │ ├──┼──┼──┼──┼──┤  │
+│╱   Chessboard ╲ │  ────────►   │ ├──┼──┼──┼──┼──┤  │
+│╲              ╱ │               │ ├──┼──┼──┼──┼──┤  │
+│ ╲            ╱  │               │ ├──┼──┼──┼──┼──┤  │
+│  ╲──────────╱   │               │ └──┴──┴──┴──┴──┘  │
+└─────────────────┘               └────────────────────┘
+</code></pre>
+
+<h3>Step 4: Occupancy Detection</h3>
+
+<p>For each of the 64 squares, the system determines &ldquo;occupied&rdquo; or &ldquo;empty&rdquo; using a <strong>dual-signal approach</strong>:</p>
+
+<ol>
+<li><p><strong>Variance signal</strong>: Compute the standard deviation of pixel intensities within the square (with a 20px inset to avoid grid lines). Occupied squares have higher variance because pieces create light/dark patterns. Threshold: <code>variance &gt; 20</code>.</p></li>
+
+<li><p><strong>Edge density signal</strong>: Run Canny edge detection on each square and calculate the percentage of edge pixels. Pieces create more edges than empty squares. Threshold: <code>edge% &gt; 6.0%</code>.</p></li>
+</ol>
+
+<p>A square is marked occupied if <strong>either</strong> signal exceeds its threshold. This dual approach is more robust than either signal alone — dark pieces on dark squares might have low variance but high edge density, and vice versa.</p>
+
+<pre><code>  a       b       c       d       e       f       g       h
+8 X58/5  X26/6  X48/4  . 8/1  X29/3  . 7/0  .12/0  X34/5
+7 .10/0  X71/7  . 6/0  . 5/0  . 7/0  X96/4  X46/7  X72/6
+6 . 5/0  . 8/0  . 7/0  . 7/0  X75/8  X39/5  . 7/0  .12/0
+...
+Legend: X=occupied .=empty  (variance/edge%)
+</code></pre>
+
+<hr>
+
+<h2>The Move Inference Engine</h2>
+
+<p>This is the core insight that makes the project work without piece recognition.</p>
+
+<h3>The Algorithm</h3>
+
+<p>Given the current game state (which tracks all pieces) and the observed 8x8 occupancy grid from the camera:</p>
+
+<ol>
+<li>Get all <strong>legal moves</strong> from the current position (typically 20-40 moves)</li>
+<li>For each legal move, <strong>simulate</strong> the resulting position</li>
+<li>Generate the <strong>occupancy grid</strong> for each simulated position</li>
+<li>Find which simulated occupancy <strong>matches</strong> the observed camera occupancy</li>
+<li>Return the matching move</li>
+</ol>
+
+<pre><code class="language-mermaid">flowchart LR
+    OBS[Observed&lt;br/&gt;Occupancy Grid]
+    POS[Current&lt;br/&gt;Position]
+    POS --&gt;|ValidMoves| M1[e2-e4]
+    POS --&gt;|ValidMoves| M2[d2-d4]
+    POS --&gt;|ValidMoves| M3[Nf3]
+    POS --&gt;|ValidMoves| MN[...]
+    M1 --&gt;|Simulate| S1[Occupancy&lt;br/&gt;after e4]
+    M2 --&gt;|Simulate| S2[Occupancy&lt;br/&gt;after d4]
+    M3 --&gt;|Simulate| S3[Occupancy&lt;br/&gt;after Nf3]
+    S1 --&gt; CMP{Compare}
+    S2 --&gt; CMP
+    S3 --&gt; CMP
+    OBS --&gt; CMP
+    CMP --&gt;|Match found| RESULT[Inferred Move:&lt;br/&gt;e2-e4]
+</code></pre>
+
+<p>This naturally handles complex moves:
+- <strong>Captures</strong>: One square vacated, another stays occupied (piece replaced)
+- <strong>Castling</strong>: Two pieces move simultaneously — the occupancy pattern is unique
+- <strong>En passant</strong>: Three squares change — the captured pawn&rsquo;s square empties too</p>
+
+<p>When multiple moves produce the same occupancy (rare, mainly pawn promotions), queen promotion is preferred.</p>
+
+<h3>CPU Move Enforcement</h3>
+
+<p>When it&rsquo;s the CPU&rsquo;s turn, rather than inferring from all legal moves, the system verifies the board against the <strong>specific recommended move</strong>. It simulates the expected occupancy after the Stockfish recommendation and compares directly. This avoids ambiguity when multiple captures from the same square produce identical occupancy patterns (e.g., a queen that can capture on two different squares).</p>
+
+<h3>Stability and Settling</h3>
+
+<p>Raw occupancy changes every time a hand enters the frame. To avoid false detections:</p>
+
+<ol>
+<li><strong>Stability threshold</strong>: The same occupancy diff must persist for <strong>5 consecutive frames</strong> before it&rsquo;s considered real</li>
+<li><strong>Settle period</strong>: After stability is reached, wait an additional <strong>2 seconds</strong> before inferring the move</li>
+<li>If the occupancy changes during settling, the counter resets</li>
+</ol>
+
+<p>This two-phase approach filters out transient noise from hand movement while keeping response time reasonable.</p>
+
+<hr>
+
+<h2>Stockfish Integration</h2>
+
+<p>Stockfish is called as a local binary via the UCI (Universal Chess Interface) protocol. The <code>engine</code> package wraps the <code>notnil/chess/uci</code> library:</p>
+
+<pre><code class="language-mermaid">sequenceDiagram
+    participant App as Nayan
+    participant SF as Stockfish Binary
+
+    App-&gt;&gt;SF: uci
+    SF--&gt;&gt;App: uciok
+    App-&gt;&gt;SF: isready
+    SF--&gt;&gt;App: readyok
+    App-&gt;&gt;SF: ucinewgame
+
+    loop Each CPU Turn
+        App-&gt;&gt;SF: position startpos moves e2e4 e7e5 ...
+        App-&gt;&gt;SF: go depth 10
+        SF--&gt;&gt;App: bestmove g1f3
+        App-&gt;&gt;App: Highlight Nf3 on virtual board
+        App-&gt;&gt;App: Speak &quot;Black knight to move to f3&quot;
+    end
+</code></pre>
+
+<p>The difficulty dropdown (1-10) maps directly to Stockfish search depth: <code>depth = difficulty * 2</code>, giving a range of 2-20 ply. Lower depths produce weaker play; higher depths take longer but play stronger.</p>
+
+<hr>
+
+<h2>The UI</h2>
+
+<p>Nayan uses <a href="https://fyne.io" target="_blank">Fyne</a>, a cross-platform GUI toolkit for Go. The layout is a side-by-side split:</p>
+
+<pre><code>┌──────────────────────────────────────────────────────────┐
+│ [✓] Greyscale  [✓] Edges  [✓] Warped                    │
+├────────────────────────────┬─────────────────────────────┤
+│                            │                             │
+│                            │     ♜ ♞ ♝ ♛ ♚ ♝ ♞ ♜       │
+│    Live Camera Feed        │     ♟ ♟ ♟ ♟ ♟ ♟ ♟ ♟       │
+│    (with corner markers)   │     . . . . . . . .        │
+│                            │     . . . . . . . .        │
+│                            │     . . . . ♙ . . .        │
+│                            │     . . . . . . . .        │
+│                            │     ♙ ♙ ♙ ♙ . ♙ ♙ ♙       │
+│                            │     ♖ ♘ ♗ ♕ ♔ ♗ ♘ ♖       │
+├──────┬──────┬──────────────┤                             │
+│ Grey │Edges │   Warped     │  White moved e4    CPU: Nf3 │
+│      │      │              │  [Difficulty: 5         ▼]  │
+│      │      │              │  Play as: (●) White ○ Black │
+│      │      │              │  [✓] Voiceover [Daniel ▼]   │
+│      │      │              │  [Calibrate]  [Start Game]  │
+│      │      │              │  [View Moves] [CPU vs CPU]  │
+├──────┴──────┴──────────────┴─────────────────────────────┤
+│ Status                     │ Debug                       │
+│ Your move.                 │ Stockfish recommends: Nf3   │
+│                            │ Move detected: e4           │
+└────────────────────────────┴─────────────────────────────┘
+</code></pre>
+
+<h3>Custom Widgets</h3>
+
+<p><strong>BoardWidget</strong> — A lichess-style chessboard rendered entirely with Fyne canvas primitives. It pre-allocates 192 canvas objects (64 squares + 64 highlight overlays + 64 piece images) and updates them in place for performance. Pieces are embedded SVG files scaled smoothly. The board supports highlight overlays for:
+- <strong>Move highlights</strong>: Blue (from-square) and green (to-square)
+- <strong>Check indicator</strong>: Red overlay on the king in check
+- <strong>Invalid move flash</strong>: Red overlay toggling every 2 seconds on mismatched squares</p>
+
+<p><strong>VideoDisplay</strong> — A custom Fyne widget that displays live video frames with thread-safe updates via mutex. It implements <code>fyne.Tappable</code> with coordinate mapping from widget-space to image-space (accounting for aspect-ratio scaling), enabling click-to-calibrate functionality.</p>
+
+<hr>
+
+<h2>Voice-Over Commentary</h2>
+
+<p>Nayan provides audible commentary using the macOS <code>say</code> command. When the CPU recommends a move, you hear it spoken aloud — useful when your eyes are on the physical board, not the screen.</p>
+
+<h3>Commentary Generation</h3>
+
+<p>The <code>moveCommentary</code> function builds natural-language phrases with two tenses:</p>
+
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Example</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>CPU pre-move</td>
+<td>&ldquo;Black knight to move to f 3&rdquo;</td>
+</tr>
+
+<tr>
+<td>CPU capture</td>
+<td>&ldquo;White bishop to take d 5&rdquo;</td>
+</tr>
+
+<tr>
+<td>Human post-move</td>
+<td>&ldquo;White pawn to e 4&rdquo;</td>
+</tr>
+
+<tr>
+<td>Human capture</td>
+<td>&ldquo;Black knight takes f 3&rdquo;</td>
+</tr>
+
+<tr>
+<td>Castling (pre)</td>
+<td>&ldquo;White to castle king side&rdquo;</td>
+</tr>
+
+<tr>
+<td>Castling (post)</td>
+<td>&ldquo;Black castles queen side&rdquo;</td>
+</tr>
+
+<tr>
+<td>Check</td>
+<td>&rdquo;&hellip; Check!&rdquo;</td>
+</tr>
+
+<tr>
+<td>Game over</td>
+<td>&ldquo;White wins (checkmate)&rdquo;</td>
+</tr>
+</tbody>
+</table>
+
+<h3>Speech Management</h3>
+
+<p>A mutex-protected <code>speakCmd</code> variable ensures only one utterance plays at a time. New speech kills any in-progress <code>say</code> process before starting. CPU recommendations repeat every 10 seconds until the move is made, serving as a gentle reminder.</p>
+
+<h3>Controls</h3>
+
+<ul>
+<li><strong>Voiceover checkbox</strong> — master enable/disable</li>
+<li><strong>Voice selector</strong> — populated at startup by parsing <code>say -v ?</code> output</li>
+<li><strong>Voiceover CPU Only</strong> — when checked (default), only CPU moves are announced</li>
+</ul>
+
+<hr>
+
+<h2>Game Flow</h2>
+
+<pre><code class="language-mermaid">stateDiagram-v2
+    [*] --&gt; PreGame: App launches
+
+    PreGame --&gt; Calibrating: Click &quot;Calibrate&quot;
+    Calibrating --&gt; PreGame: 4 corners clicked
+
+    PreGame --&gt; Playing: Click &quot;Start Game&quot;&lt;br/&gt;(requires calibration)
+
+    Playing --&gt; Playing: Human move detected
+    Playing --&gt; Playing: CPU move recommended
+    Playing --&gt; Playing: Invalid move → alert
+    Playing --&gt; GameOver: Checkmate / Draw
+    Playing --&gt; PreGame: Click &quot;Stop Game&quot;
+
+    PreGame --&gt; CpuVsCpu: Click &quot;CPU vs CPU&quot;
+    CpuVsCpu --&gt; GameOver: Checkmate / Draw
+    CpuVsCpu --&gt; PreGame: Click &quot;Stop&quot;
+
+    GameOver --&gt; PreGame: Reset board
+</code></pre>
+
+<h3>Invalid Move Handling</h3>
+
+<p>When the vision system detects a board state that doesn&rsquo;t correspond to any legal move (or doesn&rsquo;t match the CPU&rsquo;s recommendation):</p>
+
+<ol>
+<li><strong>Visual</strong>: Differing squares flash red on the virtual board (2-second toggle cycle)</li>
+<li><strong>Audio</strong>: An embedded alert sound (Funk.aiff, compiled into the binary) plays immediately, then repeats every 4 seconds</li>
+<li><strong>Voice</strong>: &ldquo;Invalid move&rdquo; is spoken each time the squares flash</li>
+<li><strong>Recovery</strong>: When the board is physically corrected (occupancy returns to expected), alerts stop and the Stockfish recommendation highlights are restored</li>
+</ol>
+
+<hr>
+
+<h2>Challenges</h2>
+
+<h3>Camera Angle and Lighting</h3>
+
+<p>The biggest challenge is getting reliable occupancy detection across varying conditions. Shadows from pieces, uneven lighting, and reflections on glossy boards all affect the variance and edge signals. The dual-signal approach (variance OR edge density) helps, but thresholds need tuning for each physical setup.</p>
+
+<p>Mounting the camera directly above the board (top-down) gives the cleanest perspective warp, but it&rsquo;s not always practical. Angled views introduce perspective distortion that the warp corrects, but pieces at the far edge of the board appear smaller and are harder to detect.</p>
+
+<h3>Hand Interference</h3>
+
+<p>Every time a player reaches over the board, the occupancy changes dramatically for several frames. The stability threshold (5 consecutive identical frames) and settle period (2 additional seconds) handle this well, but there&rsquo;s an inherent tradeoff between responsiveness and reliability.</p>
+
+<h3>Automatic Board Detection</h3>
+
+<p>The original design attempted automatic board detection via contour analysis — find the largest quadrilateral in the edge-detected image. This worked in controlled conditions but failed when:
+- The table surface had similar-contrast edges
+- Nearby objects created competing quadrilaterals
+- Lighting created strong shadows that broke the contour
+- Pieces near the edge disrupted the board outline</p>
+
+<p>Manual 4-corner calibration proved far more reliable and is the current approach.</p>
+
+<h3>Occupancy Ambiguity</h3>
+
+<p>Some board positions create ambiguous occupancy patterns where multiple legal moves produce identical 8x8 occupancy grids. This turned out to be more common than initially expected.</p>
+
+<p><strong>The problem in practice:</strong> Consider a white queen on e2, a black pawn on e5, and a black knight on h5. The queen can legally capture either piece (Qxe5 or Qxh5). Both captures produce the exact same occupancy change — e2 becomes empty, and the target square remains occupied (the queen replaces the captured piece). With only occupied/empty information, <code>InferMove</code> has no way to distinguish between the two moves and may return the wrong one.</p>
+
+<p>This isn&rsquo;t limited to exotic positions. Any time a piece can capture on two different squares from the same origin, the occupancy grid is identical for both captures. In the example above, the system guessed Qxh5 when the human actually played Qxe5 — the resulting game state was corrupted from that point forward.</p>
+
+<p><strong>Solution for CPU moves:</strong> Bypass <code>InferMove</code> entirely. When the CPU recommends a move, the system simulates the specific recommended move&rsquo;s resulting occupancy via <code>OccupancyAfterMove(rec)</code> and compares it directly against the observed board. This is an exact match — no ambiguity possible.</p>
+
+<p><strong>Solution for human moves — piece colour detection:</strong> Since occupancy alone can&rsquo;t disambiguate, the system uses a second signal: <strong>piece brightness</strong>. White pieces are physically brighter than black pieces. After the move is made, the system scans the mean greyscale brightness of each square&rsquo;s centre region (<code>ScanBrightness</code> in the vision package). The <code>InferMoveWithColor</code> function then scores each ambiguous candidate by checking whether the destination square&rsquo;s brightness matches the moving piece&rsquo;s colour:</p>
+
+<ul>
+<li>If a <strong>white</strong> piece moved, the destination should be <strong>brighter</strong> → higher brightness scores better</li>
+<li>If a <strong>black</strong> piece moved, the destination should be <strong>darker</strong> → lower brightness (inverted: <code>255 - b</code>) scores better</li>
+</ul>
+
+<p>In the Qxe5 vs Qxh5 example: after the white queen captures on e5, square e5 reads ~180 brightness (white piece) while h5 reads ~80 (black knight still there). The brightness signal correctly picks Qxe5 without needing piece type recognition or user intervention.</p>
+
+<pre><code>Before move:            After Qxe5:             Brightness signal:
+. . . . . . . .        . . . . . . . .
+. . . . p . . n        . . . . Q . . n         e5: 180 (bright = white piece)
+. . . . . . . .        . . . . . . . .         h5:  80 (dark = black piece)
+. . . . Q . . .  →     . . . . . . . .         → White queen moved → pick
+. . . . . . . .        . . . . . . . .            highest brightness = e5 ✓
+</code></pre>
+
+<p>This approach is elegant because it requires no piece recognition model — just a simple mean brightness comparison on squares that are already being analysed. The relative comparison (brighter vs darker) is robust across different lighting conditions because white and black pieces always have significant contrast between them.</p>
+
+<h3>Coordinate Mapping</h3>
+
+<p>The vision system uses row 0 = rank 8 (top of the warped image), while chess notation uses rank 1 at the bottom. The <code>SquareFromRowCol</code> and <code>RowColFromSquare</code> functions handle this translation, but it&rsquo;s a constant source of off-by-one bugs during development.</p>
+
+<hr>
+
+<h2>Libraries, Tools, and Assets</h2>
+
+<h3>Go Libraries</h3>
+
+<table>
+<thead>
+<tr>
+<th>Library</th>
+<th>Purpose</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><a href="https://gocv.io/x/gocv" target="_blank">GoCV</a> (v0.43)</td>
+<td>OpenCV bindings — all image processing, edge detection, perspective transforms</td>
+</tr>
+
+<tr>
+<td><a href="https://fyne.io/fyne/v2" target="_blank">Fyne</a> (v2.7)</td>
+<td>Cross-platform GUI — windows, widgets, canvas rendering, event handling</td>
+</tr>
+
+<tr>
+<td><a href="https://github.com/notnil/chess" target="_blank">notnil/chess</a> (v1.10)</td>
+<td>Chess game logic — move generation, validation, FEN, algebraic notation</td>
+</tr>
+
+<tr>
+<td>notnil/chess/uci</td>
+<td>UCI protocol — communication with Stockfish binary</td>
+</tr>
+
+<tr>
+<td>Go <code>embed</code></td>
+<td>Compile-time embedding of SVG pieces and alert sound</td>
+</tr>
+</tbody>
+</table>
+
+<h3>External Tools</h3>
+
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Purpose</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><a href="https://opencv.org/" target="_blank">OpenCV</a></td>
+<td>Native computer vision library (installed via Homebrew on macOS)</td>
+</tr>
+
+<tr>
+<td><a href="https://stockfishchess.org/" target="_blank">Stockfish</a></td>
+<td>Chess engine binary (expected on PATH)</td>
+</tr>
+
+<tr>
+<td>macOS <code>say</code></td>
+<td>Text-to-speech for voice commentary</td>
+</tr>
+
+<tr>
+<td>macOS <code>afplay</code></td>
+<td>Audio playback for alert sounds</td>
+</tr>
+</tbody>
+</table>
+
+<h3>Assets</h3>
+
+<ul>
+<li><strong>12 SVG piece images</strong> — Standard chess piece icons embedded at compile time</li>
+<li><strong>Funk.aiff</strong> — Alert sound for invalid moves, embedded in the Go binary via <code>//go:embed</code></li>
+</ul>
+
+<hr>
+
+<h2>Future Ideas</h2>
+
+<h3>Piece Recognition</h3>
+
+<p>The current system only detects occupied vs. empty. Adding piece type recognition would enable:
+- Starting from arbitrary positions (not just the opening)
+- Detecting when pieces are placed on wrong squares
+- More informative debug overlays</p>
+
+<p>Approaches being considered: a lightweight MobileNet model trained on chess piece images, or template matching against known piece silhouettes from the top-down view.</p>
+
+<h3>Cross-Platform Support</h3>
+
+<p>Voice-over currently depends on macOS <code>say</code> and <code>afplay</code>. Abstracting these behind an interface would enable Linux (<code>espeak</code>, <code>aplay</code>) and Windows (<code>SAPI</code>) support.</p>
+
+<h3>Position Setup Mode</h3>
+
+<p>Allow the user to set up an arbitrary position by placing pieces and having the system recognise them, rather than always starting from the standard opening position.</p>
+
+<h3>Opening Book Integration</h3>
+
+<p>Display the name of the opening being played (e.g., &ldquo;Italian Game: Giuoco Piano&rdquo;) based on the move sequence, adding an educational dimension.</p>
+
+<h3>Move Evaluation</h3>
+
+<p>Show Stockfish&rsquo;s evaluation score (centipawns or win probability) alongside the recommended move, so the player can understand how much better or worse their position is.</p>
+
+<h3>Cloud Analysis</h3>
+
+<p>Send the game PGN to a cloud service for deeper post-game analysis, blunder detection, and improvement suggestions.</p>
+
+<hr>
+
+<h2>Conclusion</h2>
+
+<p>Nayan demonstrates that you can build a surprisingly capable physical-digital chess bridge with off-the-shelf tools: a webcam, OpenCV for vision, a chess library for rules, and Stockfish for analysis. The key architectural insight — inferring moves from occupancy changes rather than recognising piece types — dramatically simplifies the vision problem while still supporting the full complexity of chess, including castling, en passant, and promotions.</p>
+
+<p>The project is a learning exercise in computer vision with Go, and every component was built incrementally: first get the camera working, then detect the board, then detect occupancy, then infer moves, then add the engine, then add the UI, then add voice. Each layer builds on the last, and each layer taught something new about the challenges of bridging the physical and digital worlds.</p>
+
+<hr>
+
+<p><em>Nayan is open source and built with Go, GoCV, Fyne, and Stockfish. The name means &ldquo;vision&rdquo; in Hindi.</em></p>
+
+
+<p class="info">Tags: 
+    
+        
+        <a href="/tags/image-processing.html">image processing</a>
+    
+        , 
+        <a href="/tags/computer-vision.html">computer vision</a>
+    
+        , 
+        <a href="/tags/golang.html">golang</a>
+    
+        , 
+        <a href="/tags/programming.html">programming</a>
+    
+        , 
+        <a href="/tags/projects.html">projects</a>
+    
+</p>
+
+
+    
+<script>
+    Prism.plugins.autoloader.languages_path = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/';
+    
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        document.querySelectorAll('pre.language-mermaid').forEach(function(element) {
+            
+            var mermaidDiv = document.createElement('div');
+            mermaidDiv.className = 'mermaid';
+            mermaidDiv.innerHTML = element.textContent;
+            
+            
+            element.parentNode.replaceChild(mermaidDiv, element);
+        });
+        
+        
+        mermaid.init();
+    });
+</script>
+
+    <main>
+    
+<footer>
+    <p class="footer-content">
+        <span>&copy; 2026 Into The Void.</span>
+        <span>Powered by <a href="https://www.github.com/intothevoid/likho">Likho</a>.</span>
+    </p>
+</footer>
+
+</body>
+</html>
