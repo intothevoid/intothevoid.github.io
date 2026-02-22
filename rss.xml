@@ -12,6 +12,8 @@
 
 **Nayan** (meaning "vision" in Hindi) is a chess companion that watches a physical chessboard through a webcam, detects the board and pieces using computer vision, and recommends moves by consulting a local Stockfish engine. It bridges the physical and virtual worlds — you play on a real board with real pieces, while an AI assistant watches and plays with you in real time, complete with voice commentary.
 
+The project's source code is available on Github at ![https://github.com/intothevoid/nayan](https://github.com/intothevoid/nayan)
+
 ![Nayan's UI](images/nayan/nayan-ui.gif)
 
 This post walks through how Nayan works, the architecture behind it, the challenges of building a real-time vision-based chess system, and where the project is headed.
