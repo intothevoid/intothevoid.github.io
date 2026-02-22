@@ -10,9 +10,9 @@
 <pubDate>Sat, 21 Feb 2026 22:41:41 +1030</pubDate>
 <description><![CDATA[
 
-# Building Nayan: A Computer Vision Chess Companion with Go, OpenCV, and Stockfish
+**Nayan** (meaning "vision" in Hindi) is a chess companion that watches a physical chessboard through a webcam, detects the board and pieces using computer vision, and recommends moves by consulting a local Stockfish engine. It bridges the physical and virtual worlds — you play on a real board with real pieces, while an AI assistant watches and plays with you in real time, complete with voice commentary.
 
-**Nayan** (meaning "vision" in Hindi) is a chess companion that watches a physical chessboard through a webcam, detects the board and pieces using computer vision, and recommends moves by consulting a local Stockfish engine. It bridges the physical and digital worlds — you play on a real board with real pieces, while an AI assistant watches and coaches you in real time, complete with voice commentary.
+![Nayan's UI](images/nayan/nayan-ui.gif)
 
 This post walks through how Nayan works, the architecture behind it, the challenges of building a real-time vision-based chess system, and where the project is headed.
 
@@ -155,12 +155,12 @@ Using the four calibrated corners, `WarpBoard` applies a perspective transform t
 ```
 Camera view (perspective)          Warped view (top-down)
 ┌─────────────────┐               ┌────────────────────┐
-│  ╱──────────╲   │               │ ┌──┬──┬──┬──┬──┐  │
-│ ╱            ╲  │    warp       │ ├──┼──┼──┼──┼──┤  │
-│╱   Chessboard ╲ │  ────────►   │ ├──┼──┼──┼──┼──┤  │
-│╲              ╱ │               │ ├──┼──┼──┼──┼──┤  │
-│ ╲            ╱  │               │ ├──┼──┼──┼──┼──┤  │
-│  ╲──────────╱   │               │ └──┴──┴──┴──┴──┘  │
+│  ╱──────────╲   │               │ ┌──┬──┬──┬──┬──┐   │
+│ ╱            ╲  │    warp       │ ├──┼──┼──┼──┼──┤   │
+│╱   Chessboard ╲ │  ────────►    │ ├──┼──┼──┼──┼──┤   │
+│╲              ╱ │               │ ├──┼──┼──┼──┼──┤   │
+│ ╲            ╱  │               │ ├──┼──┼──┼──┼──┤   │
+│  ╲──────────╱   │               │ └──┴──┴──┴──┴──┘   │
 └─────────────────┘               └────────────────────┘
 ```
 
