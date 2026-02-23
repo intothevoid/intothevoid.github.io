@@ -260,10 +260,13 @@ Legend: X=occupied .=empty  (variance/edge%)
     CMP --&gt;|Match found| RESULT[Inferred Move:&lt;br/&gt;e2-e4]
 </code></pre>
 
-<p>This naturally handles complex moves:
-- <strong>Captures</strong>: One square vacated, another stays occupied (piece replaced)
-- <strong>Castling</strong>: Two pieces move simultaneously — the occupancy pattern is unique
-- <strong>En passant</strong>: Three squares change — the captured pawn&rsquo;s square empties too</p>
+<p>This naturally handles complex moves:</p>
+
+<ul>
+<li><strong>Captures</strong>: One square vacated, another stays occupied (piece replaced)</li>
+<li><strong>Castling</strong>: Two pieces move simultaneously — the occupancy pattern is unique</li>
+<li><strong>En passant</strong>: Three squares change — the captured pawn&rsquo;s square empties too</li>
+</ul>
 
 <p>When multiple moves produce the same occupancy (rare, mainly pawn promotions), queen promotion is preferred.</p>
 
@@ -316,38 +319,17 @@ Legend: X=occupied .=empty  (variance/edge%)
 
 <p>Nayan uses <a href="https://fyne.io" target="_blank">Fyne</a>, a cross-platform GUI toolkit for Go. The layout is a side-by-side split:</p>
 
-<pre><code>┌──────────────────────────────────────────────────────────┐
-│ [✓] Greyscale  [✓] Edges  [✓] Warped                    │
-├────────────────────────────┬─────────────────────────────┤
-│                            │                             │
-│                            │     ♜ ♞ ♝ ♛ ♚ ♝ ♞ ♜       │
-│    Live Camera Feed        │     ♟ ♟ ♟ ♟ ♟ ♟ ♟ ♟       │
-│    (with corner markers)   │     . . . . . . . .        │
-│                            │     . . . . . . . .        │
-│                            │     . . . . ♙ . . .        │
-│                            │     . . . . . . . .        │
-│                            │     ♙ ♙ ♙ ♙ . ♙ ♙ ♙       │
-│                            │     ♖ ♘ ♗ ♕ ♔ ♗ ♘ ♖       │
-├──────┬──────┬──────────────┤                             │
-│ Grey │Edges │   Warped     │  White moved e4    CPU: Nf3 │
-│      │      │              │  [Difficulty: 5         ▼]  │
-│      │      │              │  Play as: (●) White ○ Black │
-│      │      │              │  [✓] Voiceover [Daniel ▼]   │
-│      │      │              │  [Calibrate]  [Start Game]  │
-│      │      │              │  [View Moves] [CPU vs CPU]  │
-├──────┴──────┴──────────────┴─────────────────────────────┤
-│ Status                     │ Debug                       │
-│ Your move.                 │ Stockfish recommends: Nf3   │
-│                            │ Move detected: e4           │
-└────────────────────────────┴─────────────────────────────┘
-</code></pre>
+<p><img src="/images/nayan/nayan-ui.png" alt="Nayan&rsquo;s UI" /></p>
 
 <h3>Custom Widgets</h3>
 
-<p><strong>BoardWidget</strong> — A lichess-style chessboard rendered entirely with Fyne canvas primitives. It pre-allocates 192 canvas objects (64 squares + 64 highlight overlays + 64 piece images) and updates them in place for performance. Pieces are embedded SVG files scaled smoothly. The board supports highlight overlays for:
-- <strong>Move highlights</strong>: Blue (from-square) and green (to-square)
-- <strong>Check indicator</strong>: Red overlay on the king in check
-- <strong>Invalid move flash</strong>: Red overlay toggling every 2 seconds on mismatched squares</p>
+<p><strong>BoardWidget</strong> — A lichess-style chessboard rendered entirely with Fyne canvas primitives. It pre-allocates 192 canvas objects (64 squares + 64 highlight overlays + 64 piece images) and updates them in place for performance. Pieces are embedded SVG files scaled smoothly. The board supports highlight overlays for:</p>
+
+<ul>
+<li><strong>Move highlights</strong>: Blue (from-square) and green (to-square)</li>
+<li><strong>Check indicator</strong>: Red overlay on the king in check</li>
+<li><strong>Invalid move flash</strong>: Red overlay toggling every 2 seconds on mismatched squares</li>
+</ul>
 
 <p><strong>VideoDisplay</strong> — A custom Fyne widget that displays live video frames with thread-safe updates via mutex. It implements <code>fyne.Tappable</code> with coordinate mapping from widget-space to image-space (accounting for aspect-ratio scaling), enabling click-to-calibrate functionality.</p>
 
@@ -476,11 +458,14 @@ Legend: X=occupied .=empty  (variance/edge%)
 
 <h3>Automatic Board Detection</h3>
 
-<p>The original design attempted automatic board detection via contour analysis — find the largest quadrilateral in the edge-detected image. This worked in controlled conditions but failed when:
-- The table surface had similar-contrast edges
-- Nearby objects created competing quadrilaterals
-- Lighting created strong shadows that broke the contour
-- Pieces near the edge disrupted the board outline</p>
+<p>The original design attempted automatic board detection via contour analysis — find the largest quadrilateral in the edge-detected image. This worked in controlled conditions but failed when:</p>
+
+<ul>
+<li>The table surface had similar-contrast edges</li>
+<li>Nearby objects created competing quadrilaterals</li>
+<li>Lighting created strong shadows that broke the contour</li>
+<li>Pieces near the edge disrupted the board outline</li>
+</ul>
 
 <p>Manual 4-corner calibration proved far more reliable and is the current approach.</p>
 
@@ -513,10 +498,6 @@ Legend: X=occupied .=empty  (variance/edge%)
 
 <p>This approach is elegant because it requires no piece recognition model — just a simple mean brightness comparison on squares that are already being analysed. The relative comparison (brighter vs darker) is robust across different lighting conditions because white and black pieces always have significant contrast between them.</p>
 
-<h3>Coordinate Mapping</h3>
-
-<p>The vision system uses row 0 = rank 8 (top of the warped image), while chess notation uses rank 1 at the bottom. The <code>SquareFromRowCol</code> and <code>RowColFromSquare</code> functions handle this translation, but it&rsquo;s a constant source of off-by-one bugs during development.</p>
-
 <hr>
 
 <h2>Libraries, Tools, and Assets</h2>
@@ -545,16 +526,6 @@ Legend: X=occupied .=empty  (variance/edge%)
 <tr>
 <td><a href="https://github.com/notnil/chess" target="_blank">notnil/chess</a> (v1.10)</td>
 <td>Chess game logic — move generation, validation, FEN, algebraic notation</td>
-</tr>
-
-<tr>
-<td>notnil/chess/uci</td>
-<td>UCI protocol — communication with Stockfish binary</td>
-</tr>
-
-<tr>
-<td>Go <code>embed</code></td>
-<td>Compile-time embedding of SVG pieces and alert sound</td>
 </tr>
 </tbody>
 </table>
@@ -595,8 +566,8 @@ Legend: X=occupied .=empty  (variance/edge%)
 <h3>Assets</h3>
 
 <ul>
-<li><strong>12 SVG piece images</strong> — Standard chess piece icons embedded at compile time</li>
-<li><strong>Funk.aiff</strong> — Alert sound for invalid moves, embedded in the Go binary via <code>//go:embed</code></li>
+<li><strong>12 SVG piece images</strong> — Standard chess piece icons, obtained from <a href="https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces" target="_blank">https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces</a></li>
+<li><strong>Funk.aiff</strong> — Alert sound for invalid moves, from MacOS system folder</li>
 </ul>
 
 <hr>
@@ -638,11 +609,9 @@ Legend: X=occupied .=empty  (variance/edge%)
 
 <p>Nayan demonstrates that you can build a surprisingly capable physical-digital chess bridge with off-the-shelf tools: a webcam, OpenCV for vision, a chess library for rules, and Stockfish for analysis. The key architectural insight — inferring moves from occupancy changes rather than recognising piece types — dramatically simplifies the vision problem while still supporting the full complexity of chess, including castling, en passant, and promotions.</p>
 
-<p>The project is a learning exercise in computer vision with Go, and every component was built incrementally: first get the camera working, then detect the board, then detect occupancy, then infer moves, then add the engine, then add the UI, then add voice. Each layer builds on the last, and each layer taught something new about the challenges of bridging the physical and digital worlds.</p>
+<p>The project was a learning exercise for me in computer vision with Go, and every component was built incrementally: first get the camera working, then detect the board, then detect occupancy, then infer moves, then add the engine, then add the UI, then add voice. Each layer builds on the last, and each layer taught me something new about the challenges of bridging physical and digital worlds.</p>
 
 <hr>
-
-<p><em>Nayan is open source and built with Go, GoCV, Fyne, and Stockfish. The name means &ldquo;vision&rdquo; in Hindi.</em></p>
 
 
 <p class="info">Tags: 
