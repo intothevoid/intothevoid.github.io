@@ -33,7 +33,7 @@ The key insight that makes this tractable: **you don't need to recognise piece t
 ```mermaid
 graph TB
     subgraph Physical World
-        CAM[Webcam<br/>640x480]
+        CAM[Webcam<br/>800x600]
         BOARD[Physical Chessboard]
     end
 
