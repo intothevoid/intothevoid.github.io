@@ -133,11 +133,11 @@
     participant Storage as Image storage
     Note over Device: Wakes up on schedule
     Device-&gt;&gt;WiFi: Connect
-    Device-&gt;&gt;Server: GET /api/display\nheaders: ID, access-token
-    Server-&gt;&gt;Server: Identify device by MAC\nLook up active playlist\nPick next plugin
-    Server-&gt;&gt;Storage: Render plugin → PNG
-    Server--&gt;&gt;Device: JSON {image_url,\nrefresh_rate,\nspecial_function}
-    Device-&gt;&gt;Server: GET &lt;image_url&gt;
+    Device-&gt;&gt;Server: GET /api/display (headers: ID, access-token)
+    Note over Server: Identify device by MAC,&lt;br/&gt;look up active playlist,&lt;br/&gt;pick next plugin
+    Server-&gt;&gt;Storage: Render plugin to PNG
+    Server--&gt;&gt;Device: JSON (image_url, refresh_rate, special_function)
+    Device-&gt;&gt;Server: GET image_url
     Server--&gt;&gt;Device: PNG bytes
     Device-&gt;&gt;Device: Render to screen
     Device-&gt;&gt;WiFi: Disconnect

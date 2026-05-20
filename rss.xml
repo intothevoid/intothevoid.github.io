@@ -86,16 +86,17 @@ sequenceDiagram
     participant Storage as Image storage
     Note over Device: Wakes up on schedule
     Device->>WiFi: Connect
-    Device->>Server: GET /api/display\nheaders: ID, access-token
-    Server->>Server: Identify device by MAC\nLook up active playlist\nPick next plugin
-    Server->>Storage: Render plugin → PNG
-    Server-->>Device: JSON {image_url,\nrefresh_rate,\nspecial_function}
-    Device->>Server: GET <image_url>
+    Device->>Server: GET /api/display (headers: ID, access-token)
+    Note over Server: Identify device by MAC,<br/>look up active playlist,<br/>pick next plugin
+    Server->>Storage: Render plugin to PNG
+    Server-->>Device: JSON (image_url, refresh_rate, special_function)
+    Device->>Server: GET image_url
     Server-->>Device: PNG bytes
     Device->>Device: Render to screen
     Device->>WiFi: Disconnect
     Note over Device: Sleep for refresh_rate seconds
 ```
+
 
 The whole conversation is two HTTP requests. The device sends its MAC address in an `ID` header and an API key in `access-token`; the server replies with a JSON envelope containing the URL of the next image to display, how long until the next refresh, and any special instructions (sleep mode, firmware update, etc.).
 
