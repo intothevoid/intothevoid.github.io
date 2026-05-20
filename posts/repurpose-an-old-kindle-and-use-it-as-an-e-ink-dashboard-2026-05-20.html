@@ -131,13 +131,12 @@
     participant WiFi as WiFi
     participant Server as LaraPaper
     participant Storage as Image storage
-
     Note over Device: Wakes up on schedule
     Device-&gt;&gt;WiFi: Connect
-    Device-&gt;&gt;Server: GET /api/display&lt;br/&gt;headers: ID, access-token
-    Server-&gt;&gt;Server: Identify device by MAC&lt;br/&gt;Look up active playlist&lt;br/&gt;Pick next plugin
+    Device-&gt;&gt;Server: GET /api/display\nheaders: ID, access-token
+    Server-&gt;&gt;Server: Identify device by MAC\nLook up active playlist\nPick next plugin
     Server-&gt;&gt;Storage: Render plugin → PNG
-    Server--&gt;&gt;Device: JSON {image_url,&lt;br/&gt;refresh_rate,&lt;br/&gt;special_function}
+    Server--&gt;&gt;Device: JSON {image_url,\nrefresh_rate,\nspecial_function}
     Device-&gt;&gt;Server: GET &lt;image_url&gt;
     Server--&gt;&gt;Device: PNG bytes
     Device-&gt;&gt;Device: Render to screen

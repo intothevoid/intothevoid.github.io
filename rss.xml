@@ -84,13 +84,12 @@ sequenceDiagram
     participant WiFi as WiFi
     participant Server as LaraPaper
     participant Storage as Image storage
-
     Note over Device: Wakes up on schedule
     Device->>WiFi: Connect
-    Device->>Server: GET /api/display<br/>headers: ID, access-token
-    Server->>Server: Identify device by MAC<br/>Look up active playlist<br/>Pick next plugin
+    Device->>Server: GET /api/display\nheaders: ID, access-token
+    Server->>Server: Identify device by MAC\nLook up active playlist\nPick next plugin
     Server->>Storage: Render plugin → PNG
-    Server-->>Device: JSON {image_url,<br/>refresh_rate,<br/>special_function}
+    Server-->>Device: JSON {image_url,\nrefresh_rate,\nspecial_function}
     Device->>Server: GET <image_url>
     Server-->>Device: PNG bytes
     Device->>Device: Render to screen
