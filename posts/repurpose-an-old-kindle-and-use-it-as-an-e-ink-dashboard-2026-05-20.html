@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Into The Void - Repurpose an old Kindle and use it as an e-ink dashboard</title>
+    <link rel="stylesheet" href="/css/main.css">
+    
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+    </script>
+</head>
+<body>
+    
+<header>
+    <div id="site-title" style="display:flex; justify-content:left; align-items: left;">
+        <a href="/index.html">
+            <h1 style="margin: 0;">Into The Void</h1>
+        </a>
+    </div>
+    <div id="nav-links" style="display:flex; justify-content:right; align-items: right;">
+        <nav>
+            <div style="display: flex;">
+                <a href="/posts.html">All Posts</a>
+                
+                    <a href="/pages/about.html">About</a>
+                
+                    <a href="/pages/projects.html">Projects</a>
+                
+            </div>
+        </nav>
+    </div>
+</header>
+
+    <main>
+    
+<h2>Repurpose an old Kindle and use it as an e-ink dashboard</h2>
+<p>Create an e-ink dashboard using existing hardware and TRMNL</p>
+<p class="info">Published on May 19 2026 at 7:22pm</p>
+<p>I had a 7th generation Kindle sitting in a drawer for years. Battery still holds a decent charge, screen still looks great — but I&rsquo;d long since moved my reading to a newer device. So I turned it into a wall-mounted e-ink dashboard that quietly cycles through the weather, my upcoming calendar, MotoGP race schedules, and the daily XKCD.</p>
+
+<p><img src="/images/kindle.jpg" alt="Photo of my Kindle displaying the Formula 1 leaderboard" /></p>
+
+<p>This post is the full walkthrough of how I got there: jailbreaking the Kindle, installing KOReader, getting the TRMNL plugin working, and running a self-hosted TRMNL-compatible server (LaraPaper) in Docker on my NAS. Total cost: zero, since I already had the hardware.</p>
+
+<h2>Why a Kindle?</h2>
+
+<p>E-ink dashboards are having a moment, and for good reason. Compared to a tablet or small monitor:</p>
+
+<ul>
+<li><strong>Always-on, zero glare.</strong> E-ink is reflective, not emissive. It looks great in direct sunlight and isn&rsquo;t a light source in a dark room.</li>
+<li><strong>Tiny power draw.</strong> A Kindle running a dashboard refreshes every 15 minutes and sips battery; mine lasts about a week on a charge.</li>
+<li><strong>Reuse.</strong> There&rsquo;s a feeling of satisfaction repurposing old hardware that was not being used and giving it new life.</li>
+</ul>
+
+<p>The trade-off: refresh latency, monochrome (or 16-shade grayscale), and getting it to do anything other than read books takes some setup. That setup is what this post is about.</p>
+
+<h2>What we&rsquo;re building</h2>
+
+<p>A high-level picture before diving in:</p>
+
+<pre><code class="language-mermaid">flowchart LR
+    Kindle[&quot;Jailbroken Kindle&lt;br/&gt;+ KOReader&lt;br/&gt;+ TRMNL plugin&quot;]
+    Server[&quot;LaraPaper&lt;br/&gt;(self-hosted server)&quot;]
+    Plugins[&quot;Plugins&lt;br/&gt;Weather · Calendar · XKCD · ...&quot;]
+
+    Kindle --&gt;|&quot;polls every N min&lt;br/&gt;GET /api/display&quot;| Server
+    Server --&gt;|&quot;PNG image URL&quot;| Kindle
+    Plugins --&gt;|&quot;rendered HTML&quot;| Server
+
+    style Kindle fill:#f5f5f5,stroke:#333
+    style Server fill:#fff3e0,stroke:#e65100
+    style Plugins fill:#e8f5e9,stroke:#2e7d32
+</code></pre>
+
+<p>Three moving parts:</p>
+
+<ol>
+<li><strong>The Kindle</strong>, jailbroken so we can install our own software, running KOReader with the TRMNL plugin.</li>
+<li><strong>A TRMNL-compatible server</strong>, in our case LaraPaper running in Docker. This generates the dashboard image based on whatever plugins we&rsquo;ve configured.</li>
+<li><strong>Plugins</strong> (weather, calendar, XKCD, custom HTML, etc.), which the server stitches together into a playlist.</li>
+</ol>
+
+<p>The Kindle does almost nothing — it just polls the server every N minutes, downloads a pre-rendered PNG, and displays it. All the heavy lifting lives on the server.</p>
+
+<h2>Part 1: Jailbreaking the Kindle</h2>
+
+<p>The jailbreak unlocks the Kindle so you can install non-Amazon software. It doesn&rsquo;t void anything dramatic — the device still works as a Kindle, you can still buy books, OTA updates can still apply (with one extra step to keep the jailbreak alive).</p>
+
+<p>I won&rsquo;t reproduce the full procedure here because the <a href="https://kindlemodding.org/" target="_blank">KindleModding Wiki</a> is the authoritative source and it gets updated as Amazon ships new firmware. Some key things to know going in:</p>
+
+<ul>
+<li><strong>Check your firmware version first</strong> (Settings → Device options → Device info). The current jailbreak (WinterBreak) doesn&rsquo;t work on firmware 5.18.1+. If you&rsquo;re newer than that, you&rsquo;ll need <a href="https://kindlemodding.org/" target="_blank">AdBreak</a> instead, or you&rsquo;re stuck waiting for a new exploit.</li>
+<li><strong>Three things get installed</strong>: the jailbreak itself, the <strong>hotfix</strong> that survives OTA updates, and <strong>KUAL</strong> (Kindle Unified Application Launcher), which is the menu system for running custom apps.</li>
+<li><strong>Plan for ~30 minutes</strong> the first time, mostly waiting between steps.</li>
+</ul>
+
+<p>The Kindle Modding wiki&rsquo;s <a href="https://kindlemodding.org/jailbreaking/" target="_blank">jailbreak guide</a> walks through every step. Follow it through &ldquo;Installing KUAL &amp; MRPI&rdquo; and stop there — that&rsquo;s everything we need for this dashboard project.</p>
+
+<h2>Part 2: TRMNL — the protocol, not the product</h2>
+
+<p><a href="https://usetrmnl.com/" target="_blank">TRMNL</a> sells a polished e-ink dashboard device with a subscription service. Their hardware is well-designed and the service is reasonably priced, but the most interesting thing about TRMNL is that they open-sourced the protocol and reference server implementations. That means you can:</p>
+
+<ul>
+<li><strong>BYOD</strong> (Bring Your Own Device): use TRMNL&rsquo;s hosted service with your own hardware (Kindle, ESP32-based display, etc.)</li>
+<li><strong>BYOS</strong> (Bring Your Own Server): run a TRMNL-compatible server yourself, with any device</li>
+</ul>
+
+<p>We&rsquo;re doing the second one. No subscription, no cloud, no recurring cost.</p>
+
+<h3>How the protocol works</h3>
+
+<p>The TRMNL protocol is intentionally minimal — designed for cheap microcontrollers that wake up briefly, fetch a PNG, display it, and go back to sleep.</p>
+
+<pre><code class="language-mermaid">sequenceDiagram
+    participant Device as Kindle (sleeping)
+    participant WiFi as WiFi
+    participant Server as LaraPaper
+    participant Storage as Image storage
+
+    Note over Device: Wakes up on schedule
+    Device-&gt;&gt;WiFi: Connect
+    Device-&gt;&gt;Server: GET /api/display&lt;br/&gt;headers: ID, access-token
+    Server-&gt;&gt;Server: Identify device by MAC&lt;br/&gt;Look up active playlist&lt;br/&gt;Pick next plugin
+    Server-&gt;&gt;Storage: Render plugin → PNG
+    Server--&gt;&gt;Device: JSON {image_url,&lt;br/&gt;refresh_rate,&lt;br/&gt;special_function}
+    Device-&gt;&gt;Server: GET &lt;image_url&gt;
+    Server--&gt;&gt;Device: PNG bytes
+    Device-&gt;&gt;Device: Render to screen
+    Device-&gt;&gt;WiFi: Disconnect
+    Note over Device: Sleep for refresh_rate seconds
+</code></pre>
+
+<p>The whole conversation is two HTTP requests. The device sends its MAC address in an <code>ID</code> header and an API key in <code>access-token</code>; the server replies with a JSON envelope containing the URL of the next image to display, how long until the next refresh, and any special instructions (sleep mode, firmware update, etc.).</p>
+
+<h3>Architecture in more detail</h3>
+
+<p>On the server side, things look like this:</p>
+
+<pre><code class="language-mermaid">flowchart TB
+    subgraph Server[&quot;LaraPaper Server&quot;]
+        API[&quot;/api/display endpoint&quot;]
+        DeviceReg[&quot;Device Registry&lt;br/&gt;MAC → API key → playlist&quot;]
+        Playlist[&quot;Playlist Engine&lt;br/&gt;rotates through plugins&quot;]
+        Renderer[&quot;Image Renderer&lt;br/&gt;HTML → PNG&quot;]
+        Cache[&quot;Image Cache&lt;br/&gt;generated PNGs&quot;]
+    end
+
+    subgraph Plugins[&quot;Plugin Ecosystem&quot;]
+        Weather[&quot;Weather plugin&quot;]
+        Calendar[&quot;Calendar plugin&quot;]
+        XKCD[&quot;XKCD plugin&quot;]
+        Custom[&quot;Custom HTML plugin&quot;]
+    end
+
+    Device[&quot;Kindle&quot;] --&gt;|1. GET /api/display| API
+    API --&gt;|2. Look up device| DeviceReg
+    DeviceReg --&gt;|3. Get next plugin| Playlist
+    Playlist --&gt;|4. Fetch data| Plugins
+    Plugins --&gt;|5. Return HTML| Renderer
+    Renderer --&gt;|6. Save PNG| Cache
+    Cache --&gt;|7. URL returned| API
+    API --&gt;|8. JSON response| Device
+    Device --&gt;|9. GET image_url| Cache
+
+    style Server fill:#fff3e0,stroke:#e65100
+    style Plugins fill:#e8f5e9,stroke:#2e7d32
+    style Device fill:#f5f5f5,stroke:#333
+</code></pre>
+
+<p>The render step is where the magic happens. Plugins are essentially small HTML templates that fetch live data (weather API, your calendar feed, etc.) and produce a styled page. The server renders that HTML to a PNG at the exact resolution your device expects, often using a headless browser.</p>
+
+<p>This is why the device on its own knows almost nothing about the data it&rsquo;s showing. The Kindle has no idea what XKCD is. It just downloads an image.</p>
+
+<h2>Part 3: KOReader and the TRMNL plugin</h2>
+
+<p><a href="https://koreader.rocks/" target="_blank">KOReader</a> is an open-source document viewer that runs on jailbroken Kindles (and Kobos, and PocketBooks, and Android). For our purposes it serves two roles: it&rsquo;s the application framework the TRMNL plugin runs inside, and it gives us a lot of useful device-level control that the stock Kindle interface doesn&rsquo;t.</p>
+
+<p>Install KOReader from the <a href="https://kindlemodding.org/kindle-mods/installing-koreader/" target="_blank">Kindle Modding instructions</a>. After installation, KOReader will appear in KUAL.</p>
+
+<h3>Installing the TRMNL plugin</h3>
+
+<p>The plugin lives at <a href="https://github.com/usetrmnl/trmnl-koreader" target="_blank">github.com/usetrmnl/trmnl-koreader</a>. Installation:</p>
+
+<ol>
+<li>Download the repo as a ZIP, extract it.</li>
+<li>Plug the Kindle into your computer via USB.</li>
+<li>Copy the <code>trmnl.koplugin</code> folder into <code>koreader/plugins/</code> on the Kindle.</li>
+<li>Eject the Kindle, launch KOReader, and the plugin should appear under <strong>Tools → TRMNL Display</strong>.</li>
+</ol>
+
+<h3>The BYOS gotcha</h3>
+
+<p>The plugin as shipped is configured for trmnl.app — TRMNL&rsquo;s hosted service, which identifies devices by API key alone. Self-hosted servers like LaraPaper need to know <strong>which device is calling</strong>, which they determine by the MAC address sent in an <code>ID</code> HTTP header. The stock plugin doesn&rsquo;t send this header.</p>
+
+<p>There&rsquo;s a small patch needed to make it work. Open <code>koreader/plugins/trmnl.koplugin/main.lua</code> and add a function that reads the Kindle&rsquo;s MAC address from the kernel:</p>
+
+<pre><code class="language-lua">function TrmnlDisplay:getMacAddress()
+    if self.cached_mac then
+        return self.cached_mac
+    end
+
+    local interfaces = { &quot;wlan0&quot;, &quot;eth0&quot;, &quot;mlan0&quot;, &quot;wlp2s0&quot; }
+
+    for _, iface in ipairs(interfaces) do
+        local path = &quot;/sys/class/net/&quot; .. iface .. &quot;/address&quot;
+        local file = io.open(path, &quot;r&quot;)
+        if file then
+            local mac = file:read(&quot;*line&quot;)
+            file:close()
+            if mac and mac:match(&quot;^%x%x:%x%x:%x%x:%x%x:%x%x:%x%x$&quot;) then
+                self.cached_mac = mac:upper()
+                return self.cached_mac
+            end
+        end
+    end
+
+    return nil
+end
+</code></pre>
+
+<p>Then in the <code>fetchScreenMetadata</code> function, add the <code>ID</code> header to the outgoing request:</p>
+
+<pre><code class="language-lua">local mac_address = self.settings.mac_address or self:getMacAddress() or &quot;&quot;
+
+local request = {
+    url = request_url,
+    method = &quot;GET&quot;,
+    headers = {
+        [&quot;access-token&quot;] = self.settings.api_key,
+        [&quot;ID&quot;] = mac_address,
+        [&quot;percent-charged&quot;] = percent_charged,
+        [&quot;png-width&quot;] = png_width,
+        [&quot;png-height&quot;] = png_height,
+        [&quot;rssi&quot;] = &quot;0&quot;,
+        [&quot;User-Agent&quot;] = self.settings.user_agent,
+    },
+    -- ... rest of request config
+}
+</code></pre>
+
+<p>That&rsquo;s it. The plugin will now identify itself properly to any TRMNL-compatible server.</p>
+
+<h3>Configuring the plugin</h3>
+
+<p>In KOReader: <strong>Tools → TRMNL Display → Configure TRMNL</strong>. Set:</p>
+
+<ul>
+<li><strong>Base URL</strong>: your server URL, e.g. <code>http://192.168.1.123:4567</code> (no trailing slash, no <code>/api/display</code>)</li>
+<li><strong>API Key</strong>: the per-device key your server generates</li>
+<li><strong>Refresh interval</strong>: how often to fetch a new screen, in seconds. 900-1800 (15-30 min) is a good default.</li>
+</ul>
+
+<h3>Kindle tweaks for a better dashboard experience</h3>
+
+<p>A vanilla Kindle is built for reading books, which involves a lot of sleeping. For a dashboard you want the opposite — stay awake, refresh on schedule, never show &ldquo;Sleeping&rdquo; overlays. A few changes:</p>
+
+<p><strong>WiFi behaviour.</strong> In KOReader → gear → Network:</p>
+
+<ul>
+<li>Action when WiFi is off: <strong>turn on</strong></li>
+<li>Action when done with WiFi: <strong>leave on</strong></li>
+</ul>
+
+<p>Setting &ldquo;leave on&rdquo; is critical. If WiFi is turned off after each fetch, the Kindle firmware will interpret the idle state as a cue to engage its screensaver, and you&rsquo;ll see a &ldquo;Sleeping&rdquo; overlay drawn over your dashboard until you tap the screen.</p>
+
+<p><strong>Auto-suspend.</strong> KOReader → gear → Device → Autosuspend timeout: <strong>disabled</strong>.</p>
+
+<p><strong>Kindle firmware sleep.</strong> Even with KOReader configured to stay awake, the Kindle&rsquo;s underlying <code>powerd</code> daemon has its own screensaver timer. To disable it, open a terminal (KOReader → Tools → More tools → Terminal emulator) and run:</p>
+
+<pre><code class="language-bash">lipc-set-prop com.lab126.powerd preventScreenSaver 1
+</code></pre>
+
+<p>Important caveat: this doesn&rsquo;t persist across reboots. You&rsquo;ll need to re-run it if you restart the Kindle. There are ways to make it permanent via KUAL scripts, but the manual command is fine if you rarely reboot.</p>
+
+<p><strong>E-ink refresh quality.</strong> KOReader → Tools → TRMNL Display → Configure → E-ink Refresh Type: <strong>Full</strong>. Slower refresh but eliminates ghosting, which matters more on a dashboard than in a book.</p>
+
+<p><strong>Auto-refresh.</strong> KOReader → Tools → TRMNL Display → <strong>Enable auto-refresh</strong>. This kicks off periodic fetches and also prevents KOReader itself from suspending.</p>
+
+<h2>Part 4: LaraPaper — the self-hosted server</h2>
+
+<p>There are several BYOS implementations in the TRMNL ecosystem. The main options:</p>
+
+<ul>
+<li><strong>Terminus</strong> (<code>usetrmnl/byos_hanami</code>) — the official Ruby/Hanami reference implementation</li>
+<li><strong>LaraPaper</strong> — a PHP/Laravel implementation with a polished UI and good plugin selection</li>
+<li><strong>byos_sinatra</strong> — minimal Ruby/Sinatra, fewer features but very simple</li>
+<li><strong>trmnl-byos</strong> — Rust implementation, niche but lightweight</li>
+</ul>
+
+<p>I tried Terminus first and ended up settling on LaraPaper because its UI for managing devices and playlists was the most pleasant to work with day-to-day. Your mileage may vary — the protocol is the same, so you can swap servers without changing anything on the device.</p>
+
+<h3>Running LaraPaper in Docker</h3>
+
+<p>LaraPaper publishes a Dockerfile in <a href="https://github.com/larapaper/larapaper" target="_blank">its repo</a>. The compose file is straightforward:</p>
+
+<pre><code class="language-yaml">services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - &quot;4567:8080&quot;
+    environment:
+      - PHP_OPCACHE_ENABLE=1
+      - TRMNL_PROXY_REFRESH_MINUTES=15
+      - DB_DATABASE=database/storage/database.sqlite
+    volumes:
+      - database:/var/www/html/database/storage
+      - storage:/var/www/html/storage/app/public/images/generated
+    restart: unless-stopped
+
+volumes:
+  database:
+  storage:
+</code></pre>
+
+<p>The key bits:</p>
+
+<ul>
+<li>Two <strong>named volumes</strong> for persistence: one for the SQLite database (which holds devices, playlists, plugin configs), one for generated images.</li>
+<li>Port <code>4567</code> exposed on the host, mapping to the container&rsquo;s internal <code>8080</code>.</li>
+<li><code>restart: unless-stopped</code> so it survives Docker daemon restarts.</li>
+</ul>
+
+<p>To start it:</p>
+
+<pre><code class="language-bash">docker-compose up -d --build
+</code></pre>
+
+<p>The first build takes a few minutes (PHP, composer, npm). Subsequent starts are instant.</p>
+
+<h3>Adding a device</h3>
+
+<p>In the LaraPaper web UI (<code>http://&lt;host&gt;:4567</code>):</p>
+
+<ol>
+<li><strong>Devices → Add Device</strong></li>
+<li>Fill in:
+
+<ul>
+<li><strong>Name</strong>: anything memorable</li>
+<li><strong>MAC Address</strong>: the Kindle&rsquo;s WiFi MAC (find it in KOReader → Network → Info)</li>
+<li><strong>API Key</strong>: generate one with <code>openssl rand -hex 24</code> on any machine, paste it here</li>
+<li><strong>Friendly ID</strong>: a short identifier, anything works</li>
+<li><strong>Device Model</strong>: pick the matching Kindle generation — this controls the resolution of generated images</li>
+</ul></li>
+<li><strong>Create Device</strong></li>
+</ol>
+
+<p>Then create a Playlist, assign one or more plugins to it, and assign the playlist to your device.</p>
+
+<h3>Watch out for</h3>
+
+<p>A few things I learned the hard way:</p>
+
+<p><strong>OrbStack / Docker Desktop &ldquo;pause when idle&rdquo;</strong> features. If you&rsquo;re running on a Mac with OrbStack or Docker Desktop, both have a &ldquo;pause when idle&rdquo; setting that suspends the container VM after inactivity. This means the first request after a quiet period takes 2-3 minutes to wake the VM. Disable this setting if you&rsquo;re using LaraPaper as a server — it needs to be reachable on demand.</p>
+
+<p><strong>macOS Application Firewall</strong> blocks incoming connections to unknown apps by default. If your Mac is the server and other devices can&rsquo;t reach LaraPaper, this is likely why. Either disable the firewall for testing or add an explicit allow rule.</p>
+
+<p><strong>mDNS / <code>.local</code> resolution</strong> doesn&rsquo;t work reliably from Kindles. If you&rsquo;ve registered your server as <code>something.local</code>, use the IP address instead in the plugin&rsquo;s Base URL field.</p>
+
+<h2>Part 5: Migrating to a NAS</h2>
+
+<p>After running LaraPaper on my Mac for a week, I moved it to my Synology NAS so it could run <sup>24</sup>&frasl;<sub>7</sub> without tying up the desktop. The migration was a clean tarball-and-restore of the two named volumes:</p>
+
+<pre><code class="language-mermaid">flowchart LR
+    subgraph Source[&quot;Mac Studio (source)&quot;]
+        SrcDB[(&quot;larapaper_database&lt;br/&gt;SQLite DB&quot;)]
+        SrcImg[(&quot;larapaper_storage&lt;br/&gt;Generated images&quot;)]
+    end
+
+    subgraph Transit[&quot;Tarballs&quot;]
+        TarDB[&quot;database.tar.gz&quot;]
+        TarImg[&quot;storage.tar.gz&quot;]
+    end
+
+    subgraph Dest[&quot;Synology NAS (destination)&quot;]
+        DstDB[(&quot;larapaper_database&quot;)]
+        DstImg[(&quot;larapaper_storage&quot;)]
+    end
+
+    SrcDB --&gt;|&quot;docker run alpine&lt;br/&gt;tar czf&quot;| TarDB
+    SrcImg --&gt;|&quot;docker run alpine&lt;br/&gt;tar czf&quot;| TarImg
+    TarDB --&gt;|&quot;scp&quot;| TarDB2[&quot;database.tar.gz&quot;]
+    TarImg --&gt;|&quot;scp&quot;| TarImg2[&quot;storage.tar.gz&quot;]
+    TarDB2 --&gt;|&quot;docker run alpine&lt;br/&gt;tar xzf&quot;| DstDB
+    TarImg2 --&gt;|&quot;docker run alpine&lt;br/&gt;tar xzf&quot;| DstImg
+</code></pre>
+
+<p>The pattern for dumping a Docker named volume to a tarball without stopping or installing anything:</p>
+
+<pre><code class="language-bash">docker run --rm \
+  -v larapaper_database:/data:ro \
+  -v &quot;$(pwd)&quot;:/backup \
+  alpine \
+  tar czf /backup/larapaper_database.tar.gz -C /data .
+</code></pre>
+
+<p>This spins up a temporary Alpine container, mounts the volume read-only, mounts your current directory as <code>/backup</code>, and tars the volume contents to a file in your local directory. Same pattern in reverse to restore on the new host, with the read-only flag dropped.</p>
+
+<p><code>scp</code> the tarballs and the source directory to the NAS, restore the volumes, <code>docker-compose up -d --build</code>, and you&rsquo;re back online.</p>
+
+<p>A subtle thing about Laravel apps specifically: the <code>.env</code> file contains <code>APP_KEY</code>, which is used to encrypt session data and some at-rest fields. Don&rsquo;t forget to copy it, or the new instance may not be able to decrypt existing data.</p>
+
+<h2>Where this lands</h2>
+
+<p>End state: a 10-year-old Kindle, mounted on my wall, cycling through current weather, my upcoming calendar, MotoGP race weekends, and the daily XKCD comic. It refreshes every 15 minutes, costs nothing to run beyond the trickle of electricity the Kindle draws, and looks like a piece of paper from across the room.</p>
+
+<pre><code class="language-mermaid">flowchart LR
+    subgraph Home[&quot;Home network&quot;]
+        Kindle[&quot;📖 Kindle (wall-mounted)&lt;br/&gt;polls every 15min&quot;]
+        NAS[&quot;🗄️ Synology NAS&lt;br/&gt;LaraPaper in Docker&quot;]
+    end
+
+    subgraph Internet[&quot;Internet&quot;]
+        WeatherAPI[&quot;☁️ Weather API&quot;]
+        CalAPI[&quot;📅 Calendar feed&quot;]
+        XKCDAPI[&quot;🎨 XKCD RSS&quot;]
+    end
+
+    Kindle &lt;--&gt;|&quot;HTTP /api/display&quot;| NAS
+    NAS &lt;--&gt;|&quot;plugin data fetches&quot;| WeatherAPI
+    NAS &lt;--&gt;|&quot;plugin data fetches&quot;| CalAPI
+    NAS &lt;--&gt;|&quot;plugin data fetches&quot;| XKCDAPI
+
+    style Kindle fill:#f5f5f5,stroke:#333
+    style NAS fill:#fff3e0,stroke:#e65100
+</code></pre>
+
+<p>There are a few directions to take this further:</p>
+
+<ul>
+<li><strong>Custom plugins.</strong> LaraPaper&rsquo;s plugin format is basically a Twig template plus a config schema. Writing a custom plugin for, say, your home&rsquo;s energy usage or a self-hosted RSS reader is a couple of hours of work.</li>
+<li><strong>Multiple devices.</strong> The same server can drive many devices, each with its own playlist. Useful if you want a different dashboard in the kitchen vs. the office.</li>
+<li><strong>Better mounting.</strong> Currently mine is in a 3D-printed holder; an actual frame is on my to-do list.</li>
+</ul>
+
+<p>But mostly I&rsquo;m happy that an old, forgotten device is now genuinely useful again. There&rsquo;s something satisfying about that — taking a piece of hardware Amazon would consider obsolete and using it to do something they never intended.</p>
+
+<h2>Useful links</h2>
+
+<ul>
+<li><a href="https://usetrmnl.com/" target="_blank">TRMNL</a> — the original product and the open-source protocol</li>
+<li><a href="https://kindlemodding.org/" target="_blank">KindleModding Wiki</a> — jailbreak guides, KUAL, hotfix</li>
+<li><a href="https://koreader.rocks/" target="_blank">KOReader</a> — the document viewer that hosts the plugin</li>
+<li><a href="https://github.com/usetrmnl/trmnl-koreader" target="_blank">TRMNL KOReader plugin</a> — what runs on the Kindle</li>
+<li><a href="https://github.com/larapaper/larapaper" target="_blank">LaraPaper</a> — the PHP/Laravel BYOS implementation</li>
+<li><a href="https://github.com/usetrmnl/byos_hanami" target="_blank">Terminus</a> — the official Ruby BYOS implementation</li>
+<li><a href="https://github.com/usetrmnl/byos_django" target="_blank">BYOS Django</a> — Python alternative</li>
+</ul>
+
+
+<p class="info">Tags: 
+    
+        
+        <a href="/tags/diy.html">diy</a>
+    
+        , 
+        <a href="/tags/hacking.html">hacking</a>
+    
+        , 
+        <a href="/tags/lua.html">lua</a>
+    
+        , 
+        <a href="/tags/programming.html">programming</a>
+    
+</p>
+
+
+    
+<script>
+    Prism.plugins.autoloader.languages_path = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/';
+    
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        document.querySelectorAll('pre.language-mermaid').forEach(function(element) {
+            
+            var mermaidDiv = document.createElement('div');
+            mermaidDiv.className = 'mermaid';
+            mermaidDiv.innerHTML = element.textContent;
+            
+            
+            element.parentNode.replaceChild(mermaidDiv, element);
+        });
+        
+        
+        mermaid.init();
+    });
+</script>
+
+    <main>
+    
+<footer>
+    <p class="footer-content">
+        <span>&copy; 2026 Into The Void.</span>
+        <span>Powered by <a href="https://www.github.com/intothevoid/likho">Likho</a>.</span>
+    </p>
+</footer>
+
+</body>
+</html>
