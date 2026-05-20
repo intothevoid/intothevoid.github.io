@@ -10,7 +10,7 @@
 <pubDate>Tue, 19 May 2026 19:22:00 +0930</pubDate>
 <description><![CDATA[
 
-I had a 7th generation Kindle sitting in a drawer for years. Battery still holds a decent charge, screen still looks great — but I'd long since moved my reading to a newer device. So I turned it into a wall-mounted e-ink dashboard that quietly cycles through the weather, my upcoming calendar, MotoGP race schedules, and the daily XKCD.
+I had a 7th generation Kindle sitting in a drawer for years. Battery still holds a decent charge, screen still looks great — but I'd long since moved my reading to a newer device. So I turned it into an e-ink dashboard on my desk that quietly cycles through the weather, my upcoming calendar, MotoGP race schedules, the daily XKCD and other useful information.
 
 ![Photo of my Kindle displaying the Formula 1 leaderboard](images/kindle.jpg)
 
@@ -21,7 +21,7 @@ This post is the full walkthrough of how I got there: jailbreaking the Kindle, i
 E-ink dashboards are having a moment, and for good reason. Compared to a tablet or small monitor:
 
 - **Always-on, zero glare.** E-ink is reflective, not emissive. It looks great in direct sunlight and isn't a light source in a dark room.
-- **Tiny power draw.** A Kindle running a dashboard refreshes every 15 minutes and sips battery; mine lasts about a week on a charge.
+- **Tiny power draw.** A Kindle running a dashboard refreshes infrequently and sips battery; they can easily last a week if setup correctly.
 - **Reuse.** There's a feeling of satisfaction repurposing old hardware that was not being used and giving it new life.
 
 The trade-off: refresh latency, monochrome (or 16-shade grayscale), and getting it to do anything other than read books takes some setup. That setup is what this post is about.
@@ -365,12 +365,12 @@ A subtle thing about Laravel apps specifically: the `.env` file contains `APP_KE
 
 ## Where this lands
 
-End state: a 10-year-old Kindle, mounted on my wall, cycling through current weather, my upcoming calendar, MotoGP race weekends, and the daily XKCD comic. It refreshes every 15 minutes, costs nothing to run beyond the trickle of electricity the Kindle draws, and looks like a piece of paper from across the room.
+End state: a 10-year-old Kindle, sitting on my desk, cycling through current weather, my upcoming calendar, MotoGP race weekends, and the daily XKCD comic. It refreshes every 15 minutes, costs nothing to run beyond the trickle of electricity the Kindle draws, and looks like a piece of paper from across the room.
 
 ```mermaid
 flowchart LR
     subgraph Home["Home network"]
-        Kindle["📖 Kindle (wall-mounted)<br/>polls every 15min"]
+        Kindle["📖 Kindle<br/>polls every 15min"]
         NAS["🗄️ Synology NAS<br/>LaraPaper in Docker"]
     end
 

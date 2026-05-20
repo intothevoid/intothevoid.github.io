@@ -51,7 +51,7 @@
 <h2>Repurpose an old Kindle and use it as an e-ink dashboard</h2>
 <p>Create an e-ink dashboard using existing hardware and TRMNL</p>
 <p class="info">Published on May 19 2026 at 7:22pm</p>
-<p>I had a 7th generation Kindle sitting in a drawer for years. Battery still holds a decent charge, screen still looks great — but I&rsquo;d long since moved my reading to a newer device. So I turned it into a wall-mounted e-ink dashboard that quietly cycles through the weather, my upcoming calendar, MotoGP race schedules, and the daily XKCD.</p>
+<p>I had a 7th generation Kindle sitting in a drawer for years. Battery still holds a decent charge, screen still looks great — but I&rsquo;d long since moved my reading to a newer device. So I turned it into an e-ink dashboard on my desk that quietly cycles through the weather, my upcoming calendar, MotoGP race schedules, the daily XKCD and other useful information.</p>
 
 <p><img src="/images/kindle.jpg" alt="Photo of my Kindle displaying the Formula 1 leaderboard" /></p>
 
@@ -63,7 +63,7 @@
 
 <ul>
 <li><strong>Always-on, zero glare.</strong> E-ink is reflective, not emissive. It looks great in direct sunlight and isn&rsquo;t a light source in a dark room.</li>
-<li><strong>Tiny power draw.</strong> A Kindle running a dashboard refreshes every 15 minutes and sips battery; mine lasts about a week on a charge.</li>
+<li><strong>Tiny power draw.</strong> A Kindle running a dashboard refreshes infrequently and sips battery; they can easily last a week if setup correctly.</li>
 <li><strong>Reuse.</strong> There&rsquo;s a feeling of satisfaction repurposing old hardware that was not being used and giving it new life.</li>
 </ul>
 
@@ -418,11 +418,11 @@ volumes:
 
 <h2>Where this lands</h2>
 
-<p>End state: a 10-year-old Kindle, mounted on my wall, cycling through current weather, my upcoming calendar, MotoGP race weekends, and the daily XKCD comic. It refreshes every 15 minutes, costs nothing to run beyond the trickle of electricity the Kindle draws, and looks like a piece of paper from across the room.</p>
+<p>End state: a 10-year-old Kindle, sitting on my desk, cycling through current weather, my upcoming calendar, MotoGP race weekends, and the daily XKCD comic. It refreshes every 15 minutes, costs nothing to run beyond the trickle of electricity the Kindle draws, and looks like a piece of paper from across the room.</p>
 
 <pre><code class="language-mermaid">flowchart LR
     subgraph Home[&quot;Home network&quot;]
-        Kindle[&quot;📖 Kindle (wall-mounted)&lt;br/&gt;polls every 15min&quot;]
+        Kindle[&quot;📖 Kindle&lt;br/&gt;polls every 15min&quot;]
         NAS[&quot;🗄️ Synology NAS&lt;br/&gt;LaraPaper in Docker&quot;]
     end
 
