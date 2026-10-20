@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Into The Void - Reverse engineer C programs using REA (Reverse engineer anything)</title>
+    <link rel="stylesheet" href="/css/main.css">
+    
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+    </script>
+</head>
+<body>
+    
+<header>
+    <div id="site-title" style="display:flex; justify-content:left; align-items: left;">
+        <a href="/index.html">
+            <h1 style="margin: 0;">Into The Void</h1>
+        </a>
+    </div>
+    <div id="nav-links" style="display:flex; justify-content:right; align-items: right;">
+        <nav>
+            <div style="display: flex;">
+                <a href="/posts.html">All Posts</a>
+                
+                    <a href="/pages/about.html">About</a>
+                
+                    <a href="/pages/projects.html">Projects</a>
+                
+            </div>
+        </nav>
+    </div>
+</header>
+
+    <main>
+    
+<h2>Reverse engineer C programs using REA (Reverse engineer anything)</h2>
+<p>Reverse engineer and analyse a C program using REA, Ghidra and a LLM</p>
+<p class="info">Published on Oct 20 2026 at 10:36pm</p>
+<h1>Reverse Engineering C Programs with Ghidra, REA, and OpenAI Codex on macOS</h1>
+
+<p><em>From an Apple Silicon Mac to an AI-assisted disassembly and decompilation workflow—using free, locally installed reverse-engineering tools.</em></p>
+
+<p>What a time to be a Software Engineer! Reverse engineering binaries is now trivial, thanks to your local LLM of choice! Unless you&rsquo;ve lived under a rock, you&rsquo;ve heard how Adobe&rsquo;s suite of applications was recently reversed and re-created (clean room implementation) from scratch in Rust. It was then open sourced <a href="https://getartcraft.com/" target="_blank">Get Craft</a>.</p>
+
+<p>I found all of this particularly intriguing because I have always been interested in reverse engineering (my MS thesis was based on reverse code engineering). Crackme&rsquo;s and getting closed source software to behave the way you want was always a challenge but a fun one. Lets get to it!</p>
+
+<p>Reverse engineering usually involves bouncing between a disassembler, terminal commands, and your own notes. What if you could ask a coding agent to locate a function, inspect its callers, and explain its decompiled logic while the actual binary analysis still happens on your machine?</p>
+
+<p>That&rsquo;s the workflow we&rsquo;ll build with three tools:</p>
+
+<ul>
+<li><strong><a href="https://github.com/NationalSecurityAgency/ghidra" target="_blank">Ghidra</a></strong>: a free reverse-engineering suite with a native decompiler and headless analysis engine.</li>
+<li><strong><a href="https://github.com/morluto/rea" target="_blank">REA (Reverse Engineer Anything)</a></strong>: an MCP server and CLI that expose analysis tools to coding agents.</li>
+<li><strong><a href="https://developers.openai.com/codex/" target="_blank">OpenAI Codex</a></strong>: the coding agent that drives REA, requests evidence, and explains the findings.</li>
+</ul>
+
+<p>We&rsquo;ll first install and connect them on <strong>Apple Silicon macOS</strong>, then build a small C command-line program and inspect its compiled Mach-O binary. The setup described here was validated with REA <strong>6.4.0</strong>, Ghidra <strong>12.1.4</strong>, Java <strong>21</strong>, and Node.js <strong>24.21.0</strong>. We&rsquo;ll then get into a more involved C exercise further in the article.</p>
+
+<blockquote>
+<p><strong>Warning:</strong> The sample is code we write ourselves. Only reverse engineer binaries you own or have permission to analyze. Although Ghidra runs locally, anything an agent sends in its prompts, tool results, or conversation may be transmitted to the agent&rsquo;s model provider. Avoid submitting confidential binaries or sensitive outputs without checking your privacy and data-handling requirements.</p>
+</blockquote>
+
+<h2>How the pieces fit together</h2>
+
+<pre><code class="language-mermaid">flowchart LR
+    U[Developer] --&gt; C[Codex CLI]
+    C &lt;--&gt;|MCP over stdio| R[REA MCP server]
+    R --&gt;|Ghidra provider| G[Ghidra headless analyzer]
+    G --&gt; D[Native ARM64 decompiler]
+    G --&gt; B[(Local Mach-O binary)]
+    R --&gt;|Functions, xrefs, pseudocode, evidence| C
+</code></pre>
+
+<p>Codex does <strong>not</strong> replace Ghidra&rsquo;s decompiler. It uses REA&rsquo;s MCP tools to ask Ghidra specific questions and then interprets the evidence. REA runs the Ghidra analysis in an isolated temporary project. REA&rsquo;s Ghidra provider opens a binary read-only and cleans up its temporary project when the session closes.</p>
+
+<h2>Part 1 — Install REA, Ghidra, and Codex</h2>
+
+<h3>1. Check the prerequisites</h3>
+
+<p>My environment was macOS on Apple Silicon, Homebrew, the Codex CLI, a supported Node.js version, and a 64-bit JDK. REA 6.4.0 supports Node.js 22.19+, 24.11+, or 26+ (within their respective major-version lines). The Ghidra 12.1.x bridge requires a full JDK 21 or newer, subject to Ghidra&rsquo;s declared Java range.</p>
+
+<pre><code class="language-bash">node --version
+npm --version
+codex --version
+java -version
+javac -version
+/usr/libexec/java_home -V
+</code></pre>
+
+<p>If you use <code>nvm</code>, a compatible version of Node 24 can be installed with:</p>
+
+<pre><code class="language-bash">nvm install 24
+nvm alias default 24
+nvm use 24
+</code></pre>
+
+<p>On the system used for this guide, Java was already installed as <strong>Temurin 21</strong> at:</p>
+
+<pre><code class="language-text">/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home
+</code></pre>
+
+<p>If you don&rsquo;t already have JDK, install it. <code>brew install --cask temurin@21</code>—and repeat the version checks. Install the Codex CLI if necessary using the current instructions in the <a href="https://developers.openai.com/codex/" target="_blank">official Codex documentation</a>.</p>
+
+<h3>2. Install Ghidra through Homebrew</h3>
+
+<pre><code class="language-bash">brew install ghidra
+brew list --versions ghidra
+brew --prefix ghidra
+</code></pre>
+
+<p>The tested setup reported:</p>
+
+<pre><code class="language-text">ghidra 12.1.4
+/opt/homebrew/opt/ghidra
+</code></pre>
+
+<p><strong>Important Homebrew path detail:</strong> REA needs the directory containing Ghidra&rsquo;s <code>Ghidra/</code> and <code>support/</code> folders. For the Homebrew formula, that is the <strong><code>libexec</code></strong> directory, not the formula prefix itself:</p>
+
+<pre><code class="language-bash">export GHIDRA_INSTALL_DIR=&quot;$(brew --prefix ghidra)/libexec&quot;
+export JAVA_HOME=&quot;$(/usr/libexec/java_home -v 21)&quot;
+</code></pre>
+
+<p>Verify the headless launcher and the macOS ARM64 decompiler:</p>
+
+<pre><code class="language-bash">test -f &quot;$GHIDRA_INSTALL_DIR/support/analyzeHeadless&quot; &amp;&amp; echo &quot;Headless launcher found&quot;
+test -f &quot;$GHIDRA_INSTALL_DIR/Ghidra/Features/Decompiler/os/mac_arm_64/decompile&quot; &amp;&amp; echo &quot;ARM64 decompiler found&quot;
+file &quot;$GHIDRA_INSTALL_DIR/Ghidra/Features/Decompiler/os/mac_arm_64/decompile&quot;
+</code></pre>
+
+<p>The final command should identify a Mach-O ARM64 executable. If you use Intel macOS, the native decompiler platform directory will differ.</p>
+
+<h3>3. Check REA&rsquo;s Ghidra compatibility</h3>
+
+<p>You can run REA without installing a global <code>rea</code> executable:</p>
+
+<pre><code class="language-bash">npx -y rea-agents@6.4.0 doctor --provider ghidra --json
+</code></pre>
+
+<p>The complete JSON can include local usernames, installation paths and other environment details, so be careful when sharing this information with your LLM.</p>
+
+<p>In my tested installation, REA marked all eight Ghidra-specific checks successful: configuration, platform, architecture, installation, version, headless launcher, native decompiler, and Java. A broader <code>environment_healthy: false</code> result can reflect unrelated optional integrations and does <strong>not</strong> by itself mean Ghidra failed.</p>
+
+<h3>4. Register the REA MCP server with Codex</h3>
+
+<p>First preview what setup intends to write:</p>
+
+<pre><code class="language-bash">npx -y rea-agents@6.4.0 setup --client codex --dry-run --json
+</code></pre>
+
+<p>REA 6.4.0&rsquo;s <code>--json</code> mode produces a plan; <strong><code>--yes</code> is required to apply it non-interactively</strong>. With the environment variables set in your shell, apply the registration:</p>
+
+<pre><code class="language-bash">GHIDRA_INSTALL_DIR=&quot;$(brew --prefix ghidra)/libexec&quot; \
+JAVA_HOME=&quot;$(/usr/libexec/java_home -v 21)&quot; \
+REA_ANALYSIS_PROVIDER=ghidra \
+npx -y rea-agents@6.4.0 setup --client codex --yes --json
+</code></pre>
+
+<p>The setup command preserves unrelated Codex configuration and creates a backup when updating its config. Check the registration:</p>
+
+<pre><code class="language-bash">codex mcp list
+codex mcp get rea
+</code></pre>
+
+<p>The server should be enabled and use a version-pinned command similar to:</p>
+
+<pre><code class="language-text">command: npx
+args: -y rea-agents@6.4.0 mcp
+</code></pre>
+
+<p><strong>Persist the provider selection.</strong> An exported shell variable is not necessarily recorded in Codex&rsquo;s MCP environment. Review <code>~/.codex/config.toml</code> and ensure the REA environment table includes these values (merge them into the existing table; do not duplicate the TOML heading):</p>
+
+<pre><code class="language-toml">[mcp_servers.rea.env]
+GHIDRA_INSTALL_DIR = &quot;/opt/homebrew/opt/ghidra/libexec&quot;
+JAVA_HOME = &quot;/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home&quot;
+REA_ANALYSIS_PROVIDER = &quot;ghidra&quot;
+</code></pre>
+
+<p>Your Java path may differ; use the path reported by <code>/usr/libexec/java_home -v 21</code>. If the setup added other unrelated environment keys, keep only those you intend to use. Restart Codex after editing its configuration.</p>
+
+<h3>5. Validate the MCP connection</h3>
+
+<p>Launch a new Codex session:</p>
+
+<pre><code class="language-bash">codex
+</code></pre>
+
+<p>Ask Codex:</p>
+
+<blockquote>
+<p>Use the REA <code>binary_session</code> MCP tool to confirm the server responds and report the available providers. Do not open a binary yet.</p>
+</blockquote>
+
+<p>In our verified session, REA responded and reported Ghidra as available. <strong>A provider can be available without being selected</strong> when no binary is open. We&rsquo;ll specify Ghidra explicitly when opening our sample.</p>
+
+<pre><code class="language-mermaid">sequenceDiagram
+    participant Dev as Developer
+    participant Codex
+    participant REA as REA MCP
+    participant Ghidra
+    Dev-&gt;&gt;Codex: Inspect a local binary
+    Codex-&gt;&gt;REA: open_binary(path, provider_id=&quot;ghidra&quot;)
+    REA--&gt;&gt;Codex: Session opened
+    Codex-&gt;&gt;REA: Search functions / decompile
+    REA-&gt;&gt;Ghidra: Import + headless auto-analysis
+    Ghidra--&gt;&gt;REA: Symbols, instructions, pseudocode
+    REA--&gt;&gt;Codex: Structured analysis evidence
+    Codex--&gt;&gt;Dev: Explained findings + uncertainties
+</code></pre>
+
+<p><strong>First-query behavior:</strong> <code>open_binary</code> establishes the session; Ghidra import and automatic analysis may begin lazily on the first Ghidra-backed query. That first query can therefore take longer than subsequent operations.</p>
+
+<hr>
+
+<h2>Part 2 — Reverse engineer a C program</h2>
+
+<p>A function that merely multiplies two integers doesn&rsquo;t show much of what a reverse engineer needs to understand. Let&rsquo;s use a slightly richer example: a toy <strong>packet validator</strong>. It accepts a fixed-size payload, checks its header and value range, computes a rolling checksum, and reports whether the packet is valid.</p>
+
+<p>This is deliberately <strong>not</strong> a secure authentication or cryptographic scheme. It gives us loops, early returns, integer operations, multiple functions, and recognizable output strings to investigate.</p>
+
+<h3>1. Write the target program</h3>
+
+<p>Create a working directory and save <code>packet_check.c</code>:</p>
+
+<pre><code class="language-bash">mkdir -p ~/reverseme
+cd ~/reverseme
+cat &gt; packet_check.c &lt;&lt;'EOF'
+#include &lt;stdint.h&gt;
+#include &lt;stdio.h&gt;
+
+#define PACKET_SIZE 6
+
+__attribute__((noinline))
+static uint8_t checksum(const uint8_t *data, unsigned length) {
+    uint8_t value = 0x5A;
+    for (unsigned i = 0; i &lt; length; i++) {
+        value = (uint8_t)((value &lt;&lt; 1) | (value &gt;&gt; 7));
+        value ^= data[i];
+    }
+    return value;
+}
+
+__attribute__((noinline))
+static int validate_packet(const uint8_t *packet, unsigned length) {
+    if (length != PACKET_SIZE) {
+        return -1;                 // Wrong length
+    }
+    if (packet[0] != 0xA5) {
+        return -2;                 // Wrong magic byte
+    }
+    if (packet[1] &gt; 100) {
+        return -3;                 // Value outside allowed range
+    }
+    if (checksum(packet, PACKET_SIZE - 1) != packet[PACKET_SIZE - 1]) {
+        return -4;                 // Checksum mismatch
+    }
+    return 0;
+}
+
+int main(void) {
+    uint8_t packet[PACKET_SIZE] = {0xA5, 42, 0x10, 0x20, 0x30, 0};
+    packet[PACKET_SIZE - 1] = checksum(packet, PACKET_SIZE - 1);
+
+    int result = validate_packet(packet, PACKET_SIZE);
+    if (result == 0) {
+        puts(&quot;Packet accepted&quot;);
+    } else {
+        printf(&quot;Packet rejected: %d\n&quot;, result);
+    }
+    return result == 0 ? 0 : 1;
+}
+EOF
+</code></pre>
+
+<p>Why this target works well for learning:</p>
+
+<table>
+<thead>
+<tr>
+<th>C construct</th>
+<th>What to look for in Ghidra</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>checksum()</code> loop</td>
+<td>Loop back-edge, shifts/rotations, XOR</td>
+</tr>
+
+<tr>
+<td>Early <code>return -1</code> to <code>-4</code></td>
+<td>Conditional branches and distinct error paths</td>
+</tr>
+
+<tr>
+<td><code>validate_packet()</code> calls <code>checksum()</code></td>
+<td>Call graph and cross-references</td>
+</tr>
+
+<tr>
+<td>Magic byte <code>0xA5</code>, seed <code>0x5A</code></td>
+<td>Constants embedded in the binary</td>
+</tr>
+
+<tr>
+<td><code>puts</code> and <code>printf</code></td>
+<td>Imported library calls and string references</td>
+</tr>
+</tbody>
+</table>
+
+<h3>2. Compile and run it</h3>
+
+<p>Use <code>-O0</code> to limit compiler transformations and <code>-g</code> to make the first exercise easier to understand. The <code>noinline</code> attribute helps keep our two functions separate. This is an <strong>educational build</strong>, not a realistic stripped release binary.</p>
+
+<pre><code class="language-bash">clang -O0 -g -fno-inline -o packet_check packet_check.c
+./packet_check
+file packet_check
+</code></pre>
+
+<p>Expected application output:</p>
+
+<pre><code class="language-text">Packet accepted
+</code></pre>
+
+<p>On Apple Silicon, <code>file</code> should identify a Mach-O arm64 executable. To inspect what happens when metadata is missing, a later exercise can build a stripped version with <code>strip</code>—but start with the readable one.</p>
+
+<h3>3. Understand the intended logic</h3>
+
+<p>Before looking at the machine code, here&rsquo;s the behavior we expect:</p>
+
+<pre><code class="language-mermaid">flowchart TD
+    Start([validate_packet]) --&gt; Length{length == 6?}
+    Length -- No --&gt; E1[Return -1]
+    Length -- Yes --&gt; Magic{First byte == 0xA5?}
+    Magic -- No --&gt; E2[Return -2]
+    Magic -- Yes --&gt; Range{Value &lt;= 100?}
+    Range -- No --&gt; E3[Return -3]
+    Range -- Yes --&gt; Check{Computed checksum matches?}
+    Check -- No --&gt; E4[Return -4]
+    Check -- Yes --&gt; OK[Return 0]
+</code></pre>
+
+<p>When you inspect the binary, this source-level flowchart is a <strong>hypothesis to verify</strong>, not evidence of what the compiled code does. The purpose of reverse engineering is to reconstruct and test that behavior from the executable.</p>
+
+<h3>4. Ask Codex to open the binary with Ghidra</h3>
+
+<p>Start Codex from your working directory, or use the absolute binary path in your prompt:</p>
+
+<pre><code class="language-bash">cd ~/bikeshed/rea/test
+codex
+</code></pre>
+
+<p>Prompt:</p>
+
+<blockquote>
+<p>Use REA MCP to open <code>/Users/YOUR_USERNAME/reverseme/packet_check</code> with <code>provider_id</code> set explicitly to <code>ghidra</code>. Confirm the detected file format, architecture, provider, and Ghidra version. Do not modify the binary.</p>
+</blockquote>
+
+<p>Replace <code>YOUR_USERNAME</code> with the path on your own Mac. An explicit <code>provider_id: &quot;ghidra&quot;</code> makes the exercise reproducible and avoids depending on automatic provider selection.</p>
+
+<h3>5. Inventory functions and strings</h3>
+
+<p>Next prompt:</p>
+
+<blockquote>
+<p>Using REA tools, list the functions and search for strings containing <code>Packet accepted</code> and <code>Packet rejected</code>. Locate <code>validate_packet</code> and <code>checksum</code> if symbols are available. Report their addresses, and distinguish observed facts from assumptions.</p>
+</blockquote>
+
+<p>The expected pattern is that <code>main</code> references the output strings and calls the validation path. Names may appear with a leading underscore in Mach-O symbol tables, such as <code>_validate_packet</code>, and Ghidra&rsquo;s naming can differ based on compiler settings and symbols.</p>
+
+<h3>6. Decompile and explain the validator</h3>
+
+<p>Next prompt:</p>
+
+<blockquote>
+<p>Decompile <code>validate_packet</code> using REA&rsquo;s Ghidra-backed tools. Explain each return path, the allowed input range, and how checksum validation works. Quote the actual decompiler output when applicable; do not invent pseudocode if a tool call fails.</p>
+</blockquote>
+
+<p>A good interpretation should recover the same <strong>behavioral outline</strong> as the source, even if the generated C is less readable. Expect differences such as synthetic parameter names (<code>param_1</code>, <code>param_2</code>), pointer arithmetic instead of array indexing, integer promotions, or a different arrangement of branches. This is normal: a decompiler estimates source-like semantics; it cannot reconstruct the original source text exactly.</p>
+
+<h3>7. Trace the checksum algorithm</h3>
+
+<p>Next prompt:</p>
+
+<blockquote>
+<p>Decompile the checksum function. Explain how it works. Show the caller/callee relationship between the validator and checksum functions.</p>
+</blockquote>
+
+<p>The checksum&rsquo;s conceptual algorithm is:</p>
+
+<pre><code class="language-mermaid">flowchart LR
+    Init[State = 0x5A] --&gt; Loop{More input bytes?}
+    Loop -- Yes --&gt; Rotate[Rotate state left by 1 bit]
+    Rotate --&gt; XOR[XOR with current byte]
+    XOR --&gt; Loop
+    Loop -- No --&gt; Return[Return 8-bit checksum]
+</code></pre>
+
+<p><strong>Technical detail:</strong> the cast back to <code>uint8_t</code> matters. C integer promotions can make shifts appear to operate on a wider type in assembly or pseudocode, while the stored checksum remains eight bits.</p>
+
+<h3>8. Investigate callers and control flow</h3>
+
+<p>The most useful learning exercise isn&rsquo;t simply asking for a description. Ask the agent to support each conclusion with evidence:</p>
+
+<blockquote>
+<p>Build a small call graph around <code>main</code>, <code>validate_packet</code>, and <code>checksum</code>. Identify which functions call <code>checksum</code> and where the validator&rsquo;s return value determines the printed message. Include addresses and say what remains uncertain.</p>
+</blockquote>
+
+<p>The <strong>source-level expectation</strong> is:</p>
+
+<pre><code class="language-mermaid">flowchart TD
+    Main[main] --&gt; C1[checksum: construct packet]
+    Main --&gt; V[validate_packet]
+    V --&gt; C2[checksum: verify packet]
+    Main --&gt; Print[puts / printf]
+</code></pre>
+
+<p>The call graph recovered from the binary may combine the two checksum nodes into one function, include runtime/library functions, or vary if compiler optimizations are changed. The point is to use the addresses and call references to confirm what was actually compiled.</p>
+
+<h3>9. Test a hypothesis with a controlled variation</h3>
+
+<p>To make this a genuine investigation, change the source code <em>only in a separate test build</em> so the checksum is wrong:</p>
+
+<pre><code class="language-bash">cp packet_check.c packet_bad.c
+python3 - &lt;&lt;'PY'
+from pathlib import Path
+p = Path('packet_bad.c')
+s = p.read_text()
+s = s.replace(
+    'packet[PACKET_SIZE - 1] = checksum(packet, PACKET_SIZE - 1);',
+    'packet[PACKET_SIZE - 1] = 0x00;'
+)
+p.write_text(s)
+PY
+clang -O0 -g -fno-inline -o packet_bad packet_bad.c
+./packet_bad
+</code></pre>
+
+<p>With these sample bytes, the computed checksum is not zero, so the application should print <code>Packet rejected: -4</code> and exit nonzero. (A nonzero exit status is expected for this negative test.)</p>
+
+<p>Ask Codex to compare the two binaries, focusing on the instruction flow surrounding checksum construction and the resulting behavior. Remember to close the old REA session before opening another binary if the provider exposes a single active program per session.</p>
+
+<h2>What we learned from the decompiler</h2>
+
+<p>The interesting outcome is not whether Ghidra produces attractive C. It&rsquo;s we can reconstruct an <strong>evidence-backed specification</strong> from machine code:</p>
+
+<ol>
+<li>The target uses a six-byte packet.</li>
+<li>The first byte must equal <code>0xA5</code>.</li>
+<li>The second byte must be at most 100.</li>
+<li>The last byte must match a rolling, eight-bit checksum computed over the first five bytes.</li>
+<li>Each failed check produces a distinct negative return code.</li>
+</ol>
+
+<p>Those conclusions are what the exercise is designed to verify. They&rsquo;re known from the source in this tutorial; in an unknown binary, they must be supported by Ghidra output, cross-references, and controlled tests.</p>
+
+<h2>Troubleshooting</h2>
+
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>What to check</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>REA rejects Node.js</td>
+<td>Use Node 22.19+, 24.11+, or 26+; Node 24.0.2 is too old.</td>
+</tr>
+
+<tr>
+<td>Ghidra doctor can&rsquo;t find the installation</td>
+<td>For Homebrew, use <code>$(brew --prefix ghidra)/libexec</code>, not just <code>$(brew --prefix ghidra)</code>.</td>
+</tr>
+
+<tr>
+<td>No decompiler found</td>
+<td>Check <code>Ghidra/Features/Decompiler/os/mac_arm_64/decompile</code> on Apple Silicon.</td>
+</tr>
+
+<tr>
+<td>Java reported incompatible</td>
+<td>Verify <code>java</code>, <code>javac</code>, and <code>JAVA_HOME</code> point to a full supported 64-bit JDK.</td>
+</tr>
+
+<tr>
+<td>Setup preview doesn&rsquo;t change Codex</td>
+<td>A <code>--dry-run</code>/<code>--json</code> plan is not an applied configuration; use explicitly scoped <code>--yes</code> to apply.</td>
+</tr>
+
+<tr>
+<td>Ghidra available but “not selected”</td>
+<td>No active binary session may exist; open with <code>provider_id: &quot;ghidra&quot;</code>.</td>
+</tr>
+
+<tr>
+<td>Codex sees stale MCP settings</td>
+<td>Restart Codex, then run <code>codex mcp get rea</code>.</td>
+</tr>
+
+<tr>
+<td>First decompilation query is slow</td>
+<td>Ghidra may be importing and auto-analyzing the binary on that first query.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Next steps</h2>
+
+<p>Once you&rsquo;re comfortable with a debug build, progressively remove the training wheels: compile at <code>-O2</code>, strip symbols, investigate function boundaries by calls and constants rather than names, and compare the decompiled control flow across builds. With optimization enabled, a function can be inlined, merged, or transformed, so semantic reasoning becomes much more important than matching the original C line for line.</p>
+
+<p>The key benefit of <strong>Codex + REA + Ghidra</strong> is the division of labor. Ghidra performs actual binary analysis, REA exposes structured tools and evidence over MCP, and Codex helps navigate, formulate hypotheses, and explain findings. You retain the ability to verify every important conclusion against the binary itself.</p>
+
+<h2>References</h2>
+
+<ul>
+<li><a href="https://github.com/morluto/rea" target="_blank">REA source and documentation</a></li>
+<li><a href="https://github.com/morluto/rea/blob/main/docs/installation.md" target="_blank">REA installation and Ghidra requirements</a></li>
+<li><a href="https://github.com/NationalSecurityAgency/ghidra" target="_blank">Ghidra project</a></li>
+<li><a href="https://developers.openai.com/codex/" target="_blank">OpenAI Codex documentation</a></li>
+</ul>
+
+
+<p class="info">Tags: 
+    
+        
+        <a href="/tags/reverse-engineering.html">reverse-engineering</a>
+    
+        , 
+        <a href="/tags/hacking.html">hacking</a>
+    
+        , 
+        <a href="/tags/programming.html">programming</a>
+    
+        , 
+        <a href="/tags/c.html">c</a>
+    
+</p>
+
+
+    
+<script>
+    Prism.plugins.autoloader.languages_path = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/';
+    
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        document.querySelectorAll('pre.language-mermaid').forEach(function(element) {
+            
+            var mermaidDiv = document.createElement('div');
+            mermaidDiv.className = 'mermaid';
+            mermaidDiv.innerHTML = element.textContent;
+            
+            
+            element.parentNode.replaceChild(mermaidDiv, element);
+        });
+        
+        
+        mermaid.init();
+    });
+</script>
+
+    <main>
+    
+<footer>
+    <p class="footer-content">
+        <span>&copy; 2026 Into The Void.</span>
+        <span>Powered by <a href="https://www.github.com/intothevoid/likho">Likho</a>.</span>
+    </p>
+</footer>
+
+</body>
+</html>
