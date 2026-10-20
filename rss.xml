@@ -10,8 +10,6 @@
 <pubDate>Tue, 20 Oct 2026 22:36:20 +1030</pubDate>
 <description><![CDATA[
 
-# Reverse Engineering C Programs with Ghidra, REA, and OpenAI Codex on macOS
-
 *From an Apple Silicon Mac to an AI-assisted disassembly and decompilation workflow—using free, locally installed reverse-engineering tools.*
 
 What a time to be a Software Engineer! Reverse engineering binaries is now trivial, thanks to your local LLM of choice! Unless you've lived under a rock, you've heard how Adobe's suite of applications was recently reversed and re-created (clean room implementation) from scratch in Rust. It was then open sourced [Get Craft](https://getartcraft.com/). 
